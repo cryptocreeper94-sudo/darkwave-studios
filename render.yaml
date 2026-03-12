@@ -1,9 +1,3 @@
-databases:
-  - name: darkwavestudios-db
-    plan: free
-    databaseName: darkwavestudios
-    user: darkwavestudios
-
 services:
   - type: web
     name: darkwavestudios
@@ -19,9 +13,7 @@ services:
       - key: APP_DOMAIN
         value: darkwavestudios.io
       - key: DATABASE_URL
-        fromDatabase:
-          name: darkwavestudios-db
-          property: connectionString
+        sync: false
       - key: JWT_SECRET
         sync: false
       - key: OPENAI_API_KEY
