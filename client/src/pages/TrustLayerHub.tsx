@@ -1,0 +1,5383 @@
+import { useState, useEffect, useRef } from "react";
+import { Link } from "wouter";
+import { 
+  ArrowLeft, 
+  Code2, 
+  Download, 
+  Heart, 
+  ExternalLink, 
+  Search, 
+  Shield, 
+  Zap, 
+  Globe, 
+  Copy,
+  Check,
+  ChevronRight,
+  ChevronLeft,
+  Layers,
+  Box,
+  Terminal,
+  Sparkles,
+  Lock,
+  Activity,
+  Menu,
+  X,
+  Radio,
+  Eye,
+  Calculator,
+  UserPlus,
+  Star,
+  Calendar,
+  BarChart3,
+  MessageCircle,
+  Users,
+  MapPin,
+  FileText,
+  TrendingUp,
+  Cloud,
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2,
+  Package,
+  Send,
+  Bot,
+  Car,
+  Truck,
+  Utensils,
+  Clock,
+  Receipt,
+  Scan,
+  Trophy,
+  Palette,
+  Fingerprint,
+  Wallet,
+  Image,
+  Music,
+  Video,
+  Camera,
+  Mic,
+  Compass,
+  Building,
+  Wand2,
+  FolderOpen,
+  CreditCard,
+  Headphones,
+  Layout,
+  Home,
+  Gauge,
+  Network,
+  Megaphone,
+  GraduationCap,
+  ClipboardList,
+  Wrench,
+  QrCode,
+  ScanLine,
+  Gift,
+  Dice1,
+  AlertTriangle,
+  Fuel,
+  Briefcase,
+  Brain,
+  Target,
+  Navigation,
+  BookOpen,
+  Crosshair,
+  Gamepad2,
+  Medal,
+  ArrowRightLeft,
+  BadgeCheck,
+  Boxes,
+  Volume2,
+  BookOpenCheck,
+  Gem
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { GlassCard } from "@/components/glass-card";
+import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
+
+interface EcosystemApp {
+  id: string;
+  appName: string;
+  displayName: string;
+  description: string;
+  logoUrl: string | null;
+  isVerified: boolean;
+  createdAt: string;
+}
+
+interface CodeSnippet {
+  id: string;
+  title: string;
+  description: string;
+  code: string;
+  language: string;
+  category: string;
+  tags: string[];
+  authorName: string;
+  version: string;
+  downloads: number;
+  likes: number;
+  isPublic: boolean;
+  isPremium: boolean;
+  price: string | null;
+}
+
+interface HubStats {
+  totalApps: number;
+  totalSnippets: number;
+  totalDownloads: number;
+}
+
+const categories = [
+  { id: "all", name: "All", icon: Layers },
+  { id: "components", name: "Components", icon: Box },
+  { id: "utilities", name: "Utilities", icon: Terminal },
+  { id: "hooks", name: "Hooks", icon: Code2 },
+  { id: "api", name: "API", icon: Globe },
+  { id: "auth", name: "Auth", icon: Lock },
+];
+
+const widgetsList = [
+  { 
+    id: "estimator", name: "Trade Estimator", icon: Calculator, containerId: "demo-estimator", color: "#3b82f6", 
+    description: "Instant project pricing calculator for trades", price: 149, priceId: "price_widget_estimator",
+    fullDescription: "Give your customers instant, accurate project estimates. This AI-powered calculator handles square footage, materials, labor rates, and profit margins automatically. Perfect for painters, roofers, landscapers, and contractors.",
+    features: ["Square footage calculator", "Material cost estimation", "Labor hour calculation", "Profit margin controls", "Lead capture integration", "PDF estimate generation", "CRM webhook sync"],
+    requirements: ["React 18+ or vanilla JS", "Works with any website", "No backend required"],
+    includes: ["Full source code", "Step-by-step setup guide", "Customization documentation", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Zod validation"],
+    linesOfCode: "~850 lines",
+    complexity: "Intermediate"
+  },
+  { 
+    id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", 
+    description: "Convert visitors into qualified leads", price: 99, priceId: "price_widget_lead_capture",
+    fullDescription: "Turn website visitors into qualified leads with smart forms that adapt to user behavior. Multi-step forms, conditional logic, and instant notifications help you never miss an opportunity.",
+    features: ["Multi-step form wizard", "Conditional field logic", "Email & SMS notifications", "CRM integration ready", "Spam protection built-in", "Mobile-optimized design", "A/B testing support"],
+    requirements: ["Any website or React app", "Optional: Email service for notifications"],
+    includes: ["Full source code", "Setup documentation", "Integration examples", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "React Hook Form", "Tailwind CSS"],
+    linesOfCode: "~620 lines",
+    complexity: "Beginner-friendly"
+  },
+  { 
+    id: "reviews", name: "Review Display", icon: Star, containerId: "demo-reviews", color: "#10b981", 
+    description: "Showcase customer testimonials", price: 79, priceId: "price_widget_reviews",
+    fullDescription: "Build trust instantly by showcasing your best customer reviews. Pulls from Google, Yelp, and Facebook or use your own testimonials. Beautiful carousel and grid layouts included.",
+    features: ["Google/Yelp/Facebook sync", "Star rating display", "Photo testimonials", "Carousel & grid layouts", "Schema markup for SEO", "Filter by rating", "Moderation dashboard"],
+    requirements: ["Any website", "Optional: API keys for review platforms"],
+    includes: ["Full source code", "Platform integration guide", "Styling customization docs", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Embla Carousel", "Tailwind CSS", "JSON-LD Schema"],
+    linesOfCode: "~540 lines",
+    complexity: "Beginner-friendly"
+  },
+  { 
+    id: "booking", name: "Booking Calendar", icon: Calendar, containerId: "demo-booking", color: "#f59e0b", 
+    description: "Schedule appointments seamlessly", price: 129, priceId: "price_widget_booking",
+    fullDescription: "Let customers book appointments 24/7 without the back-and-forth. Syncs with Google Calendar, handles time zones, sends reminders, and prevents double-bookings automatically.",
+    features: ["Real-time availability", "Google Calendar sync", "Automatic reminders", "Time zone detection", "Buffer time between appointments", "Service duration settings", "Deposit collection ready"],
+    requirements: ["React or vanilla JS", "Optional: Google Calendar API", "Optional: Stripe for deposits"],
+    includes: ["Full source code", "Calendar integration guide", "Reminder setup docs", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "date-fns", "Tailwind CSS", "Google Calendar API"],
+    linesOfCode: "~1,200 lines",
+    complexity: "Intermediate"
+  },
+  { 
+    id: "analytics", name: "Analytics Dashboard", icon: BarChart3, containerId: "demo-analytics", color: "#6366f1", 
+    description: "Track website performance metrics", price: 199, priceId: "price_widget_analytics",
+    fullDescription: "Privacy-focused analytics that gives you the insights you need without compromising visitor privacy. Real-time dashboards, conversion tracking, and heatmaps - no cookies required.",
+    features: ["Real-time visitor tracking", "Page view analytics", "Click heatmaps", "Conversion funnels", "Custom event tracking", "GDPR/CCPA compliant", "No cookies required"],
+    requirements: ["Any website", "Node.js backend for data storage"],
+    includes: ["Frontend widget code", "Backend API code", "Database schema", "Dashboard UI", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~2,400 lines (full stack)",
+    complexity: "Advanced"
+  },
+  { 
+    id: "chat", name: "Live Chat", icon: MessageCircle, containerId: "demo-chat", color: "#ec4899", 
+    description: "Real-time customer support widget", price: 149, priceId: "price_widget_chat",
+    fullDescription: "Engage visitors in real-time with a beautiful chat widget. AI-powered auto-responses handle common questions while you're away. Full conversation history and team inbox included.",
+    features: ["Real-time messaging", "AI auto-responses", "Offline message capture", "File sharing", "Typing indicators", "Team inbox", "Mobile app notifications"],
+    requirements: ["React or vanilla JS", "WebSocket-capable backend", "Optional: OpenAI for AI responses"],
+    includes: ["Chat widget code", "Backend server code", "Admin dashboard UI", "AI integration guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Socket.io", "Node.js", "Express", "OpenAI API", "PostgreSQL"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  { 
+    id: "crm", name: "CRM Pipeline", icon: Users, containerId: "demo-crm", color: "#14b8a6", 
+    description: "Manage customer relationships", price: 249, priceId: "price_widget_crm",
+    fullDescription: "Visual sales pipeline built for service businesses. Drag-and-drop deal management, automated follow-ups, and revenue forecasting. Stop losing leads and start closing more deals.",
+    features: ["Kanban pipeline view", "Drag-and-drop deals", "Automated stage transitions", "Follow-up reminders", "Email integration", "Calendar sync", "Revenue forecasting", "Win/loss analytics"],
+    requirements: ["React frontend", "Node.js/Express backend", "PostgreSQL database"],
+    includes: ["Complete CRM frontend", "Backend API", "Database migrations", "Email templates", "Setup walkthrough", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "TanStack Query", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~3,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  { 
+    id: "crew-tracker", name: "Crew Tracker", icon: MapPin, containerId: "demo-crew-tracker", color: "#f97316", 
+    description: "GPS clock-in for field teams", price: 179, priceId: "price_widget_crew_tracker",
+    fullDescription: "Know where your team is and track hours accurately with GPS-verified time tracking. Geofencing ensures clock-ins only happen on job sites. Export timesheets directly to payroll.",
+    features: ["GPS clock-in/out", "Photo verification", "Geofencing by job site", "Real-time location", "Break reminders", "Overtime calculations", "Timesheet export", "Payroll integration"],
+    requirements: ["React Native or web app", "Node.js backend", "Mobile device with GPS"],
+    includes: ["Web dashboard code", "Mobile-ready components", "Backend API", "Payroll export templates", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Geolocation API", "Leaflet Maps", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  { 
+    id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", 
+    description: "Create professional proposals", price: 199, priceId: "price_widget_proposal",
+    fullDescription: "Create stunning proposals in minutes, not hours. Customizable templates, dynamic pricing tables, e-signature capture, and Stripe integration for instant deposits.",
+    features: ["Customizable templates", "Dynamic pricing tables", "E-signature capture", "Stripe payment integration", "Deposit collection", "Expiration tracking", "Client portal", "Automated follow-ups"],
+    requirements: ["React frontend", "Node.js backend", "Stripe account for payments"],
+    includes: ["Proposal builder UI", "Template system", "E-signature integration", "Backend API", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "PDF generation", "Stripe API", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  { 
+    id: "seo", name: "SEO Manager", icon: TrendingUp, containerId: "demo-seo", color: "#22c55e", 
+    description: "Optimize search visibility", price: 149, priceId: "price_widget_seo",
+    fullDescription: "Audit your website's SEO health and get actionable recommendations. Track keyword rankings, monitor competitors, and generate schema markup automatically.",
+    features: ["On-page SEO audit", "Keyword rank tracking", "Competitor monitoring", "Schema markup generator", "Meta tag optimizer", "Core Web Vitals check", "Weekly email reports"],
+    requirements: ["Any website", "Node.js for backend features", "Optional: Google Search Console API"],
+    includes: ["Audit tool code", "Tracking dashboard", "Schema generators", "Report templates", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Cheerio", "Puppeteer", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,900 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  { 
+    id: "weather", name: "Weather Scheduling", icon: Cloud, containerId: "demo-weather", color: "#0ea5e9", 
+    description: "Weather-aware job scheduling", price: 99, priceId: "price_widget_weather",
+    fullDescription: "Never get caught in the rain again. Automatically checks weather forecasts and alerts you to reschedule outdoor jobs. Integrates with your calendar and notifies affected customers.",
+    features: ["7-day weather forecasts", "Automatic delay alerts", "Customer notifications", "Calendar integration", "Weather threshold settings", "Job site locations", "Reschedule suggestions"],
+    requirements: ["Any website or app", "Weather API key (free tier available)"],
+    includes: ["Weather widget code", "Notification system", "Calendar integration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenWeatherMap API", "Tailwind CSS"],
+    linesOfCode: "~680 lines",
+    complexity: "Beginner-friendly"
+  },
+  { 
+    id: "pulse", name: "Pulse", icon: Activity, containerId: "demo-pulse", color: "#ef4444", 
+    description: "AI predictive quant system with 65%+ accuracy", price: 499, priceId: "price_1SwJOePCLBtdVWVNUZOlCId8",
+    fullDescription: "Pulse is our flagship AI predictive system with a verified 65-70% win rate across 100,000+ predictions. Harness institutional-grade quant intelligence for trading, forecasting, and data-driven decision making. Every prediction is hashed to DWSC for immutable verification.",
+    features: ["65-70% verified win rate", "100,000+ prediction track record", "Real-time market signals", "Multi-asset analysis", "Blockchain-verified predictions", "1-day & 7-day forecasts", "Confidence scoring", "API access included", "Historical backtesting"],
+    requirements: ["API integration capability", "Secure server environment recommended"],
+    includes: ["Pulse widget code", "Full API documentation", "Prediction endpoints", "Webhook integration", "Historical data access", "Priority email support", "Lifetime updates", "Trust Shield certification"],
+    techStack: ["Python", "TensorFlow", "FastAPI", "React 18", "TypeScript", "PostgreSQL", "Redis", "DWSC"],
+    linesOfCode: "~12,000+ lines (ML pipeline)",
+    complexity: "Enterprise-grade",
+    customizations: [
+      "Asset selection - Configure which cryptocurrencies, stocks, or commodities to track",
+      "Prediction timeframes - Set up 1-hour, 4-hour, 1-day, or 7-day forecasts",
+      "Alert thresholds - Custom notification triggers based on confidence scores",
+      "Dashboard branding - Your logo and color scheme on the widget",
+      "Data refresh rate - Adjust update frequency (1min to 1hr intervals)",
+      "Risk tolerance settings - Conservative, moderate, or aggressive prediction modes"
+    ]
+  },
+  { 
+    id: "pulse-pro", name: "Pulse Pro API", icon: Zap, containerId: "demo-pulse-pro", color: "#f59e0b", 
+    description: "Unlimited API access to Pulse predictions", price: 1499, priceId: "price_1SwJOfPCLBtdVWVNJICDoloi",
+    fullDescription: "Full programmatic access to Pulse with unlimited API calls. Build your own applications, trading bots, or analytics dashboards powered by our 65%+ accurate predictive engine. Includes backtesting suite and custom model training.",
+    features: ["Unlimited API calls", "All Pulse Basic features", "Custom prediction parameters", "Backtesting suite", "Bulk historical data export", "Custom webhooks", "Rate limit: 1000/min", "Multi-exchange support", "Advanced analytics dashboard"],
+    requirements: ["Developer knowledge", "Server for API integration", "API authentication handling"],
+    includes: ["Complete API access", "SDK libraries (JS, Python)", "Backtesting tools", "Trading bot templates", "Dedicated support channel", "1-hour onboarding call", "Lifetime updates"],
+    techStack: ["Python SDK", "JavaScript SDK", "REST API", "WebSocket streams", "OAuth 2.0", "Rate limiting"],
+    linesOfCode: "SDK: ~3,500 lines",
+    complexity: "Developer-focused",
+    customizations: [
+      "All Basic customizations included",
+      "Custom prediction models - Train on your specific use case data",
+      "Multi-exchange integration - Connect to Binance, Coinbase, Kraken, etc.",
+      "Webhook endpoints - Push predictions to your own servers in real-time",
+      "Historical data access - Backtest against years of prediction data",
+      "Custom confidence thresholds - Set your own signal strength requirements",
+      "Batch processing - Request predictions for multiple assets simultaneously",
+      "Rate limit customization - Adjust API limits based on your volume needs"
+    ]
+  },
+  { 
+    id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
+    description: "White-label quant system for institutions", price: 3999, priceId: "price_1SwJOfPCLBtdVWVNEGp2zZUu",
+    fullDescription: "Deploy Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
+    features: ["All Pulse Pro features", "White-label rights", "Custom branding", "Dedicated infrastructure", "Custom model training", "99.9% SLA uptime", "Priority 24/7 support", "Compliance documentation", "On-premise deployment option"],
+    requirements: ["Enterprise infrastructure", "Legal entity for licensing", "Technical integration team"],
+    includes: ["Full source code license", "White-label kit", "Dedicated account manager", "Custom integration support", "Quarterly strategy calls", "SLA agreement", "Compliance package"],
+    techStack: ["Full source code", "Docker/Kubernetes", "Custom ML models", "Private infrastructure", "SOC 2 compliant"],
+    linesOfCode: "Complete platform",
+    complexity: "Enterprise-grade",
+    customizations: [
+      "All Pro customizations included",
+      "Full white-label branding - Your company name, logo, and identity throughout",
+      "Dedicated infrastructure - Isolated servers for your exclusive use",
+      "Custom ML model training - Models trained specifically on your data",
+      "On-premise deployment - Install on your own infrastructure",
+      "Custom API domains - Your own branded API endpoints",
+      "Compliance packages - SOC 2, GDPR, financial regulations documentation",
+      "Multi-tenant support - Serve your own customers with sub-accounts",
+      "Priority 24/7 support - Dedicated account manager and technical team",
+      "Custom integrations - Direct connections to your existing systems"
+    ]
+  },
+  { 
+    id: "signal-chat", name: "Signal Chat", icon: Radio, containerId: "demo-signal-chat", color: "#06b6d4", 
+    description: "Cross-ecosystem community chat with SSO, bots & subscription billing", price: 349, priceId: "price_widget_signal_chat",
+    fullDescription: "The unified communication layer for your entire ecosystem. Embed <ChatContainer channelId=\"app-support\" /> into any app — users authenticate once through Trust Layer SSO and gain cross-app identity everywhere. Dedicated support channels per app, ecosystem-wide channels (#general, #announcements), real-time WebSocket messaging, threaded conversations, DMs, polls, file sharing, and an extensible bot framework. Built-in subscription billing (free tier → paid tiers) turns chat into recurring revenue. Package and resell through DarkWave Studios for $499–$4,999.",
+    features: ["Cross-ecosystem SSO — one login works across all apps", "Cross-app identity — same verified user everywhere, no re-registration", "Embed via <ChatContainer channelId /> — one component, any app", "Ecosystem-wide channels (#general, #announcements)", "Per-app support channels (#darkwavestudios-support, #garagebot-support)", "Unified support inbox — see messages from every app in one place", "Subscription billing — free basic chat, paid DMs/files/bots/polls", "Real-time WebSocket messaging with auto-reconnect", "Communities & channels (text, voice, announcements)", "Threaded conversations & replies", "Direct messages with read receipts", "Reactions & custom emoji support", "File uploads with drag & drop", "Polls with multi-vote", "Scheduled messages", "Role-based permissions (owner, admin, mod, member)", "Extensible bot framework with slash commands", "Typing indicators & presence (online/idle/DND)", "Message pinning, search, & forwarding", "Invite system with expiry & max uses", "Notification settings (all, mentions, muted)", "PWA-installable"],
+    requirements: ["React 18+ frontend", "Node.js/Express backend", "PostgreSQL database", "WebSocket support", "Trust Layer SSO (included)"],
+    includes: ["Full source code (frontend + backend)", "17 database table schemas", "WebSocket server with auto-reconnect", "Bot framework with sample bots", "18 React components", "Presence & identity system", "Subscription billing integration", "PWA manifest", "White-label customization guide", "Ecosystem embedding guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "TanStack Query", "WebSocket", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Stripe (subscriptions)"],
+    linesOfCode: "~6,500+ lines (full stack)",
+    complexity: "Advanced",
+    customizations: [
+      "Ecosystem integration - Embed into any app with one component: <ChatContainer />",
+      "White-label branding - Your logo, colors, and brand identity throughout",
+      "Subscription tiers - Free basic chat, paid DMs, file sharing, bots, polls",
+      "Resell as managed service - Package for your clients at $499–$4,999",
+      "Custom channel types - Add voice, video, or custom channel categories",
+      "Bot framework - Build custom bots with slash commands and webhooks",
+      "Trust Layer SSO - Cross-app identity with zero re-registration",
+      "Custom roles & permissions - Define granular access controls per community",
+      "Multi-tenant support - Each client gets isolated communities and billing",
+      "Custom emoji packs - Upload branded emoji sets for communities"
+    ]
+  },
+  {
+    id: "vin-decoder", name: "VIN Decoder", icon: Car, containerId: "demo-vin-decoder", color: "#ef4444",
+    description: "Decode any vehicle by VIN instantly", price: 129, priceId: "price_widget_vin_decoder",
+    fullDescription: "Decode any Vehicle Identification Number into detailed specs instantly. Returns year, make, model, engine, transmission, trim level, and safety ratings. Built from GarageBot's production VIN decoding system used across 68+ parts retailers.",
+    features: ["Instant VIN lookup", "Year/Make/Model/Trim extraction", "Engine & transmission details", "Safety rating lookup", "Recall check integration", "Vehicle history summary", "Multi-format input (barcode, manual)", "Garage/vehicle profile storage"],
+    requirements: ["React or vanilla JS", "NHTSA API (free)", "Optional: backend for vehicle storage"],
+    includes: ["Full source code", "VIN validation logic", "NHTSA API integration", "Vehicle profile UI", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "NHTSA API", "Tailwind CSS", "Zod validation"],
+    linesOfCode: "~750 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "parts-aggregator", name: "Parts Aggregator", icon: Package, containerId: "demo-parts-aggregator", color: "#f97316",
+    description: "Search 93+ auto parts retailers at once", price: 299, priceId: "price_widget_parts_aggregator",
+    fullDescription: "Unified search across 93+ auto parts retailers. Enter a part name or number, get prices from AutoZone, O'Reilly, RockAuto, Amazon, NAPA, Advance Auto Parts, and more — all in one view. Extracted from GarageBot's production parts search engine.",
+    features: ["93+ retailer integration", "Price comparison grid", "Part number cross-reference", "Availability checking", "Shipping cost estimates", "Save to wishlist", "Price history tracking", "Affiliate link support"],
+    requirements: ["React frontend", "Node.js backend for API aggregation", "Optional: affiliate accounts"],
+    includes: ["Frontend search UI", "Backend aggregation API", "Retailer adapters", "Price comparison logic", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "Cheerio", "Tailwind CSS"],
+    linesOfCode: "~2,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "shift-manager", name: "Shift Manager", icon: Clock, containerId: "demo-shift-manager", color: "#3b82f6",
+    description: "Employee scheduling and shift management", price: 179, priceId: "price_widget_shift_manager",
+    fullDescription: "Drag-and-drop shift scheduling with conflict detection, availability management, and shift swap requests. Built from ORBIT Staffing's production scheduling engine handling thousands of workers across multiple locations.",
+    features: ["Drag-and-drop scheduling", "Shift conflict detection", "Availability management", "Shift swap requests", "Overtime alerts", "Multi-location support", "Break compliance tracking", "Schedule templates", "Mobile-friendly view"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Schedule builder UI", "Backend API", "Database schema", "Notification system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~2,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "payroll-calc", name: "Payroll Calculator", icon: Receipt, containerId: "demo-payroll-calc", color: "#10b981",
+    description: "Automated payroll with tax calculations", price: 249, priceId: "price_widget_payroll_calc",
+    fullDescription: "Calculate payroll for W-2 and 1099 workers with federal and state tax withholding, overtime rules, and deductions. Extracted from ORBIT Staffing's payroll engine processing thousands of paychecks monthly.",
+    features: ["W-2 & 1099 support", "Federal tax withholding", "State tax calculations", "Overtime rules (1.5x, 2x)", "Deduction management", "Pay stub generation", "Batch payroll processing", "Export to QuickBooks/ADP", "Year-end tax form prep"],
+    requirements: ["Node.js backend", "PostgreSQL database", "Optional: QuickBooks API"],
+    includes: ["Calculation engine", "Pay stub templates", "Tax table data", "Export adapters", "Backend API", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "PDF generation"],
+    linesOfCode: "~3,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "ocr-scanner", name: "OCR Scanner", icon: Scan, containerId: "demo-ocr-scanner", color: "#8b5cf6",
+    description: "Camera-based text and document scanning", price: 99, priceId: "price_widget_ocr_scanner",
+    fullDescription: "Turn any device camera into a document scanner. Extracts text from photos of receipts, VINs, license plates, business cards, and invoices. Built from Lot Ops Pro's production OCR system for scanning vehicle stock numbers.",
+    features: ["Camera text capture", "Receipt scanning", "VIN/plate recognition", "Business card reader", "Invoice data extraction", "Multi-language support", "Batch scanning mode", "Clipboard integration"],
+    requirements: ["React or vanilla JS", "Device with camera", "No backend required"],
+    includes: ["Full source code", "Camera integration guide", "OCR processing logic", "Result formatting", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tesseract.js", "Canvas API", "Tailwind CSS"],
+    linesOfCode: "~680 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "driver-leaderboard", name: "Driver Leaderboard", icon: Trophy, containerId: "demo-driver-leaderboard", color: "#eab308",
+    description: "Gamified employee performance rankings", price: 129, priceId: "price_widget_driver_leaderboard",
+    fullDescription: "Gamify workforce performance with real-time leaderboards. Track moves per hour, jobs completed, ratings, and streak bonuses. Drives healthy competition and boosts productivity. Extracted from Lot Ops Pro's driver ranking system.",
+    features: ["Real-time rankings", "Moves-per-hour tracking", "Daily/weekly/monthly views", "Achievement badges", "Streak tracking", "Team vs individual modes", "Photo avatars", "Export performance reports"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Leaderboard UI", "Backend API", "Scoring engine", "Badge system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,100 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "delivery-tracker", name: "Delivery Tracker", icon: Truck, containerId: "demo-delivery-tracker", color: "#06b6d4",
+    description: "Real-time order and delivery tracking", price: 199, priceId: "price_widget_delivery_tracker",
+    fullDescription: "Give customers real-time visibility into their orders from placement to doorstep. Live driver GPS, estimated arrival times, and delivery photo proof. Built from Brew & Board and Happy Eats' production delivery systems.",
+    features: ["Real-time GPS tracking", "ETA calculations", "Delivery status updates", "Photo proof of delivery", "Customer notifications", "Driver assignment", "Route optimization hints", "Delivery history"],
+    requirements: ["React frontend", "Node.js backend with WebSocket", "PostgreSQL", "Device with GPS"],
+    includes: ["Customer tracking UI", "Driver app components", "Backend API", "WebSocket server", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "WebSocket", "Geolocation API", "Leaflet Maps", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,400 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "menu-builder", name: "Menu Builder", icon: Utensils, containerId: "demo-menu-builder", color: "#22c55e",
+    description: "Digital menu with ordering system", price: 149, priceId: "price_widget_menu_builder",
+    fullDescription: "Create beautiful digital menus with categories, modifiers, dietary tags, and built-in ordering. Perfect for restaurants, food trucks, and catering companies. Extracted from Happy Eats' menu management system.",
+    features: ["Drag-and-drop menu editor", "Category management", "Item modifiers & add-ons", "Dietary labels (vegan, GF, etc.)", "Photo uploads", "Price variants (S/M/L)", "QR code menu link", "Online ordering integration", "Multi-location menus"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Menu editor UI", "Customer-facing menu", "Backend API", "QR code generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "room-visualizer", name: "Room Visualizer", icon: Palette, containerId: "demo-room-visualizer", color: "#ec4899",
+    description: "AI color visualizer for painting & design", price: 199, priceId: "price_widget_room_visualizer",
+    fullDescription: "Let customers visualize paint colors on their walls before buying. Upload a room photo, select from Benjamin Moore and Sherwin-Williams palettes, and see the transformation in real-time. Built from TradeWorks AI's painting vertical.",
+    features: ["Room photo upload", "Benjamin Moore colors", "Sherwin-Williams colors", "Custom color input", "Before/after comparison", "Color palette suggestions", "Save favorite combos", "Share visualizations", "Mobile-friendly"],
+    requirements: ["React frontend", "Canvas API support", "Optional: color API keys"],
+    includes: ["Visualizer UI", "Color processing logic", "Paint brand palettes", "Image manipulation code", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Canvas API", "Color conversion utils", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "invoice-generator", name: "Invoice Generator", icon: Receipt, containerId: "demo-invoice-generator", color: "#6366f1",
+    description: "Professional invoice creation and tracking", price: 149, priceId: "price_widget_invoice_generator",
+    fullDescription: "Create, send, and track professional invoices in minutes. Line items, tax calculations, payment terms, and Stripe integration for instant online payment. Built from TradeWorks AI's invoicing system used across 8 trade industries.",
+    features: ["Professional invoice templates", "Line item management", "Tax calculation", "Payment terms & due dates", "Online payment via Stripe", "PDF export", "Invoice status tracking", "Overdue reminders", "Client portal"],
+    requirements: ["React frontend", "Node.js backend", "Stripe account for payments"],
+    includes: ["Invoice builder UI", "PDF generation", "Backend API", "Stripe integration", "Email templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Stripe API", "PDF generation", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~2,000 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "emergency-dashboard", name: "Emergency Dashboard", icon: Shield, containerId: "demo-emergency-dashboard", color: "#dc2626",
+    description: "Real-time emergency command center", price: 349, priceId: "price_widget_emergency_dashboard",
+    fullDescription: "Centralized emergency response dashboard for venues, campuses, and large facilities. Real-time incident reporting, team dispatch, evacuation tracking, and communication hub. Extracted from Orby Commander's stadium operations system.",
+    features: ["Incident reporting & triage", "Team dispatch & assignment", "Real-time status board", "Evacuation tracking", "Communication hub", "GPS-guided response", "Incident history & analytics", "Multi-zone management", "Alert broadcasting"],
+    requirements: ["React frontend", "Node.js backend with WebSocket", "PostgreSQL database"],
+    includes: ["Dashboard UI", "Incident management API", "WebSocket real-time layer", "Alert system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "WebSocket", "Leaflet Maps", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~3,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "inventory-counter", name: "Inventory Counter", icon: Package, containerId: "demo-inventory-counter", color: "#14b8a6",
+    description: "3-phase inventory counting system", price: 129, priceId: "price_widget_inventory_counter",
+    fullDescription: "Structured 3-phase inventory counting with variance detection and approval workflows. Count, verify, reconcile — all from a mobile device. Built from Orby Commander's venue inventory system managing thousands of items.",
+    features: ["3-phase counting (count, verify, reconcile)", "Barcode/QR scanning", "Variance detection", "Approval workflows", "Location-based counting", "Photo verification", "Export to spreadsheet", "Historical tracking", "Multi-user simultaneous counting"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database", "Device with camera"],
+    includes: ["Counter UI", "Backend API", "Barcode scanner integration", "Variance reports", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Camera API", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "token-scanner", name: "Token Scanner", icon: Eye, containerId: "demo-token-scanner", color: "#f59e0b",
+    description: "Multi-chain token safety analysis", price: 199, priceId: "price_widget_token_scanner",
+    fullDescription: "Scan any token across 23+ blockchains for honeypot risks, liquidity locks, ownership concentration, and contract vulnerabilities. Extracted from StrikeAgent's production safety scoring engine that analyzes thousands of tokens daily.",
+    features: ["23+ blockchain support", "Honeypot detection", "Liquidity lock verification", "Ownership analysis", "Contract vulnerability scan", "Rug pull risk scoring", "Token holder distribution", "Social sentiment check", "Historical safety data"],
+    requirements: ["React frontend", "Node.js backend", "Blockchain RPC endpoints"],
+    includes: ["Scanner UI", "Multi-chain analyzers", "Safety scoring engine", "Backend API", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "ethers.js", "@solana/web3.js", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~3,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "wellness-assessment", name: "Wellness Assessment", icon: Heart, containerId: "demo-wellness-assessment", color: "#10b981",
+    description: "AI-powered health and dosha analysis quiz", price: 99, priceId: "price_widget_wellness_assessment",
+    fullDescription: "Interactive wellness assessment that determines Ayurvedic body type (dosha), provides personalized health recommendations, and creates custom daily routines. Built from VedaSolus's production wellness platform.",
+    features: ["Dosha type analysis", "Personalized recommendations", "Daily routine builder", "Dietary suggestions", "Seasonal adjustments", "Progress tracking", "PDF report generation", "Lead capture integration"],
+    requirements: ["React or vanilla JS", "Optional: backend for data storage"],
+    includes: ["Assessment quiz UI", "Scoring algorithm", "Recommendation engine", "Report templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "PDF generation"],
+    linesOfCode: "~900 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "multi-wallet", name: "Multi-Chain Wallet", icon: Wallet, containerId: "demo-multi-wallet", color: "#8b5cf6",
+    description: "Unified wallet for Solana + 22 EVM chains", price: 299, priceId: "price_widget_multi_wallet",
+    fullDescription: "Connect and manage wallets across Solana and 22 EVM-compatible chains from a single interface. Portfolio tracking, token balances, transaction history, and one-click swaps. Extracted from Pulse's production multi-chain wallet system.",
+    features: ["Solana wallet support", "22 EVM chain support", "Unified portfolio view", "Token balance tracking", "Transaction history", "One-click chain switching", "WalletConnect integration", "Phantom/MetaMask support", "Portfolio value charts"],
+    requirements: ["React frontend", "Web3 wallet extensions"],
+    includes: ["Wallet connection UI", "Chain adapters", "Portfolio dashboard", "Transaction viewer", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@solana/web3.js", "ethers.js", "WalletConnect", "Tailwind CSS"],
+    linesOfCode: "~2,100 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "effects-kit", name: "Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#a855f7",
+    description: "Complete UI effects system — glass, 3D hover, shimmer, scroll animations, haptics & micro-interactions", price: 149, priceId: "price_widget_effects_kit",
+    fullDescription: "Drop-in UI polish kit used across the entire production platform. Includes glassmorphism panels, 3D perspective card hover, purple gradient shimmer loading, IntersectionObserver scroll-triggered animations, navigator.vibrate haptic feedback, and micro-interaction classes (press, lift, ripple). One CSS file + two utility modules — paste into any React or vanilla project and instantly elevate your UI.",
+    features: ["Glassmorphism (glass, glass-card, glass-strong)", "3D perspective card tilt on hover", "Purple gradient shimmer skeleton loading", "Scroll-triggered fade, slide & scale animations", "IntersectionObserver hook + ScrollReveal component", "Haptic feedback utility (6 vibration patterns)", "Button press scale effect", "Hover elevation with shadow", "Expanding ripple click effect", "Animated toggle switch", "CSS-only — no runtime dependencies", "Dark & light theme compatible"],
+    requirements: ["Any website or React app", "No backend required", "No external dependencies"],
+    includes: ["Full CSS effects stylesheet", "useScrollAnimation React hook", "ScrollReveal wrapper component", "Haptic feedback utility module", "Integration guide", "30-day email support", "Lifetime updates"],
+    techStack: ["CSS3", "TypeScript", "React 18 (optional)", "IntersectionObserver API", "Web Vibration API"],
+    linesOfCode: "~420 lines (CSS + hooks + utility)",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "compliance-engine", name: "Compliance Engine", icon: Fingerprint, containerId: "demo-compliance-engine", color: "#0ea5e9",
+    description: "Worker compliance and document verification", price: 199, priceId: "price_widget_compliance_engine",
+    fullDescription: "Automated compliance tracking for I-9 verification, background checks, certifications, and license expiration. Ensures your workforce stays compliant with alerts before documents expire. Built from ORBIT Staffing's compliance system.",
+    features: ["I-9 document verification", "Background check integration", "Certification tracking", "License expiration alerts", "Document upload & storage", "Compliance dashboard", "Audit trail logging", "Bulk worker processing", "Custom compliance rules"],
+    requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Compliance dashboard UI", "Document management API", "Alert system", "Audit logging", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Multer"],
+    linesOfCode: "~2,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "media-uploader", name: "Media Vault Uploader", icon: Image, containerId: "demo-media-uploader", color: "#3b82f6",
+    description: "Drag-and-drop media upload with presigned URL direct-to-cloud storage", price: 129, priceId: "price_widget_media_uploader",
+    fullDescription: "Drag-and-drop media upload with presigned URL direct-to-cloud storage. Supports image, video, audio, and document uploads with progress tracking, thumbnail generation, and metadata extraction. Multi-tenant isolation ensures each client's files stay separate.",
+    features: ["Drag-and-drop + file picker", "Presigned URL uploads", "Multi-tenant isolation", "Image/video/audio/document support", "Progress tracking", "Thumbnail generation", "Metadata extraction"],
+    requirements: ["React 18+ frontend", "Node.js backend", "Google Cloud Storage account"],
+    includes: ["Full source code", "Upload UI components", "Backend presigned URL API", "Storage configuration guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Uppy", "Google Cloud Storage", "Tailwind CSS"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "image-editor", name: "Image Editor Suite", icon: Camera, containerId: "demo-image-editor", color: "#ec4899",
+    description: "Full image editing with crop, rotate, filters, drawing, text overlays, stickers, and color grading", price: 299, priceId: "price_widget_image_editor",
+    fullDescription: "Full image editing suite with crop, rotate, filters, drawing, text overlays, stickers, and color grading. Includes 10+ filter presets, full color grading controls (brightness, contrast, saturation, blur, hue, temperature, vignette, sharpen), draggable text overlays, freehand drawing, and 10 sticker/shape types.",
+    features: ["Crop/rotate/flip/resize", "10+ filter presets", "Full color grading (brightness, contrast, saturation, blur, hue, temperature, vignette, sharpen)", "Draggable text overlays with font/size/color", "Freehand drawing with brush/eraser", "10 sticker/shape types", "Save as new media item"],
+    requirements: ["React 18+ frontend", "Canvas API support"],
+    includes: ["Full source code", "Image editing UI", "Filter engine", "Drawing tools", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Canvas API", "Tailwind CSS"],
+    linesOfCode: "~2,800 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "audio-editor", name: "Audio Editor", icon: Headphones, containerId: "demo-audio-editor", color: "#8b5cf6",
+    description: "Audio trimming with fade, EQ, reverb, and noise gate", price: 199, priceId: "price_widget_audio_editor",
+    fullDescription: "Audio trimming with fade, EQ, reverb, and noise gate. Includes waveform visualization with visual scrubbing, fade in/out controls, volume normalization, 3-band EQ, reverb effect, noise gate, and export as new audio file.",
+    features: ["Waveform trim with visual scrubbing", "Fade in/out controls", "Volume normalization", "3-band EQ (bass/mid/treble)", "Reverb effect", "Noise gate", "Export as new audio file"],
+    requirements: ["React 18+ frontend", "Web Audio API support"],
+    includes: ["Full source code", "Audio editing UI", "Effects engine", "Waveform renderer", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Web Audio API", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "video-editor", name: "Video Editor", icon: Video, containerId: "demo-video-editor", color: "#f97316",
+    description: "Video trimming with color grading and frame capture", price: 249, priceId: "price_widget_video_editor",
+    fullDescription: "Video trimming with color grading and frame capture. Includes timeline trim with preview, full color grading suite, frame capture to image, brightness/contrast/saturation/hue/temperature/vignette controls, real-time preview, and export edited video.",
+    features: ["Timeline trim with preview", "Full color grading suite", "Frame capture to image", "Brightness/contrast/saturation/hue/temperature/vignette controls", "Real-time preview", "Export edited video"],
+    requirements: ["React 18+ frontend", "FFmpeg.wasm support"],
+    includes: ["Full source code", "Video editing UI", "Color grading engine", "Frame capture tools", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "FFmpeg.wasm", "Canvas API", "Tailwind CSS"],
+    linesOfCode: "~2,200 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-auto-tagger", name: "AI Auto-Tagger", icon: Wand2, containerId: "demo-ai-auto-tagger", color: "#10b981",
+    description: "Vision-based automatic image tagging and description on upload", price: 149, priceId: "price_widget_ai_auto_tagger",
+    fullDescription: "Vision-based automatic image tagging and description on upload. Uses OpenAI Vision API to automatically generate tags, natural language descriptions, and category classifications for uploaded images. Supports batch processing and custom tag vocabularies.",
+    features: ["Automatic tag generation on upload", "Vision-based image analysis", "Natural language descriptions", "Category classification", "Batch processing", "Custom tag vocabularies", "API webhook on completion"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key"],
+    includes: ["Full source code", "Tagging UI", "Backend API", "Vision integration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI Vision API", "Node.js", "Express"],
+    linesOfCode: "~780 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ai-smart-search", name: "AI Smart Search", icon: Compass, containerId: "demo-ai-smart-search", color: "#6366f1",
+    description: "Natural language search across media libraries", price: 129, priceId: "price_widget_ai_smart_search",
+    fullDescription: "Natural language search across media libraries. Search with queries like 'beach photos' or 'concert videos' and get semantically matched results. Supports multi-format search across images, video, audio, and documents with relevance scoring and search suggestions.",
+    features: ["Natural language queries", "Semantic matching against metadata", "Multi-format search (images, video, audio, docs)", "Relevance scoring", "Search suggestions", "Filter by date/type/tag"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key"],
+    includes: ["Full source code", "Search UI", "Backend API", "Embedding pipeline", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI Embeddings", "Node.js", "PostgreSQL"],
+    linesOfCode: "~720 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ai-caption-gen", name: "AI Caption Generator", icon: FileText, containerId: "demo-ai-caption-gen", color: "#14b8a6",
+    description: "Vision-powered descriptive captions for media items", price: 99, priceId: "price_widget_ai_caption_gen",
+    fullDescription: "Vision-powered descriptive captions for media items. One-click caption generation with social media format options, hashtag suggestions, multi-language support, tone selection (professional/casual/creative), and batch captioning.",
+    features: ["One-click caption generation", "Vision-powered descriptions", "Social media format options", "Hashtag suggestions", "Multi-language support", "Tone selection (professional/casual/creative)", "Batch captioning"],
+    requirements: ["React 18+ frontend", "OpenAI API key"],
+    includes: ["Full source code", "Caption UI", "Vision integration", "Format templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI Vision API", "Tailwind CSS"],
+    linesOfCode: "~520 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "zone-ordering", name: "Zone Ordering System", icon: MapPin, containerId: "demo-zone-ordering", color: "#f59e0b",
+    description: "Zone-based batch ordering with daily cutoffs and delivery management", price: 249, priceId: "price_widget_zone_ordering",
+    fullDescription: "Zone-based batch ordering with daily cutoffs and delivery management. Define geographic zones, set daily order cutoff times, group deliveries into batches, support multiple vendors per zone, and track orders in real-time with driver assignment views.",
+    features: ["Geographic zone definition", "Daily order cutoff times", "Batch delivery grouping", "Multi-vendor per zone", "Real-time order tracking", "Driver assignment views", "Customer zone selection", "Admin zone activation/deactivation"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "WebSocket support"],
+    includes: ["Full source code", "Zone management UI", "Order tracking dashboard", "Backend API", "WebSocket server", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Leaflet Maps", "Node.js", "Express", "PostgreSQL", "WebSocket"],
+    linesOfCode: "~3,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "affiliate-dashboard", name: "Affiliate Dashboard", icon: Network, containerId: "demo-affiliate-dashboard", color: "#22c55e",
+    description: "Full referral tracking with tiered revenue share and payout management", price: 199, priceId: "price_widget_affiliate_dashboard",
+    fullDescription: "Full referral tracking with tiered revenue share and payout management. Generate referral links, track tiered commissions (1-2%), enforce anti-fraud activation requirements, manage reward status flow (held \u2192 pending \u2192 paid), and visualize revenue share analytics in a bento grid premium dashboard.",
+    features: ["Referral link generation", "Tiered commission tracking (1-2%)", "Anti-fraud activation requirements", "Reward status flow (held \u2192 pending \u2192 paid)", "Minimum payout thresholds", "Revenue share analytics", "Bento grid premium dashboard", "Cross-platform referral recognition"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Affiliate dashboard UI", "Backend API", "Commission engine", "Payout system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~2,400 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "mileage-tracker", name: "Mileage Tracker", icon: Gauge, containerId: "demo-mileage-tracker", color: "#0ea5e9",
+    description: "GPS-based trip logging with expense categorization", price: 99, priceId: "price_widget_mileage_tracker",
+    fullDescription: "GPS-based trip logging with expense categorization. Record trips with GPS, auto-detect start/stop, categorize as business vs personal, calculate IRS mileage rates, view trip history with maps, and export to CSV/PDF with monthly/yearly summaries.",
+    features: ["GPS trip recording", "Auto-detect start/stop", "Business vs personal categorization", "IRS mileage rate calculations", "Trip history with maps", "CSV/PDF export", "Monthly/yearly summaries"],
+    requirements: ["React 18+ frontend", "Device with GPS", "Optional: backend for data storage"],
+    includes: ["Full source code", "Trip tracking UI", "Map integration", "Export templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Geolocation API", "Leaflet Maps", "Tailwind CSS"],
+    linesOfCode: "~850 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "franchise-onboard", name: "Franchise Onboarding", icon: Building, containerId: "demo-franchise-onboard", color: "#8b5cf6",
+    description: "Multi-step franchise setup wizard with isolated tenant provisioning", price: 349, priceId: "price_widget_franchise_onboard",
+    fullDescription: "Multi-step franchise setup wizard with isolated tenant provisioning. Guide new franchisees through territory assignment, isolated data provisioning, custom branding per tenant, configuration templates, training checklists, performance dashboards, and document collection.",
+    features: ["Multi-step onboarding wizard", "Territory assignment", "Isolated data provisioning", "Custom branding per tenant", "Configuration templates", "Training checklist", "Performance dashboards", "Document collection"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Onboarding wizard UI", "Backend API", "Tenant provisioning system", "Training module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Multi-tenant architecture"],
+    linesOfCode: "~2,800 lines (full stack)",
+    complexity: "Enterprise-grade"
+  },
+  {
+    id: "mls-search", name: "MLS Property Search", icon: Home, containerId: "demo-mls-search", color: "#14b8a6",
+    description: "Real estate MLS integration with 10+ data providers", price: 299, priceId: "price_widget_mls_search",
+    fullDescription: "Real estate MLS integration with 10+ data providers. Supports Bridge, Spark, Trestle, CRMLS, Bright, Stellar, NWMLS, HAR, RETS, and Custom providers. Property search with filters, listing detail views, photo galleries, map integration, saved searches, property alerts, and agent assignment.",
+    features: ["10+ MLS provider support (Bridge, Spark, Trestle, CRMLS, Bright, Stellar, NWMLS, HAR, RETS, Custom)", "Property search with filters", "Listing detail views", "Photo galleries", "Map integration", "Saved searches", "Property alerts", "Agent assignment"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "MLS API credentials"],
+    includes: ["Full source code", "Property search UI", "Backend API", "MLS provider adapters", "Map integration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "RESO Web API", "Node.js", "Express", "PostgreSQL", "Leaflet Maps"],
+    linesOfCode: "~3,400 lines (full stack)",
+    complexity: "Enterprise-grade"
+  },
+  {
+    id: "ai-lead-scoring", name: "AI Lead Scoring", icon: TrendingUp, containerId: "demo-ai-lead-scoring", color: "#ef4444",
+    description: "Machine learning lead qualification and priority ranking", price: 199, priceId: "price_widget_ai_lead_scoring",
+    fullDescription: "Machine learning lead qualification and priority ranking. Automatically score leads on intake, track behavioral signals, display priority ranking dashboards with score breakdown explanations, provide follow-up recommendations, integrate with CRMs, and track historical accuracy.",
+    features: ["Automatic lead scoring on intake", "Behavioral signal tracking", "Priority ranking dashboard", "Score breakdown explanations", "Follow-up recommendations", "CRM integration", "Custom scoring criteria", "Historical accuracy tracking"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key"],
+    includes: ["Full source code", "Scoring dashboard UI", "Backend API", "ML scoring engine", "CRM integration guide", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI API", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,400 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "welcome-guide", name: "Welcome Guide", icon: GraduationCap, containerId: "demo-welcome-guide", color: "#f59e0b",
+    description: "Multi-slide onboarding walkthrough with first-login trigger", price: 79, priceId: "price_widget_welcome_guide",
+    fullDescription: "Multi-slide onboarding walkthrough with first-login trigger. Create up to 20 slides, auto-trigger on first login, support skip and resume functionality, show progress indicators, add contextual help tooltips and per-screen help overlays, track completion, and customize slide content.",
+    features: ["Multi-slide walkthrough (up to 20 slides)", "First-login auto-trigger", "Skip and resume functionality", "Progress indicators", "Contextual help tooltips", "Per-screen help overlays", "Completion tracking", "Custom slide content"],
+    requirements: ["React 18+ frontend", "No backend required"],
+    includes: ["Full source code", "Walkthrough UI", "Progress tracking", "Help overlay system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Tailwind CSS"],
+    linesOfCode: "~680 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "voice-estimate", name: "Voice-to-Estimate", icon: Mic, containerId: "demo-voice-estimate", color: "#ec4899",
+    description: "AI voice input converted to structured project estimates", price: 199, priceId: "price_widget_voice_estimate",
+    fullDescription: "AI voice input converted to structured project estimates. Record voice descriptions, get real-time transcription, extract project details with AI, auto-populate estimate fields, detect materials and labor, estimate square footage from descriptions, and generate estimate PDFs.",
+    features: ["Voice recording with real-time transcription", "AI extraction of project details", "Auto-populate estimate fields", "Material/labor detection", "Square footage estimation from description", "Multi-language support", "Estimate PDF generation"],
+    requirements: ["React 18+ frontend", "OpenAI API key", "Device with microphone"],
+    includes: ["Full source code", "Voice recording UI", "AI extraction engine", "Estimate builder", "PDF generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Web Speech API", "OpenAI Whisper", "OpenAI GPT-4", "Tailwind CSS"],
+    linesOfCode: "~1,100 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "calculator-hub", name: "Calculator Hub", icon: Calculator, containerId: "demo-calculator-hub", color: "#3b82f6",
+    description: "Collection of 85+ professional trade calculators", price: 149, priceId: "price_widget_calculator_hub",
+    fullDescription: "Collection of 85+ professional trade calculators. Covers paint, roofing, flooring, electrical, plumbing, HVAC, landscaping, and concrete coverage. Includes material quantity estimators, labor hour projections, cost per unit calculations, save and share results, and PDF report generation.",
+    features: ["85+ specialized calculators", "Paint/roofing/flooring/electrical/plumbing/HVAC/landscaping/concrete coverage", "Material quantity estimators", "Labor hour projections", "Cost per unit calculations", "Save and share results", "PDF report generation"],
+    requirements: ["React 18+ frontend", "No backend required"],
+    includes: ["Full source code", "Calculator UI", "Calculation engines", "PDF report templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Math.js"],
+    linesOfCode: "~2,600 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "media-collections", name: "Collections Manager", icon: FolderOpen, containerId: "demo-media-collections", color: "#a855f7",
+    description: "Smart media organization with timeline view and batch actions", price: 99, priceId: "price_widget_media_collections",
+    fullDescription: "Smart media organization with timeline view and batch actions. Create and manage collections, drag-and-drop organization, toggle between grid and timeline views, filter by date range, sort with multiple options, bulk select with batch actions, filter by category, and manage tags.",
+    features: ["Create/manage collections", "Drag-and-drop organization", "Timeline view with grid/timeline toggle", "Date range filtering", "Multiple sort options", "Bulk selection with batch actions", "Category filtering", "Tag management"],
+    requirements: ["React 18+ frontend", "No backend required"],
+    includes: ["Full source code", "Collections UI", "Timeline renderer", "Batch action system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "@dnd-kit", "date-fns", "Tailwind CSS"],
+    linesOfCode: "~920 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "subscription-manager", name: "Subscription Manager", icon: CreditCard, containerId: "demo-subscription-manager", color: "#10b981",
+    description: "Multi-tier Stripe subscription system with customer portal", price: 249, priceId: "price_widget_subscription_manager",
+    fullDescription: "Multi-tier Stripe subscription system with customer portal. Configure multi-tier plans, integrate Stripe Checkout, provide Customer Portal for self-service, toggle monthly/annual billing, send automated email notifications (purchase, plan change, cancellation, payment failure), support usage-based billing, display revenue analytics dashboard, and handle proration.",
+    features: ["Multi-tier plan configuration", "Stripe Checkout integration", "Customer Portal for self-service", "Monthly/annual billing toggle", "Automated email notifications (purchase, plan change, cancellation, payment failure)", "Usage-based billing support", "Revenue analytics dashboard", "Proration handling"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Stripe account"],
+    includes: ["Full source code", "Subscription UI", "Backend API", "Stripe integration", "Email notification system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Stripe API", "Node.js", "Express", "PostgreSQL", "Resend Email"],
+    linesOfCode: "~2,900 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "work-order-system", name: "Work Order System", icon: Wrench, containerId: "demo-work-order-system", color: "#64748b",
+    description: "Repair work order management with parts, labor, and status tracking", price: 249, priceId: "price_widget_work_order",
+    fullDescription: "Full work order lifecycle management for repair shops, maintenance teams, and field service operations. Create work orders with customer info, vehicle/equipment details, parts lists, labor tracking, status workflow (open → in-progress → complete → invoiced), technician assignment, and customer notification. Extracted from TORQUE's production shop management system.",
+    features: ["Work order creation with templates", "Parts list with cost tracking", "Labor hours and rate management", "Status workflow (open → in-progress → complete → invoiced)", "Technician assignment", "Customer notification on status change", "Photo attachments for damage documentation", "Priority levels and due dates", "Work order history and search"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Work order UI", "Backend API", "Status workflow engine", "Notification system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~2,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "shop-onboarding", name: "Shop Onboarding Wizard", icon: ClipboardList, containerId: "demo-shop-onboarding", color: "#6366f1",
+    description: "Multi-step business setup wizard with blockchain verification", price: 199, priceId: "price_widget_shop_onboarding",
+    fullDescription: "Guided multi-step business onboarding wizard with blockchain identity verification. 5-step flow: owner info with secure PIN, business details (name, address, hours, specialties), team member setup with roles, services and tool integrations selection, and final blockchain verification on Solana for tamper-proof business identity. Extracted from TORQUE's production onboarding system.",
+    features: ["5-step guided wizard with progress bar", "Owner info with secure PIN creation", "Business details (name, address, hours, vehicle types)", "Team member management with role assignment", "Service selection and tool integration picker", "Blockchain verification on Solana via Trust Layer", "Data validation at each step", "Save and resume capability"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Solana RPC for blockchain verification"],
+    includes: ["Full source code", "Wizard UI with animations", "Backend API", "Blockchain verification module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL", "@solana/web3.js"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "b2b-ordering", name: "B2B Ordering Portal", icon: ShoppingCart, containerId: "demo-b2b-ordering", color: "#0ea5e9",
+    description: "Calendar-based corporate ordering with vendor matching", price: 249, priceId: "price_widget_b2b_ordering",
+    fullDescription: "Calendar-based B2B ordering portal for corporate clients. Schedule recurring orders, browse and match with local vendors, manage delivery windows, track order status in real-time, and handle multi-vendor cart checkout. Built from Brew & Board Coffee's production corporate catering system serving Nashville businesses.",
+    features: ["Calendar-based order scheduling", "Vendor discovery and matching", "Multi-vendor cart system", "Delivery window management", "Recurring order templates", "Real-time order tracking", "Corporate account management", "Invoice generation per order", "Vendor rating and reviews"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Stripe for payments"],
+    includes: ["Full source code", "Ordering portal UI", "Vendor management API", "Calendar scheduling system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Stripe API", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "date-fns"],
+    linesOfCode: "~2,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "loyalty-rewards", name: "Loyalty Rewards Program", icon: Gift, containerId: "demo-loyalty-rewards", color: "#f59e0b",
+    description: "Points-based loyalty system with tiers and redemption", price: 179, priceId: "price_widget_loyalty_rewards",
+    fullDescription: "Complete points-based loyalty and rewards program. Customers earn points on purchases, unlock tier levels (Bronze → Silver → Gold → Platinum), redeem points for discounts or perks, and receive milestone rewards. Includes referral bonuses, birthday rewards, and streak bonuses for consecutive visits. Built from Brew & Board Coffee's loyalty system and GarageBot's member referrals program.",
+    features: ["Points earned per purchase", "4-tier progression (Bronze → Silver → Gold → Platinum)", "Reward catalog with point redemption", "Referral bonus points", "Birthday and milestone rewards", "Streak bonuses for consecutive visits", "Points balance dashboard", "Admin reward configuration", "Expiration rules and notifications"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Loyalty dashboard UI", "Points engine API", "Tier management system", "Admin panel", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Tailwind CSS"],
+    linesOfCode: "~1,900 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "weather-radar", name: "Weather Radar Map", icon: Cloud, containerId: "demo-weather-radar", color: "#0ea5e9",
+    description: "Interactive Leaflet weather radar with severe weather alerts", price: 129, priceId: "price_widget_weather_radar",
+    fullDescription: "Interactive weather radar map with real-time rain/snow overlay tiles from RainViewer API and severe weather alerts from NOAA. Users see animated precipitation on a Leaflet map, toggle radar layers, view severe weather warnings by region, and get push notifications for nearby alerts. Built from GarageBot's production weather radar used by mechanics and drivers to plan outdoor work.",
+    features: ["Leaflet interactive map with zoom/pan", "RainViewer animated radar tiles", "NOAA severe weather alerts", "Geolocation auto-center", "Radar layer toggle (rain/snow/wind)", "Alert severity color coding", "Location-based alert filtering", "Fullscreen map mode", "Mobile touch-optimized"],
+    requirements: ["React 18+ frontend", "No API key required (RainViewer and NOAA are free)"],
+    includes: ["Full source code", "Radar map UI", "RainViewer integration", "NOAA alert parser", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Leaflet", "react-leaflet", "RainViewer API", "NOAA API", "Tailwind CSS"],
+    linesOfCode: "~850 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "provably-fair", name: "Provably Fair Engine", icon: Dice1, containerId: "demo-provably-fair", color: "#8b5cf6",
+    description: "Cryptographic fairness verification for games and contests", price: 199, priceId: "price_widget_provably_fair",
+    fullDescription: "Cryptographic provably fair system for games, contests, giveaways, and random selection processes. Uses server seed + client seed + nonce to generate verifiable random outcomes. Players can independently verify every result using SHA-256 hashing. Includes audit trail, fairness verification UI, and compliance documentation. Extracted from The Arcade's production provably fair gaming system.",
+    features: ["Server seed + client seed + nonce system", "SHA-256 cryptographic verification", "Player-side verification tool", "Seed rotation with reveal history", "Complete audit trail", "Fairness percentage dashboard", "API for game integration", "Compliance documentation generator", "Multi-game support (dice, slots, crash, card draws)"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Verification UI", "Backend fair engine", "Audit logging system", "Compliance docs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "crypto (Node.js)", "Node.js", "Express", "PostgreSQL"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "code-editor", name: "Code Editor Widget", icon: Terminal, containerId: "demo-code-editor", color: "#3b82f6",
+    description: "Embeddable Monaco code editor with syntax highlighting and execution", price: 199, priceId: "price_widget_code_editor",
+    fullDescription: "Embeddable Monaco-powered code editor with full syntax highlighting, IntelliSense, multi-language support, and optional sandboxed execution. Perfect for documentation sites, developer portals, coding tutorials, and interactive code playgrounds. Supports JavaScript, TypeScript, Python, Solidity, JSON, HTML, CSS, and more. Extracted from DWSC Studio's production browser-based IDE.",
+    features: ["Monaco Editor with IntelliSense", "20+ language syntax highlighting", "Dark and light themes", "Code formatting and linting", "Split-pane editor/preview", "File tab management", "Sandboxed code execution", "Copy/download code buttons", "Customizable editor height and features"],
+    requirements: ["React 18+ frontend", "Optional: backend for code execution sandboxing"],
+    includes: ["Full source code", "Editor component", "Language configurations", "Theme customization", "Execution sandbox", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Monaco Editor", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "receipt-scanner", name: "Receipt Scanner", icon: Receipt, containerId: "demo-receipt-scanner", color: "#ef4444",
+    description: "Photo-to-expense data extraction with categorization", price: 129, priceId: "price_widget_receipt_scanner",
+    fullDescription: "Snap a photo of any receipt and instantly extract merchant name, date, line items, tax, tip, and total. Auto-categorizes expenses (food, fuel, parts, supplies, entertainment) and tracks spending over time. Export to CSV for tax filing or accounting software import. Built from GarageBot's Break Room receipt scanner tool.",
+    features: ["Camera or photo upload capture", "Merchant name extraction", "Date and time parsing", "Line item detection", "Tax and tip extraction", "Auto expense categorization", "Spending analytics over time", "CSV export for tax filing", "Multi-currency support"],
+    requirements: ["React 18+ frontend", "OpenAI Vision API key", "Optional: backend for data storage"],
+    includes: ["Full source code", "Scanner UI", "Vision API integration", "Expense categorization engine", "Export templates", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI Vision API", "Camera API", "Tailwind CSS"],
+    linesOfCode: "~980 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "recall-checker", name: "Vehicle Recall Checker", icon: AlertTriangle, containerId: "demo-recall-checker", color: "#dc2626",
+    description: "VIN-based vehicle recall lookup with NHTSA data", price: 99, priceId: "price_widget_recall_checker",
+    fullDescription: "Enter a VIN or select year/make/model to instantly check for open safety recalls via NHTSA's public API. Displays recall descriptions, remedy status, manufacturer notifications, and affected components. Includes recall alert subscriptions so vehicle owners get notified when new recalls are issued. Built from GarageBot's vehicle safety tools.",
+    features: ["VIN-based recall lookup", "Year/make/model search", "NHTSA recall database integration", "Recall description and severity", "Remedy status tracking", "Manufacturer notification details", "Affected component identification", "Alert subscriptions for new recalls", "Recall history timeline"],
+    requirements: ["React 18+ frontend", "No API key required (NHTSA is free/public)"],
+    includes: ["Full source code", "Recall checker UI", "NHTSA API integration", "Alert subscription system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "NHTSA Recalls API", "Tailwind CSS"],
+    linesOfCode: "~720 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "health-passport", name: "Health Passport / QR Identity", icon: QrCode, containerId: "demo-health-passport", color: "#10b981",
+    description: "Portable verified credential card with QR code sharing", price: 149, priceId: "price_widget_health_passport",
+    fullDescription: "Sovereign portable identity card with blockchain-verified credentials and QR code sharing. Users create a digital health or identity passport containing verified credentials, certifications, or health records. Generate scannable QR codes for instant verification. Supports custom credential types, expiration tracking, and issuer verification. Built from VedaSolus's Health Passport system.",
+    features: ["Digital credential card with photo", "QR code generation for instant sharing", "Blockchain-backed credential verification", "Custom credential types (health, certification, membership)", "Expiration date tracking and alerts", "Issuer verification chain", "Offline QR code display", "Scan-to-verify companion tool", "Export as PDF or image"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Solana RPC for blockchain verification"],
+    includes: ["Full source code", "Passport card UI", "QR generator", "Verification API", "Blockchain module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "qrcode.react", "Node.js", "Express", "PostgreSQL", "@solana/web3.js"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "referral-program", name: "Referral Program", icon: Gift, containerId: "demo-referral-program", color: "#f472b6",
+    description: "Customer referral system with auto-generated codes and credit rewards", price: 129, priceId: "price_widget_referral_program",
+    fullDescription: "Full customer referral engine with auto-generated referral codes (NAME + 4-digit format), configurable credit rewards for both referrer and referred friend, referral tracking with pending/completed status, shareable referral links, and automatic credit application on first order. Includes referral analytics dashboard showing top referrers, conversion rates, and total credits distributed. Built from TL Driver Connect's customer referral program.",
+    features: ["Auto-generated referral codes", "Configurable credit rewards (referrer + friend)", "Referral status tracking (pending/completed)", "Shareable referral link generation", "Automatic credit application on first order", "Top referrers leaderboard", "Referral conversion analytics", "Email notification on successful referral", "Anti-fraud duplicate detection"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Referral dashboard UI", "Code generation engine", "Credit system API", "Analytics module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,200 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "revenue-analytics", name: "Revenue Analytics", icon: BarChart3, containerId: "demo-revenue-analytics", color: "#6366f1",
+    description: "Real-time revenue dashboard with charts, top sellers, and vendor metrics", price: 179, priceId: "price_widget_revenue_analytics",
+    fullDescription: "Production-grade revenue analytics dashboard with total revenue, order count, average order value, and paid vs pending breakdowns. Includes revenue-over-time line charts with period filtering (today, week, month, all-time), top-selling items ranked by quantity and revenue, and vendor performance metrics with ratings and order counts. Built from TL Driver Connect's revenue analytics system powering live Stripe checkout data.",
+    features: ["Total revenue and order count cards", "Average order value calculation", "Paid vs pending payment breakdown", "Revenue-over-time line charts (Recharts)", "Period filtering (today/week/month/all-time)", "Top-selling items by quantity and revenue", "Vendor performance metrics with ratings", "Order count by vendor", "CSV export for reporting"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Stripe integration (optional)"],
+    includes: ["Full source code", "Dashboard UI with charts", "Revenue API endpoints", "Period filtering logic", "Vendor metrics module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "fuel-finder", name: "Fuel & EV Station Finder", icon: Fuel, containerId: "demo-fuel-finder", color: "#22c55e",
+    description: "Curated fuel and EV charging station directory with GPS proximity sorting", price: 89, priceId: "price_widget_fuel_finder",
+    fullDescription: "GPS-based fuel and EV charging station finder with curated directory, proximity sorting, search and filter functionality, and direct Google Maps integration for turn-by-turn navigation. Displays station details including fuel types, pricing, amenities, hours of operation, and user ratings. Supports both traditional fuel stations and EV charging networks. Built from TL Driver Connect's Fuel Finder module.",
+    features: ["GPS-based proximity sorting", "Fuel station and EV charger directory", "Search and filter by fuel type", "Google Maps navigation integration", "Station details (pricing, hours, amenities)", "User ratings and reviews", "Favorite stations list", "Real-time availability indicators", "Distance and ETA calculations"],
+    requirements: ["React 18+ frontend", "Google Maps API key (optional)"],
+    includes: ["Full source code", "Station finder UI", "GPS proximity engine", "Google Maps integration", "Station data model", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Geolocation API", "Google Maps API", "Tailwind CSS"],
+    linesOfCode: "~850 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "cdl-directory", name: "CDL Training Directory", icon: GraduationCap, containerId: "demo-cdl-directory", color: "#0ea5e9",
+    description: "Searchable CDL training program directory with referral tracking", price: 79, priceId: "price_widget_cdl_directory",
+    fullDescription: "Searchable directory of CDL training programs with program details, location, duration, cost, and certification types. Includes referral tracking for CDL sign-ups with rate limiting to prevent abuse (5 requests per window per IP). Features program comparison, filtering by state/cost/duration, and direct enrollment links. Built from TL Driver Connect's CDL Program Directory.",
+    features: ["Searchable training program listings", "Filter by state, cost, and duration", "Program comparison view", "Referral tracking with attribution", "Rate-limited submissions (anti-abuse)", "Direct enrollment links", "Program certification types", "Cost and duration details", "Mobile-optimized card layout"],
+    requirements: ["React 18+ frontend", "Node.js backend (for referral tracking)"],
+    includes: ["Full source code", "Directory UI", "Search and filter engine", "Referral tracking API", "Rate limiter", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "Tailwind CSS"],
+    linesOfCode: "~700 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "food-truck-map", name: "Food Truck Locator", icon: MapPin, containerId: "demo-food-truck-map", color: "#f97316",
+    description: "Interactive food truck map with pins, availability, and menu previews", price: 119, priceId: "price_widget_food_truck_map",
+    fullDescription: "Interactive map displaying food truck locations with visual pins, availability scheduling, and menu previews. Each truck pin shows real-time status (open/closed/moving), cuisine type, ratings, and distance. Includes truck detail pages with full menu, operating schedule, and contact information. Supports vendor self-management of location and availability. Built from TL Driver Connect's Food Truck Map system.",
+    features: ["Interactive map with truck pins", "Real-time availability status", "Menu previews on hover/click", "Truck detail pages", "Availability scheduling system", "Cuisine type filtering", "Star ratings display", "Distance from user calculation", "Vendor self-service location updates"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Map UI with pins", "Truck management API", "Menu preview component", "Availability scheduler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ambient-soundscape", name: "Ambient Soundscape Engine", icon: Music, containerId: "demo-ambient-soundscape", color: "#a855f7",
+    description: "Procedural audio engine with 21 location soundscapes and day/night variations", price: 149, priceId: "price_widget_ambient_soundscape",
+    fullDescription: "Zero-dependency procedural ambient audio engine built entirely on the Web Audio API. Generates 21 unique location soundscapes across multiple environments with automatic day/night variations, seasonal changes, and smooth crossfading between locations. Includes a floating audio controller UI widget with volume, mute, and location selection. No external audio files required — all sounds are procedurally generated in real-time. Built from Chronicles' Procedural Ambient Audio Engine.",
+    features: ["21 procedural location soundscapes", "Day/night audio variations", "Web Audio API (zero dependencies)", "Smooth crossfading between locations", "Floating audio controller widget", "Volume and mute controls", "Location-based sound profiles", "Seasonal sound variations", "Memory-optimized with proper cleanup"],
+    requirements: ["Any modern browser with Web Audio API support"],
+    includes: ["Full source code", "Audio engine (676 lines)", "Controller UI widget", "21 location profiles", "Integration guide", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "Web Audio API", "React 18", "Tailwind CSS"],
+    linesOfCode: "~930 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "career-simulator", name: "Career & Life Simulator", icon: Briefcase, containerId: "demo-career-simulator", color: "#eab308",
+    description: "Daily life system with 30+ careers, shift schedules, ranks, and needs management", price: 139, priceId: "price_widget_career_simulator",
+    fullDescription: "Full daily life simulation system with 30+ career paths across 4 shift types and 5 progression ranks with wage scaling. Includes needs management (hunger, energy, hygiene, social) with real-time decay and recovery mechanics, career switching, skill-based promotions, and financial tracking. Features a rich UI showing current career status, upcoming shifts, needs bars, and career progression timeline. Built from Chronicles' Daily Life System.",
+    features: ["30+ career paths with descriptions", "4 shift types (morning/afternoon/night/flex)", "5 rank progression tiers", "Wage scaling by rank", "Needs management (hunger/energy/hygiene/social)", "Real-time needs decay and recovery", "Career switching system", "Skill-based promotion logic", "Financial earnings tracker"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database"],
+    includes: ["Full source code", "Career system UI", "Needs management engine", "Progression API", "Career data models", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,300 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ai-personality", name: "AI Personality Engine", icon: Brain, containerId: "demo-ai-personality", color: "#ec4899",
+    description: "Multi-personality AI chat system with distinct voices and therapeutic modes", price: 199, priceId: "price_widget_ai_personality",
+    fullDescription: "Advanced multi-personality AI chat engine featuring 5 distinct AI personalities, each with unique communication styles, expertise areas, and therapeutic approaches. Supports personality switching mid-conversation, conversation memory, mood detection, and adaptive response styles. Each personality has configurable traits, voice characteristics, and specializations. Built for wellness, coaching, companionship, and creative applications. Built from THE VOID's 5-personality GPT-5.2 system.",
+    features: ["5 distinct AI personalities", "Personality switching mid-conversation", "Conversation memory and context", "Mood detection and adaptive responses", "Configurable personality traits", "Therapeutic conversation modes", "Voice characteristic profiles", "Expertise area specializations", "Session history and continuity"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key"],
+    includes: ["Full source code", "Chat UI with personality selector", "Personality configuration system", "OpenAI integration", "Conversation memory module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "mood-journal", name: "Mood & Reflection Journal", icon: Heart, containerId: "demo-mood-journal", color: "#f43f5e",
+    description: "AI-powered mood tracking with guided reflections and wellness insights", price: 109, priceId: "price_widget_mood_journal",
+    fullDescription: "Comprehensive mood tracking and reflection journal with AI-powered insights. Users log daily moods with emoji selectors, write guided reflections with AI prompts, and track wellness trends over time with visual charts. Includes breathing exercises, gratitude prompts, and personalized wellness recommendations based on mood patterns. Features streak tracking and weekly/monthly mood summaries. Built from THE VOID's 20+ wellness tools.",
+    features: ["Daily mood logging with emoji selectors", "AI-generated reflection prompts", "Guided breathing exercises", "Gratitude journaling", "Mood trend charts over time", "Weekly and monthly mood summaries", "Streak tracking and motivation", "Personalized wellness recommendations", "Export journal entries as PDF"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key (optional for AI prompts)"],
+    includes: ["Full source code", "Journal UI", "Mood tracking API", "Wellness charts", "AI prompt generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Node.js", "Express", "PostgreSQL", "OpenAI"],
+    linesOfCode: "~1,100 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "npc-chat", name: "NPC Chat System", icon: Bot, containerId: "demo-npc-chat", color: "#f59e0b",
+    description: "Persistent AI characters with relationship scores, memory, and contextual dialogue", price: 169, priceId: "price_widget_npc_chat",
+    fullDescription: "Full NPC (non-player character) chat system with persistent AI characters that remember past conversations, maintain relationship scores, and adapt dialogue based on interaction history. Each NPC has configurable personality traits, backstory, knowledge domains, and emotional states. Supports multiple concurrent NPC relationships, gift/interaction mechanics that affect relationship levels, and contextual dialogue that references shared history. Built from Chronicles' NPC System.",
+    features: ["Persistent AI characters with memory", "Relationship score tracking", "Configurable personality traits and backstory", "Contextual dialogue referencing past interactions", "Emotional state system", "Multiple concurrent NPC relationships", "Interaction mechanics affecting relationships", "Knowledge domain specialization", "Conversation history and continuity"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "OpenAI API key"],
+    includes: ["Full source code", "NPC chat UI", "Character configuration system", "Relationship tracking API", "Memory module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "PostgreSQL", "Drizzle ORM"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "ecosystem-widget", name: "Ecosystem Widget", icon: Network, containerId: "demo-ecosystem-widget", color: "#06b6d4",
+    description: "Embeddable Trust Layer ecosystem badge with live app data", price: 99, priceId: "price_widget_ecosystem_widget",
+    fullDescription: "Embeddable ecosystem widget that displays your app's Trust Layer verification status, ecosystem membership badge, and live statistics. Loaded via a single script tag, it connects to the DarkWave Trust Layer API for real-time widget data including app count, verification status, and ecosystem metrics. Authenticates via Trust Layer SSO JWT in the Authorization header. Perfect for embedding in any ecosystem app to show its verified membership in the DarkWave network.",
+    features: ["Single script tag embed (<script src>)", "Trust Layer verification badge", "Live ecosystem app data via API", "JWT-based SSO authentication", "Real-time verification status", "Ecosystem membership display", "Customizable badge appearance", "Responsive embed sizing", "Cross-origin compatible"],
+    requirements: ["Any HTML page or React app", "Trust Layer SSO JWT token"],
+    includes: ["Full source code", "Embed script", "Widget data API endpoint", "JWT auth integration", "Customization options", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "TypeScript", "Trust Layer SSO", "REST API", "CSS3"],
+    linesOfCode: "~600 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-distance-calculator", name: "Golf Distance Calculator", icon: Crosshair, containerId: "demo-golf-distance", color: "#10b981",
+    description: "GPS satellite map with tap-to-drop pin distance measurement", price: 199, priceId: "price_widget_golf_distance",
+    fullDescription: "Drop this widget onto any golf website and give players instant GPS distance measurement on a satellite map view. Tap to place target pins, get Haversine-calculated distances in yards or meters, drag pins for simulation mode, and pick from 45 pre-loaded courses with real coordinates. Platform-adaptive: Leaflet + Esri satellite tiles on web, react-native-maps on native. Extracted directly from Trust Golf's production GPS Distance Finder.",
+    features: ["Satellite map view with course overlay", "Tap-to-drop target pins with Haversine calculation", "Yards/meters toggle", "Draggable pin simulation mode", "45 pre-loaded courses with real GPS coordinates", "Pin-to-pin distance display", "Course picker dropdown", "Mobile-optimized touch targets", "Responsive embed sizing"],
+    requirements: ["React 18+ or vanilla JS", "Internet connection for map tiles"],
+    includes: ["Full source code", "45 courses coordinate dataset", "Leaflet + Esri integration", "Customization guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Leaflet", "Esri Satellite Tiles", "Haversine Formula", "Tailwind CSS"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "golf-handicap-calculator", name: "USGA Handicap Calculator", icon: Trophy, containerId: "demo-golf-handicap", color: "#f59e0b",
+    description: "Auto-calculated USGA Handicap Index from score differentials", price: 149, priceId: "price_widget_golf_handicap",
+    fullDescription: "Self-contained USGA Handicap Index calculator that computes handicap from score differentials using the official formula. Players enter round scores, course rating, and slope rating — the widget handles differential calculation, running averages, and index updates automatically. Clean glassmorphism UI with animated counters. Drop it into any golf site, club portal, or league management system. Extracted from Trust Golf's production handicap engine.",
+    features: ["Official USGA Handicap Index formula", "Score differential calculation", "Running average with best-of selection", "Round history tracking", "Animated handicap counter display", "Course rating & slope inputs", "Dark/light theme support", "Mobile-responsive design", "Export handicap data as JSON"],
+    requirements: ["React 18+ or vanilla JS", "No backend required — runs client-side"],
+    includes: ["Full source code", "USGA formula documentation", "Theme customization", "Integration examples", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~520 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-course-card", name: "Golf Course Embed Card", icon: MapPin, containerId: "demo-golf-course-card", color: "#6366f1",
+    description: "Rich course profile card with ratings, amenities, and gallery", price: 99, priceId: "price_widget_golf_course_card",
+    fullDescription: "Beautiful embeddable course profile card with structured data — name, location, designer, year built, rating, slope, par, yardage, green fees, amenities list, and gallery images. Each card renders as a premium glassmorphism component with hover effects and animated transitions. Perfect for course websites, booking platforms, travel blogs, or tournament pages. Includes all 45 Trust Golf course datasets ready to use. One embed tag, instant course showcase.",
+    features: ["Rich structured course data display", "Gallery image carousel", "Rating & slope visualization", "Amenities icon grid", "Designer & year built info", "Green fee display with booking CTA", "Glassmorphism card with glow effects", "Hover animations & micro-interactions", "45 pre-loaded course datasets", "Customizable color scheme"],
+    requirements: ["Any HTML page or React app", "No backend required"],
+    includes: ["Full source code", "45 course datasets", "Gallery component", "Theme variants", "Embed instructions", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "Embla Carousel"],
+    linesOfCode: "~680 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "golf-swing-analyzer", name: "AI Swing Analyzer Widget", icon: Camera, containerId: "demo-golf-swing", color: "#ec4899",
+    description: "GPT-4o vision-powered swing analysis with club-specific coaching", price: 299, priceId: "price_widget_golf_swing",
+    fullDescription: "Embed an AI-powered swing analyzer on any golf platform. Users upload a photo or video of their swing, select from 9 club categories, and receive structured GPT-4o vision analysis with club-specific drills, tips, and corrections. Video mode includes slow-motion playback (0.25x/0.5x/1x) and frame extraction for key positions. The widget handles media upload, API communication, and renders beautiful analysis cards with actionable coaching feedback. Extracted from Trust Golf's production swing analysis engine.",
+    features: ["GPT-4o vision analysis", "9 club categories (Driver through Putter)", "Photo + video upload modes", "Slow-motion video playback (0.25x/0.5x/1x)", "Frame extraction at key positions", "Club-specific drills & tips", "Structured analysis cards", "TrustVault media storage integration", "Mobile camera capture support", "Loading states with swing animations"],
+    requirements: ["React 18+", "OpenAI API key (GPT-4o vision)", "Backend proxy for API calls"],
+    includes: ["Full source code", "Backend API route", "OpenAI prompt engineering", "Video player component", "9 club category configs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "golf-blog-generator", name: "Golf Blog Content API", icon: BookOpen, containerId: "demo-golf-blog", color: "#14b8a6",
+    description: "AI-generated SEO golf articles with 6 categories and Markdown output", price: 199, priceId: "price_widget_golf_blog",
+    fullDescription: "On-demand AI blog generation engine purpose-built for golf content. Feed it a topic and category, and it produces SEO-optimized articles with meta descriptions, keyword tags, structured headings, and Markdown formatting. Six content categories: instruction, equipment, courses, fitness, mental game, and news. Developer dashboard for managing posts with publish/draft workflow. Power your golf blog, newsletter, or partner content feeds without writing a word. Extracted from Trust Golf's production AI blog system.",
+    features: ["GPT-4o content generation", "6 golf content categories", "SEO meta descriptions & keywords", "Markdown output with structured headings", "Publish/draft workflow", "Developer dashboard management", "Bulk generation support", "RSS feed compatible output", "Category-specific tone & style", "Auto-tagging system"],
+    requirements: ["Node.js backend", "OpenAI API key", "Optional: PostgreSQL for post storage"],
+    includes: ["Full source code", "API routes", "Dashboard UI", "Prompt templates for 6 categories", "Markdown renderer", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "OpenAI GPT-4o", "React 18", "TypeScript", "Tailwind CSS"],
+    linesOfCode: "~900 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "golf-analytics-dashboard", name: "Self-Hosted Analytics Module", icon: BarChart3, containerId: "demo-golf-analytics", color: "#8b5cf6",
+    description: "First-party analytics with sessions, events, UTM tracking, and KPI dashboard", price: 249, priceId: "price_widget_golf_analytics",
+    fullDescription: "Drop-in first-party analytics system that runs entirely on your own infrastructure — no third-party scripts, no cookie banners, no data leaving your server. Tracks sessions, page views, custom events, UTM parameters, device/browser detection, and referrer data. Includes a premium admin dashboard with 6 KPI cards, daily trend charts, date range filtering, and real-time session counts. 12 API endpoints handle ingestion, aggregation, and dashboard queries. Extracted from Trust Golf's production self-hosted analytics — proven at scale.",
+    features: ["First-party tracking — no third-party scripts", "Session & page view tracking", "Custom event system", "UTM parameter capture", "Device & browser detection", "Referrer tracking", "6 KPI dashboard cards", "Daily trend charts (Recharts)", "Date range filtering", "Real-time session counter", "12 API endpoints", "Privacy-first — no cookies required"],
+    requirements: ["Node.js + Express backend", "PostgreSQL database"],
+    includes: ["Full source code", "12 API endpoints", "Dashboard UI with charts", "Database schema", "Tracking script (single tag)", "Setup & deployment guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "PostgreSQL", "Drizzle ORM", "React 18", "TypeScript", "Recharts", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "shared-components", name: "Shared Components System", icon: Layers, containerId: "demo-shared-components", color: "#8b5cf6",
+    description: "Centralized UI component system for ecosystem-wide consistency", price: 199, priceId: "price_widget_shared_components",
+    fullDescription: "Centralized shared component system that lets you define any UI element once and deploy it across your entire ecosystem of apps instantly. Footer, header, announcement bar, trust badge, cookie consent, notification banner — create any component in the admin panel, and every app that includes the loader script gets the update in real-time. No redeployments needed. One script tag, unlimited shared components, instant ecosystem-wide consistency.",
+    features: ["One script tag installs all shared components", "Admin CRUD for creating/editing components", "Real-time updates — change once, propagate everywhere", "Component types: footer, header, banner, badge, and any custom", "Dark and light theme support via {{theme}} variable", "Bundle endpoint for loading multiple components at once", "Individual render endpoint per component", "Version tracking with auto-increment", "Event system for load/error callbacks", "Auto-placement (footers append, headers prepend)", "5-minute cache with instant cache-busting on update"],
+    requirements: ["Any HTML page, React app, or web application", "Network access to the Trust Layer API"],
+    includes: ["Full source code", "Universal loader script (tl-shared-loader.js)", "Admin API endpoints", "3 pre-built components (footer, announcement bar, trust badge)", "Component rendering engine", "Bundle system", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "REST API", "Node.js", "Express", "PostgreSQL", "CSS3"],
+    linesOfCode: "~1,400 lines (full stack)",
+    complexity: "Intermediate"
+  },
+  {
+    id: "ai-narration-player", name: "AI Narration Player", icon: Volume2, containerId: "demo-ai-narration", color: "#a855f7",
+    description: "OpenAI Nova HD text-to-speech narration with chapter controls and voice selection", price: 179, priceId: "price_widget_ai_narration",
+    fullDescription: "Drop-in AI narration engine that converts any text content into professional-grade spoken audio using OpenAI's Nova HD voice model. Supports chapter-by-chapter narration with automatic segmentation, playback speed controls (0.5x–2x), voice selection from 6 OpenAI voices, progress tracking with resume-from-last-position, and streaming audio for zero-wait playback. Beautiful floating audio player UI with waveform visualization, chapter navigation, and sleep timer. Perfect for blogs, documentation, ebooks, articles, or any long-form content. Extracted from Trust Book's production narration engine.",
+    features: ["OpenAI Nova HD text-to-speech", "6 selectable voice profiles", "Chapter-by-chapter narration", "Playback speed controls (0.5x–2x)", "Streaming audio — zero-wait start", "Progress tracking with resume", "Waveform visualization", "Sleep timer with auto-pause", "Floating mini-player mode", "Chapter navigation with titles", "Background audio playback", "Keyboard shortcuts (space/arrows)"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key (TTS model access)"],
+    includes: ["Full source code", "Audio player UI component", "Backend TTS proxy endpoint", "Chapter segmentation engine", "Progress persistence module", "Voice configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI TTS API", "Web Audio API", "Node.js", "Express", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,350 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "ereader-embed", name: "E-Reader Embed", icon: BookOpenCheck, containerId: "demo-ereader", color: "#6366f1",
+    description: "Immersive chapter-based reading experience with progress tracking and bookmarks", price: 149, priceId: "price_widget_ereader",
+    fullDescription: "Full-featured embeddable e-reader component with chapter-based navigation, reading progress persistence, bookmarking, customizable typography (font size, line height, font family), dark/light/sepia themes, and smooth Framer Motion page transitions. Table of contents sidebar with completion indicators per chapter, estimated reading time, and scroll position memory. Supports Markdown and HTML content input. Responsive design works beautifully on desktop, tablet, and mobile. Extracted from Trust Book's production e-reader powering 'Through The Veil' — 110,000 words across 54 chapters.",
+    features: ["Chapter-based navigation with TOC sidebar", "Reading progress persistence (local + API)", "Bookmarking system with notes", "Customizable typography (size/height/family)", "Dark, light, and sepia themes", "Estimated reading time per chapter", "Smooth page transition animations", "Scroll position memory per chapter", "Markdown and HTML content support", "Fullscreen reading mode", "Keyboard navigation (arrow keys)", "Mobile-optimized touch gestures"],
+    requirements: ["React 18+ frontend", "Optional: Backend for progress sync"],
+    includes: ["Full source code", "Reader UI component", "TOC sidebar component", "Theme engine", "Progress tracking module", "Bookmark manager", "Typography controls", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Tailwind CSS", "Marked (Markdown parser)"],
+    linesOfCode: "~1,100 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "pdf-epub-generator", name: "PDF/EPUB Generator", icon: FileText, containerId: "demo-pdf-epub", color: "#14b8a6",
+    description: "Server-side document export engine for PDF and EPUB with custom styling", price: 199, priceId: "price_widget_pdf_epub",
+    fullDescription: "Production-grade server-side document export engine that converts structured content into professionally formatted PDF and EPUB files. PDF generation uses Puppeteer with custom CSS print stylesheets for pixel-perfect output including cover pages, table of contents, page numbers, headers/footers, and chapter breaks. EPUB generation produces valid EPUB 3.0 files with metadata, cover image, chapter structure, and CSS styling that works across all major e-readers (Kindle, Apple Books, Kobo). Includes a download API endpoint with streaming response and progress callbacks. Extracted from Trust Book's production export system.",
+    features: ["PDF generation with Puppeteer", "EPUB 3.0 compliant output", "Custom CSS print stylesheets", "Cover page with metadata", "Auto-generated table of contents", "Page numbers and headers/footers", "Chapter break handling", "Cover image embedding", "Streaming download endpoint", "Progress callbacks during generation", "Batch export support", "Custom font embedding"],
+    requirements: ["Node.js backend", "Puppeteer (for PDF)", "archiver (for EPUB packaging)"],
+    includes: ["Full source code", "PDF generation engine", "EPUB builder module", "Print CSS stylesheets", "Download API endpoint", "Cover page template", "TOC generator", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Node.js", "Express", "Puppeteer", "archiver", "TypeScript", "CSS Print Media"],
+    linesOfCode: "~1,500 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "arcade-game-embed", name: "Arcade Game Embed", icon: Gamepad2, containerId: "demo-arcade-game", color: "#ef4444",
+    description: "Drop-in HTML5 canvas arcade game with leaderboard and score tracking", price: 129, priceId: "price_widget_arcade_game",
+    fullDescription: "Ready-to-embed HTML5 canvas arcade game engine with a complete game loop, sprite rendering, collision detection, particle effects, and progressive difficulty scaling. Includes a persistent leaderboard with player names and high scores, achievement unlocks with animated badge reveals, lives/score/level HUD, touch controls for mobile, and gamepad support. The embed adapts to any container size with automatic canvas scaling. Sound effects via Web Audio API with mute toggle. Perfect for gamification, engagement features, or entertainment sections on any website. Extracted from Bomber's production game engine.",
+    features: ["HTML5 Canvas game engine", "60fps game loop with delta timing", "Sprite rendering and animation", "Collision detection system", "Particle effects engine", "Progressive difficulty scaling", "Persistent leaderboard (top 100)", "Achievement unlock system", "Touch controls for mobile", "Gamepad API support", "Web Audio API sound effects", "Responsive canvas scaling", "Pause/resume functionality"],
+    requirements: ["Any HTML page or React app", "Optional: Backend for persistent leaderboards"],
+    includes: ["Full source code", "Game engine core", "Canvas renderer", "Leaderboard UI + API", "Achievement system", "Sound effects pack", "Touch/gamepad input handlers", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "HTML5 Canvas", "Web Audio API", "Gamepad API", "React 18", "Tailwind CSS"],
+    linesOfCode: "~1,800 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "achievement-badges", name: "Achievement Badge System", icon: Medal, containerId: "demo-achievement-badges", color: "#f59e0b",
+    description: "Blockchain-verified achievement badges with animated reveals and progress tracking", price: 149, priceId: "price_widget_achievement_badges",
+    fullDescription: "Complete achievement and badge system with blockchain-verified provenance via Trust Layer hallmarks. Define achievement categories (milestones, challenges, streaks, special events), set unlock conditions with progress tracking, and award animated badge reveals with confetti effects when users hit targets. Each badge generates a hallmark entry for permanent verification. Includes a trophy case display component showing earned badges in a responsive grid with rarity tiers (Common, Rare, Epic, Legendary), tooltips with unlock dates, and shareable badge cards. Extracted from Bomber's blockchain achievement system with SIG reward integration.",
+    features: ["Customizable achievement definitions", "Progress tracking with percentage bars", "Animated badge reveal with confetti", "4 rarity tiers (Common/Rare/Epic/Legendary)", "Hallmark blockchain verification per badge", "Trophy case display component", "Streak tracking (daily/weekly/monthly)", "Shareable badge cards with QR code", "SIG reward integration hooks", "Category grouping and filtering", "Unlock notification system", "Admin panel for badge management"],
+    requirements: ["React 18+ frontend", "Node.js backend", "PostgreSQL database", "Optional: Trust Layer API for hallmarks"],
+    includes: ["Full source code", "Badge display components", "Achievement engine", "Trophy case UI", "Admin management panel", "Hallmark integration module", "Confetti animation library", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "canvas-confetti"],
+    linesOfCode: "~1,600 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "defi-wallet-connect", name: "DeFi Wallet Connect", icon: Wallet, containerId: "demo-defi-wallet", color: "#10b981",
+    description: "Embeddable DeFi wallet showing SIG/Shells/stSIG balances with send and receive", price: 299, priceId: "price_widget_defi_wallet",
+    fullDescription: "Full-featured embeddable DeFi wallet widget for the Trust Layer ecosystem. Displays real-time balances for SIG ($0.01), Shells ($0.001), and stSIG (staked SIG) with USD conversion. Includes send and receive flows with address validation, QR code generation for receiving, transaction history with status indicators (pending/confirmed/failed), and one-tap copy for wallet addresses. Connects via Trust Layer SSO JWT for secure authentication. Glassmorphism card design with animated balance counters and token icons. Extracted from Trust Layer Hub's production DeFi wallet — 21,026 LOC, battle-tested across 35 ecosystem apps.",
+    features: ["Real-time SIG/Shells/stSIG balances", "USD conversion display", "Send flow with address validation", "Receive flow with QR code generation", "Transaction history with status", "One-tap wallet address copy", "Trust Layer SSO JWT authentication", "Animated balance counters", "Token icon display", "Network fee estimation", "Balance refresh with pull-to-refresh", "Multi-wallet support"],
+    requirements: ["React 18+ frontend", "Trust Layer SSO JWT token", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Wallet UI component", "Send/receive flow components", "QR code generator", "Transaction history module", "SSO authentication handler", "Balance polling service", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Trust Layer SSO", "QRCode.js", "Framer Motion", "Tailwind CSS", "WebSocket"],
+    linesOfCode: "~2,200 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "staking-calculator", name: "Staking Calculator", icon: TrendingUp, containerId: "demo-staking-calc", color: "#8b5cf6",
+    description: "Interactive APY calculator for 5 staking pools with earnings projections", price: 149, priceId: "price_widget_staking_calc",
+    fullDescription: "Interactive staking calculator widget that lets users explore all 5 Trust Layer staking pools and project earnings over custom time periods. Each pool displays its APY (12%–38%), lock period, minimum stake, and risk level. Users input their SIG amount and see projected daily, weekly, monthly, and yearly earnings with compounding visualizations on animated Recharts line graphs. Includes a pool comparison mode side-by-side, auto-compounding toggle, and a 'What if?' slider for hypothetical SIG price scenarios. Clean glassmorphism cards with gradient pool indicators. Extracted from Trust Layer Hub's production staking interface.",
+    features: ["5 staking pools (12%–38% APY)", "Custom stake amount input", "Daily/weekly/monthly/yearly projections", "Compound interest visualization", "Interactive Recharts line graphs", "Pool comparison mode (side-by-side)", "Auto-compounding toggle", "SIG price 'What if?' slider", "Lock period and risk display", "Minimum stake requirements", "Animated earnings counter", "Responsive pool cards"],
+    requirements: ["React 18+ frontend", "No backend required — runs client-side"],
+    includes: ["Full source code", "Calculator UI component", "5 pool configurations", "Recharts visualization", "Compound math engine", "Comparison view", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "Framer Motion", "Tailwind CSS"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "dex-swap-widget", name: "DEX Swap Widget", icon: ArrowRightLeft, containerId: "demo-dex-swap", color: "#06b6d4",
+    description: "Embeddable token swap interface for SIG/Shells/stSIG pairs with slippage controls", price: 249, priceId: "price_widget_dex_swap",
+    fullDescription: "Production-ready embeddable DEX swap widget for Trust Layer ecosystem tokens. Users select token pairs (SIG ↔ Shells, SIG ↔ stSIG, Shells ↔ stSIG), input amounts, and execute swaps with real-time price quotes, slippage tolerance controls (0.1%–5%), and price impact warnings. Animated swap button with confirmation modal showing exchange rate, fees, minimum received, and estimated gas. Includes swap history with receipt details and a price chart mini-view. Connects via Trust Layer SSO for authenticated transactions. Glassmorphism swap card with token selector dropdowns and animated flip button. Extracted from Trust Layer Hub's production DEX.",
+    features: ["3 token pairs (SIG/Shells/stSIG)", "Real-time price quotes", "Slippage tolerance controls (0.1%–5%)", "Price impact warnings", "Confirmation modal with fee breakdown", "Swap history with receipts", "Price chart mini-view", "Token selector dropdowns", "Animated swap flip button", "Minimum received calculation", "Gas estimation display", "Trust Layer SSO authentication"],
+    requirements: ["React 18+ frontend", "Trust Layer SSO JWT token", "Network access to Trust Layer DEX API"],
+    includes: ["Full source code", "Swap UI component", "Token selector", "Price quote engine", "Confirmation modal", "Swap history module", "Price chart component", "SSO handler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Trust Layer SSO", "Recharts", "Framer Motion", "Tailwind CSS", "WebSocket"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "trust-score-badge", name: "Trust Score Badge", icon: BadgeCheck, containerId: "demo-trust-score", color: "#22c55e",
+    description: "Animated trust verification badge with score meter and certification status", price: 99, priceId: "price_widget_trust_score",
+    fullDescription: "Lightweight embeddable trust verification badge that displays an app's or user's Trust Layer verification score with an animated circular meter, certification tier (Unverified, Bronze, Silver, Gold, Platinum), and real-time verification status via the Trust Layer API. Single script tag embed — loads asynchronously with zero layout shift. The badge glows with tier-appropriate colors (bronze shimmer, silver shine, gold pulse, platinum glow) and shows the verification date, hallmark count, and a 'Verify on Chain' link. Click-to-expand reveals full verification details. Perfect for proving ecosystem membership and building user trust. Extracted from Trust Layer Hub's verification system.",
+    features: ["Animated circular trust score meter", "5 certification tiers with colors", "Real-time verification via API", "Single script tag embed", "Zero layout shift async loading", "Tier-appropriate glow effects", "Click-to-expand detail view", "Hallmark count display", "Verification date stamp", "'Verify on Chain' deep link", "Dark and light theme support", "Customizable badge size (sm/md/lg)"],
+    requirements: ["Any HTML page or React app", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Embed script", "Badge component", "Verification API client", "Theme variants", "Size presets", "Animation library", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "CSS3 Animations", "Trust Layer API", "SVG", "TypeScript"],
+    linesOfCode: "~650 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "3d-model-viewer", name: "3D Model Viewer", icon: Boxes, containerId: "demo-3d-viewer", color: "#8b5cf6",
+    description: "Three.js embeddable 3D viewer with orbit controls, lighting presets, and GLTF/GLB support", price: 249, priceId: "price_widget_3d_viewer",
+    fullDescription: "Production-grade embeddable 3D model viewer powered by Three.js with full orbit/pan/zoom controls, 6 lighting presets (studio, outdoor, dramatic, soft, neon, custom), HDR environment maps, and support for GLTF, GLB, and FBX model formats. Includes auto-rotate with adjustable speed, model info overlay (vertices, triangles, materials), wireframe toggle, screenshot capture, fullscreen mode, and responsive container sizing. Drag-and-drop model loading for interactive demos. Ground plane with shadow casting and configurable background colors/gradients. Extracted from TrustGen's production 3D rendering pipeline — Three.js r170, battle-tested with complex models up to 500K triangles.",
+    features: ["Three.js r170 rendering engine", "GLTF, GLB, and FBX format support", "Orbit, pan, and zoom controls", "6 lighting presets + custom", "HDR environment maps", "Auto-rotate with speed control", "Model info overlay (verts/tris/materials)", "Wireframe toggle", "Screenshot capture (PNG)", "Fullscreen mode", "Drag-and-drop model loading", "Ground plane with shadow casting", "Responsive container sizing", "Configurable backgrounds"],
+    requirements: ["React 18+ or vanilla JS", "WebGL-capable browser"],
+    includes: ["Full source code", "Viewer component", "6 lighting preset configs", "HDR environment maps", "Model loader (GLTF/GLB/FBX)", "Controls system", "Screenshot module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Three.js r170", "React 18", "TypeScript", "@react-three/fiber", "@react-three/drei", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-text-to-3d", name: "AI Text-to-3D Preview", icon: Gem, containerId: "demo-text-to-3d", color: "#ec4899",
+    description: "Meshy.ai-powered text prompt to 3D model generation with rotating preview", price: 299, priceId: "price_widget_text_to_3d",
+    fullDescription: "Embeddable AI-powered 3D generation widget that converts text prompts into 3D models using the Meshy.ai API. Users type a description (e.g., 'a medieval castle with ivy'), select an art style (realistic, cartoon, low-poly, sculpt, PBR), and watch as the model generates with a real-time progress bar. Once complete, the model renders in an interactive Three.js viewport with auto-rotation. Includes prompt suggestions, generation history, and one-click GLTF/GLB download. Each generated model receives a Trust Layer hallmark for blockchain provenance tracking. Rate-limited to prevent API abuse with a clean queue UI. Extracted from TrustGen's production text-to-3D pipeline.",
+    features: ["Meshy.ai text-to-3D generation", "5 art styles (realistic/cartoon/low-poly/sculpt/PBR)", "Real-time generation progress bar", "Interactive Three.js preview viewport", "Auto-rotation on completion", "Prompt suggestions and templates", "Generation history gallery", "One-click GLTF/GLB download", "Trust Layer hallmark per model", "Rate limiting with queue display", "Art style preview thumbnails", "Negative prompt support"],
+    requirements: ["React 18+ frontend", "Node.js backend", "Meshy.ai API key", "Optional: Trust Layer API for hallmarks"],
+    includes: ["Full source code", "Prompt input UI", "Meshy.ai API integration", "Three.js preview component", "Generation queue manager", "Download handler", "Hallmark integration", "5 style configs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "Meshy.ai API", "Node.js", "Express", "Framer Motion", "Tailwind CSS"],
+    linesOfCode: "~2,100 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "hallmark-verification-badge", name: "Hallmark Verification Badge", icon: Shield, containerId: "demo-hallmark-badge", color: "#f97316",
+    description: "Universal blockchain provenance badge with SHA-256 hash and verification link", price: 79, priceId: "price_widget_hallmark_badge",
+    fullDescription: "Lightweight embeddable badge that proves the authenticity and provenance of any digital asset, app release, or transaction using Trust Layer's hallmark system. Displays the hallmark ID (e.g., DS-00000001), truncated SHA-256 data hash, timestamp, and a 'Verify on Chain' link that opens the full hallmark verification page. Single line embed — pass the hallmark ID as a data attribute and the badge auto-fetches verification data from the Trust Layer API. Animated shield icon pulses green when verified, red when unverified. Supports inline (horizontal) and card (vertical) layouts with dark/light themes. Perfect for proving software releases, NFT provenance, transaction receipts, or certificate authenticity across any ecosystem app.",
+    features: ["Single data-attribute embed", "Auto-fetch verification from API", "SHA-256 hash display (truncated)", "Hallmark ID with app prefix", "Timestamp display", "'Verify on Chain' deep link", "Animated shield (green=verified, red=unverified)", "Inline and card layout modes", "Dark and light themes", "Hover tooltip with full hash", "Copy hash to clipboard", "Loading skeleton animation"],
+    requirements: ["Any HTML page or React app", "Network access to Trust Layer API"],
+    includes: ["Full source code", "Embed script", "Badge component (inline + card)", "API verification client", "Theme variants", "Animation library", "Clipboard handler", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["Vanilla JS", "CSS3 Animations", "Trust Layer API", "SVG", "TypeScript"],
+    linesOfCode: "~480 lines",
+    complexity: "Beginner-friendly"
+  },
+  {
+    id: "auto-rigging-engine", name: "Auto-Rigging Engine", icon: Fingerprint, containerId: "demo-auto-rigger", color: "#14b8a6",
+    description: "Automatic skeleton generation for humanoid meshes with bone mapping and IK weights", price: 349, priceId: "price_widget_auto_rigger",
+    fullDescription: "Production-grade auto-rigging engine that generates skeletal hierarchies for humanoid 3D meshes automatically. Upload or import any humanoid GLTF/GLB model, and the engine detects body proportions, generates a full bone hierarchy (spine, limbs, hands, head), computes inverse kinematics weight maps, and applies vertex skinning. Includes a visual bone mapping wizard where users can fine-tune joint positions, adjust IK chain lengths, and preview deformations in real-time. Supports T-pose and A-pose detection. Outputs rig-ready models compatible with any animation system. Extracted from TrustGen's production auto-rigging system.",
+    features: ["Automatic skeleton generation", "Humanoid body proportion detection", "Full bone hierarchy (30+ bones)", "Inverse kinematics weight computation", "Vertex skinning application", "Visual bone mapping wizard", "Joint position fine-tuning", "IK chain length adjustment", "Real-time deformation preview", "T-pose and A-pose detection", "Rig-ready GLTF/GLB export", "Bone group presets (full body, upper, lower, hands)"],
+    requirements: ["React 18+ frontend", "Three.js / React Three Fiber", "WebGL-capable browser"],
+    includes: ["Full source code", "Rigging engine core", "Bone mapping UI wizard", "IK solver module", "Skinning weight calculator", "Deformation preview component", "Pose detection module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "React Three Fiber", "Zustand", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~1,900 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "gpu-particle-system", name: "GPU Particle System", icon: Sparkles, containerId: "demo-gpu-particles", color: "#f43f5e",
+    description: "High-performance GPU particle emitter with physics simulation and visual presets", price: 199, priceId: "price_widget_gpu_particles",
+    fullDescription: "GPU-accelerated particle system that renders thousands of particles at 60fps using WebGL instanced rendering. Includes 12 built-in presets (fire, smoke, rain, snow, sparks, magic, confetti, dust, fireflies, aurora, nebula, explosion) with full parameter control — emission rate, lifetime, velocity, gravity, turbulence, color gradients over lifetime, size curves, and blend modes. Supports texture atlas sprites, billboarding, world and local space modes, and burst emission triggers. Visual editor panel lets designers tweak every parameter with instant preview. Drop it onto any Three.js scene or use standalone as a canvas overlay for website effects. Extracted from TrustGen's production particle pipeline.",
+    features: ["GPU instanced rendering (10K+ particles)", "12 built-in presets", "Emission rate and burst controls", "Particle lifetime with fade", "Velocity, gravity, and turbulence", "Color gradient over lifetime", "Size curve editor", "Blend modes (additive, alpha, multiply)", "Texture atlas sprite support", "Billboarding and orientation modes", "World and local space modes", "Visual parameter editor panel", "Standalone canvas overlay mode"],
+    requirements: ["React 18+ or vanilla JS", "WebGL 2.0 capable browser", "Optional: Three.js for 3D scene integration"],
+    includes: ["Full source code", "Particle engine core", "12 preset configurations", "Visual editor UI", "Texture atlas loader", "Standalone overlay mode", "Three.js integration module", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["TypeScript", "WebGL 2.0", "Three.js", "React 18", "GLSL Shaders", "Tailwind CSS"],
+    linesOfCode: "~1,700 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "post-processing-pipeline", name: "Post-Processing Pipeline", icon: Palette, containerId: "demo-post-processing", color: "#8b5cf6",
+    description: "7 real-time visual effects with per-effect controls for Three.js scenes", price: 249, priceId: "price_widget_post_processing",
+    fullDescription: "Complete real-time post-processing pipeline for Three.js scenes with 7 production-grade visual effects: bloom (threshold, intensity, radius), SSAO (ambient occlusion with kernel size and radius), depth of field (focus distance, aperture, max blur), chromatic aberration (offset and intensity), film grain (intensity and speed), color grading (brightness, contrast, saturation, hue shift with LUT support), and vignette (offset and darkness). Each effect has a dedicated control panel with sliders and toggles. Effects are composable — stack any combination with per-effect enable/disable. Includes 8 visual presets (cinematic, noir, dreamy, vibrant, horror, sci-fi, vintage, clean). Extracted from TrustGen's production post-processing system.",
+    features: ["Bloom (threshold, intensity, radius)", "SSAO (kernel size, radius, bias)", "Depth of Field (focus, aperture, blur)", "Chromatic Aberration (offset, intensity)", "Film Grain (intensity, speed)", "Color Grading (B/C/S/hue + LUT)", "Vignette (offset, darkness)", "Per-effect enable/disable toggles", "8 visual presets", "Composable effect stacking", "Real-time preview", "Export/import effect configurations"],
+    requirements: ["React 18+ with Three.js", "@react-three/postprocessing", "WebGL 2.0 capable browser"],
+    includes: ["Full source code", "7 effect modules", "Control panel UI", "8 preset configurations", "Effect composition manager", "Config import/export", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Three.js", "@react-three/postprocessing", "pmndrs postprocessing", "Tailwind CSS"],
+    linesOfCode: "~1,400 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "monaco-code-editor", name: "Monaco Code Editor", icon: Code2, containerId: "demo-monaco-editor", color: "#06b6d4",
+    description: "VS Code-grade embeddable editor with 9 project templates and custom themes", price: 299, priceId: "price_widget_monaco_editor",
+    fullDescription: "Full VS Code-grade code editor widget powered by Monaco Editor with custom TrustGen Dark theme, JetBrains Mono font, and 9 ready-to-use project templates (React, Node.js, Python Flask, Vue, Next.js, Go, Rust, Django, TrustGen 3D Scene). Includes multi-tab editing with unsaved indicators, sidebar file tree with icons, command palette (Ctrl+K) with fuzzy search, IntelliSense autocomplete, syntax highlighting for 20+ languages, minimap, bracket matching, and code folding. Standalone or embeddable — drop it into any web app as a code playground, documentation code editor, or interactive tutorial environment. Extracted from TrustGen's production Studio IDE.",
+    features: ["Monaco Editor core (VS Code engine)", "Custom dark theme with design tokens", "JetBrains Mono font integration", "9 project templates with scaffolding", "Multi-tab editor with unsaved indicators", "Sidebar file tree with file type icons", "Command palette (Ctrl+K) with fuzzy search", "IntelliSense autocomplete", "Syntax highlighting (20+ languages)", "Minimap with preview", "Bracket matching and code folding", "Find and replace with regex", "Configurable keybindings", "Responsive sizing"],
+    requirements: ["React 18+ frontend", "monaco-editor npm package"],
+    includes: ["Full source code", "Editor wrapper component", "File tree component", "Tab management system", "Command palette", "9 template scaffolds", "Custom theme definition", "Keybinding configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Monaco Editor", "JetBrains Mono", "Tailwind CSS", "Zustand"],
+    linesOfCode: "~2,400 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-code-assistant", name: "AI Code Assistant", icon: Bot, containerId: "demo-ai-code-assistant", color: "#22c55e",
+    description: "GPT-4o chat panel with code blocks, copy/replace/insert actions, and agent mode", price: 249, priceId: "price_widget_ai_code_assistant",
+    fullDescription: "Embeddable AI coding assistant chat panel powered by GPT-4o with rich code block rendering, one-click copy/replace/insert actions, Markdown formatting, and conversation memory. Agent mode allows the AI to chain multiple operations (write file, run command, analyze output) autonomously. Chat messages render with syntax-highlighted code blocks that include action buttons to copy to clipboard, replace selected code in the editor, or insert at cursor position. Supports system prompts, temperature control, and context injection from the current file. Conversation history persists across sessions. Extracted from TrustGen's production AI assistant.",
+    features: ["GPT-4o integration with streaming", "Rich code block rendering", "Copy/replace/insert code actions", "Markdown message formatting", "Conversation memory and history", "Agent mode (multi-step operations)", "System prompt customization", "Temperature and model controls", "Context injection from active file", "Syntax highlighting in responses", "Session persistence", "Loading states with typing indicator", "Collapsible chat panel"],
+    requirements: ["React 18+ frontend", "Node.js backend", "OpenAI API key (GPT-4o)"],
+    includes: ["Full source code", "Chat panel UI", "Code block renderer with actions", "OpenAI streaming integration", "Agent mode engine", "Conversation persistence", "Backend proxy endpoint", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI GPT-4o", "Node.js", "Express", "Tailwind CSS", "Zustand"],
+    linesOfCode: "~1,800 lines (full stack)",
+    complexity: "Advanced"
+  },
+  {
+    id: "scene-hierarchy-tree", name: "Scene Hierarchy Tree", icon: Network, containerId: "demo-scene-hierarchy", color: "#f59e0b",
+    description: "Recursive tree view for managing 3D scene objects with drag-and-drop reordering", price: 129, priceId: "price_widget_scene_hierarchy",
+    fullDescription: "Reusable recursive tree-view component purpose-built for 3D scene management but adaptable to any hierarchical data. Displays nodes (meshes, lights, cameras, groups) in a collapsible tree with type-specific icons, visibility toggles, lock toggles, and selection highlighting. Supports drag-and-drop reordering and re-parenting of nodes within the hierarchy. Right-click context menu with rename, duplicate, delete, group, and ungroup actions. Includes search filtering across all nodes, multi-select with Shift/Ctrl, and keyboard navigation (arrow keys, Enter, Delete). Syncs with any external state manager via callback props. Extracted from TrustGen's production Scene Hierarchy panel.",
+    features: ["Recursive collapsible tree structure", "Type-specific node icons", "Visibility and lock toggles per node", "Selection highlighting with sync", "Drag-and-drop reordering", "Re-parenting via drag to group", "Right-click context menu", "Rename inline editing", "Duplicate and delete actions", "Group and ungroup operations", "Search filtering across nodes", "Multi-select (Shift/Ctrl)", "Keyboard navigation", "Callback props for state sync"],
+    requirements: ["React 18+ frontend"],
+    includes: ["Full source code", "Tree component", "Node renderer", "Drag-and-drop handler", "Context menu component", "Search filter module", "Multi-select manager", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "Zustand"],
+    linesOfCode: "~1,100 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "lume-repl", name: "Lume REPL", icon: Terminal, containerId: "demo-lume-repl", color: "#06b6d4",
+    description: "Interactive REPL widget for running Lume code in the browser", price: 199, priceId: "price_widget_lume_repl",
+    fullDescription: "Drop an interactive Lume REPL into any webpage and let users write, edit, and execute Lume code directly in the browser. Supports multi-line input with history navigation, syntax highlighting powered by the Lume tokenizer, real-time output display with stdout/stderr separation, and transpiled JavaScript preview. Ideal for documentation sites, learning platforms, and live demos of the Lume language. Extracted from the Lume toolchain runtime.",
+    features: ["Multi-line code input with history", "Lume syntax highlighting", "Real-time execution output", "stdout/stderr separation", "Transpiled JS preview panel", "Input history navigation (up/down arrows)", "Auto-indentation", "Error highlighting with line numbers", "Copy output to clipboard", "Resizable panels", "Dark and light themes", "Keyboard shortcuts (Ctrl+Enter to run)"],
+    requirements: ["React 18+ or vanilla JS", "Lume runtime bundle (~45KB gzipped)", "Modern browser with ES2020+ support"],
+    includes: ["Full source code", "Lume runtime bundle", "Syntax theme definitions", "Keyboard shortcut config", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Lume Runtime", "CodeMirror 6", "Tailwind CSS"],
+    linesOfCode: "~1,600 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "lume-playground", name: "Lume Code Playground", icon: Code2, containerId: "demo-lume-playground", color: "#14b8a6",
+    description: "Embeddable code editor with Lume syntax highlighting and transpiled JS output preview", price: 249, priceId: "price_widget_lume_playground",
+    fullDescription: "A full-featured embeddable code playground for the Lume programming language. Includes a split-pane editor with Lume source on the left and transpiled JavaScript output on the right, 12 example templates covering AI keywords, self-sustaining patterns, and standard library usage. Syntax highlighting follows the official Lume theme with support for all language constructs including ask/think/generate keywords. Real-time transpilation shows the JavaScript output as you type. Perfect for tutorials, documentation, and interactive learning experiences.",
+    features: ["Split-pane editor (Lume → JS)", "12 example templates", "Real-time transpilation preview", "Lume syntax highlighting (all keywords)", "ask/think/generate keyword support", "Auto-save with local storage", "Share via URL encoding", "Fullscreen mode", "Font size controls", "Line numbers and minimap", "Error overlay with suggestions", "Template gallery with descriptions"],
+    requirements: ["React 18+ frontend", "Lume transpiler bundle (~60KB gzipped)"],
+    includes: ["Full source code", "Lume transpiler bundle", "12 example templates", "Theme customization guide", "Embedding documentation", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Lume Transpiler", "Monaco Editor", "Tailwind CSS"],
+    linesOfCode: "~2,200 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "self-sustaining-dashboard", name: "Self-Sustaining Dashboard", icon: Activity, containerId: "demo-self-sustaining-dashboard", color: "#8b5cf6",
+    description: "Real-time monitoring dashboard for Lume's 4 self-sustaining runtime layers", price: 349, priceId: "price_widget_self_sustaining_dashboard",
+    fullDescription: "Monitor the four layers of Lume's self-sustaining runtime in real time: Self-Monitoring, Self-Healing, Self-Optimizing, and Self-Evolving. Each layer has its own metrics panel with live gauges, sparkline charts, event logs, and health indicators. The Self-Monitoring layer tracks memory usage, CPU cycles, and error rates. Self-Healing shows auto-recovery events, patch applications, and fallback activations. Self-Optimizing displays hot-path detection, cache hit rates, and JIT compilation stats. Self-Evolving visualizes model retraining cycles, fitness scores, and mutation history. Includes a unified timeline view that correlates events across all four layers.",
+    features: ["4-layer runtime monitoring", "Self-Monitoring: memory, CPU, errors", "Self-Healing: recovery events, patches", "Self-Optimizing: hot paths, cache, JIT", "Self-Evolving: retraining, fitness, mutations", "Live gauges and sparkline charts", "Event log with filtering", "Health status indicators", "Unified cross-layer timeline", "Configurable refresh intervals", "Alert thresholds with notifications", "Export metrics as JSON/CSV"],
+    requirements: ["React 18+ frontend", "WebSocket or SSE endpoint for live metrics", "Lume runtime with telemetry enabled"],
+    includes: ["Full source code", "4 layer panel components", "Gauge and sparkline components", "Timeline visualization", "Alert configuration", "Mock data generator for demos", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Recharts", "WebSocket", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~3,200 lines",
+    complexity: "Advanced"
+  },
+  {
+    id: "ai-keyword-demo", name: "AI Keyword Demo", icon: Brain, containerId: "demo-ai-keyword", color: "#38bdf8",
+    description: "Interactive widget demonstrating Lume's ask/think/generate keywords with live output", price: 149, priceId: "price_widget_ai_keyword_demo",
+    fullDescription: "An interactive demonstration widget that showcases Lume's three AI-native keywords: ask, think, and generate. Each keyword has its own tab with editable code examples, a run button, and a live output panel showing the AI response. The ask tab demonstrates natural language queries with structured responses. The think tab shows multi-step reasoning chains with intermediate outputs. The generate tab illustrates content creation with customizable parameters. Includes 6 pre-built examples per keyword and the ability to write custom prompts. Perfect for landing pages, documentation, and conference demos.",
+    features: ["Three-tab interface (ask/think/generate)", "Editable code examples per keyword", "Live output with streaming display", "6 pre-built examples per keyword", "Custom prompt input", "Response timing display", "Token usage breakdown", "Side-by-side Lume vs Python comparison", "Copy code snippets", "Shareable example URLs", "Dark and light themes", "Mobile-responsive layout"],
+    requirements: ["React 18+ or vanilla JS", "OpenAI API key for live demos", "Optional: Lume runtime for native execution"],
+    includes: ["Full source code", "18 pre-built examples", "API proxy endpoint", "Theme configuration", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "OpenAI API", "Tailwind CSS", "Framer Motion"],
+    linesOfCode: "~950 lines",
+    complexity: "Intermediate"
+  },
+  {
+    id: "lume-syntax-highlighter", name: "Lume Syntax Highlighter", icon: Palette, containerId: "demo-lume-syntax-highlighter", color: "#22c55e",
+    description: "Embeddable code block with Lume syntax highlighting, line numbers, and copy-to-clipboard", price: 79, priceId: "price_widget_lume_syntax_highlighter",
+    fullDescription: "A lightweight, embeddable syntax highlighter specifically designed for the Lume programming language. Renders Lume code blocks with accurate tokenization covering all language constructs: AI keywords (ask, think, generate), control flow, functions, types, string interpolation, and comments. Includes line numbers, copy-to-clipboard button, language badge, and four built-in themes (Dark Void, Cyberpunk, Ocean, Light). Supports line highlighting for tutorials, diff markers for changelogs, and word wrapping for responsive layouts. Under 15KB gzipped — perfect for blogs, documentation, and README files.",
+    features: ["Accurate Lume tokenization", "AI keyword highlighting (ask/think/generate)", "4 built-in themes", "Line numbers with toggle", "Copy-to-clipboard button", "Language badge display", "Line highlighting for tutorials", "Diff markers (+/-) support", "Word wrapping option", "Responsive layout", "SSR-compatible rendering", "Under 15KB gzipped"],
+    requirements: ["React 18+ or vanilla JS", "No external dependencies"],
+    includes: ["Full source code", "4 theme definitions", "Vanilla JS bundle", "React component wrapper", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS"],
+    linesOfCode: "~420 lines",
+    complexity: "Beginner"
+  },
+  {
+    id: "lume-pipeline-visualizer", name: "Language Pipeline Visualizer", icon: Layers, containerId: "demo-lume-pipeline", color: "#f59e0b",
+    description: "Animated visualization of the Lume compilation pipeline from source to JavaScript", price: 199, priceId: "price_widget_lume_pipeline",
+    fullDescription: "An animated, interactive visualization of the Lume language compilation pipeline. Shows the complete journey from .lume source code through the Lexer, Token Stream, Parser, AST, and Transpiler stages to final .js output. Each stage is a clickable node that expands to show intermediate representations — tokens with types, AST nodes as a collapsible tree, and the final JavaScript output. Animated data particles flow between stages to illustrate the transformation process. Users can input custom Lume code and watch it flow through the pipeline in real time. Includes a step-by-step mode for educational walkthroughs and a speed control for presentations.",
+    features: ["6-stage pipeline visualization", "Source → Lexer → Tokens → Parser → AST → JS", "Animated data flow particles", "Clickable stages with expanded views", "Token stream with type annotations", "AST as collapsible tree view", "Custom code input", "Real-time pipeline execution", "Step-by-step walkthrough mode", "Speed control for presentations", "Fullscreen mode", "Responsive SVG layout"],
+    requirements: ["React 18+ frontend", "Lume compiler bundle (~80KB gzipped)"],
+    includes: ["Full source code", "Pipeline stage components", "Animation engine", "Lume compiler integration", "5 example programs", "Setup guide", "30-day email support", "Lifetime updates"],
+    techStack: ["React 18", "TypeScript", "Framer Motion", "Lume Compiler", "Tailwind CSS", "SVG"],
+    linesOfCode: "~1,800 lines",
+    complexity: "Intermediate"
+  },
+];
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  type: "widget" | "snippet";
+}
+
+interface WidgetInfo {
+  id: string;
+  name: string;
+  icon: React.ComponentType<{ className?: string }>;
+  containerId: string;
+  color: string;
+  description: string;
+  price: number;
+  priceId: string;
+  fullDescription: string;
+  features: string[];
+  requirements: string[];
+  includes: string[];
+  techStack: string[];
+  linesOfCode: string;
+  complexity: string;
+  customizations?: string[];
+}
+
+// Widget name mapping for full code lookup
+const WIDGET_MAP: Record<string, string> = {
+  "TrustLayer Analytics Widget": "tl-analytics",
+  "Trade Estimator Widget": "tl-estimator",
+  "Booking Widget": "tl-booking",
+  "Lead Capture Widget": "tl-lead-capture",
+  "Review Display Widget": "tl-reviews",
+  "SEO Manager Widget": "tl-seo",
+  "Live Chat Widget": "tl-chat",
+  "Proposal Builder Widget": "tl-proposal",
+  "Crew Tracker / GPS Clock-In": "tl-crew-tracker",
+  "CRM Pipeline Manager": "tl-crm",
+  "Weather-Based Scheduling": "tl-weather",
+  "Signal Chat Widget": "tl-signal-chat",
+  "Effects Kit": "tl-effects-kit",
+};
+
+export default function TrustLayerHub() {
+  const [apps, setApps] = useState<EcosystemApp[]>([]);
+  const [snippets, setSnippets] = useState<CodeSnippet[]>([]);
+  const [stats, setStats] = useState<HubStats>({ totalApps: 0, totalSnippets: 0, totalDownloads: 0 });
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
+  const [codeModal, setCodeModal] = useState<{ open: boolean; title: string; code: string; lines: number; loading: boolean }>({
+    open: false,
+    title: "",
+    code: "",
+    lines: 0,
+    loading: false
+  });
+  const [selectedWidget, setSelectedWidget] = useState(0);
+  const [widgetTheme, setWidgetTheme] = useState<"light" | "dark" | "trustlayer">("trustlayer");
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [pulseModalOpen, setPulseModalOpen] = useState(false);
+  const [pulseFormData, setPulseFormData] = useState({
+    companyName: "",
+    contactName: "",
+    email: "",
+    phone: "",
+    tier: "",
+    useCase: "",
+    expectedVolume: "",
+    integrationNeeds: "",
+    currentTools: "",
+    timeline: "",
+    budgetRange: "",
+    additionalNotes: ""
+  });
+  const [pulseSubmitting, setPulseSubmitting] = useState(false);
+  const [pulseSubmitted, setPulseSubmitted] = useState(false);
+  const [aiChatOpen, setAiChatOpen] = useState(false);
+  const [aiMessages, setAiMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([
+    { role: "assistant", content: "Hello! I'm your Trust Layer AI assistant. I can help you explore our widgets, answer questions about the Trust Layer Hub, or assist with your development needs. How can I help you today?" }
+  ]);
+  const [aiInput, setAiInput] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleAiSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!aiInput.trim() || aiLoading) return;
+    
+    const userMessage = aiInput.trim();
+    setAiMessages(prev => [...prev, { role: "user", content: userMessage }]);
+    setAiInput("");
+    setAiLoading(true);
+    
+    try {
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage, context: "Trust Layer Hub assistant" })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAiMessages(prev => [...prev, { role: "assistant", content: data.response }]);
+      } else {
+        setAiMessages(prev => [...prev, { role: "assistant", content: "I apologize, but I'm having trouble connecting right now. Please try again or contact our team directly." }]);
+      }
+    } catch (error) {
+      setAiMessages(prev => [...prev, { role: "assistant", content: "I'm experiencing some technical difficulties. Our team is here to help - reach out via the contact page!" }]);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const isPulseProduct = (id: string) => id.startsWith("pulse");
+
+  const openPulseModal = (widgetId: string) => {
+    const tierMap: Record<string, string> = {
+      "pulse": "basic",
+      "pulse-pro": "pro",
+      "pulse-enterprise": "enterprise"
+    };
+    setPulseFormData(prev => ({ ...prev, tier: tierMap[widgetId] || "basic" }));
+    setPulseModalOpen(true);
+  };
+
+  const handlePulseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPulseSubmitting(true);
+    try {
+      const response = await fetch("/api/pulse-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pulseFormData)
+      });
+      if (response.ok) {
+        setPulseSubmitted(true);
+      }
+    } catch (error) {
+      console.error("Error submitting Pulse request:", error);
+    } finally {
+      setPulseSubmitting(false);
+    }
+  };
+
+  const addToCart = (item: CartItem) => {
+    if (!cart.find(c => c.id === item.id)) {
+      setCart(prev => [...prev, item]);
+    }
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(prev => prev.filter(c => c.id !== id));
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+  const handleCheckout = async (method: "stripe" | "coinbase") => {
+    if (cart.length === 0) return;
+    setCheckoutLoading(true);
+    
+    try {
+      const endpoint = method === "stripe" 
+        ? "/api/payments/stripe/cart-checkout"
+        : "/api/payments/coinbase/cart-checkout";
+        
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: cart }),
+      });
+      
+      const data = await response.json();
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || "Checkout failed");
+      }
+    } catch (err) {
+      alert("Checkout failed. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
+  const openFullCode = async (snippetTitle: string) => {
+    const widgetName = WIDGET_MAP[snippetTitle];
+    if (!widgetName) {
+      return;
+    }
+    
+    setCodeModal({ open: true, title: snippetTitle, code: "", lines: 0, loading: true });
+    
+    try {
+      const res = await fetch(`/api/ecosystem/widget-code/${widgetName}`);
+      const data = await res.json();
+      if (data.success) {
+        setCodeModal({ open: true, title: snippetTitle, code: data.code, lines: data.lines, loading: false });
+      } else {
+        setCodeModal(prev => ({ ...prev, loading: false, code: "// Error loading code" }));
+      }
+    } catch (err) {
+      setCodeModal(prev => ({ ...prev, loading: false, code: "// Error loading code" }));
+    }
+  };
+
+  const copyFullCode = async () => {
+    await navigator.clipboard.writeText(codeModal.code);
+    setCopiedId("modal");
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/ecosystem/apps").then(r => r.json()),
+      fetch("/api/ecosystem/snippets").then(r => r.json()),
+      fetch("/api/ecosystem/stats").then(r => r.json())
+    ]).then(([appsData, snippetsData, statsData]) => {
+      setApps(appsData.apps || []);
+      setSnippets(snippetsData.snippets || []);
+      setStats(statsData.stats || { totalApps: 0, totalSnippets: 0, totalDownloads: 0 });
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
+  }, []);
+
+  // Load live widget previews - ALL 17 widgets
+  useEffect(() => {
+    const loadWidgets = () => {
+      // All widget configurations
+      const widgetConfigs = [
+        { name: 'tl-estimator', container: 'demo-estimator', color: '#3b82f6', extra: { 'data-trade': 'painting' } },
+        { name: 'tl-lead-capture', container: 'demo-lead-capture', color: '#8b5cf6' },
+        { name: 'tl-reviews', container: 'demo-reviews', color: '#10b981' },
+        { name: 'tl-booking', container: 'demo-booking', color: '#f59e0b' },
+        { name: 'tl-analytics', container: 'demo-analytics', color: '#6366f1' },
+        { name: 'tl-chat', container: 'demo-chat', color: '#ec4899' },
+        { name: 'tl-crm', container: 'demo-crm', color: '#14b8a6' },
+        { name: 'tl-crew-tracker', container: 'demo-crew-tracker', color: '#f97316' },
+        { name: 'tl-proposal', container: 'demo-proposal', color: '#8b5cf6' },
+        { name: 'tl-seo', container: 'demo-seo', color: '#22c55e' },
+        { name: 'tl-weather', container: 'demo-weather', color: '#0ea5e9' },
+        { name: 'tl-golf-distance', container: 'demo-golf-distance', color: '#10b981' },
+        { name: 'tl-golf-handicap', container: 'demo-golf-handicap', color: '#f59e0b' },
+        { name: 'tl-golf-course-card', container: 'demo-golf-course-card', color: '#6366f1' },
+        { name: 'tl-golf-swing', container: 'demo-golf-swing', color: '#ec4899' },
+        { name: 'tl-golf-blog', container: 'demo-golf-blog', color: '#14b8a6' },
+        { name: 'tl-golf-analytics', container: 'demo-golf-analytics', color: '#8b5cf6' },
+      ];
+      
+      // Clear existing widget content
+      widgetConfigs.forEach(({ container }) => {
+        const el = document.getElementById(container);
+        if (el) el.innerHTML = '';
+      });
+      
+      // Remove any existing widget scripts and styles
+      document.querySelectorAll('script[data-widget-demo]').forEach(s => s.remove());
+      document.querySelectorAll('style[id^="tl-"]').forEach(s => s.remove());
+      
+      // Load all widgets
+      widgetConfigs.forEach(({ name, container, color, extra }) => {
+        const script = document.createElement('script');
+        script.src = `/widgets/${name}.js`;
+        script.setAttribute('data-widget-demo', 'true');
+        script.setAttribute('data-container', container);
+        script.setAttribute('data-primary-color', color);
+        if (extra) {
+          Object.entries(extra).forEach(([key, value]) => {
+            script.setAttribute(key, value);
+          });
+        }
+        document.body.appendChild(script);
+      });
+    };
+    
+    // Delay slightly to ensure containers are mounted
+    const timer = setTimeout(loadWidgets, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const copyCode = async (id: string, code: string) => {
+    await navigator.clipboard.writeText(code);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+    fetch(`/api/ecosystem/snippets/${id}/download`, { method: "POST" });
+  };
+
+  const likeSnippet = (id: string) => {
+    fetch(`/api/ecosystem/snippets/${id}/like`, { method: "POST" });
+    setSnippets(prev => prev.map(s => s.id === id ? { ...s, likes: s.likes + 1 } : s));
+  };
+
+  const filteredSnippets = snippets.filter(s => {
+    const matchesCategory = selectedCategory === "all" || s.category === selectedCategory;
+    const matchesSearch = !searchQuery || 
+      s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SEOHead
+        title="Trust Layer Hub - Code Marketplace & Developer Ecosystem"
+        description="Trust Layer Hub - Share, discover, and sync code snippets across all connected applications. The premium marketplace for verified widgets and components."
+        keywords="code marketplace, developer hub, code snippets, widgets, Trust Layer, blockchain verified code"
+        type="website"
+        url="https://darkwavestudios.com/hub"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://darkwavestudios.com/" },
+          { name: "Trust Layer Hub", url: "https://darkwavestudios.com/hub" }
+        ]}
+      />
+
+      <div className="fixed inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10 -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,200,255,0.1),transparent_50%)] -z-10" />
+
+      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3 lg:gap-4">
+            <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-home">
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <Shield className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />
+              </div>
+              <div>
+                <h1 className="font-display font-bold text-base lg:text-xl gradient-text" data-testid="text-hub-title">Trust Layer Hub</h1>
+                <p className="text-[8px] lg:text-[10px] text-muted-foreground hidden lg:block">Trust Layer Ecosystem</p>
+              </div>
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-muted-foreground"
+            data-testid="button-mobile-menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+          
+          <nav className="hidden lg:flex items-center gap-6">
+            <Link href="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="link-projects">Portfolio</Link>
+            <Link href="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="link-services">Services</Link>
+            <Link href="/contact" className="btn-glow bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold" data-testid="link-contact">
+              Get Started
+            </Link>
+          </nav>
+        </div>
+        
+        {mobileMenuOpen && (
+          <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 bg-background/95 backdrop-blur-xl border-t border-white/10 px-4 py-4 pb-20 overflow-y-auto z-50">
+            <nav className="flex flex-col gap-3">
+              <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-projects-mobile">Portfolio</Link>
+              <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="text-sm text-foreground hover:text-primary py-2" data-testid="link-services-mobile">Services</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="btn-glow bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold text-center" data-testid="link-contact-mobile">Get Started</Link>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
+        {/* BENTO GRID SECTION 1: Hero + Stats - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8"
+        >
+          {/* Hero Card - 3-col mobile / 8-col desktop */}
+          <div className="col-span-3 lg:col-span-8">
+            <GlassCard glow className="rounded-xl lg:rounded-3xl p-4 lg:p-8 relative overflow-hidden h-full">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
+              <div className="absolute top-0 right-0 w-48 lg:w-96 h-48 lg:h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-1.5 lg:gap-2 px-2 lg:px-3 py-0.5 lg:py-1 rounded-full bg-primary/20 text-primary text-[10px] lg:text-xs font-semibold mb-2 lg:mb-4" data-testid="badge-blockchain-verified">
+                  <Sparkles className="w-2.5 h-2.5 lg:w-3 lg:h-3" />
+                  Blockchain Verified
+                </div>
+                <h2 className="text-xl lg:text-4xl font-bold font-display mb-2 lg:mb-4" data-testid="text-hero-title">
+                  The Developer <span className="gradient-text">Marketplace</span>
+                </h2>
+                <p className="text-muted-foreground text-xs lg:text-base max-w-xl mb-3 lg:mb-6 line-clamp-2 lg:line-clamp-none" data-testid="text-hero-description">
+                  Share, discover, and sync code snippets across all connected Trust Layer applications.
+                </p>
+                <div className="flex flex-wrap gap-2 lg:gap-4">
+                  <a href="#snippets" className="btn-glow inline-flex items-center gap-1.5 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-2 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-sm font-semibold" data-testid="button-browse-snippets">
+                    Browse <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
+                  </a>
+                  <Link href="/contact" className="inline-flex items-center gap-1.5 glass px-3 lg:px-6 py-2 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-sm font-semibold hover:bg-white/10 transition-colors" data-testid="button-connect-app">
+                    Connect App
+                  </Link>
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+
+          {/* Stats Cards - 3-col mobile / 4-col desktop */}
+          <div className="col-span-3 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-4">
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-apps">16</div>
+              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-apps">Live Apps</div>
+            </GlassCard>
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-snippets">19</div>
+              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-snippets">Snippets</div>
+            </GlassCard>
+            <GlassCard variant="stat" className="rounded-xl lg:rounded-2xl p-3 lg:p-5 text-center card-3d">
+              <div className="text-xl lg:text-4xl font-bold gradient-text mb-0.5 lg:mb-1" data-testid="stat-widgets">70</div>
+              <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid="label-stat-widgets">Widgets</div>
+            </GlassCard>
+          </div>
+        </motion.section>
+
+        {/* BENTO GRID SECTION 2: Connected Apps - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        {apps.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8"
+          >
+            <div className="col-span-3 lg:col-span-12">
+              <GlassCard className="rounded-xl lg:rounded-2xl p-3 lg:p-6">
+                <div className="flex items-center justify-between mb-3 lg:mb-4">
+                  <h3 className="text-sm lg:text-xl font-bold font-display" data-testid="text-apps-title">
+                    Connected <span className="gradient-text">Apps</span>
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-[10px] lg:text-sm text-muted-foreground">
+                    <Activity className="w-3 h-3 lg:w-4 lg:h-4 text-green-400 animate-pulse" />
+                    <span data-testid="text-active-apps">{apps.length} Active</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-4">
+                  {apps.map((app) => (
+                    <div
+                      key={app.id}
+                      className="glass rounded-lg lg:rounded-xl p-2 lg:p-4 hover-lift group cursor-pointer"
+                      data-testid={`app-card-${app.id}`}
+                    >
+                      <div className="flex items-center gap-2 lg:gap-3 mb-1 lg:mb-2">
+                        <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-xs lg:text-lg flex-shrink-0">
+                          {app.logoUrl ? (
+                            <img src={app.logoUrl} alt={app.displayName} className="w-full h-full rounded-lg object-cover" />
+                          ) : (
+                            app.displayName.charAt(0)
+                          )}
+                        </div>
+                        {app.isVerified && (
+                          <Shield className="w-3 h-3 lg:w-4 lg:h-4 text-primary" />
+                        )}
+                      </div>
+                      <h4 className="font-bold font-display text-[10px] lg:text-sm group-hover:text-primary transition-colors line-clamp-1" data-testid={`text-app-name-${app.id}`}>{app.displayName}</h4>
+                    </div>
+                  ))}
+                </div>
+              </GlassCard>
+            </div>
+          </motion.section>
+        )}
+
+        {/* BENTO GRID SECTION 3: Search + Categories - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          id="snippets"
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-6 scroll-mt-24"
+        >
+          <div className="col-span-3 lg:col-span-12">
+            <GlassCard className="rounded-xl lg:rounded-2xl p-3 lg:p-6">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4 mb-3 lg:mb-4">
+                <h3 className="text-sm lg:text-xl font-bold font-display" data-testid="text-snippets-title">
+                  Code <span className="gradient-text">Snippets</span>
+                </h3>
+                <div className="relative w-full lg:w-64">
+                  <Search className="absolute left-2.5 lg:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-8 lg:pl-10 pr-3 lg:pr-4 py-1.5 lg:py-2 bg-white/5 border border-white/10 rounded-lg lg:rounded-xl text-xs lg:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    data-testid="input-search"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-1.5 lg:gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {categories.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1 lg:py-2 rounded-lg lg:rounded-xl text-[10px] lg:text-sm font-medium whitespace-nowrap transition-all ${
+                        selectedCategory === cat.id
+                          ? "bg-primary text-primary-foreground"
+                          : "glass hover:bg-white/10"
+                      }`}
+                      data-testid={`button-category-${cat.id}`}
+                    >
+                      <Icon className="w-3 h-3 lg:w-4 lg:h-4" />
+                      {cat.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </GlassCard>
+          </div>
+        </motion.section>
+
+        {/* BENTO GRID SECTION 4: Snippets Grid - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        <section className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4 mb-4 lg:mb-8">
+          {loading ? (
+            <>
+              {[1, 2, 3, 4].map((i) => (
+                <GlassCard key={i} className="col-span-3 lg:col-span-6 rounded-xl lg:rounded-2xl p-3 lg:p-6 animate-pulse">
+                  <div className="h-4 lg:h-6 bg-white/10 rounded w-1/2 mb-2 lg:mb-4" />
+                  <div className="h-3 lg:h-4 bg-white/10 rounded w-full mb-1 lg:mb-2" />
+                  <div className="h-16 lg:h-24 bg-white/10 rounded" />
+                </GlassCard>
+              ))}
+            </>
+          ) : filteredSnippets.length > 0 ? (
+            <>
+              {filteredSnippets.map((snippet) => (
+                <GlassCard
+                  key={snippet.id}
+                  className="col-span-3 lg:col-span-6 rounded-xl lg:rounded-2xl p-3 lg:p-5 gradient-border hover-lift group"
+                  data-testid={`snippet-${snippet.id}`}
+                >
+                  <div className="flex items-start justify-between mb-2 lg:mb-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 lg:gap-2 mb-0.5 lg:mb-1">
+                        <h4 className="font-bold font-display text-sm lg:text-lg truncate" data-testid={`text-snippet-title-${snippet.id}`}>{snippet.title}</h4>
+                        {snippet.isPremium && (
+                          <span className="px-1.5 lg:px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[8px] lg:text-[10px] font-semibold flex-shrink-0" data-testid={`badge-premium-${snippet.id}`}>
+                            PRO
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[10px] lg:text-sm text-muted-foreground line-clamp-1 lg:line-clamp-2" data-testid={`text-snippet-description-${snippet.id}`}>{snippet.description}</p>
+                    </div>
+                    <span className="px-1.5 lg:px-2 py-0.5 lg:py-1 rounded-md lg:rounded-lg bg-primary/20 text-primary text-[8px] lg:text-xs font-mono ml-2 flex-shrink-0" data-testid={`text-snippet-language-${snippet.id}`}>
+                      {snippet.language}
+                    </span>
+                  </div>
+
+                  <div className="relative mb-2 lg:mb-4">
+                    <pre className="bg-black/40 rounded-lg lg:rounded-xl p-2 lg:p-4 overflow-x-auto text-[10px] lg:text-xs font-mono text-gray-300 max-h-20 lg:max-h-32">
+                      <code>{snippet.code.slice(0, 200)}{snippet.code.length > 200 ? "..." : ""}</code>
+                    </pre>
+                    <button
+                      onClick={() => copyCode(snippet.id, snippet.code)}
+                      className="absolute top-1.5 lg:top-2 right-1.5 lg:right-2 p-1.5 lg:p-2 rounded-md lg:rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                      data-testid={`button-copy-${snippet.id}`}
+                    >
+                      {copiedId === snippet.id ? (
+                        <Check className="w-3 h-3 lg:w-4 lg:h-4 text-green-400" />
+                      ) : (
+                        <Copy className="w-3 h-3 lg:w-4 lg:h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="hidden lg:flex flex-wrap gap-1.5 mb-3" data-testid={`container-snippet-tags-${snippet.id}`}>
+                    {snippet.tags?.slice(0, 4).map((tag, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-full bg-white/5 text-xs text-muted-foreground" data-testid={`tag-${snippet.id}-${i}`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 lg:pt-3 border-t border-white/5">
+                    <div className="flex items-center gap-3 lg:gap-4 text-[10px] lg:text-sm text-muted-foreground">
+                      <span className="flex items-center gap-0.5 lg:gap-1" data-testid={`text-snippet-downloads-${snippet.id}`}>
+                        <Download className="w-3 h-3 lg:w-4 lg:h-4" />
+                        {snippet.downloads}
+                      </span>
+                      <button
+                        onClick={() => likeSnippet(snippet.id)}
+                        className="flex items-center gap-0.5 lg:gap-1 hover:text-red-400 transition-colors"
+                        data-testid={`button-like-${snippet.id}`}
+                      >
+                        <Heart className="w-3 h-3 lg:w-4 lg:h-4" />
+                        {snippet.likes}
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {WIDGET_MAP[snippet.title] && (
+                        <button
+                          onClick={() => openFullCode(snippet.title)}
+                          className="text-[8px] lg:text-xs px-2 py-1 rounded-md bg-primary/20 text-primary hover:bg-primary/30 transition-colors"
+                          data-testid={`button-view-full-${snippet.id}`}
+                        >
+                          View Full Code
+                        </button>
+                      )}
+                      <div className="text-[8px] lg:text-xs text-muted-foreground" data-testid={`text-snippet-author-${snippet.id}`}>
+                        by <span className="text-primary">{snippet.authorName || "Trust Layer"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
+            </>
+          ) : (
+            <GlassCard className="col-span-3 lg:col-span-12 rounded-xl lg:rounded-2xl p-6 lg:p-12 text-center" data-testid="empty-state-snippets">
+              <Code2 className="w-10 h-10 lg:w-16 lg:h-16 text-muted-foreground mx-auto mb-2 lg:mb-4 opacity-50" />
+              <h4 className="text-base lg:text-xl font-bold font-display mb-1 lg:mb-2" data-testid="text-empty-title">No Snippets Yet</h4>
+              <p className="text-xs lg:text-sm text-muted-foreground mb-4 lg:mb-6" data-testid="text-empty-description">
+                Be the first to share code with the Trust Layer ecosystem.
+              </p>
+              <Link 
+                href="/contact"
+                className="btn-glow inline-flex items-center gap-1.5 lg:gap-2 bg-primary text-primary-foreground px-4 lg:px-6 py-2 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-sm font-semibold"
+                data-testid="button-contribute"
+              >
+                Contribute <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
+              </Link>
+            </GlassCard>
+          )}
+        </section>
+
+        {/* WIDGET STOREFRONT - Compact Tab/Carousel Interface */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+        <GlassCard glow className="rounded-xl lg:rounded-2xl p-4 lg:p-6 mb-4 lg:mb-8">
+          <div className="flex items-center justify-between mb-4 lg:mb-6">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
+              <h3 className="font-display font-bold text-sm lg:text-xl" data-testid="text-live-preview-title">Widget Storefront</h3>
+              <span className="hidden lg:inline px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">{widgetsList.length} LIVE WIDGETS</span>
+            </div>
+          </div>
+          
+          {/* Widget Selector Tabs - Horizontal Scroll */}
+          <div className="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar-hide">
+            {widgetsList.map((widget, index) => {
+              const Icon = widget.icon;
+              return (
+                <button
+                  key={widget.id}
+                  onClick={() => setSelectedWidget(index)}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-xl text-xs lg:text-sm font-medium whitespace-nowrap transition-all ${
+                    selectedWidget === index
+                      ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg"
+                      : "bg-white/5 border border-white/10 hover:bg-white/10"
+                  }`}
+                  data-testid={`widget-tab-${widget.id}`}
+                >
+                  <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                  <span className="hidden sm:inline">{widget.name}</span>
+                </button>
+              );
+            })}
+          </div>
+          
+          {/* Selected Widget Preview */}
+          <div className="grid lg:grid-cols-2 gap-4 lg:gap-6">
+            {/* Widget Info */}
+            <div className="order-2 lg:order-1 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-3">
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: `${widgetsList[selectedWidget].color}20` }}
+                >
+                  {(() => {
+                    const Icon = widgetsList[selectedWidget].icon;
+                    return <Icon className="w-6 h-6" style={{ color: widgetsList[selectedWidget].color }} />;
+                  })()}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold font-display text-lg lg:text-xl">{widgetsList[selectedWidget].name}</h4>
+                    <div className="text-xl lg:text-2xl font-bold text-primary">${widgetsList[selectedWidget].price}</div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] font-semibold">LIVE DEMO</span>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">{widgetsList[selectedWidget].description}</p>
+              <div className="flex flex-wrap gap-2">
+                {isPulseProduct(widgetsList[selectedWidget].id) ? (
+                  <button 
+                    onClick={() => openPulseModal(widgetsList[selectedWidget].id)}
+                    className="btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600"
+                    data-testid={`request-access-${widgetsList[selectedWidget].id}`}
+                  >
+                    <Zap className="w-4 h-4" /> Request Access - Starting at ${widgetsList[selectedWidget].price}
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => addToCart({ 
+                      id: widgetsList[selectedWidget].id, 
+                      name: widgetsList[selectedWidget].name, 
+                      price: widgetsList[selectedWidget].price,
+                      type: "widget"
+                    })}
+                    className={`btn-glow inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                      cart.find(c => c.id === widgetsList[selectedWidget].id)
+                        ? "bg-green-600 text-white"
+                        : "bg-primary text-white"
+                    }`}
+                    data-testid={`add-to-cart-${widgetsList[selectedWidget].id}`}
+                  >
+                    {cart.find(c => c.id === widgetsList[selectedWidget].id) ? (
+                      <><Check className="w-4 h-4" /> Added to Cart</>
+                    ) : (
+                      <><ShoppingCart className="w-4 h-4" /> Add to Cart - ${widgetsList[selectedWidget].price}</>
+                    )}
+                  </button>
+                )}
+                {!isPulseProduct(widgetsList[selectedWidget].id) && (
+                  <button className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 transition-all">
+                    <Code2 className="w-4 h-4" /> View Source
+                  </button>
+                )}
+              </div>
+            </div>
+            
+            {/* Widget Preview Container */}
+            <div className="order-1 lg:order-2 relative">
+              {/* Theme Toggle */}
+              <div className="absolute top-2 right-2 z-20 flex items-center gap-1 bg-black/80 backdrop-blur-md rounded-full p-1 border border-white/20">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("trustlayer"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/30" 
+                      : "text-white/60 hover:text-white"
+                  }`}
+                  data-testid="theme-trustlayer"
+                >
+                  Aurora
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("dark"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    widgetTheme === "dark" 
+                      ? "bg-slate-800 text-cyan-400 shadow" 
+                      : "text-white/60 hover:text-white"
+                  }`}
+                  data-testid="theme-dark"
+                >
+                  Dark
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setWidgetTheme("light"); }}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    widgetTheme === "light" 
+                      ? "bg-white text-gray-800 shadow" 
+                      : "text-white/60 hover:text-white"
+                  }`}
+                  data-testid="theme-light"
+                >
+                  Light
+                </button>
+              </div>
+
+              <div className={`rounded-xl overflow-hidden transition-all relative ${
+                widgetTheme === "trustlayer" 
+                  ? "bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 text-gray-100" 
+                  : widgetTheme === "dark" 
+                    ? "bg-slate-900 text-gray-100" 
+                    : "bg-white text-gray-800"
+              }`} style={{ minHeight: '320px' }}>
+              {/* Aurora glow overlay for Trust Layer theme */}
+              {widgetTheme === "trustlayer" && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <div className="absolute -top-20 -left-20 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute top-1/2 -right-10 w-32 h-32 bg-purple-500/15 rounded-full blur-3xl"></div>
+                  <div className="absolute -bottom-10 left-1/3 w-36 h-36 bg-pink-500/10 rounded-full blur-3xl"></div>
+                </div>
+              )}
+              {/* Trade Estimator Demo */}
+              {widgetsList[selectedWidget].id === "estimator" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-4">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Project Estimator</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Get instant pricing</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className="flex justify-between text-sm items-center">
+                      <span className={widgetTheme === "trustlayer" ? "text-gray-300" : ""}>Project Type</span>
+                      <select className={`rounded-full px-3 py-1.5 text-xs transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/10 backdrop-blur-sm border border-cyan-500/30 text-cyan-200 shadow-lg shadow-cyan-500/10" 
+                          : widgetTheme === "dark" 
+                            ? "bg-slate-800 border-slate-700 text-white" 
+                            : "border bg-white"
+                      }`}><option>Interior Painting</option></select>
+                    </div>
+                    <div className="flex justify-between text-sm items-center">
+                      <span className={widgetTheme === "trustlayer" ? "text-gray-300" : ""}>Square Feet</span>
+                      <input type="number" className={`rounded-full px-3 py-1.5 w-24 text-xs text-center transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 text-purple-200 shadow-lg shadow-purple-500/10" 
+                          : widgetTheme === "dark" 
+                            ? "bg-slate-800 border-slate-700 text-white" 
+                            : "border bg-white"
+                      }`} value="1500" readOnly />
+                    </div>
+                    <div className="flex justify-between text-sm items-center">
+                      <span className={widgetTheme === "trustlayer" ? "text-gray-300" : ""}>Rooms</span>
+                      <input type="number" className={`rounded-full px-3 py-1.5 w-24 text-xs text-center transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/10 backdrop-blur-sm border border-pink-500/30 text-pink-200 shadow-lg shadow-pink-500/10" 
+                          : widgetTheme === "dark" 
+                            ? "bg-slate-800 border-slate-700 text-white" 
+                            : "border bg-white"
+                      }`} value="4" readOnly />
+                    </div>
+                    <div className={`rounded-xl p-4 mt-4 transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-400/30 shadow-xl shadow-cyan-500/20" 
+                        : widgetTheme === "dark" 
+                          ? "bg-blue-900/50" 
+                          : "bg-blue-50"
+                    }`}>
+                      <div className={`text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-blue-400" : "text-blue-600"}`}>Estimated Total</div>
+                      <div className={`text-3xl font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg" : widgetTheme === "dark" ? "text-blue-300" : "text-blue-700"}`}>$2,450</div>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-full text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.02]" 
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                  }`}>Get Full Quote</button>
+                </div>
+              )}
+              {/* Lead Capture Demo */}
+              {widgetsList[selectedWidget].id === "lead-capture" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-4">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Get a Free Consultation</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>We'll get back to you within 24 hours</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <input className={`w-full px-4 py-2.5 text-sm transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 rounded-full text-purple-100 placeholder-purple-300/50 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 shadow-lg shadow-purple-500/10" 
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                          : "border rounded-lg bg-white"
+                    }`} placeholder="Your Name" defaultValue="John Smith" />
+                    <input className={`w-full px-4 py-2.5 text-sm transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-white/10 backdrop-blur-sm border border-cyan-500/30 rounded-full text-cyan-100 placeholder-cyan-300/50 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 shadow-lg shadow-cyan-500/10" 
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                          : "border rounded-lg bg-white"
+                    }`} placeholder="Email Address" defaultValue="john@email.com" />
+                    <input className={`w-full px-4 py-2.5 text-sm transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-white/10 backdrop-blur-sm border border-pink-500/30 rounded-full text-pink-100 placeholder-pink-300/50 focus:border-pink-400 focus:ring-2 focus:ring-pink-500/20 shadow-lg shadow-pink-500/10" 
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                          : "border rounded-lg bg-white"
+                    }`} placeholder="Phone Number" defaultValue="(555) 123-4567" />
+                    <textarea className={`w-full px-4 py-2.5 text-sm resize-none transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-white/10 backdrop-blur-sm border border-indigo-500/30 rounded-2xl text-indigo-100 placeholder-indigo-300/50 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 shadow-lg shadow-indigo-500/10" 
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                          : "border rounded-lg bg-white"
+                    }`} rows={2} placeholder="Tell us about your project"></textarea>
+                  </div>
+                  <button className={`w-full py-2.5 text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]" 
+                      : "bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                  }`}>Submit Request</button>
+                </div>
+              )}
+              {/* Reviews Demo */}
+              {widgetsList[selectedWidget].id === "reviews" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-yellow-300 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Customer Reviews</div>
+                    <div className="flex items-center justify-center gap-1">
+                      <span className={widgetTheme === "trustlayer" ? "text-amber-400 drop-shadow-lg shadow-amber-400" : "text-yellow-500"}>{"★★★★★".split("").map((s,i)=><span key={i} className={widgetTheme === "trustlayer" ? "drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]" : ""}>{s}</span>)}</span>
+                      <span className={`text-sm ml-1 ${widgetTheme === "trustlayer" ? "text-amber-200/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>4.9 (127 reviews)</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {[{name:"Sarah M.", text:"Excellent work! Transformed our kitchen.", rating:5},{name:"Mike R.", text:"Professional team, on time and on budget.", rating:5},{name:"Lisa T.", text:"Highly recommend for any painting project.", rating:5}].map((r,i)=>(
+                      <div key={i} className={`rounded-xl p-3 transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/5 backdrop-blur-sm border border-amber-500/20 hover:border-amber-400/40 shadow-lg shadow-amber-500/5" 
+                          : widgetTheme === "dark"
+                            ? "bg-slate-800/50"
+                            : "bg-gray-50"
+                      }`}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className={`font-semibold text-sm ${widgetTheme === "trustlayer" ? "text-amber-100" : widgetTheme === "dark" ? "text-white" : ""}`}>{r.name}</span>
+                          <span className={`text-xs ${widgetTheme === "trustlayer" ? "text-amber-400" : "text-yellow-500"}`}>{"★".repeat(r.rating)}</span>
+                        </div>
+                        <p className={`text-xs ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>{r.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Booking Demo */}
+              {widgetsList[selectedWidget].id === "booking" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-300 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Book an Appointment</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-amber-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Select a date and time</div>
+                  </div>
+                  <div className={`grid grid-cols-7 gap-1 text-center text-xs mb-3 ${widgetTheme === "trustlayer" ? "text-gray-400" : ""}`}>
+                    {["S","M","T","W","T","F","S"].map((d,i)=><div key={i} className={widgetTheme === "trustlayer" ? "text-cyan-400/70" : "text-gray-400"}>{d}</div>)}
+                    {[...Array(31)].map((_,i)=><div key={i} className={`p-1 rounded-lg transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? i===14
+                          ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30"
+                          : i>14&&i<18
+                            ? "bg-amber-500/20 text-amber-200 border border-amber-500/30"
+                            : "text-gray-400 hover:bg-white/10"
+                        : i===14
+                          ? "bg-amber-500 text-white"
+                          : i>14&&i<18
+                            ? "bg-amber-100"
+                            : "hover:bg-gray-100"
+                    }`}>{i+1}</div>)}
+                  </div>
+                  <div className="flex gap-2 flex-wrap mb-3">
+                    {["9:00 AM","10:30 AM","2:00 PM","4:30 PM"].map((t,i)=><button key={i} className={`px-3 py-1.5 text-xs transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? i===1
+                          ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full shadow-lg shadow-amber-500/30"
+                          : "bg-white/10 border border-amber-500/30 rounded-full text-amber-200 hover:bg-amber-500/20"
+                        : i===1
+                          ? "bg-amber-500 text-white rounded"
+                          : "border hover:bg-gray-50 rounded"
+                    }`}>{t}</button>)}
+                  </div>
+                  <button className={`w-full py-2.5 text-sm font-semibold mt-auto transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 hover:scale-[1.02]"
+                      : "bg-amber-500 text-white rounded-lg"
+                  }`}>Confirm Booking</button>
+                </div>
+              )}
+              {/* Analytics Demo */}
+              {widgetsList[selectedWidget].id === "analytics" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Analytics</div>
+                    <select className={`text-xs px-3 py-1.5 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/10 border border-indigo-500/30 rounded-full text-indigo-200"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border-slate-700 text-white rounded"
+                          : "border rounded"
+                    }`}><option>Last 7 days</option></select>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className={`rounded-xl p-2 text-center transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-indigo-500/20 border border-indigo-500/30 shadow-lg shadow-indigo-500/10" 
+                        : widgetTheme === "dark" ? "bg-indigo-900/50" : "bg-indigo-50"
+                    }`}>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-indigo-300" : widgetTheme === "dark" ? "text-indigo-400" : "text-indigo-600"}`}>2,847</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-indigo-300/60" : "text-gray-500"}`}>Visitors</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-green-500/20 border border-green-500/30 shadow-lg shadow-green-500/10" 
+                        : widgetTheme === "dark" ? "bg-green-900/50" : "bg-green-50"
+                    }`}>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-green-300" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>4.2%</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-green-300/60" : "text-gray-500"}`}>Conv Rate</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                        : widgetTheme === "dark" ? "bg-purple-900/50" : "bg-purple-50"
+                    }`}>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>$12.4k</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Revenue</div>
+                    </div>
+                  </div>
+                  <div className="h-24 flex items-end gap-1">
+                    {[40,65,45,80,60,90,75].map((h,i)=><div key={i} className={`flex-1 rounded-t transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-t from-indigo-600 to-purple-500 shadow-lg shadow-indigo-500/30"
+                        : "bg-indigo-500"
+                    }`} style={{height:`${h}%`}}></div>)}
+                  </div>
+                  <div className={`flex justify-between text-[10px] mt-1 ${widgetTheme === "trustlayer" ? "text-indigo-300/50" : "text-gray-400"}`}>{["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=><span key={d}>{d}</span>)}</div>
+                </div>
+              )}
+              {/* Chat Demo */}
+              {widgetsList[selectedWidget].id === "chat" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className={`flex items-center gap-2 mb-3 pb-2 border-b ${widgetTheme === "trustlayer" ? "border-pink-500/30" : widgetTheme === "dark" ? "border-slate-700" : ""}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg shadow-pink-500/30" 
+                        : "bg-pink-500"
+                    }`}>AI</div>
+                    <div>
+                      <div className={`font-semibold text-sm ${widgetTheme === "trustlayer" ? "text-pink-100" : widgetTheme === "dark" ? "text-white" : ""}`}>Support Chat</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400" : "text-green-500"}`}>● Online</div>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-2 overflow-auto">
+                    <div className="flex gap-2">
+                      <div className={`rounded-2xl rounded-tl-sm p-3 text-xs max-w-[80%] ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/20 text-purple-100" 
+                          : widgetTheme === "dark" ? "bg-slate-700 text-white" : "bg-gray-100"
+                      }`}>Hi! How can I help you today?</div>
+                    </div>
+                    <div className="flex gap-2 justify-end">
+                      <div className={`rounded-2xl rounded-tr-sm p-3 text-xs max-w-[80%] ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30" 
+                          : "bg-pink-500 text-white"
+                      }`}>I need a quote for my project</div>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className={`rounded-2xl rounded-tl-sm p-3 text-xs max-w-[80%] ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/20 text-purple-100" 
+                          : widgetTheme === "dark" ? "bg-slate-700 text-white" : "bg-gray-100"
+                      }`}>I'd be happy to help! What type of project are you looking for?</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <input className={`flex-1 rounded-full px-4 py-2 text-xs ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-white/10 backdrop-blur-sm border border-pink-500/30 text-pink-100 placeholder-pink-300/50" 
+                        : widgetTheme === "dark" ? "bg-slate-800 border border-slate-700 text-white" : "border"
+                    }`} placeholder="Type a message..." />
+                    <button className={`rounded-full w-9 h-9 flex items-center justify-center text-sm transition-all ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40" 
+                        : "bg-pink-500 text-white"
+                    }`}>→</button>
+                  </div>
+                </div>
+              )}
+              {/* CRM Demo */}
+              {widgetsList[selectedWidget].id === "crm" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Sales Pipeline</div>
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {[
+                      {stage:"Lead",tlColor:"from-gray-500/30 to-gray-600/30",lightColor:"bg-gray-200",items:["ABC Corp","XYZ Inc"]},
+                      {stage:"Quoted",tlColor:"from-amber-500/30 to-orange-500/30",lightColor:"bg-amber-100",items:["Smith Home"]},
+                      {stage:"Won",tlColor:"from-green-500/30 to-emerald-500/30",lightColor:"bg-green-100",items:["Johnson Proj"]}
+                    ].map((s,i)=>(
+                      <div key={i} className="min-w-[100px] flex-shrink-0">
+                        <div className={`rounded-t-xl px-2 py-1.5 text-xs font-semibold ${
+                          widgetTheme === "trustlayer" 
+                            ? `bg-gradient-to-r ${s.tlColor} backdrop-blur-sm border border-white/10 text-white` 
+                            : widgetTheme === "dark" ? "bg-slate-700 text-white" : s.lightColor
+                        }`}>{s.stage}</div>
+                        <div className={`border-t-0 rounded-b-xl p-1.5 space-y-1.5 min-h-[100px] ${
+                          widgetTheme === "trustlayer" 
+                            ? "bg-white/5 border border-t-0 border-white/10" 
+                            : widgetTheme === "dark" ? "bg-slate-800/50 border border-slate-700" : "border"
+                        }`}>
+                          {s.items.map((item,j)=><div key={j} className={`rounded-lg p-2 text-[10px] ${
+                            widgetTheme === "trustlayer" 
+                              ? "bg-white/10 backdrop-blur-sm border border-cyan-500/20 text-cyan-100 shadow-md shadow-cyan-500/5" 
+                              : widgetTheme === "dark" ? "bg-slate-700 text-white" : "bg-white border shadow-sm"
+                          }`}>{item}</div>)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Crew Tracker Demo */}
+              {widgetsList[selectedWidget].id === "crew-tracker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Crew Status</div>
+                    <span className={`text-xs px-3 py-1 rounded-full font-medium ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-green-500/20 text-green-300 border border-green-500/30 shadow-lg shadow-green-500/20" 
+                        : widgetTheme === "dark" ? "bg-green-900/50 text-green-400" : "bg-green-100 text-green-700"
+                    }`}>3 Active</span>
+                  </div>
+                  <div className="space-y-2">
+                    {[{name:"Mike Johnson",status:"On Site",location:"123 Main St",time:"8:32 AM"},{name:"Sarah Williams",status:"In Transit",location:"456 Oak Ave",time:"9:15 AM"},{name:"Tom Brown",status:"On Break",location:"789 Pine Rd",time:"10:00 AM"}].map((c,i)=>(
+                      <div key={i} className={`flex items-center gap-3 p-2.5 rounded-xl transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/5 backdrop-blur-sm border border-orange-500/20 hover:border-orange-400/40" 
+                          : widgetTheme === "dark" ? "bg-slate-800/50" : "bg-gray-50"
+                      }`}>
+                        <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-medium ${
+                          widgetTheme === "trustlayer" 
+                            ? "bg-gradient-to-r from-orange-500 to-amber-500 shadow-lg shadow-orange-500/30" 
+                            : "bg-orange-500"
+                        }`}>{c.name.split(" ").map(n=>n[0]).join("")}</div>
+                        <div className="flex-1">
+                          <div className={`text-sm font-semibold ${widgetTheme === "trustlayer" ? "text-orange-100" : widgetTheme === "dark" ? "text-white" : ""}`}>{c.name}</div>
+                          <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{c.location}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-[10px] px-2.5 py-0.5 rounded-full font-medium ${
+                            widgetTheme === "trustlayer"
+                              ? c.status==="On Site"
+                                ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                                : c.status==="In Transit"
+                                  ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                  : "bg-gray-500/20 text-gray-300 border border-gray-500/30"
+                              : c.status==="On Site"
+                                ? "bg-green-100 text-green-700"
+                                : c.status==="In Transit"
+                                  ? "bg-blue-100 text-blue-700"
+                                  : "bg-gray-200 text-gray-600"
+                          }`}>{c.status}</div>
+                          <div className={`text-[10px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{c.time}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Proposal Demo */}
+              {widgetsList[selectedWidget].id === "proposal" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Proposal Builder</div>
+                  <div className={`rounded-xl p-4 mb-3 flex-1 ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-white/5 backdrop-blur-sm border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                      : widgetTheme === "dark" ? "bg-slate-800/50 border border-slate-700" : "border"
+                  }`}>
+                    <div className="flex justify-between text-sm mb-3">
+                      <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-purple-100" : widgetTheme === "dark" ? "text-white" : ""}`}>Kitchen Renovation</span>
+                      <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>$8,500</span>
+                    </div>
+                    <div className={`space-y-1.5 text-xs ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                      <div className="flex justify-between"><span>Cabinet Painting</span><span>$2,500</span></div>
+                      <div className="flex justify-between"><span>Wall Painting</span><span>$1,800</span></div>
+                      <div className="flex justify-between"><span>Ceiling Work</span><span>$1,200</span></div>
+                      <div className="flex justify-between"><span>Materials</span><span>$3,000</span></div>
+                    </div>
+                    <div className={`border-t mt-3 pt-3 flex justify-between text-sm font-semibold ${
+                      widgetTheme === "trustlayer" 
+                        ? "border-purple-500/30 text-purple-200" 
+                        : widgetTheme === "dark" ? "border-slate-700 text-white" : ""
+                    }`}><span>Total</span><span className={widgetTheme === "trustlayer" ? "text-purple-300" : ""}>$8,500</span></div>
+                  </div>
+                  <button className={`w-full py-2.5 text-sm font-semibold transition-all ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]" 
+                      : "bg-purple-600 text-white rounded-lg"
+                  }`}>Send Proposal</button>
+                </div>
+              )}
+              {/* SEO Demo */}
+              {widgetsList[selectedWidget].id === "seo" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-green-300 to-emerald-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>SEO Score</div>
+                    <div className={`text-2xl font-bold ${widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>85<span className={`text-sm ${widgetTheme === "trustlayer" ? "text-green-300/50" : "text-gray-400"}`}>/100</span></div>
+                  </div>
+                  <div className="space-y-3">
+                    {[{label:"Meta Tags",score:95,tlGrad:"from-green-500 to-emerald-500",color:"bg-green-500"},{label:"Page Speed",score:78,tlGrad:"from-amber-500 to-orange-500",color:"bg-amber-500"},{label:"Mobile",score:92,tlGrad:"from-green-500 to-teal-500",color:"bg-green-500"},{label:"Keywords",score:75,tlGrad:"from-amber-500 to-yellow-500",color:"bg-amber-500"}].map((s,i)=>(
+                      <div key={i}>
+                        <div className={`flex justify-between text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : ""}`}><span>{s.label}</span><span className={widgetTheme === "trustlayer" ? "text-cyan-300" : ""}>{s.score}%</span></div>
+                        <div className={`h-2.5 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : widgetTheme === "dark" ? "bg-slate-700" : "bg-gray-100"}`}>
+                          <div className={`h-full rounded-full transition-all ${widgetTheme === "trustlayer" ? `bg-gradient-to-r ${s.tlGrad} shadow-lg` : s.color}`} style={{width:`${s.score}%`}}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`mt-4 p-3 rounded-xl text-xs ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-amber-500/20 border border-amber-500/30 text-amber-200" 
+                      : widgetTheme === "dark" ? "bg-amber-900/30 text-amber-400" : "bg-amber-50 text-amber-700"
+                  }`}>3 issues found. <span className="underline cursor-pointer">View details</span></div>
+                </div>
+              )}
+              {/* Weather Demo */}
+              {widgetsList[selectedWidget].id === "weather" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
+                  <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Weather Schedule</div>
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {[{day:"Mon",icon:"☀️",temp:"72°",status:"Good"},{day:"Tue",icon:"🌤",temp:"68°",status:"Good"},{day:"Wed",icon:"🌧",temp:"55°",status:"Delay"},{day:"Thu",icon:"☀️",temp:"70°",status:"Good"},{day:"Fri",icon:"☀️",temp:"74°",status:"Good"}].map((d,i)=>(
+                      <div key={i} className={`min-w-[60px] text-center p-2.5 rounded-xl transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? d.status==="Delay"
+                            ? "bg-red-500/20 border border-red-500/40 shadow-lg shadow-red-500/20"
+                            : "bg-sky-500/20 border border-sky-500/30"
+                          : d.status==="Delay"
+                            ? "bg-red-50 border-red-200 border"
+                            : "bg-sky-50 border"
+                      }`}>
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-sky-200" : ""}`}>{d.day}</div>
+                        <div className="text-2xl my-1">{d.icon}</div>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-white" : ""}`}>{d.temp}</div>
+                        <div className={`text-[10px] mt-1 font-medium ${
+                          widgetTheme === "trustlayer"
+                            ? d.status==="Delay" ? "text-red-300" : "text-green-300"
+                            : d.status==="Delay" ? "text-red-600" : "text-green-600"
+                        }`}>{d.status}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`mt-3 p-3 rounded-xl text-xs ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-sky-500/20 border border-sky-500/30 text-sky-200" 
+                      : widgetTheme === "dark" ? "bg-sky-900/30 text-sky-400" : "bg-sky-50 text-sky-700"
+                  }`}>Wednesday rain expected - consider rescheduling outdoor work.</div>
+                </div>
+              )}
+              {/* Pulse Demo */}
+              {widgetsList[selectedWidget].id === "pulse" && (
+                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-red-50 to-orange-50" : ""}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(239,68,68,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Pulse</div>
+                    <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-green-500/20 border border-green-500/40 shadow-lg shadow-green-500/20" 
+                        : widgetTheme === "dark" ? "bg-green-900/50" : "bg-green-100"
+                    }`}>
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
+                      <span className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-green-300" : widgetTheme === "dark" ? "text-green-400" : "text-green-700"}`}>LIVE</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-green-500/20 border border-green-500/30 shadow-lg shadow-green-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "text-green-300 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>67.3%</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-green-300/60" : "text-gray-500"}`}>Win Rate</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-blue-500/20 border border-blue-500/30 shadow-lg shadow-blue-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "text-blue-300 drop-shadow-[0_0_8px_rgba(96,165,250,0.5)]" : widgetTheme === "dark" ? "text-blue-400" : "text-blue-600"}`}>103.2K</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-blue-300/60" : "text-gray-500"}`}>Predictions</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "text-purple-300 drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>94.1%</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Confidence</div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {[{asset:"BTC/USD",signal:"LONG",conf:89,time:"2m ago"},{asset:"ETH/USD",signal:"SHORT",conf:76,time:"8m ago"},{asset:"SOL/USD",signal:"LONG",conf:92,time:"12m ago"}].map((s,i)=>(
+                      <div key={i} className={`flex items-center justify-between rounded-xl p-2.5 transition-all ${
+                        widgetTheme === "trustlayer" 
+                          ? "bg-white/5 backdrop-blur-sm border border-red-500/20 hover:border-red-400/40" 
+                          : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                      }`}>
+                        <div className="flex items-center gap-2">
+                          <span className={`font-semibold text-sm ${widgetTheme === "trustlayer" ? "text-red-100" : widgetTheme === "dark" ? "text-white" : ""}`}>{s.asset}</span>
+                          <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold ${
+                            widgetTheme === "trustlayer"
+                              ? s.signal==="LONG"
+                                ? "bg-green-500/30 text-green-300 border border-green-500/40 shadow-md shadow-green-500/20"
+                                : "bg-red-500/30 text-red-300 border border-red-500/40 shadow-md shadow-red-500/20"
+                              : s.signal==="LONG"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                          }`}>{s.signal}</span>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-white" : "text-gray-700"}`}>{s.conf}%</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{s.time}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`mt-3 flex items-center gap-2 text-[10px] ${widgetTheme === "trustlayer" ? "text-red-300/70" : "text-gray-500"}`}>
+                    <div className={`w-4 h-4 rounded flex items-center justify-center text-white text-[8px] ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-red-500 to-orange-500 shadow-lg shadow-red-500/30" 
+                        : "bg-red-500"
+                    }`}>⛓</div>
+                    <span>Predictions verified on DWSC</span>
+                  </div>
+                </div>
+              )}
+              {/* Pulse Pro API Demo */}
+              {widgetsList[selectedWidget].id === "pulse-pro" && (
+                <div className={`p-4 pt-10 lg:pt-4 h-full font-mono text-xs relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-amber-50 to-yellow-50" : ""}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-300 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Pulse API Console</div>
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-lg shadow-amber-500/30" 
+                        : "bg-amber-200 text-amber-800"
+                    }`}>PRO</span>
+                  </div>
+                  <div className={`rounded-xl p-3 overflow-x-auto ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-black/40 backdrop-blur-sm border border-amber-500/30 shadow-xl shadow-amber-500/10" 
+                      : "bg-gray-900"
+                  }`}>
+                    <div className={`text-[10px] mb-1 ${widgetTheme === "trustlayer" ? "text-amber-400/60" : "text-gray-500"}`}># GET /api/v1/pulse/predict</div>
+                    <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>{"{"}</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"asset": <span className={widgetTheme === "trustlayer" ? "text-amber-300" : "text-amber-400"}>"BTC/USD"</span>,</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"signal": <span className={widgetTheme === "trustlayer" ? "text-green-300" : "text-green-400"}>"LONG"</span>,</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"confidence": <span className={widgetTheme === "trustlayer" ? "text-purple-300" : "text-purple-400"}>0.89</span>,</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"timestamp": <span className={widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-400"}>"2026-02-02T09:15:00Z"</span>,</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"hash": <span className={widgetTheme === "trustlayer" ? "text-pink-300" : "text-pink-400"}>"0x7f3a9c..."</span></div>
+                    <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>{"}"}</div>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-amber-500/20 border border-amber-500/30 shadow-lg shadow-amber-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" : "text-amber-600"}`}>∞</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-amber-300/60" : "text-gray-500"}`}>API Calls</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-amber-500/20 border border-amber-500/30 shadow-lg shadow-amber-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" : "text-amber-600"}`}>1000/m</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-amber-300/60" : "text-gray-500"}`}>Rate Limit</div>
+                    </div>
+                  </div>
+                  <div className={`mt-3 text-[10px] ${widgetTheme === "trustlayer" ? "text-amber-200/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>SDK available: <span className={widgetTheme === "trustlayer" ? "text-cyan-300" : ""}>JavaScript</span>, <span className={widgetTheme === "trustlayer" ? "text-yellow-300" : ""}>Python</span>, <span className={widgetTheme === "trustlayer" ? "text-sky-300" : ""}>Go</span></div>
+                </div>
+              )}
+              {/* Pulse Enterprise Demo */}
+              {widgetsList[selectedWidget].id === "pulse-enterprise" && (
+                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-purple-50 to-indigo-50" : ""}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Enterprise Suite</div>
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/30" 
+                        : "bg-purple-200 text-purple-800"
+                    }`}>WHITE-LABEL</span>
+                  </div>
+                  <div className={`rounded-xl p-3 mb-3 ${
+                    widgetTheme === "trustlayer" 
+                      ? "bg-white/5 backdrop-blur-sm border border-purple-500/30 shadow-xl shadow-purple-500/10" 
+                      : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                  }`}>
+                    <div className={`text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-purple-300/70" : "text-gray-500"}`}>Your Brand Here</div>
+                    <div className={`h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-gradient-to-r from-purple-600 via-indigo-500 to-cyan-500 shadow-lg shadow-purple-500/30" 
+                        : "bg-gradient-to-r from-purple-500 to-indigo-500"
+                    }`}>ACME PREDICTIONS™</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-green-500/20 border border-green-500/30 shadow-lg shadow-green-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`font-bold ${widgetTheme === "trustlayer" ? "text-green-300 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>99.9%</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-green-300/60" : "text-gray-500"}`}>SLA Uptime</div>
+                    </div>
+                    <div className={`rounded-xl p-2 text-center ${
+                      widgetTheme === "trustlayer" 
+                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                        : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
+                    }`}>
+                      <div className={`font-bold ${widgetTheme === "trustlayer" ? "text-purple-300 drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>24/7</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Priority Support</div>
+                    </div>
+                  </div>
+                  <div className={`space-y-1.5 text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                    <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> Custom model training</div>
+                    <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> Dedicated infrastructure</div>
+                    <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> Compliance documentation</div>
+                    <div className="flex items-center gap-2"><span className={widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]" : "text-green-500"}>✓</span> On-premise deployment</div>
+                  </div>
+                </div>
+              )}
+              {/* Signal Chat Demo */}
+              {widgetsList[selectedWidget].id === "signal-chat" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-2 flex-1">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/40"
+                          : "bg-cyan-500 text-white"
+                      }`}>⚡</div>
+                      <div>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-100" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Trust Layer Ecosystem</div>
+                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-500"}`}>● 142 online across 35 apps</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30"
+                          : widgetTheme === "dark" ? "bg-purple-900/30 text-purple-400 border border-purple-500/30"
+                          : "bg-purple-100 text-purple-700"
+                      }`}>SSO</span>
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                          : widgetTheme === "dark" ? "bg-cyan-900/40 text-cyan-400 border border-cyan-500/30"
+                          : "bg-cyan-100 text-cyan-700"
+                      }`}>LIVE</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 flex-1 min-h-0">
+                    <div className={`w-20 rounded-lg p-1.5 space-y-1 overflow-auto ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 border border-cyan-500/20"
+                        : widgetTheme === "dark" ? "bg-slate-800/50" : "bg-gray-50"
+                    }`}>
+                      <div className={`text-[8px] font-semibold uppercase tracking-wider mb-1 ${widgetTheme === "trustlayer" ? "text-cyan-400/60" : widgetTheme === "dark" ? "text-cyan-400/50" : "text-cyan-600/70"}`}>Ecosystem</div>
+                      {["# general", "# announce..."].map((ch, i) => (
+                        <div key={i} className={`text-[8px] px-1.5 py-1 rounded cursor-pointer transition-all ${
+                          widgetTheme === "trustlayer"
+                            ? "text-gray-400 hover:text-cyan-300 hover:bg-white/5"
+                            : widgetTheme === "dark" ? "text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50"
+                            : "text-gray-500 hover:bg-gray-100"
+                        }`}>{ch}</div>
+                      ))}
+                      <div className={`text-[8px] font-semibold uppercase tracking-wider mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-purple-400/60" : widgetTheme === "dark" ? "text-purple-400/50" : "text-purple-600/70"}`}>App Support</div>
+                      <div className={`text-[8px] px-1.5 py-1 rounded cursor-pointer transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                          : widgetTheme === "dark" ? "bg-cyan-500/20 text-cyan-400"
+                          : "bg-cyan-100 text-cyan-700"
+                      }`}># dws-supp...</div>
+                      {["# garagebot...", "# tlid-mkt..."].map((ch, i) => (
+                        <div key={i} className={`text-[8px] px-1.5 py-1 rounded cursor-pointer transition-all ${
+                          widgetTheme === "trustlayer"
+                            ? "text-gray-400 hover:text-cyan-300 hover:bg-white/5"
+                            : widgetTheme === "dark" ? "text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50"
+                            : "text-gray-500 hover:bg-gray-100"
+                        }`}>{ch}</div>
+                      ))}
+                      <div className={`text-[8px] font-semibold uppercase tracking-wider mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-green-400/60" : widgetTheme === "dark" ? "text-green-400/50" : "text-green-600/70"}`}>DMs</div>
+                      <div className={`text-[8px] px-1.5 py-1 rounded flex items-center gap-1 ${
+                        widgetTheme === "trustlayer" ? "text-gray-400 hover:text-cyan-300" : widgetTheme === "dark" ? "text-slate-400 hover:text-cyan-400" : "text-gray-500"
+                      }`}><span className="w-1.5 h-1.5 rounded-full bg-green-400"></span> Alex
+                        <span className={`ml-auto text-[7px] px-1 rounded ${
+                          widgetTheme === "trustlayer" ? "bg-cyan-500/30 text-cyan-300" : widgetTheme === "dark" ? "bg-cyan-500/30 text-cyan-400" : "bg-cyan-100 text-cyan-700"
+                        }`}>PRO</span>
+                      </div>
+                    </div>
+                    <div className="flex-1 flex flex-col min-h-0">
+                      <div className={`flex items-center gap-2 px-2 py-1.5 mb-1.5 rounded-lg ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-white/5 border border-white/10"
+                          : widgetTheme === "dark" ? "bg-slate-800/30" : "bg-gray-50 border"
+                      }`}>
+                        <span className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-700"}`}># darkwavestudios-support</span>
+                        <span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-slate-500" : "text-gray-400"}`}>|</span>
+                        <span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-slate-500" : "text-gray-400"}`}>DarkWave Studios</span>
+                        <span className={`ml-auto text-[7px] px-1.5 py-0.5 rounded ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border border-green-500/30"
+                            : widgetTheme === "dark" ? "bg-green-900/30 text-green-400 border border-green-500/30"
+                            : "bg-green-100 text-green-700"
+                        }`}>3 online</span>
+                      </div>
+                      <div className={`flex-1 space-y-2 overflow-auto p-2 rounded-lg mb-2 ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-white/5 border border-white/10"
+                          : widgetTheme === "dark" ? "bg-slate-800/30" : "bg-white border"
+                      }`}>
+                        {[
+                          { user: "Sarah", msg: "Need help with my booking widget config", time: "2:31 PM", color: "from-pink-500 to-purple-500", badge: "GarageBot" },
+                          { user: "🤖 SignalBot", msg: "Ticket #284 created. @DWS team notified.", time: "2:31 PM", color: "from-green-500 to-emerald-500", isBot: true },
+                          { user: "Alex", msg: "Checking your setup now — same TL account right?", time: "2:33 PM", color: "from-blue-500 to-cyan-500", badge: "DWS Team" },
+                        ].map((m, i) => (
+                          <div key={i} className="flex gap-2 items-start">
+                            <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] text-white font-bold ${
+                              widgetTheme === "trustlayer"
+                                ? `bg-gradient-to-r ${m.color} shadow-md`
+                                : widgetTheme === "dark" ? `bg-gradient-to-r ${m.color}` : "bg-cyan-500"
+                            }`}>{m.user[0] === '🤖' ? '🤖' : m.user[0]}</div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className={`text-[10px] font-semibold ${
+                                  m.isBot
+                                    ? widgetTheme === "trustlayer" ? "text-green-400" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"
+                                    : widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"
+                                }`}>{m.user}</span>
+                                {(m as any).badge && (
+                                  <span className={`text-[7px] px-1 py-0.5 rounded font-medium ${
+                                    (m as any).badge === "DWS Team"
+                                      ? widgetTheme === "trustlayer" ? "bg-cyan-500/20 text-cyan-300" : widgetTheme === "dark" ? "bg-cyan-500/20 text-cyan-400" : "bg-cyan-100 text-cyan-700"
+                                      : widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300" : widgetTheme === "dark" ? "bg-purple-500/20 text-purple-400" : "bg-purple-100 text-purple-700"
+                                  }`}>{(m as any).badge}</span>
+                                )}
+                                <span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-slate-500" : "text-gray-400"}`}>{m.time}</span>
+                              </div>
+                              <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{m.msg}</div>
+                              {i === 0 && (
+                                <div className="flex gap-1 mt-1">
+                                  {["👍 2", "🔧 1"].map((r, ri) => (
+                                    <span key={ri} className={`text-[8px] px-1.5 py-0.5 rounded-full ${
+                                      widgetTheme === "trustlayer"
+                                        ? "bg-white/10 border border-white/10"
+                                        : widgetTheme === "dark" ? "bg-slate-700 border border-slate-600"
+                                        : "bg-gray-100"
+                                    }`}>{r}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        <div className={`text-[9px] animate-pulse ${widgetTheme === "trustlayer" ? "text-cyan-400/60" : widgetTheme === "dark" ? "text-cyan-400/50" : "text-gray-400"}`}>Sarah is typing...</div>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <input className={`flex-1 rounded-lg px-3 py-1.5 text-[10px] ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/10 border border-cyan-500/30 text-cyan-100 placeholder-cyan-300/40"
+                            : widgetTheme === "dark" ? "bg-slate-800 border border-slate-700 text-white placeholder-slate-400" : "border placeholder-gray-400"
+                        }`} placeholder="Message #darkwavestudios-support..." />
+                        <button className={`rounded-lg w-7 h-7 flex items-center justify-center text-[10px] ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
+                            : "bg-cyan-500 text-white"
+                        }`}>↑</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* VIN Decoder Demo */}
+              {widgetsList[selectedWidget].id === "vin-decoder" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>VIN Decoder</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-red-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Decode any vehicle instantly</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className="flex gap-2">
+                      <input className={`flex-1 px-3 py-2 text-xs font-mono transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-white/10 backdrop-blur-sm border border-red-500/30 rounded-lg text-red-100 placeholder-red-300/50 shadow-lg shadow-red-500/10"
+                          : widgetTheme === "dark"
+                            ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                            : "border rounded-lg bg-white"
+                      }`} defaultValue="1HGBH41JXMN109186" readOnly />
+                      <button className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-red-500 to-rose-500 text-white shadow-lg shadow-red-500/30 hover:shadow-xl"
+                          : "bg-red-600 text-white hover:bg-red-700"
+                      }`}>Decode</button>
+                    </div>
+                    <div className={`rounded-xl p-3 space-y-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-red-500/10 to-rose-500/10 backdrop-blur-sm border border-red-400/20 shadow-xl shadow-red-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-slate-700"
+                          : "bg-gray-50 border"
+                    }`}>
+                      {[
+                        { label: "Year", value: "2021" },
+                        { label: "Make", value: "Honda" },
+                        { label: "Model", value: "Civic" },
+                        { label: "Trim", value: "EX" },
+                        { label: "Engine", value: "2.0L I4" },
+                        { label: "Transmission", value: "CVT" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex justify-between text-xs">
+                          <span className={widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}>{item.label}</span>
+                          <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-red-200" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        <span className={`text-xs ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Safety:</span>
+                        {[1,2,3,4,5].map((s) => (
+                          <span key={s} className={`text-sm ${widgetTheme === "trustlayer" ? "text-yellow-400 drop-shadow-[0_0_4px_rgba(250,204,21,0.5)]" : "text-yellow-500"}`}>★</span>
+                        ))}
+                      </div>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                          : widgetTheme === "dark" ? "bg-green-900/30 text-green-400 border border-green-500/30"
+                          : "bg-green-100 text-green-700"
+                      }`}>No Active Recalls</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* Parts Aggregator Demo */}
+              {widgetsList[selectedWidget].id === "parts-aggregator" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Parts Aggregator</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-orange-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Search 93+ retailers at once</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <input className={`w-full px-3 py-2 text-xs transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/10 backdrop-blur-sm border border-orange-500/30 rounded-lg text-orange-100 placeholder-orange-300/50 shadow-lg shadow-orange-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
+                          : "border rounded-lg bg-white"
+                    }`} defaultValue="Brake Pads - Honda Civic 2021" readOnly />
+                    <div className="space-y-2">
+                      {[
+                        { retailer: "AutoZone", price: "$42.99", best: false },
+                        { retailer: "O'Reilly", price: "$39.99", best: true },
+                        { retailer: "RockAuto", price: "$35.49", best: false },
+                      ].map((item, i) => (
+                        <div key={i} className={`rounded-lg p-2.5 flex items-center justify-between transition-all ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 backdrop-blur-sm border border-orange-500/20 hover:border-orange-400/40"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/60 border border-slate-700"
+                              : "bg-white border hover:border-gray-300"
+                        }`}>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>
+                            <div>
+                              <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-orange-200" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.retailer}</div>
+                              <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-green-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>In Stock</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {item.best && (
+                              <span className={`px-1.5 py-0.5 rounded text-[8px] font-bold ${
+                                widgetTheme === "trustlayer"
+                                  ? "bg-gradient-to-r from-orange-500/20 to-amber-500/20 text-orange-300 border border-orange-500/30"
+                                  : widgetTheme === "dark" ? "bg-orange-900/30 text-orange-400 border border-orange-500/30"
+                                  : "bg-orange-100 text-orange-700"
+                              }`}>Best Price</span>
+                            )}
+                            <span className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.price}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-500/40 hover:scale-[1.02]"
+                      : "bg-orange-600 text-white hover:bg-orange-700"
+                  }`}>Compare All</button>
+                </div>
+              )}
+              {/* Shift Manager Demo */}
+              {widgetsList[selectedWidget].id === "shift-manager" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-blue-400 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Shift Manager</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-blue-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Employee scheduling</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className="flex gap-1">
+                      {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, i) => (
+                        <button key={i} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+                          i === 0
+                            ? widgetTheme === "trustlayer"
+                              ? "bg-gradient-to-r from-blue-500 to-sky-500 text-white shadow-lg shadow-blue-500/30"
+                              : widgetTheme === "dark" ? "bg-blue-600 text-white" : "bg-blue-600 text-white"
+                            : widgetTheme === "trustlayer"
+                              ? "bg-white/5 text-gray-400 border border-white/10 hover:border-blue-500/30"
+                              : widgetTheme === "dark" ? "bg-slate-800 text-gray-400 border border-slate-700" : "bg-gray-100 text-gray-500"
+                        }`}>{day}</button>
+                      ))}
+                    </div>
+                    <div className="space-y-2">
+                      {[
+                        { name: "Mike J.", time: "8AM-4PM", status: "confirmed" },
+                        { name: "Sarah W.", time: "4PM-12AM", status: "confirmed" },
+                        { name: "Tom B.", time: "12AM-8AM", status: "pending" },
+                      ].map((shift, i) => (
+                        <div key={i} className={`rounded-lg p-2.5 flex items-center justify-between transition-all ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 backdrop-blur-sm border border-blue-500/20"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/60 border border-slate-700"
+                              : "bg-white border"
+                        }`}>
+                          <div className="flex items-center gap-2">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white ${
+                              widgetTheme === "trustlayer"
+                                ? "bg-gradient-to-r from-blue-500 to-sky-500 shadow-md"
+                                : "bg-blue-500"
+                            }`}>{shift.name[0]}</div>
+                            <div>
+                              <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-blue-200" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{shift.name}</div>
+                              <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{shift.time}</div>
+                            </div>
+                          </div>
+                          <span className={`px-1.5 py-0.5 rounded text-[8px] font-semibold ${
+                            shift.status === "confirmed"
+                              ? widgetTheme === "trustlayer"
+                                ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                                : widgetTheme === "dark" ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-700"
+                              : widgetTheme === "trustlayer"
+                                ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                                : widgetTheme === "dark" ? "bg-amber-900/30 text-amber-400" : "bg-amber-100 text-amber-700"
+                          }`}>{shift.status === "confirmed" ? "Confirmed" : "Pending"}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-end">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                          : widgetTheme === "dark" ? "bg-yellow-900/30 text-yellow-400 border border-yellow-500/30"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}>⚠ 1 Conflict Detected</span>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-blue-500 to-sky-500 text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02]"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                  }`}>Publish Schedule</button>
+                </div>
+              )}
+              {/* Payroll Calculator Demo */}
+              {widgetsList[selectedWidget].id === "payroll-calc" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Payroll Calculator</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-emerald-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Automated tax calculations</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className={`flex items-center justify-between rounded-lg p-2.5 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 border border-emerald-500/20"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-slate-700" : "bg-gray-50 border"
+                    }`}>
+                      <div>
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-emerald-200" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Sarah Williams</div>
+                        <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Full-time Employee</div>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                          : widgetTheme === "dark" ? "bg-emerald-900/30 text-emerald-400" : "bg-emerald-100 text-emerald-700"
+                      }`}>W-2</span>
+                    </div>
+                    <div className={`rounded-xl p-3 space-y-2 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-sm border border-emerald-500/20"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-slate-700" : "bg-white border"
+                    }`}>
+                      {[
+                        { label: "Gross Pay", value: "$4,200.00", negative: false },
+                        { label: "Federal Tax", value: "-$630.00", negative: true },
+                        { label: "State Tax", value: "-$210.00", negative: true },
+                        { label: "SS/Medicare", value: "-$321.30", negative: true },
+                      ].map((item, i) => (
+                        <div key={i} className="flex justify-between text-xs">
+                          <span className={widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}>{item.label}</span>
+                          <span className={`font-semibold ${
+                            item.negative
+                              ? widgetTheme === "trustlayer" ? "text-red-400" : widgetTheme === "dark" ? "text-red-400" : "text-red-600"
+                              : widgetTheme === "trustlayer" ? "text-emerald-200" : widgetTheme === "dark" ? "text-white" : "text-gray-900"
+                          }`}>{item.value}</span>
+                        </div>
+                      ))}
+                      <div className={`border-t pt-2 mt-1 ${widgetTheme === "trustlayer" ? "border-emerald-500/20" : widgetTheme === "dark" ? "border-slate-700" : "border-gray-200"}`}>
+                        <div className="flex justify-between items-center">
+                          <span className={`text-xs ${widgetTheme === "trustlayer" ? "text-emerald-300" : widgetTheme === "dark" ? "text-emerald-400" : "text-emerald-600"}`}>Net Pay</span>
+                          <span className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-lg" : widgetTheme === "dark" ? "text-emerald-300" : "text-emerald-700"}`}>$3,038.70</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                          : widgetTheme === "dark" ? "bg-emerald-900/30 text-emerald-400 border border-emerald-500/30"
+                          : "bg-emerald-100 text-emerald-700"
+                      }`}>Bi-Weekly</span>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 hover:scale-[1.02]"
+                      : "bg-emerald-600 text-white hover:bg-emerald-700"
+                  }`}>Generate Pay Stub</button>
+                </div>
+              )}
+              {/* OCR Scanner Demo */}
+              {widgetsList[selectedWidget].id === "ocr-scanner" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>OCR Scanner</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Camera-based text capture</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className={`rounded-xl p-4 flex items-center justify-center relative transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "border-2 border-dashed border-purple-500/40 bg-white/5 backdrop-blur-sm"
+                        : widgetTheme === "dark"
+                          ? "border-2 border-dashed border-slate-600 bg-slate-800/40"
+                          : "border-2 border-dashed border-gray-300 bg-gray-50"
+                    }`} style={{ minHeight: "80px" }}>
+                      <div className={`absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
+                      <div className={`absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
+                      <div className={`absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
+                      <div className={`absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
+                      <div className="text-center">
+                        <div className={`text-xs animate-pulse font-semibold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>Scanning...</div>
+                        <div className={`text-[10px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Point camera at text</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-xl p-3 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-sm border border-green-400/20 shadow-xl shadow-green-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-green-500/20"
+                          : "bg-green-50 border border-green-200"
+                    }`}>
+                      <div className={`text-[10px] mb-1 ${widgetTheme === "trustlayer" ? "text-green-400/70" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>Detected Text</div>
+                      <div className={`text-sm font-mono font-bold ${widgetTheme === "trustlayer" ? "text-green-300 drop-shadow-[0_0_6px_rgba(74,222,128,0.4)]" : widgetTheme === "dark" ? "text-green-300" : "text-green-800"}`}>VIN: 1HGBH41JXMN109186</div>
+                    </div>
+                    <div className="flex justify-end">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                          : widgetTheme === "dark" ? "bg-purple-900/30 text-purple-400 border border-purple-500/30"
+                          : "bg-purple-100 text-purple-700"
+                      }`}>98.7% Match</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]"
+                        : "bg-purple-600 text-white hover:bg-purple-700"
+                    }`}>Copy Text</button>
+                    <button className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 text-purple-300 hover:bg-white/15"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800 border border-slate-700 text-white hover:bg-slate-700"
+                          : "bg-white border text-gray-700 hover:bg-gray-50"
+                    }`}>Scan Again</button>
+                  </div>
+                </div>
+              )}
+
+              {/* Driver Leaderboard Demo */}
+              {widgetsList[selectedWidget].id === "driver-leaderboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-yellow-400 to-amber-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Driver Leaderboard</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-yellow-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Gamified performance rankings</div>
+                  </div>
+                  <div className="flex gap-1 mb-3">
+                    {["Today", "Week", "Month"].map((period, i) => (
+                      <button key={i} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+                        i === 0
+                          ? widgetTheme === "trustlayer"
+                            ? "bg-gradient-to-r from-yellow-500 to-amber-500 text-white shadow-lg shadow-yellow-500/30"
+                            : widgetTheme === "dark" ? "bg-yellow-600 text-white" : "bg-yellow-500 text-white"
+                          : widgetTheme === "trustlayer"
+                            ? "bg-white/5 text-gray-400 border border-white/10 hover:border-yellow-500/30"
+                            : widgetTheme === "dark" ? "bg-slate-800 text-gray-400 border border-slate-700" : "bg-gray-100 text-gray-500"
+                      }`}>{period}</button>
+                    ))}
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    {[
+                      { rank: 1, name: "Alex Rivera", initials: "AR", rate: 47, streak: "🔥 12 day streak", color: "from-yellow-500 to-amber-500" },
+                      { rank: 2, name: "Jordan Lee", initials: "JL", rate: 43, streak: null, color: "from-gray-300 to-gray-400" },
+                      { rank: 3, name: "Casey Morgan", initials: "CM", rate: 39, streak: null, color: "from-orange-400 to-orange-500" },
+                    ].map((driver, i) => (
+                      <div key={i} className={`rounded-xl p-2.5 transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? i === 0 ? "bg-gradient-to-r from-yellow-500/15 to-amber-500/10 backdrop-blur-sm border border-yellow-400/30 shadow-lg shadow-yellow-500/10" : "bg-white/5 backdrop-blur-sm border border-white/10"
+                          : widgetTheme === "dark"
+                            ? i === 0 ? "bg-yellow-900/20 border border-yellow-500/20" : "bg-slate-800/60 border border-slate-700"
+                            : i === 0 ? "bg-yellow-50 border border-yellow-200" : "bg-gray-50 border border-gray-200"
+                      }`}>
+                        <div className="flex items-center gap-2">
+                          <span className={`text-xs font-bold w-4 ${widgetTheme === "trustlayer" ? "text-yellow-400" : widgetTheme === "dark" ? "text-yellow-400" : "text-yellow-600"}`}>#{driver.rank}</span>
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold text-white bg-gradient-to-br ${driver.color}`}>{driver.initials}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{driver.name}</div>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <div className={`h-1.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-white/10" : widgetTheme === "dark" ? "bg-slate-700" : "bg-gray-200"}`} style={{ width: "60px" }}>
+                                <div className={`h-full rounded-full bg-gradient-to-r ${driver.color}`} style={{ width: `${(driver.rate / 50) * 100}%` }}></div>
+                              </div>
+                              <span className={`text-[9px] font-medium ${widgetTheme === "trustlayer" ? "text-yellow-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{driver.rate} moves/hr</span>
+                            </div>
+                          </div>
+                          {driver.streak && (
+                            <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${
+                              widgetTheme === "trustlayer"
+                                ? "bg-orange-500/20 text-orange-300 border border-orange-500/30"
+                                : widgetTheme === "dark" ? "bg-orange-900/30 text-orange-400" : "bg-orange-100 text-orange-700"
+                            }`}>{driver.streak}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    {["Speed Demon", "Perfect Week"].map((badge, i) => (
+                      <span key={i} className={`px-2 py-1 rounded-lg text-[9px] font-semibold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-r from-yellow-500/20 to-amber-500/20 text-yellow-300 border border-yellow-500/30"
+                          : widgetTheme === "dark" ? "bg-yellow-900/30 text-yellow-400 border border-yellow-500/20" : "bg-yellow-100 text-yellow-700"
+                      }`}>🏆 {badge}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Delivery Tracker Demo */}
+              {widgetsList[selectedWidget].id === "delivery-tracker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Delivery Tracker</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Order #DW-8847</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className="flex items-center justify-between px-1">
+                      {[
+                        { label: "Confirmed", done: true },
+                        { label: "Preparing", done: true },
+                        { label: "In Transit", done: false, active: true },
+                        { label: "Delivered", done: false },
+                      ].map((step, i) => (
+                        <div key={i} className="flex flex-col items-center gap-1 relative">
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold transition-all ${
+                            step.done
+                              ? widgetTheme === "trustlayer"
+                                ? "bg-gradient-to-br from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30"
+                                : "bg-cyan-500 text-white"
+                              : step.active
+                                ? widgetTheme === "trustlayer"
+                                  ? "bg-gradient-to-br from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30 animate-pulse"
+                                  : "bg-cyan-500 text-white animate-pulse"
+                                : widgetTheme === "trustlayer"
+                                  ? "bg-white/10 border border-white/20 text-gray-500"
+                                  : widgetTheme === "dark" ? "bg-slate-700 border border-slate-600 text-gray-500" : "bg-gray-200 text-gray-400"
+                          }`}>{step.done ? "✓" : i + 1}</div>
+                          <span className={`text-[8px] font-medium ${
+                            step.done || step.active
+                              ? widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-600"
+                              : widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"
+                          }`}>{step.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`rounded-xl p-3 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-cyan-500/10 to-teal-500/10 backdrop-blur-sm border border-cyan-400/20 shadow-xl shadow-cyan-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-cyan-500/20"
+                          : "bg-cyan-50 border border-cyan-200"
+                    }`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white bg-gradient-to-br from-cyan-500 to-teal-500`}>MK</div>
+                          <div>
+                            <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Marcus K.</div>
+                            <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Your driver</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.4)]" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-600"}`}>12 min</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>ETA</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={`rounded-xl p-3 flex items-center justify-center transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-slate-800/80 to-cyan-900/40 backdrop-blur-sm border border-cyan-400/20"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/80 border border-slate-700"
+                          : "bg-gray-100 border border-gray-200"
+                    }`} style={{ minHeight: "60px" }}>
+                      <div className="flex items-center gap-2">
+                        <MapPin className={`w-4 h-4 ${widgetTheme === "trustlayer" ? "text-cyan-400" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-600"}`} />
+                        <span className={`text-[10px] font-medium ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Live map view</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.02]"
+                      : "bg-cyan-600 text-white hover:bg-cyan-700"
+                  }`}>Live Tracking</button>
+                </div>
+              )}
+
+              {/* Menu Builder Demo */}
+              {widgetsList[selectedWidget].id === "menu-builder" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Menu Builder</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-green-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Digital menu editor</div>
+                  </div>
+                  <div className="flex gap-1 mb-3">
+                    {["Mains", "Sides", "Drinks"].map((tab, i) => (
+                      <button key={i} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+                        i === 0
+                          ? widgetTheme === "trustlayer"
+                            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30"
+                            : widgetTheme === "dark" ? "bg-green-600 text-white" : "bg-green-600 text-white"
+                          : widgetTheme === "trustlayer"
+                            ? "bg-white/5 text-gray-400 border border-white/10 hover:border-green-500/30"
+                            : widgetTheme === "dark" ? "bg-slate-800 text-gray-400 border border-slate-700" : "bg-gray-100 text-gray-500"
+                      }`}>{tab}</button>
+                    ))}
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    {[
+                      { emoji: "🍔", name: "Classic Burger", price: "$14.99", tags: ["GF"] },
+                      { emoji: "🥗", name: "Caesar Salad", price: "$11.99", tags: ["V", "GF"] },
+                      { emoji: "🍝", name: "Truffle Pasta", price: "$18.99", tags: ["V"] },
+                    ].map((item, i) => (
+                      <div key={i} className={`rounded-xl p-2.5 flex items-center gap-2.5 transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-white/5 backdrop-blur-sm border border-white/10 hover:border-green-500/30"
+                          : widgetTheme === "dark"
+                            ? "bg-slate-800/60 border border-slate-700 hover:border-green-500/30"
+                            : "bg-white border border-gray-200 hover:border-green-300"
+                      }`}>
+                        <span className="text-lg">{item.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.name}</div>
+                          <div className="flex gap-1 mt-0.5">
+                            {item.tags.map((tag, j) => (
+                              <span key={j} className={`px-1.5 py-0.5 rounded text-[7px] font-bold ${
+                                widgetTheme === "trustlayer"
+                                  ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                                  : widgetTheme === "dark" ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-700"
+                              }`}>{tag}</span>
+                            ))}
+                          </div>
+                        </div>
+                        <span className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-green-300 drop-shadow-[0_0_6px_rgba(74,222,128,0.4)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-700"}`}>{item.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between mt-3">
+                    <span className={`px-2 py-1 rounded-lg text-[10px] font-semibold ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                        : widgetTheme === "dark" ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-700"
+                    }`}>3 items</span>
+                    <button className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 hover:scale-[1.02]"
+                        : "bg-green-600 text-white hover:bg-green-700"
+                    }`}>+ Add Item</button>
+                  </div>
+                </div>
+              )}
+
+              {/* Room Visualizer Demo */}
+              {widgetsList[selectedWidget].id === "room-visualizer" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Room Visualizer</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-pink-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>AI color visualizer</div>
+                  </div>
+                  <div className="space-y-3 flex-1">
+                    <div className={`rounded-xl overflow-hidden transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "border border-pink-400/20 shadow-xl shadow-pink-500/10"
+                        : widgetTheme === "dark"
+                          ? "border border-slate-700"
+                          : "border border-gray-200"
+                    }`} style={{ minHeight: "80px" }}>
+                      <div className="w-full h-20 bg-gradient-to-br from-teal-200 via-teal-100 to-cyan-100 relative">
+                        <div className={`absolute bottom-0 left-0 right-0 h-6 ${widgetTheme === "trustlayer" ? "bg-white/10 backdrop-blur-sm" : widgetTheme === "dark" ? "bg-slate-800/60" : "bg-gray-100/80"}`}></div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-2.5">
+                      {[
+                        { color: "#5F9EA0", name: "Seaside Blue" },
+                        { color: "#8FBC8F", name: "Sage Green" },
+                        { color: "#A9A9A9", name: "Warm Gray" },
+                        { color: "#FFFFF0", name: "Ivory" },
+                        { color: "#E8967A", name: "Sunset" },
+                      ].map((swatch, i) => (
+                        <button key={i} className={`w-7 h-7 rounded-full transition-all ${
+                          i === 0
+                            ? widgetTheme === "trustlayer"
+                              ? "ring-2 ring-pink-400 ring-offset-2 ring-offset-slate-900 shadow-lg shadow-pink-500/30"
+                              : widgetTheme === "dark" ? "ring-2 ring-pink-400 ring-offset-2 ring-offset-slate-900" : "ring-2 ring-pink-500 ring-offset-2"
+                            : widgetTheme === "trustlayer" ? "hover:ring-1 hover:ring-white/30" : "hover:ring-1 hover:ring-gray-300"
+                        }`} style={{ backgroundColor: swatch.color }} title={swatch.name}></button>
+                      ))}
+                    </div>
+                    <div className={`text-center py-2 rounded-lg transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-sm border border-pink-400/20"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-slate-700"
+                          : "bg-gray-50 border border-gray-200"
+                    }`}>
+                      <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-pink-300 drop-shadow-[0_0_6px_rgba(236,72,153,0.4)]" : widgetTheme === "dark" ? "text-pink-400" : "text-pink-600"}`}>SW 6204 - Sea Salt</div>
+                      <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Sherwin-Williams</div>
+                    </div>
+                    <div className="flex gap-1">
+                      {["Before", "After"].map((label, i) => (
+                        <button key={i} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+                          i === 1
+                            ? widgetTheme === "trustlayer"
+                              ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30"
+                              : widgetTheme === "dark" ? "bg-pink-600 text-white" : "bg-pink-600 text-white"
+                            : widgetTheme === "trustlayer"
+                              ? "bg-white/5 text-gray-400 border border-white/10"
+                              : widgetTheme === "dark" ? "bg-slate-800 text-gray-400 border border-slate-700" : "bg-gray-100 text-gray-500"
+                        }`}>{label}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 hover:scale-[1.02]"
+                      : "bg-pink-600 text-white hover:bg-pink-700"
+                  }`}>Save Palette</button>
+                </div>
+              )}
+
+              {/* Invoice Generator Demo */}
+              {widgetsList[selectedWidget].id === "invoice-generator" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Invoice Generator</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-indigo-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Professional invoicing</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-indigo-300 drop-shadow-[0_0_6px_rgba(129,140,248,0.4)]" : widgetTheme === "dark" ? "text-indigo-400" : "text-indigo-600"}`}>#INV-2024-0089</span>
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-bold ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                          : widgetTheme === "dark" ? "bg-amber-900/30 text-amber-400" : "bg-amber-100 text-amber-700"
+                      }`}>Sent - Awaiting Payment</span>
+                    </div>
+                    <div className={`rounded-lg p-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-sm border border-indigo-400/20"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-slate-700"
+                          : "bg-gray-50 border border-gray-200"
+                    }`}>
+                      <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Bill to</div>
+                      <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Apex Digital LLC</div>
+                      <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Due Feb 28</div>
+                    </div>
+                    <div className="space-y-1">
+                      {[
+                        { desc: "Website Redesign", amount: "$4,500" },
+                        { desc: "SEO Package", amount: "$1,200" },
+                        { desc: "Hosting (Annual)", amount: "$480" },
+                      ].map((item, i) => (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded-lg text-xs ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 border border-white/5"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/40 border border-slate-700/50"
+                              : "bg-white border border-gray-100"
+                        }`}>
+                          <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{item.desc}</span>
+                          <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.amount}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`rounded-lg p-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-indigo-500/10 to-violet-500/10 backdrop-blur-sm border border-indigo-400/20 shadow-lg shadow-indigo-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-indigo-500/20"
+                          : "bg-indigo-50 border border-indigo-200"
+                    }`}>
+                      <div className="flex justify-between text-[10px] mb-0.5">
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Subtotal</span>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>$6,180.00</span>
+                      </div>
+                      <div className="flex justify-between text-[10px] mb-1">
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Tax (8%)</span>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>$494.40</span>
+                      </div>
+                      <div className={`flex justify-between text-sm font-bold pt-1 border-t ${
+                        widgetTheme === "trustlayer" ? "border-indigo-400/20 text-indigo-300 drop-shadow-[0_0_6px_rgba(129,140,248,0.4)]" : widgetTheme === "dark" ? "border-slate-600 text-indigo-400" : "border-indigo-200 text-indigo-700"
+                      }`}>
+                        <span>Total</span>
+                        <span>$6,674.40</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-[1.02]"
+                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}>Download PDF</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "emergency-dashboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Command Center</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-red-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Emergency Response</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-red-300 drop-shadow-[0_0_6px_rgba(248,113,113,0.4)]" : widgetTheme === "dark" ? "text-red-400" : "text-red-600"}`}>Alert Level</span>
+                      <span className={`px-2 py-0.5 rounded text-[8px] font-bold animate-pulse ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                          : widgetTheme === "dark" ? "bg-amber-900/30 text-amber-400" : "bg-amber-100 text-amber-700"
+                      }`}>ELEVATED</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: "Medical - Section 204", status: "critical", color: "red" },
+                        { label: "Lost Child - Gate B", status: "active", color: "amber" },
+                        { label: "Spill - Concourse", status: "resolved", color: "green" },
+                      ].map((incident, i) => (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded-lg text-xs ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 border border-white/5 backdrop-blur-sm"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/40 border border-slate-700/50"
+                              : "bg-white border border-gray-100"
+                        }`}>
+                          <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{incident.label}</span>
+                          <span className={`px-1.5 py-0.5 rounded text-[7px] font-bold uppercase ${
+                            incident.color === "red"
+                              ? widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-300 border border-red-500/30" : widgetTheme === "dark" ? "bg-red-900/30 text-red-400" : "bg-red-100 text-red-700"
+                              : incident.color === "amber"
+                                ? widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" : widgetTheme === "dark" ? "bg-amber-900/30 text-amber-400" : "bg-amber-100 text-amber-700"
+                                : widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-300 border border-green-500/30" : widgetTheme === "dark" ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-700"
+                          }`}>{incident.status}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`rounded-lg p-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-red-500/10 to-orange-500/10 backdrop-blur-sm border border-red-400/20 shadow-lg shadow-red-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-red-500/20"
+                          : "bg-red-50 border border-red-200"
+                    }`}>
+                      <div className="flex justify-between text-[10px]">
+                        <div className="text-center">
+                          <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-red-300 drop-shadow-[0_0_6px_rgba(248,113,113,0.4)]" : widgetTheme === "dark" ? "text-red-400" : "text-red-600"}`}>3</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Active</div>
+                        </div>
+                        <div className="text-center">
+                          <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-green-300" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>12</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Resolved</div>
+                        </div>
+                        <div className="text-center">
+                          <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-amber-300" : widgetTheme === "dark" ? "text-amber-400" : "text-amber-600"}`}>8</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Teams</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 hover:scale-[1.02]"
+                      : "bg-red-600 text-white hover:bg-red-700"
+                  }`}>Broadcast Alert</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "inventory-counter" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Inventory Counter</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-teal-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>3-Phase Count System</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-teal-300 drop-shadow-[0_0_6px_rgba(94,234,212,0.4)]" : widgetTheme === "dark" ? "text-teal-400" : "text-teal-600"}`}>Phase 2 of 3 — Verification</span>
+                      <div className="flex gap-1">
+                        {[true, true, false].map((done, i) => (
+                          <div key={i} className={`w-2 h-2 rounded-full ${done
+                            ? widgetTheme === "trustlayer" ? "bg-teal-400 shadow-[0_0_6px_rgba(94,234,212,0.5)]" : widgetTheme === "dark" ? "bg-teal-400" : "bg-teal-500"
+                            : widgetTheme === "trustlayer" ? "bg-white/20" : widgetTheme === "dark" ? "bg-slate-600" : "bg-gray-300"
+                          }`}></div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { name: "Napkins (500ct)", counted: 47, expected: 50 },
+                        { name: "Cups (12oz)", counted: 234, expected: 240 },
+                        { name: "Lids (12oz)", counted: 198, expected: 200 },
+                      ].map((item, i) => (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded-lg text-xs ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 border border-white/5 backdrop-blur-sm"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/40 border border-slate-700/50"
+                              : "bg-white border border-gray-100"
+                        }`}>
+                          <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{item.name}</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{item.counted}</span>
+                            <span className={`${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>/</span>
+                            <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{item.expected}</span>
+                            {item.counted !== item.expected && (
+                              <span className={`text-[8px] font-bold ${widgetTheme === "trustlayer" ? "text-red-400" : widgetTheme === "dark" ? "text-red-400" : "text-red-600"}`}>-{item.expected - item.counted}</span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`rounded-lg p-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-teal-500/10 to-cyan-500/10 backdrop-blur-sm border border-teal-400/20 shadow-lg shadow-teal-500/10"
+                        : widgetTheme === "dark"
+                          ? "bg-slate-800/60 border border-teal-500/20"
+                          : "bg-teal-50 border border-teal-200"
+                    }`}>
+                      <div className="flex justify-between items-center text-[10px] mb-1">
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Progress</span>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-teal-300" : widgetTheme === "dark" ? "text-teal-400" : "text-teal-600"}`}>67%</span>
+                      </div>
+                      <div className={`h-1.5 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : widgetTheme === "dark" ? "bg-slate-700" : "bg-gray-200"}`}>
+                        <div className={`h-full rounded-full ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-teal-400 to-cyan-400 shadow-[0_0_8px_rgba(94,234,212,0.5)]" : "bg-teal-500"}`} style={{ width: "67%" }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 hover:scale-[1.02]"
+                      : "bg-teal-600 text-white hover:bg-teal-700"
+                  }`}>Submit Count</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "token-scanner" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Token Safety Scan</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-amber-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Smart contract analysis</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className={`flex items-center justify-between rounded-lg px-2 py-1.5 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 border border-amber-400/20 backdrop-blur-sm"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-slate-700" : "bg-gray-50 border border-gray-200"
+                    }`}>
+                      <span className={`text-[10px] font-mono ${widgetTheme === "trustlayer" ? "text-amber-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>0x7a25...3f9d</span>
+                      <span className={`px-1.5 py-0.5 rounded text-[7px] font-bold ${
+                        widgetTheme === "trustlayer" ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" : widgetTheme === "dark" ? "bg-blue-900/30 text-blue-400" : "bg-blue-100 text-blue-700"
+                      }`}>Ethereum</span>
+                    </div>
+                    <div className={`rounded-lg p-3 text-center transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-sm border border-green-400/20 shadow-lg shadow-green-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-green-500/20" : "bg-green-50 border border-green-200"
+                    }`}>
+                      <div className={`text-3xl font-black ${widgetTheme === "trustlayer" ? "text-green-300 drop-shadow-[0_0_12px_rgba(74,222,128,0.5)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>87</div>
+                      <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-green-400/70" : widgetTheme === "dark" ? "text-green-500" : "text-green-700"}`}>Grade: B+</div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: "Liquidity Lock", value: 95 },
+                        { label: "Ownership", value: 82 },
+                        { label: "Contract Safety", value: 91 },
+                        { label: "Community", value: 78 },
+                      ].map((metric, i) => (
+                        <div key={i}>
+                          <div className="flex justify-between text-[9px] mb-0.5">
+                            <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{metric.label}</span>
+                            <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-amber-300" : widgetTheme === "dark" ? "text-amber-400" : "text-amber-600"}`}>{metric.value}%</span>
+                          </div>
+                          <div className={`h-1 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : widgetTheme === "dark" ? "bg-slate-700" : "bg-gray-200"}`}>
+                            <div className={`h-full rounded-full ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-400 shadow-[0_0_6px_rgba(251,191,36,0.4)]" : "bg-amber-500"}`} style={{ width: `${metric.value}%` }}></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`flex items-center gap-1.5 px-2 py-1 rounded text-[9px] ${
+                      widgetTheme === "trustlayer" ? "bg-amber-500/10 text-amber-300 border border-amber-500/20" : widgetTheme === "dark" ? "bg-amber-900/20 text-amber-400" : "bg-amber-50 text-amber-700 border border-amber-200"
+                    }`}>
+                      <span>⚠️</span>
+                      <span>Ownership not renounced</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "wellness-assessment" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Wellness Assessment</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-emerald-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Discover your Dosha</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className={`rounded-lg p-2 text-center ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-sm border border-emerald-400/20"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-slate-700" : "bg-gray-50 border border-gray-200"
+                    }`}>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Question 5 of 12</div>
+                      <div className={`text-xs font-semibold mt-0.5 ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>How would you describe your energy levels?</div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: "High & Steady", dosha: "Vata", selected: false },
+                        { label: "Intense & Focused", dosha: "Pitta", selected: true },
+                        { label: "Calm & Sustained", dosha: "Kapha", selected: false },
+                      ].map((option, i) => (
+                        <div key={i} className={`flex items-center justify-between py-2 px-2.5 rounded-lg text-xs cursor-pointer transition-all ${
+                          option.selected
+                            ? widgetTheme === "trustlayer"
+                              ? "bg-emerald-500/15 border border-emerald-400/40 shadow-lg shadow-emerald-500/10"
+                              : widgetTheme === "dark" ? "bg-emerald-900/20 border border-emerald-500/30" : "bg-emerald-50 border-2 border-emerald-400"
+                            : widgetTheme === "trustlayer"
+                              ? "bg-white/5 border border-white/5 hover:border-emerald-400/20 backdrop-blur-sm"
+                              : widgetTheme === "dark" ? "bg-slate-800/40 border border-slate-700/50 hover:border-slate-600" : "bg-white border border-gray-100 hover:border-gray-300"
+                        }`}>
+                          <div className="flex items-center gap-2">
+                            <div className={`w-3 h-3 rounded-full border-2 flex items-center justify-center ${
+                              option.selected
+                                ? widgetTheme === "trustlayer" ? "border-emerald-400 bg-emerald-400" : widgetTheme === "dark" ? "border-emerald-400 bg-emerald-400" : "border-emerald-500 bg-emerald-500"
+                                : widgetTheme === "trustlayer" ? "border-gray-500" : widgetTheme === "dark" ? "border-gray-500" : "border-gray-300"
+                            }`}>
+                              {option.selected && <div className="w-1 h-1 rounded-full bg-white"></div>}
+                            </div>
+                            <span className={`font-medium ${widgetTheme === "trustlayer" ? "text-gray-200" : widgetTheme === "dark" ? "text-gray-200" : "text-gray-700"}`}>{option.label}</span>
+                          </div>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded ${
+                            widgetTheme === "trustlayer" ? "bg-white/10 text-gray-400" : widgetTheme === "dark" ? "bg-slate-700 text-gray-400" : "bg-gray-100 text-gray-500"
+                          }`}>{option.dosha}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`rounded-lg p-2 transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-emerald-500/10 to-green-500/10 backdrop-blur-sm border border-emerald-400/20 shadow-lg shadow-emerald-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-emerald-500/20" : "bg-emerald-50 border border-emerald-200"
+                    }`}>
+                      <div className="flex justify-between items-center text-[10px] mb-1">
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Progress</span>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-emerald-300" : widgetTheme === "dark" ? "text-emerald-400" : "text-emerald-600"}`}>42%</span>
+                      </div>
+                      <div className={`h-1.5 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : widgetTheme === "dark" ? "bg-slate-700" : "bg-gray-200"}`}>
+                        <div className={`h-full rounded-full ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]" : "bg-emerald-500"}`} style={{ width: "42%" }}></div>
+                      </div>
+                    </div>
+                    <div className={`text-center py-1.5 rounded-lg text-[10px] font-semibold ${
+                      widgetTheme === "trustlayer" ? "bg-white/5 border border-emerald-400/10 text-emerald-300/60" : widgetTheme === "dark" ? "bg-slate-800/40 text-emerald-400/50" : "bg-gray-50 text-emerald-600/50"
+                    }`}>Your Dosha: Pitta-Kapha</div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "multi-wallet" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Portfolio</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Multi-chain overview</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className={`rounded-lg p-3 text-center transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-br from-purple-500/10 to-violet-500/10 backdrop-blur-sm border border-purple-400/20 shadow-lg shadow-purple-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-purple-500/20" : "bg-purple-50 border border-purple-200"
+                    }`}>
+                      <div className={`text-2xl font-black ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-violet-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(168,85,247,0.4)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>$12,847.32</div>
+                      <div className={`text-xs font-semibold mt-0.5 ${widgetTheme === "trustlayer" ? "text-green-400" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>+3.2% (24h)</div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { symbol: "SOL", amount: "24.5", usd: "$3,214", color: "#9945FF" },
+                        { symbol: "ETH", amount: "1.82", usd: "$5,460", color: "#627EEA" },
+                        { symbol: "MATIC", amount: "2,340", usd: "$1,872", color: "#8247E5" },
+                      ].map((token, i) => (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded-lg text-xs ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 border border-white/5 backdrop-blur-sm"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/40 border border-slate-700/50"
+                              : "bg-white border border-gray-100"
+                        }`}>
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: token.color }}></div>
+                            <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{token.symbol}</span>
+                          </div>
+                          <div className="text-right">
+                            <div className={`font-semibold ${widgetTheme === "trustlayer" ? "text-white" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>{token.amount}</div>
+                            <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{token.usd}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]"
+                        : "bg-purple-600 text-white hover:bg-purple-700"
+                    }`}>Send</button>
+                    <button className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-all ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/10 border border-purple-400/30 text-purple-300 hover:bg-purple-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-700 text-purple-400 hover:bg-slate-600" : "bg-purple-100 text-purple-700 hover:bg-purple-200"
+                    }`}>Swap</button>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "effects-kit" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Effects Kit</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Interactive demo — try each effect</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 flex-1">
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer hover:scale-105 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-purple-400/30 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-purple-500/20 hover:bg-slate-700/60" : "bg-purple-50 border border-purple-200 hover:bg-purple-100"
+                    }`} style={{ perspective: "600px" }}>
+                      <div className="transition-transform duration-300 hover:rotate-y-6 hover:rotate-x-3" style={{ transformStyle: "preserve-3d" }}>
+                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : ""}`}>🪟</div>
+                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-700"}`}>Glassmorphism</div>
+                        <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>blur + transparency</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-xl ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-cyan-400/30 shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-cyan-500/20 hover:bg-slate-700/60" : "bg-cyan-50 border border-cyan-200 hover:bg-cyan-100"
+                    }`} style={{ perspective: "600px", transformStyle: "preserve-3d" }}>
+                      <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : ""}`}>🎴</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-cyan-400" : "text-cyan-700"}`}>3D Card Hover</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>perspective + tilt</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center relative overflow-hidden ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-pink-400/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-pink-500/20" : "bg-pink-50 border border-pink-200"
+                    }`}>
+                      <div className="absolute inset-0 shimmer-skeleton opacity-30" style={{ background: "linear-gradient(90deg, transparent, rgba(168,85,247,0.3), transparent)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }}></div>
+                      <div className="relative z-10">
+                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]" : ""}`}>✨</div>
+                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-pink-300" : widgetTheme === "dark" ? "text-pink-400" : "text-pink-700"}`}>Shimmer Load</div>
+                        <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>purple gradient sweep</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-green-400/30 shadow-lg shadow-green-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-green-500/20" : "bg-green-50 border border-green-200"
+                    }`}>
+                      <div className={`text-lg mb-0.5 animate-bounce ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" : ""}`}>📜</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-green-300" : widgetTheme === "dark" ? "text-green-400" : "text-green-700"}`}>Scroll Reveal</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>fade + slide + scale</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer active:scale-90 ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-amber-400/30 shadow-lg shadow-amber-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-amber-500/20" : "bg-amber-50 border border-amber-200"
+                    }`} onClick={() => { if (navigator.vibrate) navigator.vibrate(25); }}>
+                      <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" : ""}`}>📳</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-amber-300" : widgetTheme === "dark" ? "text-amber-400" : "text-amber-700"}`}>Haptic Touch</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>tap to feel vibrate</div>
+                    </div>
+                    <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer group ${
+                      widgetTheme === "trustlayer"
+                        ? "bg-white/5 backdrop-blur-md border border-red-400/30 shadow-lg shadow-red-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-red-500/20" : "bg-red-50 border border-red-200"
+                    }`}>
+                      <div className={`text-lg mb-0.5 group-active:scale-75 transition-transform ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]" : ""}`}>🎯</div>
+                      <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-red-300" : widgetTheme === "dark" ? "text-red-400" : "text-red-700"}`}>Micro Actions</div>
+                      <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>press · lift · ripple</div>
+                    </div>
+                  </div>
+                  <div className={`flex items-center justify-center gap-1 mt-2 px-2 py-1 rounded text-[9px] font-semibold ${
+                    widgetTheme === "trustlayer" ? "bg-purple-500/10 text-purple-300 border border-purple-500/20" : widgetTheme === "dark" ? "bg-purple-900/20 text-purple-400" : "bg-purple-50 text-purple-600 border border-purple-200"
+                  }`}>
+                    <Sparkles className="w-3 h-3" />
+                    <span>6 effect modules · ~420 lines · zero dependencies</span>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "compliance-engine" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Compliance Status</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Workforce compliance</div>
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                      <div className={`rounded-lg p-2 flex-1 text-center transition-all ${
+                        widgetTheme === "trustlayer"
+                          ? "bg-gradient-to-br from-sky-500/10 to-blue-500/10 backdrop-blur-sm border border-sky-400/20 shadow-lg shadow-sky-500/10"
+                          : widgetTheme === "dark" ? "bg-slate-800/60 border border-sky-500/20" : "bg-sky-50 border border-sky-200"
+                      }`}>
+                        <div className={`text-2xl font-black ${widgetTheme === "trustlayer" ? "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>94%</div>
+                        <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Overall Compliant</div>
+                        <div className={`text-[9px] font-semibold mt-0.5 ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-sky-400/70" : "text-sky-600"}`}>187 / 194 workers</div>
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: "I-9 Verified", icon: "✓", status: "green" },
+                        { label: "Background Check", icon: "✓", status: "green" },
+                        { label: "Safety Cert — 12 days", icon: "⚠️", status: "amber" },
+                        { label: "CPR Cert — Expired", icon: "✗", status: "red" },
+                      ].map((item, i) => (
+                        <div key={i} className={`flex items-center justify-between py-1.5 px-2 rounded-lg text-xs ${
+                          widgetTheme === "trustlayer"
+                            ? "bg-white/5 border border-white/5 backdrop-blur-sm"
+                            : widgetTheme === "dark"
+                              ? "bg-slate-800/40 border border-slate-700/50"
+                              : "bg-white border border-gray-100"
+                        }`}>
+                          <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{item.label}</span>
+                          <span className={`text-xs font-bold ${
+                            item.status === "green"
+                              ? widgetTheme === "trustlayer" ? "text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.4)]" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"
+                              : item.status === "amber"
+                                ? widgetTheme === "trustlayer" ? "text-amber-400" : widgetTheme === "dark" ? "text-amber-400" : "text-amber-600"
+                                : widgetTheme === "trustlayer" ? "text-red-400" : widgetTheme === "dark" ? "text-red-400" : "text-red-600"
+                          }`}>{item.icon}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`flex items-center justify-center gap-1.5 px-2 py-1 rounded text-[9px] font-semibold ${
+                      widgetTheme === "trustlayer" ? "bg-red-500/10 text-red-300 border border-red-500/20" : widgetTheme === "dark" ? "bg-red-900/20 text-red-400" : "bg-red-50 text-red-600 border border-red-200"
+                    }`}>
+                      <span>7 Actions Required</span>
+                    </div>
+                  </div>
+                  <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
+                    widgetTheme === "trustlayer"
+                      ? "bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]"
+                      : "bg-sky-600 text-white hover:bg-sky-700"
+                  }`}>Run Audit</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "media-uploader" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-3">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Media Upload</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-pink-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Drag & drop files</div>
+                  </div>
+                  <div className={`flex-1 rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-2 ${widgetTheme === "trustlayer" ? "border-pink-500/30 bg-pink-500/5" : widgetTheme === "dark" ? "border-slate-600 bg-slate-800/30" : "border-gray-300 bg-gray-50"}`}>
+                    <div className={`text-3xl ${widgetTheme === "trustlayer" ? "text-pink-400" : "text-gray-400"}`}>📁</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-pink-300/70" : "text-gray-500"}`}>Drop images, video, or audio</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Max 50 MB · PNG, JPG, MP4, WAV</div>
+                  </div>
+                  <div className="mt-2 space-y-1">
+                    {[{name:"hero-banner.png",size:"2.1 MB",pct:100},{name:"promo-video.mp4",size:"18 MB",pct:73}].map((f,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : widgetTheme === "dark" ? "bg-slate-800/40" : "bg-white border"}`}>
+                        <span className={`flex-1 truncate ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{f.name}</span>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{f.size}</span>
+                        <div className={`w-12 h-1.5 rounded-full overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200"}`}>
+                          <div className="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full" style={{width:`${f.pct}%`}} />
+                        </div>
+                        <span className={`${f.pct===100 ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : (widgetTheme === "trustlayer" ? "text-pink-400" : "text-pink-600")}`}>{f.pct===100?"✓":`${f.pct}%`}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "image-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Image Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-900/30 to-purple-900/30 border border-violet-500/20" : "bg-gray-100 border"}`}>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={`w-20 h-20 rounded-xl ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-500/40 to-purple-500/40 shadow-lg shadow-purple-500/20" : "bg-gradient-to-br from-cyan-200 to-purple-200"}`} />
+                    </div>
+                    <div className={`absolute top-2 left-2 flex gap-1`}>
+                      {["Crop","Rotate","Filter","Resize"].map(t=>(
+                        <span key={t} className={`text-[8px] px-1.5 py-0.5 rounded ${widgetTheme === "trustlayer" ? "bg-white/10 text-violet-300 border border-violet-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-violet-500/20 text-violet-300 border border-violet-500/30" : "bg-violet-100 text-violet-700"}`}>Export PNG</button>
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Export WebP</button>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "audio-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Audio Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 flex flex-col gap-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-500/20" : "bg-gray-50 border"}`}>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600"}`}>▶</div>
+                      <div className="flex-1">
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-green-300" : "text-gray-800"}`}>podcast_ep12.wav</div>
+                        <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>3:42 / 14:28</div>
+                      </div>
+                    </div>
+                    <div className={`h-12 rounded flex items-end gap-px ${widgetTheme === "trustlayer" ? "bg-black/30" : "bg-gray-200"}`}>
+                      {Array.from({length:40}).map((_,i)=>(
+                        <div key={i} className={`flex-1 rounded-t ${i<15 ? (widgetTheme === "trustlayer" ? "bg-green-400/80" : "bg-green-500") : (widgetTheme === "trustlayer" ? "bg-green-400/30" : "bg-green-300")}`} style={{height:`${20+Math.random()*80}%`}} />
+                      ))}
+                    </div>
+                    <div className="flex gap-1.5">
+                      {["Trim","Fade","Noise","Normalize"].map(t=>(
+                        <span key={t} className={`text-[8px] px-2 py-1 rounded-md font-medium ${widgetTheme === "trustlayer" ? "bg-white/5 text-green-300 border border-green-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "video-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Video Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-black border border-red-500/20" : "bg-gray-900 border"}`}>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                        <span className="text-white text-lg ml-1">▶</span>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <div className="flex gap-0.5 h-6 items-end">
+                        {Array.from({length:20}).map((_,i)=>(
+                          <div key={i} className={`flex-1 rounded-sm ${i<8?"bg-red-500/80":"bg-red-500/30"}`} style={{height:"100%"}} />
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-[8px] text-white/50">00:32</span>
+                        <span className="text-[8px] text-white/50">02:18</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    {["Cut","Merge","Caption","Export"].map(t=>(
+                      <button key={t} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-red-500/15 text-red-300 border border-red-500/20" : "bg-red-50 text-red-700 border"}`}>{t}</button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-auto-tagger" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Auto-Tagger</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 space-y-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-cyan-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-gray-700"}`}>Detected Tags</div>
+                    <div className="flex flex-wrap gap-1">
+                      {["landscape","sunset","mountains","nature","golden-hour","panoramic","HDR"].map(t=>(
+                        <span key={t} className={`text-[9px] px-2 py-0.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/20" : "bg-cyan-50 text-cyan-700 border border-cyan-200"}`}>{t}</span>
+                      ))}
+                    </div>
+                    <div className={`text-[10px] font-semibold mt-1 ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-gray-700"}`}>AI Confidence</div>
+                    {[{tag:"landscape",pct:98},{tag:"sunset",pct:94},{tag:"mountains",pct:87}].map(item=>(
+                      <div key={item.tag} className="flex items-center gap-2">
+                        <span className={`text-[9px] w-16 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{item.tag}</span>
+                        <div className={`flex-1 h-1.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200"}`}>
+                          <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style={{width:`${item.pct}%`}} />
+                        </div>
+                        <span className={`text-[9px] font-bold ${widgetTheme === "trustlayer" ? "text-cyan-400" : "text-cyan-600"}`}>{item.pct}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-smart-search" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Smart Search</div>
+                  </div>
+                  <div className={`rounded-lg overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/5 border border-indigo-500/20" : "bg-white border"}`}>
+                    <div className={`flex items-center gap-2 p-2.5 border-b ${widgetTheme === "trustlayer" ? "border-indigo-500/20" : "border-gray-200"}`}>
+                      <span className={`text-sm ${widgetTheme === "trustlayer" ? "text-indigo-400" : "text-indigo-500"}`}>🔍</span>
+                      <span className={`text-xs ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-gray-800"}`}>sunset photos from last week</span>
+                    </div>
+                    <div className="p-2 space-y-1.5">
+                      {[{name:"beach_sunset_04.jpg",match:"97%"},{name:"golden_hour_pano.png",match:"91%"},{name:"evening_skyline.jpg",match:"84%"}].map((r,i)=>(
+                        <div key={i} className={`flex items-center gap-2 p-1.5 rounded-md text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 hover:bg-white/10" : "hover:bg-gray-50"}`}>
+                          <div className={`w-8 h-8 rounded ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-orange-500/30 to-red-500/30" : "bg-gradient-to-br from-orange-200 to-red-200"}`} />
+                          <div className="flex-1">
+                            <div className={`font-medium ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{r.name}</div>
+                          </div>
+                          <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-indigo-400" : "text-indigo-600"}`}>{r.match}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-caption-gen" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Caption Gen</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 space-y-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-amber-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`w-full h-16 rounded-lg flex items-center justify-center ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/20" : "bg-gradient-to-br from-amber-100 to-orange-100"}`}>
+                      <span className="text-2xl">🖼️</span>
+                    </div>
+                    <div className={`text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "text-amber-300" : "text-gray-700"}`}>Generated Captions</div>
+                    {["A vibrant sunset over rolling mountain peaks with golden light","Majestic mountain landscape bathed in warm evening glow"].map((c,i)=>(
+                      <div key={i} className={`text-[10px] p-2 rounded-md leading-relaxed ${widgetTheme === "trustlayer" ? "bg-amber-500/10 text-amber-200/80 border border-amber-500/15" : "bg-amber-50 text-gray-700 border border-amber-200"}`}>
+                        {c}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "zone-ordering" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-orange-400 to-red-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Zone Ordering</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-2 space-y-1.5 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-orange-500/20" : "bg-gray-50 border"}`}>
+                    {[{zone:"Zone A — Downtown",orders:12,status:"Active"},{zone:"Zone B — Midtown",orders:8,status:"Active"},{zone:"Zone C — Suburbs",orders:3,status:"Paused"}].map((z,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`font-semibold ${widgetTheme === "trustlayer" ? "text-orange-300" : "text-gray-800"}`}>{z.zone}</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{z.orders} orders</div>
+                        </div>
+                        <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold ${z.status === "Active" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-500")}`}>{z.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "affiliate-dashboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Affiliate Dashboard</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 mb-2">
+                    {[{label:"Clicks",val:"2,847"},{label:"Conversions",val:"342"},{label:"Earnings",val:"$1,284"},{label:"Rate",val:"12.0%"}].map(s=>(
+                      <div key={s.label} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? "bg-white/5 border border-emerald-500/15" : "bg-white border"}`}>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-emerald-300" : "text-emerald-600"}`}>{s.val}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`text-[9px] font-semibold mb-1 ${widgetTheme === "trustlayer" ? "text-emerald-300/70" : "text-gray-500"}`}>Top Referrers</div>
+                  {[{name:"blog-post-seo",clicks:892},{name:"twitter-launch",clicks:634}].map(r=>(
+                    <div key={r.name} className={`flex items-center justify-between py-1 px-2 text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>
+                      <span>{r.name}</span><span className={`font-bold ${widgetTheme === "trustlayer" ? "text-emerald-400" : "text-emerald-600"}`}>{r.clicks}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "mileage-tracker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Mileage Tracker</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-blue-500/20" : "bg-blue-50 border border-blue-200"}`}>
+                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-blue-300" : "text-blue-600"}`}>1,247 mi</div>
+                    <div className={`text-[9px] text-center ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>This month · $831 deduction</div>
+                  </div>
+                  <div className="space-y-1 flex-1">
+                    {[{date:"Today",miles:"34 mi",dest:"Client → Office"},{date:"Yesterday",miles:"52 mi",dest:"3 deliveries"},{date:"Feb 12",miles:"18 mi",dest:"Supplier run"}].map((t,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`font-semibold ${widgetTheme === "trustlayer" ? "text-blue-300" : "text-gray-800"}`}>{t.date}</div>
+                          <div className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{t.dest}</div>
+                        </div>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-cyan-400" : "text-blue-600"}`}>{t.miles}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "franchise-onboard" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Franchise Onboard</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{step:"Business License",done:true},{step:"Location Setup",done:true},{step:"Staff Training",done:false},{step:"POS Integration",done:false},{step:"Grand Opening",done:false}].map((s,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold ${s.done ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400 border border-green-500/30" : "bg-green-100 text-green-600") : (widgetTheme === "trustlayer" ? "bg-white/10 text-gray-500 border border-white/10" : "bg-gray-100 text-gray-400")}`}>{s.done?"✓":i+1}</div>
+                        <span className={`${s.done ? (widgetTheme === "trustlayer" ? "text-green-300 line-through" : "text-green-700 line-through") : (widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700")}`}>{s.step}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`text-center text-[10px] mt-2 ${widgetTheme === "trustlayer" ? "text-violet-300/70" : "text-gray-500"}`}>2 of 5 complete · 40%</div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "mls-search" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>MLS Search</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{addr:"742 Oak Lane",price:"$425,000",bed:"3 bd · 2 ba",sqft:"1,850 sq ft"},{addr:"1501 Maple Dr",price:"$289,900",bed:"2 bd · 1 ba",sqft:"1,200 sq ft"},{addr:"88 River Rd",price:"$675,000",bed:"4 bd · 3 ba",sqft:"2,800 sq ft"}].map((p,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-teal-500/15" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-teal-300" : "text-gray-800"}`}>{p.addr}</div>
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600"}`}>{p.price}</div>
+                        </div>
+                        <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{p.bed} · {p.sqft}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "ai-lead-scoring" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-rose-400 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Lead Scoring</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{name:"Sarah Chen",score:94,label:"Hot"},{name:"Marcus Webb",score:71,label:"Warm"},{name:"Lisa Park",score:42,label:"Cold"}].map((l,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black ${l.score>80 ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600") : l.score>60 ? (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-600") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-500")}`}>{l.score}</div>
+                        <div className="flex-1">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{l.name}</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{l.label} Lead</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "welcome-guide" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Welcome Guide</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 text-center ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-sky-500/10 to-cyan-500/10 border border-sky-500/20" : "bg-sky-50 border border-sky-200"}`}>
+                    <div className="text-2xl mb-1">👋</div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-700"}`}>Welcome, Alex!</div>
+                    <div className={`text-[9px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Let's get you set up in 3 steps</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{step:"Connect your account",done:true},{step:"Set your preferences",done:false},{step:"Invite your team",done:false}].map((s,i)=>(
+                      <div key={i} className={`flex items-center gap-2 p-2 rounded-lg text-xs ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] ${s.done ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600") : (widgetTheme === "trustlayer" ? "bg-white/10 text-gray-500" : "bg-gray-100 text-gray-400")}`}>{s.done?"✓":i+1}</div>
+                        <span className={`${s.done ? (widgetTheme === "trustlayer" ? "text-green-300" : "text-green-700") : (widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700")}`}>{s.step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "voice-estimate" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-fuchsia-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Voice Estimate</div>
+                  </div>
+                  <div className={`flex-1 flex flex-col items-center justify-center rounded-lg p-4 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-purple-500/20" : "bg-purple-50 border border-purple-200"}`}>
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-purple-500/30 to-fuchsia-500/30 border-2 border-purple-400/40 shadow-lg shadow-purple-500/20 animate-pulse" : "bg-purple-100 border-2 border-purple-300"}`}>
+                      <span className="text-2xl">🎙️</span>
+                    </div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-purple-700"}`}>Tap to speak your estimate</div>
+                    <div className={`text-[9px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>"Paint the master bedroom eggshell white"</div>
+                    <div className={`mt-3 px-4 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Estimated: $1,200 — $1,800</div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "calculator-hub" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-slate-400 to-gray-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Calculator Hub</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 flex-1">
+                    {[{name:"ROI",icon:"📈",val:"+247%"},{name:"Loan",icon:"💰",val:"$1,842/mo"},{name:"Tax",icon:"📋",val:"$12,400"},{name:"Tip",icon:"🧾",val:"$18.00"},{name:"BMI",icon:"⚖️",val:"24.1"},{name:"Convert",icon:"🔄",val:"€94.20"}].map(c=>(
+                      <div key={c.name} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5 hover:bg-white/10" : "bg-white border hover:bg-gray-50"} transition-colors cursor-pointer`}>
+                        <div className="text-lg">{c.icon}</div>
+                        <div className={`text-[9px] font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{c.name}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{c.val}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "media-collections" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Collections</div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5 mb-2">
+                    {[
+                      {name:"Logos",count:24,color:"from-cyan-500/30 to-blue-500/30"},
+                      {name:"Photos",count:156,color:"from-green-500/30 to-emerald-500/30"},
+                      {name:"Icons",count:89,color:"from-purple-500/30 to-violet-500/30"},
+                    ].map(c=>(
+                      <div key={c.name} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${c.color} border border-white/10` : "bg-white border"}`}>
+                        <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-white" : "text-gray-800"}`}>{c.count}</div>
+                        <div className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{c.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-4 gap-1 flex-1">
+                    {Array.from({length:8}).map((_,i)=>(
+                      <div key={i} className={`rounded-md ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${["from-cyan-500/20 to-blue-600/20","from-purple-500/20 to-pink-500/20","from-amber-500/20 to-orange-500/20","from-green-500/20 to-teal-500/20"][i%4]}` : "bg-gray-100"}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "subscription-manager" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Subscriptions</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{name:"Pro Plan",price:"$29/mo",status:"Active",next:"Mar 14"},{name:"Storage Add-on",price:"$9/mo",status:"Active",next:"Mar 14"},{name:"API Access",price:"$49/mo",status:"Cancelled",next:"—"}].map((s,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div>
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-gray-800"}`}>{s.name}</div>
+                          <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Next: {s.next}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-white" : "text-gray-900"}`}>{s.price}</div>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${s.status === "Active" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600")}`}>{s.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "work-order-system" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-slate-400 to-zinc-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Work Orders</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{id:"WO-4821",title:"Brake Pad Replace",tech:"Mike R.",status:"In Progress",priority:"High"},{id:"WO-4820",title:"Oil Change + Filter",tech:"Sarah L.",status:"Completed",priority:"Normal"},{id:"WO-4819",title:"Transmission Diag",tech:"James K.",status:"Pending",priority:"Urgent"}].map((wo,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className={`text-[9px] font-mono ${widgetTheme === "trustlayer" ? "text-slate-400" : "text-gray-400"}`}>{wo.id}</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${wo.priority === "Urgent" ? (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600") : wo.priority === "High" ? (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-700") : (widgetTheme === "trustlayer" ? "bg-gray-500/20 text-gray-400" : "bg-gray-100 text-gray-600")}`}>{wo.priority}</span>
+                        </div>
+                        <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{wo.title}</div>
+                        <div className="flex items-center justify-between mt-0.5">
+                          <span className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{wo.tech}</span>
+                          <span className={`text-[8px] font-semibold ${wo.status === "Completed" ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : wo.status === "In Progress" ? (widgetTheme === "trustlayer" ? "text-blue-400" : "text-blue-600") : (widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600")}`}>{wo.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "shop-onboarding" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Shop Onboarding</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-indigo-300/70" : "text-gray-500"}`}>Step 3 of 6</div>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[1,2,3,4,5,6].map(s=>(
+                      <div key={s} className={`flex-1 h-1.5 rounded-full ${s<=3 ? (widgetTheme === "trustlayer" ? "bg-indigo-400" : "bg-indigo-500") : (widgetTheme === "trustlayer" ? "bg-white/10" : "bg-gray-200")}`} />
+                    ))}
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-indigo-500/20" : "bg-indigo-50 border border-indigo-200"}`}>
+                    <div className={`text-xs font-semibold mb-2 ${widgetTheme === "trustlayer" ? "text-indigo-300" : "text-indigo-700"}`}>Business Hours</div>
+                    {["Mon–Fri: 8:00 AM — 6:00 PM","Saturday: 9:00 AM — 3:00 PM","Sunday: Closed"].map((h,i)=>(
+                      <div key={i} className={`text-[10px] py-1 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-600"}`}>{h}</div>
+                    ))}
+                  </div>
+                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30" : "bg-indigo-600 text-white"}`}>Continue to Step 4</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "b2b-ordering" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>B2B Orders</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{client:"AutoZone #847",items:12,total:"$2,340",status:"Processing"},{client:"NAPA Auto Parts",items:8,total:"$1,567",status:"Shipped"},{client:"O'Reilly #221",items:24,total:"$4,890",status:"Pending"}].map((o,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-cyan-500/10" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-gray-800"}`}>{o.client}</div>
+                          <div className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600"}`}>{o.total}</div>
+                        </div>
+                        <div className="flex items-center justify-between mt-0.5">
+                          <span className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{o.items} items</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-semibold ${o.status === "Shipped" ? (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-700") : o.status === "Processing" ? (widgetTheme === "trustlayer" ? "bg-blue-500/20 text-blue-400" : "bg-blue-100 text-blue-700") : (widgetTheme === "trustlayer" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-700")}`}>{o.status}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "loyalty-rewards" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Loyalty Rewards</div>
+                  </div>
+                  <div className={`rounded-lg p-3 text-center mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border border-amber-500/20" : "bg-amber-50 border border-amber-200"}`}>
+                    <div className={`text-3xl font-black ${widgetTheme === "trustlayer" ? "text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.4)]" : "text-amber-600"}`}>2,450</div>
+                    <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-amber-300/70" : "text-amber-600"}`}>Points Available</div>
+                    <div className={`text-[8px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Gold Tier · $24.50 value</div>
+                  </div>
+                  <div className="space-y-1">
+                    {[{reward:"Free Oil Change",pts:500},{reward:"$25 Service Credit",pts:1000},{reward:"Full Detail",pts:2000}].map((r,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{r.reward}</span>
+                        <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600"}`}>{r.pts} pts</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "weather-radar" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-blue-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Weather Radar</div>
+                  </div>
+                  <div className={`flex-1 rounded-xl overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-[#0a1628] border border-sky-500/20" : "bg-gray-100 border"}`}>
+                    <div className="absolute inset-0">
+                      <div className={`absolute inset-0 ${widgetTheme === "trustlayer" ? "bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.15),transparent_70%)]" : ""}`} />
+                      <svg viewBox="0 0 200 150" className="w-full h-full opacity-30" preserveAspectRatio="xMidYMid slice">
+                        <path d="M0,100 Q50,80 100,90 T200,85 V150 H0Z" fill={widgetTheme === "trustlayer" ? "rgba(14,165,233,0.15)" : "rgba(14,165,233,0.1)"} />
+                        <path d="M0,120 Q60,110 120,115 T200,105 V150 H0Z" fill={widgetTheme === "trustlayer" ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.07)"} />
+                        <circle cx="60" cy="50" r="25" fill={widgetTheme === "trustlayer" ? "rgba(34,197,94,0.2)" : "rgba(34,197,94,0.15)"} />
+                        <circle cx="65" cy="48" r="18" fill={widgetTheme === "trustlayer" ? "rgba(234,179,8,0.25)" : "rgba(234,179,8,0.15)"} />
+                        <circle cx="68" cy="46" r="8" fill={widgetTheme === "trustlayer" ? "rgba(239,68,68,0.35)" : "rgba(239,68,68,0.2)"} />
+                        <circle cx="140" cy="70" r="20" fill={widgetTheme === "trustlayer" ? "rgba(34,197,94,0.15)" : "rgba(34,197,94,0.1)"} />
+                        <circle cx="145" cy="68" r="10" fill={widgetTheme === "trustlayer" ? "rgba(234,179,8,0.2)" : "rgba(234,179,8,0.1)"} />
+                      </svg>
+                      <div className={`absolute top-2 left-2 flex items-center gap-1 px-2 py-1 rounded-md text-[9px] font-bold ${widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse" : "bg-red-100 text-red-600"}`}>⚠ Severe Thunderstorm Warning</div>
+                      <div className={`absolute top-2 right-2 px-2 py-1 rounded-md text-[8px] ${widgetTheme === "trustlayer" ? "bg-black/40 text-sky-300 backdrop-blur-sm" : "bg-white/80 text-gray-600"}`}>LIVE</div>
+                      <div className={`absolute bottom-2 left-2 text-[8px] ${widgetTheme === "trustlayer" ? "text-sky-300/60" : "text-gray-500"}`}>Updated 2 min ago</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1.5 mt-2">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-green-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Light</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Moderate</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-red-500" /><span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>Heavy</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "provably-fair" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Provably Fair</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20" : "bg-violet-50 border border-violet-200"}`}>
+                    <div className={`text-[9px] font-mono mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Server Seed Hash</div>
+                    <div className={`text-[8px] font-mono break-all ${widgetTheme === "trustlayer" ? "text-violet-300/80" : "text-violet-600"}`}>e3b0c44298fc1c149afbf4c8996fb924</div>
+                    <div className={`text-[9px] font-mono mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Result</div>
+                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-violet-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]" : "text-violet-600"}`}>🎲 4</div>
+                  </div>
+                  <div className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-green-500/15 text-green-400 border border-green-500/20" : "bg-green-100 text-green-700"}`}>
+                    <span>✓</span> Verified Fair — SHA-256
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "code-editor" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Code Editor</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg overflow-hidden font-mono text-[9px] ${widgetTheme === "trustlayer" ? "bg-[#0d1117] border border-blue-500/20" : "bg-gray-900 border"}`}>
+                    <div className={`flex items-center gap-1.5 px-3 py-1.5 border-b ${widgetTheme === "trustlayer" ? "border-blue-500/15 bg-white/5" : "border-gray-700 bg-gray-800"}`}>
+                      <div className="w-2 h-2 rounded-full bg-red-500" />
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
+                      <span className={`ml-2 text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>app.tsx</span>
+                    </div>
+                    <div className="p-2 space-y-0.5">
+                      <div><span className="text-purple-400">import</span> <span className="text-cyan-300">React</span> <span className="text-purple-400">from</span> <span className="text-green-300">'react'</span>;</div>
+                      <div />
+                      <div><span className="text-purple-400">function</span> <span className="text-yellow-300">App</span>() {"{"}</div>
+                      <div>  <span className="text-purple-400">return</span> (</div>
+                      <div>    &lt;<span className="text-blue-300">div</span> <span className="text-cyan-200">className</span>=<span className="text-green-300">"app"</span>&gt;</div>
+                      <div>      &lt;<span className="text-yellow-300">Header</span> /&gt;</div>
+                      <div>      &lt;<span className="text-yellow-300">Main</span> /&gt;</div>
+                      <div>    &lt;/<span className="text-blue-300">div</span>&gt;</div>
+                      <div>  );</div>
+                      <div>{"}"}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "receipt-scanner" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-orange-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Receipt Scanner</div>
+                  </div>
+                  <div className={`flex-1 rounded-lg p-3 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-red-500/20" : "bg-gray-50 border"}`}>
+                    <div className={`text-[9px] font-semibold mb-2 ${widgetTheme === "trustlayer" ? "text-red-300" : "text-gray-700"}`}>Extracted Data</div>
+                    {[{label:"Vendor",val:"AutoZone #1247"},{label:"Date",val:"Feb 14, 2026"},{label:"Subtotal",val:"$127.45"},{label:"Tax",val:"$10.20"},{label:"Total",val:"$137.65"}].map(r=>(
+                      <div key={r.label} className={`flex justify-between py-1 text-[10px] border-b last:border-0 ${widgetTheme === "trustlayer" ? "border-white/5 text-gray-300" : "border-gray-100 text-gray-700"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{r.label}</span>
+                        <span className="font-semibold">{r.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30" : "bg-red-600 text-white"}`}>Scan Another</button>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "recall-checker" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-red-400 to-rose-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Recall Checker</div>
+                  </div>
+                  <div className={`rounded-lg p-3 mb-2 text-center ${widgetTheme === "trustlayer" ? "bg-red-500/10 border border-red-500/20" : "bg-red-50 border border-red-200"}`}>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-red-300" : "text-red-700"}`}>2019 Toyota Camry LE</div>
+                    <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>VIN: 4T1B11HK5KU******</div>
+                  </div>
+                  <div className="space-y-1.5 flex-1">
+                    {[{title:"Fuel Pump Module",severity:"Safety",date:"Nov 2024",status:"Open"},{title:"Brake Light Switch",severity:"Safety",date:"Jun 2023",status:"Completed"}].map((r,i)=>(
+                      <div key={i} className={`p-2 rounded-lg ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <div className="flex items-center justify-between">
+                          <span className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-800"}`}>{r.title}</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${r.status === "Open" ? (widgetTheme === "trustlayer" ? "bg-red-500/20 text-red-400" : "bg-red-100 text-red-600") : (widgetTheme === "trustlayer" ? "bg-green-500/20 text-green-400" : "bg-green-100 text-green-600")}`}>{r.status}</span>
+                        </div>
+                        <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>{r.severity} · {r.date}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {widgetsList[selectedWidget].id === "health-passport" && (
+                <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
+                  <div className="text-center mb-2">
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Health Passport</div>
+                  </div>
+                  <div className={`rounded-xl p-3 text-center mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20" : "bg-emerald-50 border border-emerald-200"}`}>
+                    <div className={`w-16 h-16 mx-auto rounded-xl flex items-center justify-center mb-2 ${widgetTheme === "trustlayer" ? "bg-emerald-500/20 border border-emerald-400/30 shadow-lg shadow-emerald-500/20" : "bg-white border-2 border-emerald-300"}`}>
+                      <span className="text-3xl">📱</span>
+                    </div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-emerald-300" : "text-emerald-700"}`}>John Doe — Verified</div>
+                    <div className={`text-[9px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>ID: HP-2026-04821</div>
+                  </div>
+                  <div className="space-y-1">
+                    {[{label:"COVID-19 Vaccine",status:"✓ Complete"},{label:"TB Screening",status:"✓ Cleared"},{label:"Flu Shot 2026",status:"⏳ Due Mar 1"}].map((v,i)=>(
+                      <div key={i} className={`flex items-center justify-between p-1.5 rounded text-[10px] ${widgetTheme === "trustlayer" ? "bg-white/5 border border-white/5" : "bg-white border"}`}>
+                        <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : "text-gray-700"}`}>{v.label}</span>
+                        <span className={`font-semibold ${v.status.includes("✓") ? (widgetTheme === "trustlayer" ? "text-green-400" : "text-green-600") : (widgetTheme === "trustlayer" ? "text-amber-400" : "text-amber-600")}`}>{v.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              </div>
+            </div>
+          </div>
+          
+          {/* Navigation Controls - Arrows with Cyan Dot Indicator */}
+          <div className="flex items-center justify-center gap-4 mt-6 mb-2">
+            <button 
+              onClick={() => setSelectedWidget((prev) => (prev - 1 + widgetsList.length) % widgetsList.length)}
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-cyan-500/30 flex items-center justify-center hover:bg-cyan-500/10 hover:border-cyan-400 transition-all group"
+              data-testid="widget-prev"
+            >
+              <ChevronLeft className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
+            </button>
+            
+            {/* Cyan Dot Indicator - Grouped (1 dot per 6 widgets) */}
+            <div className="flex items-center gap-2 px-4">
+              {Array.from({ length: Math.ceil(widgetsList.length / 6) }, (_, groupIdx) => {
+                const groupStart = groupIdx * 6;
+                const groupEnd = Math.min(groupStart + 5, widgetsList.length - 1);
+                const isActive = selectedWidget >= groupStart && selectedWidget <= groupEnd;
+                return (
+                  <button
+                    key={groupIdx}
+                    onClick={() => setSelectedWidget(groupStart)}
+                    className={`rounded-full transition-all duration-300 ${
+                      isActive
+                        ? 'w-8 h-2.5 bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/50'
+                        : 'w-2.5 h-2.5 bg-white/20 hover:bg-cyan-400/40'
+                    }`}
+                    data-testid={`widget-dot-${groupIdx}`}
+                    aria-label={`Widgets ${groupStart + 1}-${groupEnd + 1}`}
+                  />
+                );
+              })}
+            </div>
+            
+            <button 
+              onClick={() => setSelectedWidget((prev) => (prev + 1) % widgetsList.length)}
+              className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-cyan-500/30 flex items-center justify-center hover:bg-cyan-500/10 hover:border-cyan-400 transition-all group"
+              data-testid="widget-next"
+            >
+              <ChevronRight className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
+            </button>
+          </div>
+          
+          {/* Current Widget Label */}
+          <div className="text-center text-xs text-muted-foreground">
+            <span className="text-cyan-400 font-medium">{selectedWidget + 1}</span> of <span className="text-cyan-400 font-medium">{widgetsList.length}</span> widgets
+          </div>
+
+          {/* Detailed Widget Info Panel */}
+          <GlassCard glow className="mt-6 rounded-2xl p-4 lg:p-6" data-testid="widget-info-panel">
+            {/* Trust Badge Header */}
+            <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-white/10" data-testid="trust-badges">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold" data-testid="badge-trust-shield">
+                <Shield className="w-3.5 h-3.5" />
+                <span>Verified by Trust Shield</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 text-primary text-xs font-semibold" data-testid="badge-guardian-shield">
+                <Lock className="w-3.5 h-3.5" />
+                <span>Protected by Guardian Shield</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 text-accent text-xs font-semibold" data-testid="badge-blockchain">
+                <FileText className="w-3.5 h-3.5" />
+                <span>Blockchain Registered</span>
+              </div>
+            </div>
+
+            {/* Full Description */}
+            <div className="mb-4">
+              <h4 className="font-bold text-sm text-primary mb-2">About This Widget</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {widgetsList[selectedWidget].fullDescription}
+              </p>
+            </div>
+
+            {/* Tech Stack & Complexity */}
+            <div className="mb-4 p-4 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 rounded-xl">
+              <div className="flex flex-wrap items-center gap-4 mb-3">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-semibold text-white">Tech Stack</span>
+                </div>
+                <div className="flex items-center gap-2 px-2 py-1 rounded-md bg-cyan-500/20 text-cyan-400 text-xs font-medium">
+                  <Code2 className="w-3 h-3" />
+                  {widgetsList[selectedWidget].linesOfCode}
+                </div>
+                <div className={`px-2 py-1 rounded-md text-xs font-medium ${
+                  widgetsList[selectedWidget].complexity === "Beginner-friendly" 
+                    ? "bg-green-500/20 text-green-400" 
+                    : widgetsList[selectedWidget].complexity === "Intermediate"
+                    ? "bg-amber-500/20 text-amber-400"
+                    : widgetsList[selectedWidget].complexity === "Advanced"
+                    ? "bg-orange-500/20 text-orange-400"
+                    : "bg-purple-500/20 text-purple-400"
+                }`}>
+                  {widgetsList[selectedWidget].complexity}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {widgetsList[selectedWidget].techStack.map((tech, i) => (
+                  <span key={i} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Features, Requirements, Includes Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Features */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  Features
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <Check className="w-3 h-3 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Requirements */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Code2 className="w-4 h-4 text-blue-400" />
+                  Requirements
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].requirements.map((req, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                      <span>{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* What's Included */}
+              <div className="bg-white/5 rounded-xl p-4">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Package className="w-4 h-4 text-purple-400" />
+                  What's Included
+                </h5>
+                <ul className="space-y-1.5">
+                  {widgetsList[selectedWidget].includes.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <Check className="w-3 h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Customization Options - Only for Pulse products */}
+            {widgetsList[selectedWidget].customizations && (
+              <div className="mt-4 p-4 bg-gradient-to-r from-red-500/5 to-orange-500/5 border border-red-500/20 rounded-xl">
+                <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-red-400" />
+                  <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">What We Can Customize For You</span>
+                </h5>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Unlike off-the-shelf solutions, Pulse is tailored specifically to your needs. Here's what we can configure:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {widgetsList[selectedWidget].customizations.map((custom, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs">
+                      <Zap className="w-3 h-3 text-orange-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300">{custom}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-3 border-t border-red-500/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <p className="text-xs text-red-300/70 italic">
+                    Have a specific requirement not listed here? Tell us in your request form - our engineers can build custom solutions for your exact use case.
+                  </p>
+                  <a 
+                    href="https://darkwavepulse.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full text-xs font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 hover:scale-[1.02] transition-all whitespace-nowrap"
+                    data-testid="link-pulse-live"
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    See Pulse in Action
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Trust & Security Footer */}
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <Shield className="w-8 h-8 text-primary flex-shrink-0" />
+                  <div>
+                    <div className="text-xs font-semibold text-primary">DWSC Verified</div>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                      Every purchase is hashed to the DWSC blockchain. Your transaction hash is stored in your account for permanent verification. Check authenticity anytime at trustshield.tech
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span className="px-2 py-1 rounded bg-white/5 font-mono">SHA-256 Secured</span>
+                  <span className="px-2 py-1 rounded bg-white/5 font-mono">Immutable Record</span>
+                </div>
+              </div>
+            </div>
+          </GlassCard>
+        </GlassCard>
+        </motion.section>
+
+        {/* BENTO GRID SECTION 6: CTA - TRUE 3-COL MOBILE / 12-COL DESKTOP */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 lg:grid-cols-12 gap-2 lg:gap-4"
+        >
+          <div className="col-span-3 lg:col-span-12">
+            <GlassCard glow className="rounded-xl lg:rounded-3xl p-4 lg:p-12 text-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10" />
+              <div className="relative z-10">
+                <h3 className="text-lg lg:text-3xl font-bold font-display mb-2 lg:mb-4" data-testid="text-cta-title">
+                  Join the <span className="gradient-text">Trust Layer</span>
+                </h3>
+                <p className="text-xs lg:text-base text-muted-foreground max-w-2xl mx-auto mb-4 lg:mb-8 line-clamp-2 lg:line-clamp-none">
+                  Connect your app to the Trust Layer ecosystem. Share code, sync data, and leverage blockchain-verified integrations.
+                </p>
+                <div className="flex flex-wrap gap-2 lg:gap-4 justify-center">
+                  <Link 
+                    href="/contact"
+                    className="btn-glow inline-flex items-center gap-1.5 lg:gap-2 bg-primary text-primary-foreground px-4 lg:px-8 py-2 lg:py-4 rounded-lg lg:rounded-xl font-semibold text-xs lg:text-lg"
+                    data-testid="button-apply-access"
+                  >
+                    Apply for Access <Zap className="w-3.5 h-3.5 lg:w-5 lg:h-5" />
+                  </Link>
+                  <a 
+                    href="#"
+                    className="inline-flex items-center gap-1.5 lg:gap-2 glass px-4 lg:px-8 py-2 lg:py-4 rounded-lg lg:rounded-xl font-semibold text-xs lg:text-sm hover:bg-white/10 transition-colors"
+                    data-testid="button-docs"
+                  >
+                    Docs <ExternalLink className="w-3 h-3 lg:w-4 lg:h-4" />
+                  </a>
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+        </motion.section>
+      </main>
+
+      <footer className="glass-strong mt-6 lg:mt-12 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-6 flex flex-col md:flex-row items-center justify-between gap-2 lg:gap-4">
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
+            <span className="font-display font-bold text-sm lg:text-base gradient-text" data-testid="text-footer-brand">Trust Layer Hub</span>
+          </div>
+          <div className="text-muted-foreground text-[10px] lg:text-sm" data-testid="text-footer-tagline">Powered by Trust Layer Blockchain</div>
+        </div>
+      </footer>
+
+      {/* AI Chat Side Tab */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50" data-testid="ai-chat-container">
+        {/* Side Tab Button */}
+        <button
+          onClick={() => setAiChatOpen(!aiChatOpen)}
+          className={`flex items-center justify-center w-10 h-24 bg-gradient-to-b from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white shadow-xl shadow-purple-500/30 transition-all rounded-l-xl border border-purple-400/30 ${
+            aiChatOpen ? "translate-x-full opacity-0 pointer-events-none" : "translate-x-0 opacity-100"
+          }`}
+          data-testid="ai-chat-tab"
+          aria-label="Open AI Assistant"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <Shield className="w-5 h-5" />
+            <span className="text-[10px] font-bold" style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>AI</span>
+          </div>
+        </button>
+
+        {/* Full Chat Panel */}
+        <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-slate-950 via-purple-950/90 to-slate-950 border-l border-purple-500/30 shadow-2xl shadow-purple-500/20 transition-transform duration-300 flex flex-col ${
+          aiChatOpen ? "translate-x-0" : "translate-x-full"
+        }`} data-testid="ai-chat-panel">
+          {/* Chat Header */}
+          <div className="p-4 border-b border-purple-500/20 bg-black/40 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-white">Trust Layer AI</h3>
+                <p className="text-xs text-purple-300">Powered by Trust Layer</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setAiChatOpen(false)}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
+              data-testid="ai-chat-close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Messages Area */}
+          <div className="flex-1 overflow-auto p-4 space-y-4">
+            {aiMessages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                  msg.role === "user"
+                    ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-br-sm"
+                    : "bg-white/10 backdrop-blur-sm text-gray-100 rounded-bl-sm border border-purple-500/20"
+                }`}>
+                  {msg.role === "assistant" && (
+                    <div className="flex items-center gap-2 mb-2 text-purple-300">
+                      <Bot className="w-4 h-4" />
+                      <span className="text-xs font-semibold">AI Assistant</span>
+                    </div>
+                  )}
+                  <p className="text-sm leading-relaxed">{msg.content}</p>
+                </div>
+              </div>
+            ))}
+            {aiLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-3 border border-purple-500/20">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input Area */}
+          <form onSubmit={handleAiSubmit} className="p-4 border-t border-purple-500/20 bg-black/40">
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                value={aiInput}
+                onChange={(e) => setAiInput(e.target.value)}
+                placeholder="Ask me anything..."
+                className="flex-1 bg-white/5 border border-purple-500/30 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/50 text-sm"
+                data-testid="ai-chat-input"
+              />
+              <button
+                type="submit"
+                disabled={!aiInput.trim() || aiLoading}
+                className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 text-white flex items-center justify-center hover:from-purple-500 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30"
+                data-testid="ai-chat-send"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-[10px] text-purple-300/60 mt-2 text-center">Powered by 11 Labs Voice AI</p>
+          </form>
+        </div>
+      </div>
+
+      {/* Floating Cart Button */}
+      {cart.length > 0 && (
+        <button
+          onClick={() => setCartOpen(true)}
+          className="fixed bottom-6 right-6 z-40 w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-gradient-to-r from-primary to-accent text-white shadow-2xl shadow-primary/30 flex items-center justify-center hover:scale-110 transition-transform"
+          data-testid="floating-cart-button"
+        >
+          <ShoppingCart className="w-6 h-6" />
+          <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">
+            {cart.length}
+          </span>
+        </button>
+      )}
+
+      {/* Cart Drawer */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50" data-testid="cart-drawer">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setCartOpen(false)} />
+          <div className="absolute right-0 top-0 bottom-0 w-full max-w-md bg-background border-l border-white/10 flex flex-col">
+            <div className="p-4 lg:p-6 border-b border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <ShoppingCart className="w-5 h-5 text-primary" />
+                <h3 className="font-display font-bold text-lg">Your Cart</h3>
+                <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-sm font-semibold">{cart.length} items</span>
+              </div>
+              <button onClick={() => setCartOpen(false)} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-auto p-4 lg:p-6 space-y-3">
+              {cart.map((item) => (
+                <div key={item.id} className="glass rounded-xl p-4 flex items-center justify-between" data-testid={`cart-item-${item.id}`}>
+                  <div>
+                    <h4 className="font-semibold text-sm">{item.name}</h4>
+                    <span className="text-xs text-muted-foreground capitalize">{item.type}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-primary">${item.price}</span>
+                    <button 
+                      onClick={() => removeFromCart(item.id)}
+                      className="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                      data-testid={`remove-item-${item.id}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="p-4 lg:p-6 border-t border-white/10 space-y-4">
+              <div className="flex items-center justify-between text-lg font-bold">
+                <span>Total</span>
+                <span className="text-primary">${cartTotal}</span>
+              </div>
+              
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleCheckout("stripe")}
+                  disabled={checkoutLoading}
+                  className="w-full btn-glow bg-primary text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                  data-testid="checkout-stripe"
+                >
+                  {checkoutLoading ? "Processing..." : <><Zap className="w-4 h-4" /> Pay with Card</>}
+                </button>
+                <button
+                  onClick={() => handleCheckout("coinbase")}
+                  disabled={checkoutLoading}
+                  className="w-full bg-[#0052FF] hover:bg-[#0052FF]/90 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
+                  data-testid="checkout-coinbase"
+                >
+                  {checkoutLoading ? "Processing..." : <><Shield className="w-4 h-4" /> Pay with Crypto</>}
+                </button>
+              </div>
+              
+              <p className="text-[10px] text-muted-foreground text-center">
+                Secure checkout powered by Stripe & Coinbase Commerce
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pulse Request Modal */}
+      {pulseModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="modal-pulse-request">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+          />
+          <GlassCard className="relative w-full max-w-2xl max-h-[90vh] rounded-2xl overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div>
+                <h3 className="font-bold font-display text-lg flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-red-500" />
+                  Request Your Bespoke Solution
+                </h3>
+                <p className="text-sm text-muted-foreground">Handcrafted precision, tailored exclusively to your needs</p>
+              </div>
+              <button
+                onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                data-testid="close-pulse-modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              {pulseSubmitted ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/30">
+                    <Check className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold mb-3 bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Your Request Has Been Received</h4>
+                  <div className="max-w-md mx-auto space-y-4">
+                    <p className="text-muted-foreground">
+                      Thank you for choosing a premium, tailor-made solution. Unlike one-size-fits-all products, 
+                      <span className="text-amber-400 font-medium"> every Pulse implementation is handcrafted specifically for you</span>.
+                    </p>
+                    <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-4 text-left">
+                      <h5 className="font-semibold text-amber-400 mb-2 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" /> What Happens Next
+                      </h5>
+                      <ul className="text-sm space-y-2 text-muted-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">1.</span>
+                          <span>Our specialists will <strong className="text-white">carefully analyze your requirements</strong> within 24-48 hours</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">2.</span>
+                          <span>We'll craft a <strong className="text-white">custom proposal and pricing</strong> based on your specific use case</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-500 mt-1">3.</span>
+                          <span>Your solution will be <strong className="text-white">built and configured exclusively for your purposes</strong></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <p className="text-xs text-muted-foreground italic">
+                      Like a master luthier crafting a fine acoustic guitar from premium mahogany and rosewood, 
+                      we take the time to build something exceptional - not mass-produced.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => { setPulseModalOpen(false); setPulseSubmitted(false); }}
+                    className="mt-6 btn-glow bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-lg font-semibold"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handlePulseSubmit} className="space-y-4">
+                  <div className="bg-gradient-to-r from-amber-500/5 to-orange-500/5 border border-amber-500/20 rounded-xl p-4 mb-2">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-amber-400 mb-1">Why We Do It This Way</h5>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          Pulse is not a cookie-cutter, one-size-fits-all product. Each implementation is 
+                          <strong className="text-white"> precision-crafted for your specific requirements</strong> - 
+                          like a master craftsman building a fine instrument from premium materials. 
+                          Tell us about your needs, and we'll design a solution as unique as your business.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Company Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={pulseFormData.companyName}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="Your company"
+                        data-testid="input-company-name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Contact Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={pulseFormData.contactName}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, contactName: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="Your name"
+                        data-testid="input-contact-name"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={pulseFormData.email}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, email: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="email@company.com"
+                        data-testid="input-email"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Phone</label>
+                      <input
+                        type="tel"
+                        value={pulseFormData.phone}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, phone: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="(555) 123-4567"
+                        data-testid="input-phone"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Primary Use Case *</label>
+                    <select
+                      required
+                      value={pulseFormData.useCase}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, useCase: e.target.value }))}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                      data-testid="select-use-case"
+                    >
+                      <option value="">Select use case...</option>
+                      <option value="trading">Trading / Investment Decisions</option>
+                      <option value="analytics">Market Analytics & Insights</option>
+                      <option value="forecasting">Business Forecasting</option>
+                      <option value="risk">Risk Assessment</option>
+                      <option value="research">Research & Backtesting</option>
+                      <option value="platform">Platform Integration</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Expected Volume</label>
+                      <select
+                        value={pulseFormData.expectedVolume}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, expectedVolume: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-volume"
+                      >
+                        <option value="">Select volume...</option>
+                        <option value="low">Low ({"<"}100 predictions/day)</option>
+                        <option value="medium">Medium (100-1000/day)</option>
+                        <option value="high">High (1000-10000/day)</option>
+                        <option value="enterprise">Enterprise (10000+/day)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Timeline</label>
+                      <select
+                        value={pulseFormData.timeline}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, timeline: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-timeline"
+                      >
+                        <option value="">Select timeline...</option>
+                        <option value="asap">ASAP</option>
+                        <option value="1-2weeks">1-2 weeks</option>
+                        <option value="1month">Within 1 month</option>
+                        <option value="exploring">Just exploring</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Integration Needs</label>
+                      <input
+                        type="text"
+                        value={pulseFormData.integrationNeeds}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, integrationNeeds: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        placeholder="API, Webhook, White-label..."
+                        data-testid="input-integration"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Budget Range</label>
+                      <select
+                        value={pulseFormData.budgetRange}
+                        onChange={(e) => setPulseFormData(prev => ({ ...prev, budgetRange: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                        data-testid="select-budget"
+                      >
+                        <option value="">Select budget...</option>
+                        <option value="under-500">Under $500</option>
+                        <option value="500-1500">$500 - $1,500</option>
+                        <option value="1500-4000">$1,500 - $4,000</option>
+                        <option value="4000-10000">$4,000 - $10,000</option>
+                        <option value="10000+">$10,000+</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Current Tools / Systems</label>
+                    <input
+                      type="text"
+                      value={pulseFormData.currentTools}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, currentTools: e.target.value }))}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none"
+                      placeholder="What tools/platforms do you currently use?"
+                      data-testid="input-current-tools"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Additional Notes</label>
+                    <textarea
+                      value={pulseFormData.additionalNotes}
+                      onChange={(e) => setPulseFormData(prev => ({ ...prev, additionalNotes: e.target.value }))}
+                      rows={3}
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-primary focus:outline-none resize-none"
+                      placeholder="Tell us more about your specific requirements..."
+                      data-testid="input-notes"
+                    />
+                  </div>
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                    <p className="text-xs text-red-300">
+                      <strong>Selected Tier:</strong> {pulseFormData.tier === "basic" ? "Pulse Basic" : pulseFormData.tier === "pro" ? "Pulse Pro API" : "Pulse Enterprise"} - Starting at ${
+                        pulseFormData.tier === "basic" ? "499" : 
+                        pulseFormData.tier === "pro" ? "1,499" : "3,999"
+                      }
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Pricing is customized based on your specific requirements and volume.
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={pulseSubmitting}
+                    className="w-full btn-glow bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                    data-testid="submit-pulse-request"
+                  >
+                    {pulseSubmitting ? "Submitting..." : <><Zap className="w-4 h-4" /> Submit Request</>}
+                  </button>
+                </form>
+              )}
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      {/* Full Code Modal */}
+      {codeModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" data-testid="modal-full-code">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setCodeModal(prev => ({ ...prev, open: false }))}
+          />
+          <GlassCard className="relative w-full max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div>
+                <h3 className="font-bold font-display text-lg">{codeModal.title}</h3>
+                <p className="text-sm text-muted-foreground">{codeModal.lines} lines of code</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={copyFullCode}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors text-sm"
+                  data-testid="button-copy-full"
+                >
+                  {copiedId === "modal" ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      Copy All
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => setCodeModal(prev => ({ ...prev, open: false }))}
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                  data-testid="button-close-modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              {codeModal.loading ? (
+                <div className="flex items-center justify-center h-64">
+                  <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
+                </div>
+              ) : (
+                <pre className="bg-black/40 rounded-xl p-4 overflow-x-auto text-xs lg:text-sm font-mono text-gray-300 leading-relaxed">
+                  <code>{codeModal.code}</code>
+                </pre>
+              )}
+            </div>
+          </GlassCard>
+        </div>
+      )}
+    </div>
+  );
+}

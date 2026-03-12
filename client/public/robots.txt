@@ -1,0 +1,60 @@
+# Robots.txt for DarkWave Studios
+# https://darkwavestudios.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://darkwavestudios.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin
+Disallow: /analytics
+Disallow: /blog/admin
+Disallow: /documents
+Disallow: /owner
+Disallow: /api/
+Disallow: /ws/
+Disallow: /marketing
+
+# Disallow payment and checkout flows
+Disallow: /payment/success
+Disallow: /payment/cancel
+
+# Allow important resources
+Allow: /favicon.png
+Allow: /og-image.png
+Allow: /sitemap.xml
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.webp

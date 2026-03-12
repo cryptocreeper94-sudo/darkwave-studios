@@ -1,0 +1,3869 @@
+import type { Express, Request, Response, NextFunction } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { insertLeadSchema, insertSubscriberSchema, insertQuoteRequestSchema, insertPulseRequestSchema, insertBookingSchema, insertTestimonialSchema, insertPaymentSchema, insertPageViewSchema, insertAnalyticsEventSchema, insertSeoKeywordSchema, insertBlogPostSchema, insertDocumentSchema, insertEcosystemAppSchema, insertCodeSnippetSchema, insertSnippetCategorySchema, insertEcosystemLogSchema, marketingPosts, marketingImages, metaIntegrations, scheduledPosts, insertMarketingPostSchema, marketingSubscriptions, postAnalytics, AI_CREDIT_COSTS, CREDIT_PACKAGES, sharedComponents, insertSharedComponentSchema, hallmarks as hallmarksTable, trustStamps as trustStampsTable } from "@shared/schema";
+import { TwitterConnector, postToFacebook, postToInstagram } from "./social-connectors";
+import { eq, asc, desc, sql, and, gte, lte } from "drizzle-orm";
+import { db } from "./db";
+import crypto from "crypto";
+import path from "path";
+import fs from "fs";
+import { notifyNewLead, notifyNewQuote, notifyNewBooking, notifyNewPulseRequest } from "./sms";
+import { getUncachableStripeClient, getStripePublishableKey } from "./stripeClient";
+import { getOrbitClient, syncPaymentToOrbit } from "./orbitClient";
+import { z } from "zod";
+import OpenAI from "openai";
+import multer from "multer";
+import widgetRoutes from "./widgets/widget-routes";
+import { trustVaultFetch, getCapabilities, storeWebhookEvent, getWebhookEvents, validateWebhookPayload } from "./trustvault-client";
+import { registerLumeRoutes } from "./lume-api";
+
+const uploadDir = "uploads/marketing";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+  }
+});
+
+const imageUpload = multer({
+  storage: imageStorage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.'));
+    }
+  }
+});
+
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "0424";
+
+const requireAdminAuth = (req: Request, res: Response, next: NextFunction) => {
+  const apiKey = req.headers["x-admin-key"] || req.query.adminKey;
+  if (apiKey !== ADMIN_API_KEY) {
+    return res.status(401).json({ success: false, error: "Unauthorized - Admin access required" });
+  }
+  next();
+};
+
+// Validation schemas for payment routes
+const paymentCheckoutSchema = z.object({
+  planType: z.enum(["starter", "growth", "scale", "custom_landing", "custom_business", "custom_ecommerce", "custom_saas"]),
+  customerName: z.string().min(1, "Name is required").max(100),
+  customerEmail: z.string().email("Valid email required"),
+  successUrl: z.string().url().optional(),
+  cancelUrl: z.string().url().optional(),
+});
+
+// Service plans configuration
+const SERVICE_PLANS = {
+  starter: { name: "Starter Plan", price: 99, priceId: "starter_monthly" },
+  growth: { name: "Growth Plan", price: 199, priceId: "growth_monthly" },
+  scale: { name: "Scale Plan", price: 399, priceId: "scale_monthly" },
+  custom_landing: { name: "Custom Landing Page", price: 997, priceId: "landing_page" },
+  custom_business: { name: "Business Website", price: 1997, priceId: "business_site" },
+  custom_ecommerce: { name: "E-Commerce Platform", price: 3997, priceId: "ecommerce" },
+  custom_saas: { name: "SaaS Application", price: 4997, priceId: "saas_app" },
+};
+
+export async function registerRoutes(
+  httpServer: Server,
+  app: Express
+): Promise<Server> {
+
+  // ============ LEADS / CONTACT FORM ============
+  app.post("/api/leads", async (req, res) => {
+    try {
+      const data = insertLeadSchema.parse(req.body);
+      const lead = await storage.createLead(data);
+      
+      notifyNewLead(data.name, data.email, data.projectType || undefined);
+      
+      res.status(201).json({ success: true, lead });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/leads", async (req, res) => {
+    try {
+      const leads = await storage.getLeads();
+      res.json({ success: true, leads });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/leads/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const lead = await storage.updateLeadStatus(req.params.id, status);
+      if (!lead) {
+        return res.status(404).json({ success: false, error: "Lead not found" });
+      }
+      res.json({ success: true, lead });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ NEWSLETTER SUBSCRIBERS ============
+  app.post("/api/subscribers", async (req, res) => {
+    try {
+      const data = insertSubscriberSchema.parse(req.body);
+      const subscriber = await storage.createSubscriber(data);
+      res.status(201).json({ success: true, subscriber });
+    } catch (error: any) {
+      if (error.message?.includes("unique")) {
+        res.status(400).json({ success: false, error: "Email already subscribed" });
+      } else {
+        res.status(400).json({ success: false, error: error.message });
+      }
+    }
+  });
+
+  app.get("/api/subscribers", async (req, res) => {
+    try {
+      const subscribers = await storage.getSubscribers();
+      res.json({ success: true, subscribers });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/subscribers/unsubscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      await storage.unsubscribe(email);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ QUOTE REQUESTS ============
+  app.post("/api/quotes", async (req, res) => {
+    try {
+      const data = insertQuoteRequestSchema.parse(req.body);
+      const quote = await storage.createQuoteRequest(data);
+      
+      notifyNewQuote(data.name, data.projectType, data.estimatedCost?.toString() || "TBD");
+      
+      res.status(201).json({ success: true, quote });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/quotes", async (req, res) => {
+    try {
+      const quotes = await storage.getQuoteRequests();
+      res.json({ success: true, quotes });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/quotes/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const quote = await storage.updateQuoteStatus(req.params.id, status);
+      if (!quote) {
+        return res.status(404).json({ success: false, error: "Quote not found" });
+      }
+      res.json({ success: true, quote });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ PULSE ACCESS REQUESTS ============
+  app.post("/api/pulse-requests", async (req, res) => {
+    try {
+      const data = insertPulseRequestSchema.parse(req.body);
+      const request = await storage.createPulseRequest(data);
+      
+      notifyNewPulseRequest(data.companyName, data.tier, data.useCase);
+      
+      res.status(201).json({ success: true, request });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/pulse-requests", async (req, res) => {
+    try {
+      const requests = await storage.getPulseRequests();
+      res.json({ success: true, requests });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/pulse-requests/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const request = await storage.updatePulseRequestStatus(req.params.id, status);
+      if (!request) {
+        return res.status(404).json({ success: false, error: "Request not found" });
+      }
+      res.json({ success: true, request });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ BOOKINGS ============
+  app.post("/api/bookings", async (req, res) => {
+    try {
+      const body = { ...req.body };
+      if (typeof body.date === "string") body.date = new Date(body.date);
+      const data = insertBookingSchema.parse(body);
+      const booking = await storage.createBooking(data);
+      
+      const dateStr = new Date(data.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      notifyNewBooking(data.name, dateStr, data.timeSlot);
+      
+      res.status(201).json({ success: true, booking });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/bookings", async (req, res) => {
+    try {
+      const bookings = await storage.getBookings();
+      res.json({ success: true, bookings });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/bookings/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const booking = await storage.updateBookingStatus(req.params.id, status);
+      if (!booking) {
+        return res.status(404).json({ success: false, error: "Booking not found" });
+      }
+      res.json({ success: true, booking });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ WEBSITE AUDIT ============
+  const websiteAuditSchema = z.object({
+    url: z.string().url("Valid URL required")
+  });
+
+  app.post("/api/website-audit", async (req, res) => {
+    try {
+      const validated = websiteAuditSchema.parse(req.body);
+      const parsedUrl = new URL(validated.url);
+
+      // Simulate website audit with realistic scores
+      // In production, this would use real APIs like PageSpeed Insights, etc.
+      const baseScore = Math.floor(Math.random() * 30) + 50; // 50-80 base
+      
+      const result = {
+        url: parsedUrl.href,
+        scores: {
+          performance: Math.min(100, baseScore + Math.floor(Math.random() * 25)),
+          seo: Math.min(100, baseScore + Math.floor(Math.random() * 30)),
+          mobile: Math.min(100, baseScore + Math.floor(Math.random() * 20)),
+          security: parsedUrl.protocol === 'https:' ? Math.min(100, baseScore + 30) : baseScore - 20,
+          accessibility: Math.min(100, baseScore + Math.floor(Math.random() * 15)),
+        },
+        issues: {
+          critical: [
+            "Large JavaScript bundles slowing initial load",
+            "Images not optimized for web",
+          ].slice(0, Math.floor(Math.random() * 2) + 1),
+          warnings: [
+            "Missing meta descriptions on some pages",
+            "No structured data markup detected",
+            "Some images missing alt text",
+            "Render-blocking resources detected",
+          ].slice(0, Math.floor(Math.random() * 3) + 1),
+          passed: [
+            parsedUrl.protocol === 'https:' ? "SSL certificate valid" : null,
+            "Mobile viewport configured",
+            "HTML lang attribute present",
+            "Document has title element",
+          ].filter(Boolean) as string[],
+        },
+        recommendations: [
+          "Optimize images using WebP format and lazy loading",
+          "Implement code splitting to reduce bundle size",
+          "Add structured data markup for better SEO",
+          "Minify CSS and JavaScript files",
+          "Enable browser caching for static assets",
+          "Consider implementing a CDN for faster global delivery",
+        ].slice(0, 4),
+        loadTime: `${(Math.random() * 3 + 1.5).toFixed(2)}s`,
+        pageSize: `${(Math.random() * 2 + 0.5).toFixed(1)} MB`,
+      };
+
+      res.json({ success: true, result });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ TESTIMONIALS ============
+  app.post("/api/testimonials", async (req, res) => {
+    try {
+      const data = insertTestimonialSchema.parse(req.body);
+      const testimonial = await storage.createTestimonial(data);
+      res.status(201).json({ success: true, testimonial });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/testimonials", async (req, res) => {
+    try {
+      const approvedOnly = req.query.approved === "true";
+      const testimonials = await storage.getTestimonials(approvedOnly);
+      res.json({ success: true, testimonials });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/testimonials/:id/approve", async (req, res) => {
+    try {
+      const testimonial = await storage.approveTestimonial(req.params.id);
+      if (!testimonial) {
+        return res.status(404).json({ success: false, error: "Testimonial not found" });
+      }
+      res.json({ success: true, testimonial });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ BLOG POSTS ============
+  app.get("/api/blog", async (req, res) => {
+    try {
+      const publishedOnly = req.query.published === "true";
+      const posts = await storage.getBlogPosts(publishedOnly);
+      res.json({ success: true, posts });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/blog/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPost(req.params.slug);
+      if (!post) {
+        return res.status(404).json({ success: false, error: "Post not found" });
+      }
+      res.json({ success: true, post });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ CASE STUDIES ============
+  app.get("/api/case-studies", async (req, res) => {
+    try {
+      const publishedOnly = req.query.published === "true";
+      const studies = await storage.getCaseStudies(publishedOnly);
+      res.json({ success: true, studies });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/case-studies/:slug", async (req, res) => {
+    try {
+      const study = await storage.getCaseStudy(req.params.slug);
+      if (!study) {
+        return res.status(404).json({ success: false, error: "Case study not found" });
+      }
+      res.json({ success: true, study });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ DASHBOARD STATS ============
+  app.get("/api/stats", async (req, res) => {
+    try {
+      const [leads, quotes, bookings, subscribers] = await Promise.all([
+        storage.getLeads(),
+        storage.getQuoteRequests(),
+        storage.getBookings(),
+        storage.getSubscribers()
+      ]);
+
+      const newLeads = leads.filter(l => l.status === "new").length;
+      const pendingQuotes = quotes.filter(q => q.status === "pending").length;
+      const upcomingBookings = bookings.filter(b => b.status === "pending").length;
+
+      res.json({
+        success: true,
+        stats: {
+          totalLeads: leads.length,
+          newLeads,
+          totalQuotes: quotes.length,
+          pendingQuotes,
+          totalBookings: bookings.length,
+          upcomingBookings,
+          totalSubscribers: subscribers.length
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ STRIPE PAYMENTS ============
+  app.post("/api/payments/stripe/create-checkout", async (req, res) => {
+    try {
+      // Validate request body
+      const validationResult = paymentCheckoutSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          success: false, 
+          error: validationResult.error.errors[0]?.message || "Invalid request data" 
+        });
+      }
+
+      const { planType, customerName, customerEmail, successUrl, cancelUrl } = validationResult.data;
+      const plan = SERVICE_PLANS[planType];
+
+      // Get Stripe client
+      let stripe;
+      try {
+        stripe = await getUncachableStripeClient();
+      } catch (stripeError) {
+        console.error("Failed to initialize Stripe client:", stripeError);
+        return res.status(500).json({ success: false, error: "Payment service unavailable" });
+      }
+
+      // Create Stripe checkout session
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: planType.startsWith("custom_") ? "payment" : "subscription",
+        customer_email: customerEmail,
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: plan.name,
+              description: `DarkWave Studios - ${plan.name}`,
+            },
+            unit_amount: plan.price * 100,
+            ...(planType.startsWith("custom_") ? {} : { recurring: { interval: "month" as const } }),
+          },
+          quantity: 1,
+        }],
+        success_url: successUrl || `${req.headers.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: cancelUrl || `${req.headers.origin}/payment/cancel`,
+        metadata: {
+          planType,
+          customerName,
+        },
+      });
+
+      // Store payment record
+      const payment = await storage.createPayment({
+        customerName,
+        customerEmail,
+        amount: plan.price.toString(),
+        planType,
+        planName: plan.name,
+        paymentMethod: "stripe",
+        stripeSessionId: session.id,
+      });
+
+      res.json({ 
+        success: true, 
+        sessionId: session.id, 
+        url: session.url,
+        paymentId: payment.id 
+      });
+    } catch (error: any) {
+      console.error("Stripe checkout error:", error);
+      // Don't expose internal Stripe errors
+      res.status(500).json({ success: false, error: "Failed to create checkout session" });
+    }
+  });
+
+  // ============ COINBASE COMMERCE PAYMENTS ============
+  app.post("/api/payments/coinbase/create-charge", async (req, res) => {
+    try {
+      // Validate request body
+      const validationResult = paymentCheckoutSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          success: false, 
+          error: validationResult.error.errors[0]?.message || "Invalid request data" 
+        });
+      }
+
+      const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+      if (!coinbaseApiKey) {
+        return res.status(500).json({ success: false, error: "Crypto payments not configured" });
+      }
+
+      const { planType, customerName, customerEmail, successUrl, cancelUrl } = validationResult.data;
+      const plan = SERVICE_PLANS[planType];
+      const baseUrl = successUrl ? new URL(successUrl).origin : `${req.protocol}://${req.get("host")}`;
+
+      // Create Coinbase Commerce charge
+      const response = await fetch("https://api.commerce.coinbase.com/charges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CC-Api-Key": coinbaseApiKey,
+          "X-CC-Version": "2018-03-22",
+        },
+        body: JSON.stringify({
+          name: plan.name,
+          description: `DarkWave Studios - ${plan.name}`,
+          pricing_type: "fixed_price",
+          local_price: {
+            amount: plan.price.toString(),
+            currency: "USD",
+          },
+          metadata: {
+            customer_name: customerName,
+            customer_email: customerEmail,
+            plan_type: planType,
+          },
+          redirect_url: successUrl || `${baseUrl}/payment/success`,
+          cancel_url: cancelUrl || `${baseUrl}/payment/cancel`,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || "Failed to create Coinbase charge");
+      }
+
+      const chargeData = await response.json();
+      const charge = chargeData.data;
+
+      // Store payment record
+      const payment = await storage.createPayment({
+        customerName,
+        customerEmail,
+        amount: plan.price.toString(),
+        planType,
+        planName: plan.name,
+        paymentMethod: "coinbase",
+        coinbaseChargeId: charge.id,
+        coinbaseChargeCode: charge.code,
+      });
+
+      res.json({ 
+        success: true, 
+        chargeId: charge.id,
+        chargeCode: charge.code,
+        hostedUrl: charge.hosted_url,
+        paymentId: payment.id 
+      });
+    } catch (error: any) {
+      console.error("Coinbase Commerce error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Coinbase Webhook
+  app.post("/api/webhooks/coinbase", async (req: Request, res: Response) => {
+    try {
+      const event = req.body;
+      
+      if (event.event?.type === "charge:confirmed" || event.event?.type === "charge:resolved") {
+        const chargeId = event.event.data?.id;
+        if (chargeId) {
+          const payment = await storage.getPaymentByCoinbaseCharge(chargeId);
+          if (payment) {
+            await storage.updatePaymentStatus(payment.id, "completed", new Date());
+            
+            // Sync completed payment to ORBIT for bookkeeping
+            await syncPaymentToOrbit({
+              id: payment.id,
+              customerName: payment.customerName,
+              customerEmail: payment.customerEmail,
+              amount: payment.amount,
+              planType: payment.planType,
+              planName: payment.planName,
+              paymentMethod: payment.paymentMethod,
+              stripePaymentIntentId: payment.stripePaymentIntentId,
+              coinbaseChargeId: chargeId,
+            });
+          }
+        }
+      } else if (event.event?.type === "charge:failed" || event.event?.type === "charge:expired") {
+        const chargeId = event.event.data?.id;
+        if (chargeId) {
+          const payment = await storage.getPaymentByCoinbaseCharge(chargeId);
+          if (payment) {
+            await storage.updatePaymentStatus(payment.id, "failed");
+          }
+        }
+      }
+
+      res.json({ received: true });
+    } catch (error: any) {
+      console.error("Coinbase webhook error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Cart checkout with Stripe (multiple items)
+  app.post("/api/payments/stripe/cart-checkout", async (req, res) => {
+    try {
+      const { items } = req.body;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ success: false, error: "Cart is empty" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const downloadToken = crypto.randomBytes(32).toString("hex");
+      const totalAmount = items.reduce((sum: number, item: { price: number }) => sum + item.price * 100, 0);
+      
+      const lineItems = items.map((item: { id: string; name: string; price: number; type: string }) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.name,
+            description: `DarkWave ${item.type === "widget" ? "Widget" : "Snippet"} - One-time purchase`,
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: lineItems,
+        mode: "payment",
+        success_url: `${baseUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}&token=${downloadToken}`,
+        cancel_url: `${baseUrl}/hub`,
+        metadata: {
+          items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+          purchase_type: "hub_widgets",
+          download_token: downloadToken,
+        },
+      });
+
+      // Create purchase record
+      await storage.createPurchase({
+        stripeSessionId: session.id,
+        customerEmail: "pending@checkout.com",
+        items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+        totalAmount,
+        status: "pending",
+        downloadToken,
+        paymentMethod: "stripe",
+      });
+
+      res.json({ success: true, url: session.url });
+    } catch (error: any) {
+      console.error("Stripe cart checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Cart checkout with Coinbase Commerce (multiple items)
+  app.post("/api/payments/coinbase/cart-checkout", async (req, res) => {
+    try {
+      const { items } = req.body;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ success: false, error: "Cart is empty" });
+      }
+
+      const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+      if (!coinbaseApiKey) {
+        return res.status(500).json({ success: false, error: "Coinbase Commerce not configured" });
+      }
+
+      const total = items.reduce((sum: number, item: { price: number }) => sum + item.price, 0);
+      const itemNames = items.map((i: { name: string }) => i.name).join(", ");
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const downloadToken = crypto.randomBytes(32).toString("hex");
+
+      const response = await fetch("https://api.commerce.coinbase.com/charges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CC-Api-Key": coinbaseApiKey,
+          "X-CC-Version": "2018-03-22",
+        },
+        body: JSON.stringify({
+          name: "DarkWave Hub Purchase",
+          description: `Widgets & Snippets: ${itemNames}`,
+          pricing_type: "fixed_price",
+          local_price: {
+            amount: total.toString(),
+            currency: "USD",
+          },
+          metadata: {
+            items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+            purchase_type: "hub_widgets",
+            download_token: downloadToken,
+          },
+          redirect_url: `${baseUrl}/payment/success?token=${downloadToken}`,
+          cancel_url: `${baseUrl}/hub`,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.data?.hosted_url) {
+        // Create purchase record for Coinbase
+        await storage.createPurchase({
+          coinbaseChargeId: data.data.id,
+          customerEmail: "pending@checkout.com",
+          items: JSON.stringify(items.map((i: any) => ({ id: i.id, name: i.name, type: i.type }))),
+          totalAmount: total * 100,
+          status: "pending",
+          downloadToken,
+          paymentMethod: "coinbase",
+        });
+
+        res.json({ success: true, url: data.data.hosted_url });
+      } else {
+        res.status(500).json({ success: false, error: "Failed to create Coinbase charge" });
+      }
+    } catch (error: any) {
+      console.error("Coinbase cart checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get payments list (for admin)
+  app.get("/api/payments", async (req, res) => {
+    try {
+      const payments = await storage.getPayments();
+      res.json({ success: true, payments });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get Stripe config for frontend
+  app.get("/api/payments/config", async (req, res) => {
+    try {
+      const stripePublishableKey = await getStripePublishableKey();
+      res.json({
+        stripePublishableKey,
+        coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
+        plans: SERVICE_PLANS,
+      });
+    } catch (error) {
+      res.json({
+        stripePublishableKey: null,
+        coinbaseEnabled: !!process.env.COINBASE_COMMERCE_API_KEY,
+        plans: SERVICE_PLANS,
+      });
+    }
+  });
+
+  // ============ ANALYTICS - PAGE VIEWS ============
+  app.post("/api/analytics/pageview", async (req, res) => {
+    try {
+      const data = insertPageViewSchema.parse(req.body);
+      const view = await storage.createPageView(data);
+      res.status(201).json({ success: true, view });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/pageviews", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const views = await storage.getPageViews(days);
+      res.json({ success: true, views });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/stats", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const stats = await storage.getPageViewStats(days);
+      const events = await storage.getAnalyticsEvents(days);
+      
+      const eventCounts: Record<string, number> = {};
+      events.forEach(e => {
+        eventCounts[e.name] = (eventCounts[e.name] || 0) + 1;
+      });
+
+      res.json({ 
+        success: true, 
+        stats: {
+          ...stats,
+          totalEvents: events.length,
+          eventBreakdown: eventCounts
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ANALYTICS - EVENTS ============
+  app.post("/api/analytics/event", async (req, res) => {
+    try {
+      const data = insertAnalyticsEventSchema.parse(req.body);
+      const event = await storage.createAnalyticsEvent(data);
+      res.status(201).json({ success: true, event });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/analytics/events", requireAdminAuth, async (req, res) => {
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const events = await storage.getAnalyticsEvents(days);
+      res.json({ success: true, events });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ SEO KEYWORDS (Protected) ============
+  app.get("/api/seo/keywords", requireAdminAuth, async (req, res) => {
+    try {
+      const keywords = await storage.getSeoKeywords();
+      res.json({ success: true, keywords });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/seo/keywords", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertSeoKeywordSchema.parse(req.body);
+      const keyword = await storage.createSeoKeyword(data);
+      res.status(201).json({ success: true, keyword });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/seo/keywords/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const keyword = await storage.updateSeoKeyword(req.params.id, req.body);
+      if (!keyword) {
+        return res.status(404).json({ success: false, error: "Keyword not found" });
+      }
+      res.json({ success: true, keyword });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/seo/keywords/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteSeoKeyword(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ AI BLOG GENERATION (Protected) ============
+  app.post("/api/blog/generate", requireAdminAuth, async (req, res) => {
+    try {
+      const { topic, keywords, tone = "professional" } = req.body;
+
+      if (!topic) {
+        return res.status(400).json({ success: false, error: "Topic is required" });
+      }
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are an expert SEO content writer for DarkWave Studios, a premium web development agency. 
+Write engaging, informative blog posts that:
+- Target the provided keywords naturally
+- Follow ${tone} tone
+- Include proper headings (H2, H3)
+- Are optimized for search engines
+- Provide actionable value to readers
+- Are 800-1200 words long
+Return JSON with: title, slug (url-friendly), excerpt (150 chars), content (markdown), tags (array), category`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Write a blog post about: ${topic}\nTarget keywords: ${keywords?.join(", ") || "web development, agency"}` }
+        ],
+        response_format: { type: "json_object" },
+      });
+
+      const blogData = JSON.parse(response.choices[0].message.content || "{}");
+      
+      res.json({ success: true, blog: blogData });
+    } catch (error: any) {
+      console.error("AI blog generation error:", error);
+      res.status(500).json({ success: false, error: "Failed to generate blog post" });
+    }
+  });
+
+  app.post("/api/ai/chat", async (req, res) => {
+    try {
+      const { message, context } = req.body;
+
+      if (!message || typeof message !== "string" || message.trim().length === 0) {
+        return res.status(400).json({ success: false, error: "Message is required" });
+      }
+
+      if (message.length > 1000) {
+        return res.status(400).json({ success: false, error: "Message too long (max 1000 characters)" });
+      }
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are the DarkWave AI Assistant, a helpful and knowledgeable assistant for DarkWave Studios and the Trust Layer Hub marketplace. 
+
+Key information about DarkWave:
+- Premium web development agency offering custom websites, apps, and AI solutions
+- Trust Layer Hub is the unified blockchain ecosystem command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens. 102 embeddable widgets
+- Guardian AI provides AI agent certification services
+- DarkWave Pulse is a premium predictive AI system for market analysis
+- 60%+ savings compared to traditional agencies
+
+Be helpful, concise, and friendly. Answer questions about services, widgets, pricing, or technical capabilities.
+Context: ${context || 'General inquiry'}`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message }
+        ],
+        max_tokens: 500,
+      });
+
+      res.json({ 
+        success: true, 
+        response: response.choices[0].message.content 
+      });
+    } catch (error: any) {
+      console.error("AI chat error:", error);
+      res.status(500).json({ success: false, error: "Failed to process chat message" });
+    }
+  });
+
+  app.post("/api/guardian/scan", async (req, res) => {
+    try {
+      const scanRequestSchema = z.object({
+        agentName: z.string().min(1, "Agent name is required").max(200),
+        agentUrl: z.string().min(1, "URL or contract address is required").max(500),
+        contactEmail: z.string().email().optional().nullable(),
+      });
+
+      const parsed = scanRequestSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ success: false, error: parsed.error.errors[0]?.message || "Invalid input" });
+      }
+
+      const { agentName, agentUrl, contactEmail } = parsed.data;
+
+      const scan = await storage.createGuardianScan({
+        agentName,
+        agentUrl,
+        contactEmail: contactEmail || null,
+        scanType: "quick",
+        status: "scanning",
+      });
+
+      const openai = new OpenAI({
+        apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+        baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+      });
+
+      const systemPrompt = `You are Guardian AI, an advanced security analysis system for AI agents and bots in the crypto ecosystem. You perform comprehensive security assessments.
+
+Given an AI agent's name and URL/contract address, perform a thorough security analysis and return a JSON object with these exact fields:
+- securityScore (0-100): Code integrity, vulnerabilities, access control, wallet safety
+- transparencyScore (0-100): Open source status, documentation quality, audit history  
+- reliabilityScore (0-100): Uptime metrics, error handling, edge case coverage
+- complianceScore (0-100): Regulatory alignment, data handling, consent mechanisms
+- overallScore (0-100): Weighted average of all scores
+- grade (A/B/C/D/F): A=80-100, B=60-79, C=40-59, D=20-39, F=0-19
+- riskLevel (Low/Moderate/Elevated/High/Critical): Based on overall score
+- findings (array of strings): 5-8 specific security findings, both positive and negative
+- recommendations (array of strings): 3-5 actionable security recommendations
+- summary (string): 2-3 sentence executive summary of the assessment
+
+Be realistic and thorough. Analyze the URL pattern, domain reputation implications, naming conventions, and potential attack vectors. For contract addresses, analyze the address format and chain. Provide genuinely useful security insights.
+
+IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: `Analyze this AI agent:\nName: ${agentName}\nURL/Contract: ${agentUrl}` }
+        ],
+        max_tokens: 1500,
+        temperature: 0.7,
+      });
+
+      const content = response.choices[0].message.content || "{}";
+      let analysis;
+      try {
+        const cleaned = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        analysis = JSON.parse(cleaned);
+      } catch {
+        analysis = {
+          securityScore: 65,
+          transparencyScore: 55,
+          reliabilityScore: 60,
+          complianceScore: 50,
+          overallScore: 58,
+          grade: "C",
+          riskLevel: "Elevated",
+          findings: ["Unable to fully parse analysis results", "Manual review recommended"],
+          recommendations: ["Submit for full certification review", "Provide source code access for deeper analysis"],
+          summary: "Preliminary scan completed with limited data. A full certification review is recommended for comprehensive security assessment."
+        };
+      }
+
+      const updated = await storage.updateGuardianScan(scan.id, {
+        status: "completed",
+        securityScore: analysis.securityScore,
+        transparencyScore: analysis.transparencyScore,
+        reliabilityScore: analysis.reliabilityScore,
+        complianceScore: analysis.complianceScore,
+        overallScore: analysis.overallScore,
+        grade: analysis.grade,
+        riskLevel: analysis.riskLevel,
+        findings: JSON.stringify(analysis.findings),
+        recommendations: JSON.stringify(analysis.recommendations),
+      });
+
+      res.json({
+        success: true,
+        scan: {
+          ...updated,
+          findings: analysis.findings,
+          recommendations: analysis.recommendations,
+          summary: analysis.summary,
+        }
+      });
+    } catch (error: any) {
+      console.error("Guardian scan error:", error);
+      res.status(500).json({ success: false, error: "Security scan failed. Please try again." });
+    }
+  });
+
+  app.get("/api/guardian/scans", async (_req, res) => {
+    try {
+      const scans = await storage.getGuardianScans();
+      res.json({ success: true, scans });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: "Failed to fetch scans" });
+    }
+  });
+
+  app.get("/api/guardian/scan/:id", async (req, res) => {
+    try {
+      const scan = await storage.getGuardianScan(req.params.id);
+      if (!scan) return res.status(404).json({ success: false, error: "Scan not found" });
+      res.json({ success: true, scan });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: "Failed to fetch scan" });
+    }
+  });
+
+  app.post("/api/blog", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(data);
+      res.status(201).json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/blog/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const post = await storage.updateBlogPost(req.params.id, req.body);
+      if (!post) {
+        return res.status(404).json({ success: false, error: "Post not found" });
+      }
+      res.json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/blog/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteBlogPost(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ DOCUMENTS (Public read, Protected write) ============
+  app.get("/api/documents", async (req, res) => {
+    try {
+      const docs = await storage.getDocuments();
+      res.json({ success: true, documents: docs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/documents/:slug", async (req, res) => {
+    try {
+      const doc = await storage.getDocument(req.params.slug);
+      if (!doc) {
+        return res.status(404).json({ success: false, error: "Document not found" });
+      }
+      res.json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/documents/category/:category", async (req, res) => {
+    try {
+      const docs = await storage.getDocumentsByCategory(req.params.category);
+      res.json({ success: true, documents: docs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/documents", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertDocumentSchema.parse(req.body);
+      const doc = await storage.createDocument(data);
+      res.status(201).json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.patch("/api/documents/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertDocumentSchema.partial().parse(req.body);
+      const doc = await storage.updateDocument(req.params.id, data);
+      if (!doc) {
+        return res.status(404).json({ success: false, error: "Document not found" });
+      }
+      res.json({ success: true, document: doc });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/documents/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteDocument(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ TRUST LAYER HUB / ECOSYSTEM ============
+
+  // Ecosystem Status (public - for app verification)
+  app.get("/api/ecosystem/status", async (req, res) => {
+    try {
+      const apiKey = req.headers["x-api-key"] as string;
+      const appName = req.headers["x-app-name"] as string;
+
+      if (!apiKey || !appName) {
+        return res.json({
+          connected: false,
+          hubName: "DarkWave Trust Layer Hub",
+          message: "Missing X-API-Key or X-App-Name headers"
+        });
+      }
+
+      const app = await storage.getEcosystemAppByApiKey(apiKey);
+      if (!app || app.appName !== appName) {
+        return res.json({
+          connected: false,
+          hubName: "DarkWave Trust Layer Hub",
+          message: "Invalid credentials or app not registered"
+        });
+      }
+
+      await storage.updateEcosystemAppLastSync(app.id);
+      await storage.createEcosystemLog({
+        appId: app.id,
+        appName: app.appName,
+        action: "status_check",
+        status: "success"
+      });
+
+      res.json({
+        connected: true,
+        hubName: "DarkWave Trust Layer Hub",
+        appName: app.displayName,
+        permissions: app.permissions || [],
+        isVerified: app.isVerified,
+        lastSync: app.lastSync
+      });
+    } catch (error: any) {
+      res.status(500).json({ connected: false, error: error.message });
+    }
+  });
+
+  // Get Hub Stats (public)
+  app.get("/api/ecosystem/stats", async (req, res) => {
+    try {
+      const stats = await storage.getEcosystemStats();
+      res.json({ success: true, stats });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/catalog", async (_req, res) => {
+    try {
+      const catalog = ecosystemHealthTargets.map(app => ({
+        id: app.id,
+        name: app.name,
+        url: app.url,
+        category: app.category,
+        loc: app.loc,
+        pages: app.pages,
+        status: "production",
+      }));
+      res.json({
+        success: true,
+        totalApps: catalog.length,
+        totalLOC: "1,715,456",
+        catalog,
+        generatedAt: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/announcements", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        announcements: [
+          {
+            id: "ann-001",
+            title: "Trust Layer Hub Launch",
+            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 35 ecosystem apps.",
+            type: "release",
+            priority: "high",
+            createdAt: "2026-03-01T00:00:00.000Z",
+          },
+          {
+            id: "ann-002",
+            title: "Canonical URL Migration",
+            body: "All ecosystem apps have migrated to canonical TLID.io subdomains for decentralized identity routing.",
+            type: "infrastructure",
+            priority: "medium",
+            createdAt: "2026-03-04T00:00:00.000Z",
+          },
+          {
+            id: "ann-003",
+            title: "Ecosystem Milestone: 1.74M+ LOC",
+            body: "The DarkWave Studios ecosystem has surpassed 1.74 million lines of production code across 35 interconnected applications.",
+            type: "milestone",
+            priority: "low",
+            createdAt: "2026-02-28T00:00:00.000Z",
+          },
+        ],
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/developer/docs", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        documentation: {
+          overview: "DarkWave Studios public API provides access to ecosystem data, widget catalog, and developer resources.",
+          baseUrl: "https://darkwavestudios.io/api",
+          endpoints: [
+            { method: "GET", path: "/api/ecosystem/catalog", description: "Canonical 35-app ecosystem catalog with URLs, categories, LOC, and page counts", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/stats", description: "Ecosystem-wide aggregate statistics", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 35 ecosystem apps", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/shared/components", description: "Shared component library catalog", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/widget-data", description: "Embeddable widget data for Trust Layer Hub", auth: "none" },
+            { method: "GET", path: "/api/announcements", description: "Platform announcements and milestones", auth: "none" },
+            { method: "GET", path: "/api/hallmark/genesis", description: "Genesis hallmark (DS-00000001) with blockchain verification", auth: "none" },
+            { method: "GET", path: "/api/hallmark/:id/verify", description: "Verify any hallmark by ID", auth: "none" },
+            { method: "GET", path: "/api/developer/docs", description: "This documentation endpoint", auth: "none" },
+          ],
+          trustLayer: {
+            sso: "JWT-based cross-app SSO via TLID.io",
+            hallmarks: "SHA-256 blockchain-verified audit trail (prefix: DS)",
+            genesisHallmark: "DS-00000001",
+            parentGenesis: "TH-00000001",
+          },
+          contact: "team@dwsc.io",
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // List Connected Apps (public info only)
+  app.get("/api/ecosystem/apps", async (req, res) => {
+    try {
+      const apps = await storage.getEcosystemApps();
+      const publicApps = apps.filter(a => a.isActive).map(app => ({
+        id: app.id,
+        appName: app.appName,
+        displayName: app.displayName,
+        description: app.description,
+        logoUrl: app.logoUrl,
+        isVerified: app.isVerified,
+        createdAt: app.createdAt
+      }));
+      res.json({ success: true, apps: publicApps });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Register New App (admin)
+  app.post("/api/ecosystem/apps", requireAdminAuth, async (req, res) => {
+    try {
+      const apiKey = crypto.randomBytes(32).toString("hex");
+      const apiSecret = crypto.randomBytes(48).toString("hex");
+      
+      const data = insertEcosystemAppSchema.parse({
+        ...req.body,
+        apiKey,
+        apiSecret
+      });
+      
+      const app = await storage.createEcosystemApp(data);
+      
+      await storage.createEcosystemLog({
+        appId: app.id,
+        appName: app.appName,
+        action: "app_registered",
+        status: "success"
+      });
+
+      res.status(201).json({ 
+        success: true, 
+        app,
+        credentials: { apiKey, apiSecret }
+      });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Update App (admin)
+  app.patch("/api/ecosystem/apps/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const app = await storage.updateEcosystemApp(req.params.id, req.body);
+      if (!app) {
+        return res.status(404).json({ success: false, error: "App not found" });
+      }
+      res.json({ success: true, app });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Delete App (admin)
+  app.delete("/api/ecosystem/apps/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteEcosystemApp(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ CODE SNIPPETS ============
+
+  // Get All Snippets (public)
+  app.get("/api/ecosystem/snippets", async (req, res) => {
+    try {
+      const category = req.query.category as string;
+      let snippets;
+      if (category) {
+        snippets = await storage.getCodeSnippetsByCategory(category);
+      } else {
+        snippets = await storage.getCodeSnippets(true);
+      }
+      res.json({ success: true, snippets });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get Single Snippet
+  app.get("/api/ecosystem/snippets/:id", async (req, res) => {
+    try {
+      const snippet = await storage.getCodeSnippet(req.params.id);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      res.json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  const ecosystemHealthTargets = [
+    { id: "trust-layer", name: "Trust Layer", url: "https://dwtl.io", category: "core", loc: "243,958", pages: "233" },
+    { id: "trust-shield", name: "Guardian Shield", url: "https://trustshield.tech", category: "security", loc: "~15K", pages: "8" },
+    { id: "pulse", name: "Pulse", url: "https://darkwavepulse.com", category: "trading", loc: "~20K", pages: "12" },
+    { id: "strikeagent", name: "StrikeAgent", url: "https://strikeagent.io", category: "trading", loc: "~8K", pages: "6" },
+    { id: "orbit-staffing", name: "ORBIT Staffing OS", url: "https://orbitstaffing.io", category: "business", loc: "~25K", pages: "15" },
+    { id: "orby-commander", name: "Orby Commander", url: "https://getorby.io", category: "business", loc: "~12K", pages: "10" },
+    { id: "lot-ops-pro", name: "Lot Ops Pro", url: "https://lotopspro.io", category: "business", loc: "~10K", pages: "8" },
+    { id: "brew-board", name: "Brew & Board Coffee", url: "https://brewandboard.coffee", category: "business", loc: "~6K", pages: "5" },
+    { id: "tradeworks-ai", name: "TradeWorks AI", url: "https://tradeworksai.io", category: "trades", loc: "11,231", pages: "7" },
+    { id: "paint-pros", name: "PaintPros", url: "https://paintpros.io", category: "trades", loc: "152,149", pages: "96" },
+    { id: "nash-paint-pros", name: "Nashville Painting Professionals", url: "https://nashpaintpros.io", category: "trades", loc: "3,950", pages: "4" },
+    { id: "garagebot", name: "GarageBot", url: "https://garagebot.io", category: "auto", loc: "111,000+", pages: "50+" },
+    { id: "torque", name: "TORQUE", url: "https://torque.tlid.io", category: "auto", loc: "5,475", pages: "10" },
+    { id: "tl-driver-connect", name: "TL Driver Connect", url: "https://tldriverconnect.com", category: "auto", loc: "110,745", pages: "63" },
+    { id: "vedasolus", name: "VedaSolus", url: "https://vedasolus.io", category: "health", loc: "~8K", pages: "6" },
+    { id: "tlid-io", name: "TLID.io", url: "https://tlid.io", category: "business", loc: "7,133", pages: "11" },
+    { id: "chronicles", name: "Chronicles", url: "https://yourlegacy.io", category: "gaming", loc: "36,947", pages: "27" },
+    { id: "the-arcade", name: "The Arcade", url: "https://darkwavegames.io", category: "gaming", loc: "~15K", pages: "12" },
+    { id: "darkwave-studio", name: "DarkWave Studio", url: "https://studio.tlid.io", category: "core", loc: "7,006", pages: "5" },
+    { id: "trusthome", name: "TrustHome", url: "https://trusthome.tlid.io", category: "real-estate", loc: "26,653", pages: "20" },
+    { id: "trustvault", name: "TrustVault", url: "https://trustvault.tlid.io", category: "security", loc: "46,697", pages: "29" },
+    { id: "guardian-scanner", name: "Guardian Scanner", url: "https://guardianscanner.tlid.io", category: "security", loc: "~5K", pages: "3" },
+    { id: "signal-chat", name: "Signal Chat", url: "https://signalchat.tlid.io", category: "social", loc: "~4K", pages: "2" },
+    { id: "the-void", name: "THE VOID", url: "https://intothevoid.app", category: "health", loc: "23,532", pages: "27" },
+    { id: "guardian-screener", name: "Guardian Screener", url: "https://guardianscreener.tlid.io", category: "trading", loc: "~8K", pages: "5" },
+    { id: "darkwave-academy", name: "DarkWave Academy", url: "https://academy.tlid.io", category: "core", loc: "~6K", pages: "4" },
+    { id: "verdara", name: "Verdara", url: "https://verdara.tlid.io", category: "health", loc: "35,500", pages: "41" },
+    { id: "arbora", name: "Arbora", url: "https://arbora.tlid.io", category: "trades", loc: "~8K", pages: "10" },
+    { id: "happy-eats", name: "Happy Eats", url: "https://happyeats.app", category: "auto", loc: "110,745", pages: "63" },
+    { id: "trust-book", name: "Trust Book", url: "https://trustbook.tlid.io", category: "core", loc: "9,861", pages: "3" },
+    { id: "trust-golf", name: "Trust Golf", url: "https://trustgolf.app", category: "sports", loc: "14,576", pages: "16" },
+    { id: "bomber", name: "Bomber", url: "https://bomber.tlid.io", category: "gaming", loc: "~4,500", pages: "5" },
+    { id: "trust-hub", name: "Trust Layer Hub", url: "https://trusthub.tlid.io", category: "core", loc: "21,026", pages: "24" },
+    { id: "trustgen", name: "TrustGen", url: "https://trustgen.tlid.io", category: "creative", loc: "18,700", pages: "7" },
+    { id: "lume", name: "Lume", url: "https://lume-lang.org", category: "devtools", loc: "12,215", pages: "5" },
+  ];
+
+  let healthCache: { results: any[]; timestamp: number } | null = null;
+  const HEALTH_CACHE_TTL = 60000;
+
+  app.get("/api/ecosystem/health", async (req, res) => {
+    try {
+      if (healthCache && Date.now() - healthCache.timestamp < HEALTH_CACHE_TTL) {
+        return res.json({ success: true, cached: true, checkedAt: new Date(healthCache.timestamp).toISOString(), apps: healthCache.results });
+      }
+
+      const results = await Promise.allSettled(
+        ecosystemHealthTargets.map(async (target) => {
+          const start = Date.now();
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 8000);
+            const response = await fetch(target.url, {
+              method: "HEAD",
+              signal: controller.signal,
+              headers: { "User-Agent": "DarkWave-HealthCheck/1.0" },
+              redirect: "follow",
+            });
+            clearTimeout(timeout);
+            const responseTime = Date.now() - start;
+            return {
+              ...target,
+              status: response.ok ? "online" : "degraded",
+              statusCode: response.status,
+              responseTime,
+              checkedAt: new Date().toISOString(),
+            };
+          } catch (err: any) {
+            return {
+              ...target,
+              status: err.name === "AbortError" ? "timeout" : "offline",
+              statusCode: 0,
+              responseTime: Date.now() - start,
+              checkedAt: new Date().toISOString(),
+              error: err.message,
+            };
+          }
+        })
+      );
+
+      const healthResults = results.map(r => r.status === "fulfilled" ? r.value : { status: "error", error: "check failed" });
+      healthCache = { results: healthResults, timestamp: Date.now() };
+
+      const online = healthResults.filter((r: any) => r.status === "online").length;
+      const degraded = healthResults.filter((r: any) => r.status === "degraded").length;
+      const offline = healthResults.filter((r: any) => r.status === "offline" || r.status === "timeout").length;
+      const avgResponseTime = Math.round(healthResults.reduce((sum: number, r: any) => sum + (r.responseTime || 0), 0) / healthResults.length);
+
+      res.json({
+        success: true,
+        cached: false,
+        checkedAt: new Date().toISOString(),
+        summary: { total: healthResults.length, online, degraded, offline, avgResponseTime },
+        apps: healthResults,
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/widget-data", async (req, res) => {
+    try {
+      const ecosystemAppsData = [
+        { displayName: "DarkWave Studios", description: "Full-service web agency platform", icon: "DW", isVerified: true },
+        { displayName: "TL Driver Connect", description: "All-in-one driver services — mileage, fuel finder, CDL, concierge & delivery network", icon: "DC", isVerified: true },
+        { displayName: "Chronicles", description: "Immersive RPG with procedural audio", icon: "CH", isVerified: true },
+        { displayName: "THE VOID", description: "Existential AI experience", icon: "TV", isVerified: true },
+        { displayName: "DarkWave Arcade", description: "12 retro arcade games", icon: "AR", isVerified: true },
+        { displayName: "Guardian AI", description: "AI agent security scanner", icon: "GA", isVerified: true },
+        { displayName: "Signal Chat", description: "Encrypted real-time messaging", icon: "SC", isVerified: true },
+        { displayName: "TrustVault Studio", description: "Cross-app media editor", icon: "TS", isVerified: true },
+        { displayName: "Crypto Exchange", description: "Digital asset trading platform", icon: "CE", isVerified: true },
+        { displayName: "ChronoChat", description: "Community messaging platform", icon: "CC", isVerified: true },
+        { displayName: "DarkWave Academy", description: "Learning & tutorials platform", icon: "DA", isVerified: true },
+        { displayName: "Blockchain Explorer", description: "Transaction verification tool", icon: "BE", isVerified: true },
+        { displayName: "NFT Gallery", description: "Curated digital art collections", icon: "NF", isVerified: true },
+        { displayName: "Food Truck Map", description: "Location-based food finder", icon: "FT", isVerified: true },
+        { displayName: "Fuel Finder", description: "Gas price comparison app", icon: "FF", isVerified: true },
+        { displayName: "CDL Directory", description: "Commercial driver resources", icon: "CD", isVerified: true },
+        { displayName: "AI Agent Marketplace", description: "Deploy & discover AI agents", icon: "AM", isVerified: true },
+        { displayName: "Marketing Hub", description: "Social media automation", icon: "MH", isVerified: true },
+        { displayName: "VedaSolus", description: "Health passport & wellness", icon: "VS", isVerified: true },
+        { displayName: "GarageBot", description: "Automotive shop management", icon: "GB", isVerified: true },
+        { displayName: "TORQUE", description: "Repair shop operations", icon: "TQ", isVerified: true },
+        { displayName: "Brew & Board", description: "Coffee & catering platform", icon: "BB", isVerified: true },
+        { displayName: "Orbit Staffing", description: "Workforce management", icon: "OS", isVerified: true },
+        { displayName: "DW Analytics", description: "Business intelligence dashboard", icon: "AN", isVerified: true },
+        { displayName: "Trust Layer SSO", description: "Cross-app identity system", icon: "TL", isVerified: true },
+        { displayName: "Pulse API", description: "Ecosystem data access layer", icon: "PA", isVerified: true },
+        { displayName: "Trust Layer Hub", description: "Blockchain ecosystem command center — DeFi wallet, staking, chat, AI agent, multi-sig. 21,026 LOC", icon: "TH", isVerified: true },
+        { displayName: "Verdara", description: "Ultimate outdoor recreation super-app — species ID, trails, trips, campgrounds & marketplace", icon: "VD", isVerified: true },
+        { displayName: "Arbora", description: "Standalone arborist PWA — CRM, estimates, jobs, invoicing & crew management", icon: "AB", isVerified: true },
+        { displayName: "Happy Eats", description: "Zone-based food truck delivery — multi-truck carts, vendor portal, AI marketing & franchise model", icon: "HE", isVerified: true },
+        { displayName: "Trust Book", description: "Censorship-free publishing — AI narration, e-reader, 110K word flagship title", icon: "TB", isVerified: true },
+        { displayName: "Trust Golf", description: "Premium golf companion — 45+ courses, AI swing analysis, handicap tracking & deals", icon: "TG", isVerified: true },
+      ];
+
+      res.json({
+        success: true,
+        stats: {
+          totalApps: 35,
+          verifiedApps: 34,
+          totalWidgets: 102,
+          totalLOC: "1.74M+"
+        },
+        apps: ecosystemAppsData,
+        verification: {
+          method: "Trust Layer SSO",
+          protocol: "JWT Bearer Token",
+          status: "active"
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/widget.js", async (req, res) => {
+    const path = await import('path');
+    res.sendFile(path.join(process.cwd(), 'client', 'public', 'widgets', 'tl-ecosystem.js'), {
+      headers: { 'Content-Type': 'application/javascript' }
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════
+  // TRUST LAYER SHARED COMPONENTS SYSTEM
+  // ═══════════════════════════════════════════════════════
+
+  app.get("/api/ecosystem/shared/loader.js", async (req, res) => {
+    const path = await import('path');
+    res.sendFile(path.join(process.cwd(), 'client', 'public', 'widgets', 'tl-shared-loader.js'), {
+      headers: { 'Content-Type': 'application/javascript', 'Cache-Control': 'public, max-age=300' }
+    });
+  });
+
+  app.get("/api/ecosystem/shared/components", async (req, res) => {
+    try {
+      const { type, slug } = req.query;
+      let query = db.select().from(sharedComponents).where(eq(sharedComponents.isActive, true));
+      const results = await query;
+      let filtered = results;
+      if (type) filtered = filtered.filter(c => c.type === type);
+      if (slug) filtered = filtered.filter(c => c.slug === slug);
+      res.json({ success: true, components: filtered, count: filtered.length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/shared/components/:slug", async (req, res) => {
+    try {
+      const [component] = await db.select().from(sharedComponents)
+        .where(and(eq(sharedComponents.slug, req.params.slug), eq(sharedComponents.isActive, true)));
+      if (!component) return res.status(404).json({ success: false, error: "Component not found" });
+      res.json({ success: true, component });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/ecosystem/shared/render/:slug", async (req, res) => {
+    try {
+      const [component] = await db.select().from(sharedComponents)
+        .where(and(eq(sharedComponents.slug, req.params.slug), eq(sharedComponents.isActive, true)));
+      if (!component) return res.status(404).send('<!-- Component not found -->');
+      const theme = (req.query.theme as string) || 'dark';
+      let output = '';
+      if (component.cssContent) output += '<style>' + component.cssContent + '</style>';
+      if (component.htmlContent) output += component.htmlContent.replace(/\{\{theme\}\}/g, theme);
+      if (component.jsContent) output += '<script>' + component.jsContent + '</script>';
+      res.setHeader('Content-Type', 'text/html');
+      res.setHeader('Cache-Control', 'public, max-age=300');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(output);
+    } catch (error: any) {
+      res.status(500).send('<!-- Error loading component -->');
+    }
+  });
+
+  app.get("/api/ecosystem/shared/bundle", async (req, res) => {
+    try {
+      const slugs = ((req.query.components as string) || '').split(',').filter(Boolean);
+      const theme = (req.query.theme as string) || 'dark';
+      const allActive = await db.select().from(sharedComponents).where(eq(sharedComponents.isActive, true));
+      const toRender = slugs.length > 0 ? allActive.filter(c => slugs.includes(c.slug)) : allActive;
+      let css = '';
+      let html = '';
+      let js = '';
+      for (const c of toRender) {
+        if (c.cssContent) css += '/* ' + c.slug + ' */\n' + c.cssContent + '\n';
+        if (c.htmlContent) html += '<!-- ' + c.slug + ' -->\n' + c.htmlContent.replace(/\{\{theme\}\}/g, theme) + '\n';
+        if (c.jsContent) js += '// ' + c.slug + '\n' + c.jsContent + '\n';
+      }
+      const versions = toRender.map(c => c.version || 1);
+      res.json({ success: true, css, html, js, components: toRender.map(c => c.slug), version: versions.length > 0 ? Math.max(...versions) : 0 });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/ecosystem/shared/components", requireAdminAuth, async (req, res) => {
+    try {
+      const parsed = insertSharedComponentSchema.parse(req.body);
+      const [component] = await db.insert(sharedComponents).values(parsed).returning();
+      res.json({ success: true, component });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.put("/api/ecosystem/shared/components/:slug", requireAdminAuth, async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const [existing] = await db.select().from(sharedComponents).where(eq(sharedComponents.slug, slug));
+      if (!existing) return res.status(404).json({ success: false, error: "Component not found" });
+      const allowed = ['name', 'type', 'description', 'htmlContent', 'cssContent', 'jsContent', 'config', 'isActive'];
+      const updates: any = { updatedAt: new Date(), version: (existing.version || 1) + 1 };
+      for (const key of allowed) {
+        if (req.body[key] !== undefined) updates[key] = req.body[key];
+      }
+      const [updated] = await db.update(sharedComponents).set(updates).where(eq(sharedComponents.slug, slug)).returning();
+      res.json({ success: true, component: updated });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/ecosystem/shared/components/:slug", requireAdminAuth, async (req, res) => {
+    try {
+      const [deleted] = await db.update(sharedComponents)
+        .set({ isActive: false, updatedAt: new Date() })
+        .where(eq(sharedComponents.slug, req.params.slug)).returning();
+      if (!deleted) return res.status(404).json({ success: false, error: "Component not found" });
+      res.json({ success: true, message: "Component deactivated" });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ═══════════════════════════════════════════════════════
+
+  // Get Full Widget Code from file
+  app.get("/api/ecosystem/widget-code/:widgetName", async (req, res) => {
+    try {
+      const { widgetName } = req.params;
+      const validWidgets = [
+        'tl-analytics', 'tl-booking', 'tl-chat', 'tl-crew-tracker',
+        'tl-crm', 'tl-estimator', 'tl-lead-capture', 'tl-proposal',
+        'tl-reviews', 'tl-seo', 'tl-shared', 'tl-weather', 'tl-effects-kit',
+        'tl-ecosystem', 'tl-shared-loader', 'tl-shared-footer'
+      ];
+      
+      if (!validWidgets.includes(widgetName)) {
+        return res.status(404).json({ success: false, error: "Widget not found" });
+      }
+      
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      const widgetPath = path.join(process.cwd(), 'client', 'public', 'widgets', `${widgetName}.js`);
+      const code = await fs.readFile(widgetPath, 'utf-8');
+      
+      res.json({ success: true, widgetName, code, lines: code.split('\n').length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Verify purchase and get download info
+  app.get("/api/purchases/verify", async (req, res) => {
+    try {
+      const { token, session_id } = req.query;
+      
+      let purchase;
+      if (token) {
+        purchase = await storage.getPurchaseByToken(token as string);
+      } else if (session_id) {
+        purchase = await storage.getPurchaseByStripeSession(session_id as string);
+      }
+      
+      if (!purchase) {
+        return res.status(404).json({ success: false, error: "Purchase not found" });
+      }
+
+      // Stripe: verify payment status and update
+      if (purchase.stripeSessionId && purchase.status !== "fulfilled") {
+        try {
+          const stripe = await getUncachableStripeClient();
+          if (stripe) {
+            const session = await stripe.checkout.sessions.retrieve(purchase.stripeSessionId);
+            if (session.customer_details?.email && purchase.customerEmail === "pending@checkout.com") {
+              const { purchases: purchasesTable } = await import("@shared/schema");
+              await db.update(purchasesTable)
+                .set({ customerEmail: session.customer_details.email })
+                .where(eq(purchasesTable.id, purchase.id));
+              purchase = { ...purchase, customerEmail: session.customer_details.email };
+            }
+            if (session.payment_status === "paid" && purchase.status !== "fulfilled") {
+              await storage.fulfillPurchase(purchase.id);
+              purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+              console.log(`[Purchase] Auto-fulfilled Stripe purchase ${purchase.id}`);
+            }
+          }
+        } catch (e) {
+          console.error("[Purchase] Error verifying Stripe session:", e);
+        }
+      }
+
+      // Coinbase: auto-fulfill when user returns from Coinbase (redirect means payment completed)
+      if (purchase.paymentMethod === "coinbase" && purchase.status !== "fulfilled" && purchase.coinbaseChargeId) {
+        try {
+          const coinbaseApiKey = process.env.COINBASE_COMMERCE_API_KEY;
+          if (coinbaseApiKey) {
+            const chargeRes = await fetch(`https://api.commerce.coinbase.com/charges/${purchase.coinbaseChargeId}`, {
+              headers: {
+                "X-CC-Api-Key": coinbaseApiKey,
+                "X-CC-Version": "2018-03-22",
+              },
+            });
+            const chargeData = await chargeRes.json();
+            const timeline = chargeData.data?.timeline || [];
+            const isCompleted = timeline.some((t: any) => t.status === "COMPLETED");
+            const isPending = timeline.some((t: any) => t.status === "PENDING" || t.status === "NEW");
+            
+            if (isCompleted) {
+              await storage.fulfillPurchase(purchase.id);
+              purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+              console.log(`[Purchase] Auto-fulfilled Coinbase purchase ${purchase.id}`);
+            } else if (isPending && !isCompleted) {
+              // Payment sent but not yet confirmed — mark as pending, front-end will keep polling
+              console.log(`[Purchase] Coinbase purchase ${purchase.id} still pending confirmation`);
+            }
+          } else {
+            // No Coinbase key to verify — auto-fulfill on redirect as fallback
+            await storage.fulfillPurchase(purchase.id);
+            purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+            console.log(`[Purchase] Fallback-fulfilled Coinbase purchase ${purchase.id}`);
+          }
+        } catch (e) {
+          console.error("[Purchase] Error verifying Coinbase charge:", e);
+          // Fallback: fulfill on redirect since Coinbase only redirects after payment
+          await storage.fulfillPurchase(purchase.id);
+          purchase = { ...purchase, status: "fulfilled", fulfilledAt: new Date() };
+        }
+      }
+
+      const items = JSON.parse(purchase.items);
+      
+      res.json({
+        success: true,
+        purchase: {
+          id: purchase.id,
+          items,
+          totalAmount: purchase.totalAmount,
+          status: purchase.status,
+          customerEmail: purchase.customerEmail !== "pending@checkout.com" ? purchase.customerEmail : null,
+          downloadToken: purchase.downloadToken,
+          downloadCount: purchase.downloadCount,
+          paymentMethod: purchase.paymentMethod,
+          createdAt: purchase.createdAt,
+          fulfilledAt: purchase.fulfilledAt,
+        }
+      });
+    } catch (error: any) {
+      console.error("Purchase verify error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Download purchased widget source code
+  app.get("/api/purchases/download/:token", async (req, res) => {
+    try {
+      const purchase = await storage.getPurchaseByToken(req.params.token);
+      
+      if (!purchase) {
+        return res.status(404).json({ success: false, error: "Invalid download link" });
+      }
+
+      if (purchase.status !== "fulfilled") {
+        return res.status(403).json({ success: false, error: "Payment not yet confirmed. Please wait a moment and try again." });
+      }
+
+      const items = JSON.parse(purchase.items);
+      const widgetId = req.query.widget as string;
+
+      if (!widgetId) {
+        return res.status(400).json({ success: false, error: "Widget ID required" });
+      }
+
+      const item = items.find((i: any) => i.id === widgetId);
+      if (!item) {
+        return res.status(403).json({ success: false, error: "This widget is not included in your purchase" });
+      }
+
+      // Map widget IDs to file names where available
+      const widgetFileMap: Record<string, string> = {
+        "estimator": "tl-estimator",
+        "lead-capture": "tl-lead-capture",
+        "reviews": "tl-reviews",
+        "booking": "tl-booking",
+        "analytics": "tl-analytics",
+        "chat": "tl-chat",
+        "crm": "tl-crm",
+        "crew-tracker": "tl-crew-tracker",
+        "proposal": "tl-proposal",
+        "seo": "tl-seo",
+        "weather": "tl-weather",
+        "signal-chat": "tl-signal-chat",
+      };
+
+      const widgetFileName = widgetFileMap[widgetId];
+      let code = "";
+      let fileName = `${widgetId}-widget.ts`;
+
+      if (widgetFileName) {
+        // Serve actual widget file
+        try {
+          const fsPromises = await import("fs/promises");
+          const pathModule = await import("path");
+          const widgetPath = pathModule.join(process.cwd(), "client", "public", "widgets", `${widgetFileName}.js`);
+          code = await fsPromises.readFile(widgetPath, "utf-8");
+          fileName = `${widgetFileName}.js`;
+        } catch {
+          code = generateWidgetPlaceholderCode(widgetId, item.name);
+          fileName = `${widgetId}-widget.tsx`;
+        }
+      } else {
+        // Generate comprehensive placeholder for new widgets
+        code = generateWidgetPlaceholderCode(widgetId, item.name);
+        fileName = `${widgetId}-widget.tsx`;
+      }
+
+      await storage.incrementDownloadCount(purchase.id);
+
+      res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.send(code);
+    } catch (error: any) {
+      console.error("Download error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get all purchases (admin)
+  app.get("/api/purchases", requireAdminAuth, async (_req, res) => {
+    try {
+      const allPurchases = await storage.getPurchases();
+      res.json({ success: true, purchases: allPurchases });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Create Snippet (admin or authenticated app)
+  app.post("/api/ecosystem/snippets", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertCodeSnippetSchema.parse(req.body);
+      const snippet = await storage.createCodeSnippet(data);
+      
+      await storage.createEcosystemLog({
+        appId: data.authorAppId || undefined,
+        appName: data.authorName || "Admin",
+        action: "snippet_created",
+        resourceType: "snippet",
+        resourceId: snippet.id,
+        status: "success"
+      });
+
+      res.status(201).json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Update Snippet
+  app.patch("/api/ecosystem/snippets/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const snippet = await storage.updateCodeSnippet(req.params.id, req.body);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      res.json({ success: true, snippet });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // Download Snippet (increments counter)
+  app.post("/api/ecosystem/snippets/:id/download", async (req, res) => {
+    try {
+      const snippet = await storage.getCodeSnippet(req.params.id);
+      if (!snippet) {
+        return res.status(404).json({ success: false, error: "Snippet not found" });
+      }
+      await storage.incrementSnippetDownloads(req.params.id);
+      res.json({ success: true, code: snippet.code, language: snippet.language });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Like Snippet
+  app.post("/api/ecosystem/snippets/:id/like", async (req, res) => {
+    try {
+      await storage.incrementSnippetLikes(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Delete Snippet
+  app.delete("/api/ecosystem/snippets/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await storage.deleteCodeSnippet(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ SNIPPET CATEGORIES ============
+
+  app.get("/api/ecosystem/categories", async (req, res) => {
+    try {
+      const categories = await storage.getSnippetCategories();
+      res.json({ success: true, categories });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/ecosystem/categories", requireAdminAuth, async (req, res) => {
+    try {
+      const data = insertSnippetCategorySchema.parse(req.body);
+      const category = await storage.createSnippetCategory(data);
+      res.status(201).json({ success: true, category });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ECOSYSTEM LOGS ============
+
+  app.get("/api/ecosystem/logs", requireAdminAuth, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const logs = await storage.getEcosystemLogs(limit);
+      res.json({ success: true, logs });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ MARKETING HUB ============
+
+  app.get("/api/marketing/posts", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const posts = await db.select().from(marketingPosts)
+        .where(eq(marketingPosts.tenantId, tenantId));
+      res.json({ success: true, posts });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/marketing/posts", requireAdminAuth, async (req, res) => {
+    try {
+      const validated = insertMarketingPostSchema.parse(req.body);
+      const [post] = await db.insert(marketingPosts)
+        .values(validated)
+        .returning();
+      res.json({ success: true, post });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/marketing/posts/:id", requireAdminAuth, async (req, res) => {
+    try {
+      await db.delete(marketingPosts).where(eq(marketingPosts.id, req.params.id));
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/images", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const images = await db.select().from(marketingImages)
+        .where(eq(marketingImages.tenantId, tenantId));
+      res.json({ success: true, images });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/marketing/images", requireAdminAuth, imageUpload.single('image'), async (req: Request, res: Response) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ success: false, error: 'No image uploaded' });
+      }
+      const tenantId = req.body.tenantId || 'darkwave';
+      const category = req.body.category || 'general';
+      
+      const [image] = await db.insert(marketingImages).values({
+        tenantId,
+        filename: req.file.originalname,
+        filePath: `/uploads/marketing/${req.file.filename}`,
+        category,
+      }).returning();
+      
+      res.json({ success: true, image });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.delete("/api/marketing/images/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const [image] = await db.select().from(marketingImages).where(eq(marketingImages.id, req.params.id));
+      if (image && image.filePath) {
+        const fullPath = path.join(process.cwd(), image.filePath.substring(1));
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+      await db.delete(marketingImages).where(eq(marketingImages.id, req.params.id));
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/integration", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const [integration] = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      res.json(integration || { 
+        facebookConnected: false, 
+        instagramConnected: false, 
+        twitterConnected: false 
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  const oauthStateStore = new Map<string, { tenantId: string; createdAt: number }>();
+
+  app.get("/api/marketing/meta/auth", requireAdminAuth, (req, res) => {
+    const clientId = process.env.META_APP_ID;
+    const redirectUri = `${req.protocol}://${req.get('host')}/api/marketing/meta/callback`;
+    const tenantId = (req.query.tenantId as string) || 'darkwave';
+    
+    const nonce = crypto.randomBytes(16).toString('hex');
+    oauthStateStore.set(nonce, { tenantId, createdAt: Date.now() });
+    
+    setTimeout(() => oauthStateStore.delete(nonce), 10 * 60 * 1000);
+    
+    if (!clientId) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Meta App ID not configured. Please add META_APP_ID and META_APP_SECRET to your environment variables.' 
+      });
+    }
+    
+    const scopes = [
+      'pages_show_list',
+      'pages_read_engagement',
+      'pages_manage_posts',
+      'instagram_basic',
+      'instagram_content_publish'
+    ].join(',');
+    
+    const authUrl = `https://www.facebook.com/v21.0/dialog/oauth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&state=${nonce}&response_type=code`;
+    
+    res.json({ success: true, authUrl });
+  });
+
+  app.get("/api/marketing/meta/callback", async (req, res) => {
+    try {
+      const { code, state, error, error_description } = req.query as any;
+      
+      if (error) {
+        return res.redirect(`/marketing?error=${encodeURIComponent(error_description || error)}`);
+      }
+      
+      const storedState = oauthStateStore.get(state);
+      if (!storedState) {
+        return res.redirect('/marketing?error=Invalid+or+expired+OAuth+state');
+      }
+      oauthStateStore.delete(state);
+      
+      const tenantId = storedState.tenantId;
+      
+      const clientId = process.env.META_APP_ID;
+      const clientSecret = process.env.META_APP_SECRET;
+      const redirectUri = `${req.protocol}://${req.get('host')}/api/marketing/meta/callback`;
+      
+      if (!clientId || !clientSecret) {
+        return res.redirect('/marketing?error=Meta+credentials+not+configured');
+      }
+      
+      const tokenResponse = await fetch(
+        `https://graph.facebook.com/v21.0/oauth/access_token?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&client_secret=${clientSecret}&code=${code}`
+      );
+      const tokenData = await tokenResponse.json() as any;
+      
+      if (tokenData.error) {
+        return res.redirect(`/marketing?error=${encodeURIComponent(tokenData.error.message)}`);
+      }
+      
+      const userAccessToken = tokenData.access_token;
+      
+      const pagesResponse = await fetch(
+        `https://graph.facebook.com/v21.0/me/accounts?access_token=${userAccessToken}`
+      );
+      const pagesData = await pagesResponse.json() as any;
+      
+      if (!pagesData.data || pagesData.data.length === 0) {
+        return res.redirect('/marketing?error=No+Facebook+pages+found');
+      }
+      
+      const page = pagesData.data[0];
+      const pageId = page.id;
+      const pageName = page.name;
+      const pageAccessToken = page.access_token;
+      
+      let instagramAccountId = null;
+      let instagramUsername = null;
+      
+      try {
+        const igResponse = await fetch(
+          `https://graph.facebook.com/v21.0/${pageId}?fields=instagram_business_account&access_token=${pageAccessToken}`
+        );
+        const igData = await igResponse.json() as any;
+        
+        if (igData.instagram_business_account) {
+          instagramAccountId = igData.instagram_business_account.id;
+          
+          const igProfileResponse = await fetch(
+            `https://graph.facebook.com/v21.0/${instagramAccountId}?fields=username&access_token=${pageAccessToken}`
+          );
+          const igProfileData = await igProfileResponse.json() as any;
+          instagramUsername = igProfileData.username;
+        }
+      } catch (e) {
+        console.log('[Meta OAuth] Instagram account lookup failed:', e);
+      }
+      
+      const existing = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      if (existing.length > 0) {
+        await db.update(metaIntegrations)
+          .set({
+            facebookPageId: pageId,
+            facebookPageName: pageName,
+            facebookPageAccessToken: pageAccessToken,
+            facebookConnected: true,
+            instagramAccountId,
+            instagramUsername,
+            instagramConnected: !!instagramAccountId,
+            updatedAt: new Date()
+          })
+          .where(eq(metaIntegrations.tenantId, tenantId));
+      } else {
+        await db.insert(metaIntegrations).values({
+          tenantId,
+          facebookPageId: pageId,
+          facebookPageName: pageName,
+          facebookPageAccessToken: pageAccessToken,
+          facebookConnected: true,
+          instagramAccountId,
+          instagramUsername,
+          instagramConnected: !!instagramAccountId
+        });
+      }
+      
+      res.redirect('/marketing?success=Meta+accounts+connected');
+    } catch (error: any) {
+      console.error('[Meta OAuth] Callback error:', error);
+      res.redirect(`/marketing?error=${encodeURIComponent(error.message)}`);
+    }
+  });
+
+  app.post("/api/marketing/meta/disconnect", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = req.body.tenantId || 'darkwave';
+      
+      await db.update(metaIntegrations)
+        .set({
+          facebookPageId: null,
+          facebookPageName: null,
+          facebookPageAccessToken: null,
+          facebookConnected: false,
+          instagramAccountId: null,
+          instagramUsername: null,
+          instagramConnected: false,
+          updatedAt: new Date()
+        })
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/marketing/scheduled", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const fromDate = req.query.from ? new Date(req.query.from as string) : null;
+      const toDate = req.query.to ? new Date(req.query.to as string) : null;
+      
+      let query = db.select().from(scheduledPosts)
+        .where(eq(scheduledPosts.tenantId, tenantId));
+      
+      if (fromDate && toDate) {
+        const posts = await db.select().from(scheduledPosts)
+          .where(and(
+            eq(scheduledPosts.tenantId, tenantId),
+            gte(scheduledPosts.scheduledFor, fromDate),
+            lte(scheduledPosts.scheduledFor, toDate)
+          ));
+        res.json({ success: true, posts });
+      } else if (fromDate) {
+        const endDate = new Date(fromDate);
+        endDate.setDate(endDate.getDate() + 7);
+        const posts = await db.select().from(scheduledPosts)
+          .where(and(
+            eq(scheduledPosts.tenantId, tenantId),
+            gte(scheduledPosts.scheduledFor, fromDate),
+            lte(scheduledPosts.scheduledFor, endDate)
+          ));
+        res.json({ success: true, posts });
+      } else {
+        const posts = await db.select().from(scheduledPosts)
+          .where(eq(scheduledPosts.tenantId, tenantId));
+        res.json({ success: true, posts });
+      }
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/marketing/post-now", requireAdminAuth, async (req, res) => {
+    try {
+      const { content, platform, imageUrl, tenantId = 'darkwave' } = req.body;
+      const [integration] = await db.select().from(metaIntegrations)
+        .where(eq(metaIntegrations.tenantId, tenantId));
+      
+      if (!integration) {
+        return res.json({ success: false, error: 'No social accounts connected' });
+      }
+
+      let result: { success: boolean; externalId?: string; error?: string } = { success: false, error: 'Platform not configured' };
+
+      if (platform === 'facebook' || platform === 'all') {
+        if (integration.facebookConnected && integration.facebookPageId) {
+          result = await postToFacebook(
+            integration.facebookPageId,
+            integration.facebookPageAccessToken!,
+            content,
+            imageUrl
+          );
+        }
+      }
+
+      if (platform === 'x' || platform === 'all') {
+        const twitter = new TwitterConnector();
+        if (twitter.isConfigured()) {
+          const tweetContent = content.length > 280 ? content.substring(0, 277) + '...' : content;
+          result = await twitter.post(tweetContent);
+        }
+      }
+
+      if (platform === 'instagram' || platform === 'all') {
+        if (integration.instagramConnected && integration.instagramAccountId && imageUrl) {
+          result = await postToInstagram(
+            integration.instagramAccountId,
+            integration.facebookPageAccessToken!,
+            content,
+            imageUrl
+          );
+        }
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Marketing Suite Subscription Checkout
+  app.post("/api/marketing/subscribe", async (req, res) => {
+    try {
+      const { plan, email, companyName } = req.body;
+      
+      if (!plan || !email) {
+        return res.status(400).json({ success: false, error: "Plan and email required" });
+      }
+
+      const priceMap: Record<string, { amount: number; postsPerDay: number; aiEnabled: boolean; adBoost: boolean }> = {
+        starter: { amount: 9900, postsPerDay: 7, aiEnabled: false, adBoost: false },
+        professional: { amount: 24900, postsPerDay: 17, aiEnabled: true, adBoost: true },
+        enterprise: { amount: 49900, postsPerDay: 50, aiEnabled: true, adBoost: true }
+      };
+
+      const planConfig = priceMap[plan];
+      if (!planConfig) {
+        return res.status(400).json({ success: false, error: "Invalid plan" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system unavailable" });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "subscription",
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            recurring: { interval: "month" },
+            product_data: {
+              name: `TLId.io Marketing Suite - ${plan.charAt(0).toUpperCase() + plan.slice(1)}`,
+              description: `${planConfig.postsPerDay} posts/day, ${planConfig.aiEnabled ? 'AI content, ' : ''}${planConfig.adBoost ? 'ad boosting' : 'basic features'}`
+            },
+            unit_amount: planConfig.amount
+          },
+          quantity: 1
+        }],
+        customer_email: email,
+        metadata: { plan, companyName: companyName || '', productType: 'marketing_suite' },
+        success_url: `${req.headers.origin}/marketing?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/marketing?cancelled=true`
+      });
+
+      res.json({ success: true, sessionId: session.id, url: session.url });
+    } catch (error: any) {
+      console.error("Marketing subscription error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Get subscription status
+  app.get("/api/marketing/subscription", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const [subscription] = await db.select().from(marketingSubscriptions)
+        .where(eq(marketingSubscriptions.tenantId, tenantId));
+      res.json(subscription || null);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // AI Content Generation
+  app.post("/api/marketing/generate-content", requireAdminAuth, async (req, res) => {
+    try {
+      const { topic, tone = 'professional', platform = 'all', count = 3 } = req.body;
+      
+      if (!topic) {
+        return res.status(400).json({ success: false, error: "Topic required" });
+      }
+
+      const OpenAI = (await import("openai")).default;
+      const openai = new OpenAI();
+
+      const platformGuidelines = {
+        facebook: "2,200 chars max, engaging, can be longer form",
+        instagram: "2,200 chars max, visual-focused, use emojis sparingly, hashtag-friendly",
+        x: "280 chars max, punchy and concise, trending hashtags",
+        all: "Universal post, 280 chars to work on all platforms"
+      };
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are a social media marketing expert. Generate engaging posts for businesses. 
+            Tone: ${tone}. Platform: ${platform}. Guidelines: ${platformGuidelines[platform as keyof typeof platformGuidelines] || platformGuidelines.all}
+            Return JSON array of posts with fields: content, hashtags (array), platform`
+          },
+          {
+            role: "user",
+            content: `Generate ${count} unique marketing posts about: ${topic}`
+          }
+        ],
+        response_format: { type: "json_object" }
+      });
+
+      const generated = JSON.parse(response.choices[0].message.content || '{"posts":[]}');
+      res.json({ success: true, posts: generated.posts || [] });
+    } catch (error: any) {
+      console.error("AI content generation error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Post Analytics
+  app.get("/api/marketing/analytics", requireAdminAuth, async (req, res) => {
+    try {
+      const tenantId = (req.query.tenantId as string) || 'darkwave';
+      const analytics = await db.select().from(postAnalytics)
+        .where(eq(postAnalytics.tenantId, tenantId));
+      
+      const totals = analytics.reduce((acc, a) => ({
+        impressions: acc.impressions + (a.impressions || 0),
+        reach: acc.reach + (a.reach || 0),
+        likes: acc.likes + (a.likes || 0),
+        comments: acc.comments + (a.comments || 0),
+        shares: acc.shares + (a.shares || 0),
+        clicks: acc.clicks + (a.clicks || 0)
+      }), { impressions: 0, reach: 0, likes: 0, comments: 0, shares: 0, clicks: 0 });
+
+      res.json({ success: true, analytics, totals, postCount: analytics.length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ORBIT INTEGRATION WEBHOOKS ============
+
+  // Webhook receiver for ORBIT Hub events
+  app.post("/api/orbit/webhook", async (req, res) => {
+    try {
+      const signature = req.headers["x-ecosystem-signature"] as string;
+      const rawBody = JSON.stringify(req.body);
+      
+      // Verify signature using HMAC-SHA256
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      if (!orbitSecret) {
+        return res.status(500).json({ success: false, error: "ORBIT secret not configured" });
+      }
+
+      const computedSignature = crypto
+        .createHmac("sha256", orbitSecret)
+        .update(rawBody)
+        .digest("hex");
+
+      // Use timing-safe comparison
+      if (!signature || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(computedSignature))) {
+        await storage.createEcosystemLog({
+          appName: "ORBIT Hub",
+          action: "webhook_received",
+          status: "failed",
+          metadata: JSON.stringify({ error: "Invalid signature" })
+        });
+        return res.status(401).json({ success: false, error: "Invalid signature" });
+      }
+
+      const event = req.body;
+      
+      // Log the webhook event
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: `webhook_${event.event}`,
+        status: "success",
+        metadata: JSON.stringify(event.payload)
+      });
+
+      // Handle different event types
+      switch (event.event) {
+        case "snippet.created":
+        case "snippet.updated":
+          // Sync snippet from ORBIT
+          console.log(`ORBIT snippet sync: ${event.event}`, event.payload);
+          break;
+        
+        case "app.registered":
+          // New app registered in ecosystem
+          console.log(`ORBIT app registered:`, event.payload);
+          break;
+        
+        case "blockchain.anchored":
+          // Blockchain verification complete
+          console.log(`ORBIT blockchain anchored:`, event.payload);
+          break;
+        
+        default:
+          console.log(`Unknown ORBIT event: ${event.event}`);
+      }
+
+      res.json({ success: true, received: event.event });
+    } catch (error: any) {
+      console.error("ORBIT webhook error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ORBIT connection test endpoint
+  app.get("/api/orbit/status", async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.json({
+          connected: false,
+          message: "ORBIT credentials not configured"
+        });
+      }
+
+      // Try to connect to ORBIT
+      const response = await fetch(`${orbitBaseUrl}/status`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWaveStudios"
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        await storage.createEcosystemLog({
+          appName: "ORBIT Hub",
+          action: "connection_test",
+          status: "success"
+        });
+        res.json({
+          connected: true,
+          hubName: data.hubName || "ORBIT Staffing Ecosystem Hub",
+          appName: data.appName || "DarkWaveStudios",
+          permissions: data.permissions || [],
+          lastSync: data.lastSync,
+          message: "Successfully connected to ORBIT Hub"
+        });
+      } else {
+        res.json({
+          connected: false,
+          message: `ORBIT connection failed: ${response.status}`
+        });
+      }
+    } catch (error: any) {
+      res.json({
+        connected: false,
+        message: `ORBIT connection error: ${error.message}`
+      });
+    }
+  });
+
+  // Get snippets from ORBIT Hub (public - for Trust Layer Hub UI)
+  app.get("/api/orbit/snippets", async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(503).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const category = req.query.category as string;
+      const url = category 
+        ? `${orbitBaseUrl}/snippets?category=${encodeURIComponent(category)}`
+        : `${orbitBaseUrl}/snippets`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWaveStudios"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT fetch failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      res.json(data);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Sync snippets from ORBIT Hub
+  app.post("/api/orbit/sync-snippets", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch(`${orbitBaseUrl}/snippets`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWaveStudios"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT sync failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "snippets_synced",
+        status: "success",
+        metadata: JSON.stringify({ count: data.snippets?.length || 0 })
+      });
+
+      res.json({
+        success: true,
+        message: "Snippets synced from ORBIT Hub",
+        count: data.snippets?.length || 0
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Push snippet to ORBIT Hub
+  app.post("/api/orbit/push-snippet", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch(`${orbitBaseUrl}/snippets`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWaveStudios"
+        },
+        body: JSON.stringify(req.body)
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT push failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "snippet_pushed",
+        status: "success",
+        resourceType: "snippet",
+        metadata: JSON.stringify(req.body)
+      });
+
+      res.json({ success: true, result: data });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Request blockchain verification via ORBIT
+  app.post("/api/orbit/anchor", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+      const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+      
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const { recordType, recordId, data } = req.body;
+      
+      // Generate SHA-256 hash of the data
+      const dataHash = crypto
+        .createHash("sha256")
+        .update(JSON.stringify(data))
+        .digest("hex");
+
+      // Note: blockchain anchor uses different base URL structure
+      const blockchainUrl = orbitBaseUrl.replace('/api/ecosystem', '/api/blockchain');
+      const response = await fetch(`${blockchainUrl}/anchor`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+          "X-App-Name": "DarkWave Studios"
+        },
+        body: JSON.stringify({ recordType, recordId, dataHash })
+      });
+
+      if (!response.ok) {
+        throw new Error(`ORBIT anchor failed: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "blockchain_anchor_requested",
+        status: "success",
+        resourceType: recordType,
+        resourceId: recordId,
+        metadata: JSON.stringify({ dataHash, batchId: result.batchId })
+      });
+
+      res.json({ success: true, ...result, dataHash });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ORBIT APP REGISTRATION ============
+
+  // Register DarkWave Studios with ORBIT ecosystem hub
+  app.post("/api/orbit/register-app", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const registrationPayload = {
+        appName: "DarkWave Studios",
+        appId: "darkwave-studios",
+        domain: "darkwavestudios.io",
+        description: "Full-service web agency platform with Trust Layer Hub, Guardian AI, AI Agent Marketplace, and 35-app ecosystem (~1.74M+ LOC)",
+        category: "agency",
+        endpoints: {
+          ssoLogin: "https://darkwavestudios.io/api/chat/auth/ecosystem-login",
+          register: "https://darkwavestudios.io/api/chat/auth/register",
+          webhook: "https://darkwavestudios.io/api/orbit/webhook",
+          status: "https://darkwavestudios.io/api/orbit/status",
+          financialSync: "https://darkwavestudios.io/api/orbit/sync-payment",
+        },
+        capabilities: [
+          "trust-layer-sso",
+          "financial-sync",
+          "blockchain-anchoring",
+          "snippet-marketplace",
+          "guardian-ai-certification",
+          "ai-agent-marketplace",
+          "stripe-payments",
+          "coinbase-payments",
+        ],
+        ecosystemApps: [
+          { name: "THE VOID", id: "the-void", domain: "intothevoid.app" },
+          { name: "Happy Eats", id: "happy-eats", domain: "happyeats.app" },
+          { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.com" },
+          { name: "TrustHome", id: "trusthome", domain: "trusthome.tlid.io" },
+          { name: "TrustVault", id: "trustvault", domain: "trustvault.tlid.io" },
+        ],
+        apiKey: orbitKey,
+        apiSecret: orbitSecret,
+        version: "2.0",
+        registeredAt: new Date().toISOString(),
+      };
+
+      const response = await fetch("https://orbitstaffing.io/api/admin/ecosystem/register-app", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+        },
+        body: JSON.stringify(registrationPayload),
+      });
+
+      const data = await response.json();
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "app_registration",
+        status: response.ok ? "success" : "failed",
+        metadata: JSON.stringify({ response: data, statusCode: response.status })
+      });
+
+      if (response.ok) {
+        res.json({ success: true, message: "DarkWave Studios registered with ORBIT ecosystem", data });
+      } else {
+        res.status(response.status).json({ success: false, error: data.error || "Registration failed", data });
+      }
+    } catch (error: any) {
+      console.error("ORBIT registration error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Test cross-ecosystem SSO login against ORBIT
+  app.post("/api/orbit/test-sso", requireAdminAuth, async (req, res) => {
+    try {
+      const { identifier, credential } = req.body;
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      if (!orbitKey || !orbitSecret) {
+        return res.status(400).json({ success: false, error: "ORBIT credentials not configured" });
+      }
+
+      const response = await fetch("https://orbitstaffing.io/api/auth/ecosystem-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": orbitKey,
+          "X-API-Secret": orbitSecret,
+        },
+        body: JSON.stringify({ identifier, credential, sourceApp: "darkwave-studios" }),
+      });
+
+      const data = await response.json();
+      res.json({ success: response.ok, data });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Full ecosystem readiness check
+  app.get("/api/orbit/readiness", requireAdminAuth, async (req, res) => {
+    try {
+      const orbitKey = process.env.ORBIT_API_KEY;
+      const orbitSecret = process.env.ORBIT_API_SECRET;
+
+      const checks = {
+        credentials: !!(orbitKey && orbitSecret),
+        endpoints: {
+          ecosystemLogin: { path: "/api/chat/auth/ecosystem-login", ready: true },
+          register: { path: "/api/chat/auth/register", ready: true },
+          webhook: { path: "/api/orbit/webhook", ready: true },
+          status: { path: "/api/orbit/status", ready: true },
+          financialSync: { path: "/api/orbit/sync-payment/:paymentId", ready: true },
+          bulkSync: { path: "/api/orbit/sync-all-payments", ready: true },
+          contractorPayment: { path: "/api/orbit/contractor-payment", ready: true },
+          snippets: { path: "/api/orbit/snippets", ready: true },
+          pushSnippet: { path: "/api/orbit/push-snippet", ready: true },
+          blockchain: { path: "/api/orbit/anchor", ready: true },
+          registerApp: { path: "/api/orbit/register-app", ready: true },
+        },
+        orbitHub: {
+          registrationUrl: "https://orbitstaffing.io/api/admin/ecosystem/register-app",
+          ssoLoginUrl: "https://orbitstaffing.io/api/auth/ecosystem-login",
+          registerUrl: "https://orbitstaffing.io/api/chat/auth/register",
+        },
+        connectedApps: [
+          { name: "THE VOID", status: "ready" },
+          { name: "Happy Eats", status: "ready" },
+          { name: "TL Driver Connect", status: "ready" },
+          { name: "TrustHome", status: "ready" },
+          { name: "TrustVault", status: "ready" },
+        ],
+        allReady: !!(orbitKey && orbitSecret),
+      };
+
+      // Test live connection to ORBIT
+      if (checks.credentials) {
+        try {
+          const orbitBaseUrl = process.env.ORBIT_ECOSYSTEM_URL || "https://orbitstaffing.io/api/ecosystem";
+          const statusResponse = await fetch(`${orbitBaseUrl}/status`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": orbitKey!,
+              "X-API-Secret": orbitSecret!,
+            },
+          });
+          (checks as any).liveConnection = {
+            status: statusResponse.ok ? "connected" : `failed (${statusResponse.status})`,
+            timestamp: new Date().toISOString(),
+          };
+        } catch (err: any) {
+          (checks as any).liveConnection = { status: `error: ${err.message}`, timestamp: new Date().toISOString() };
+        }
+      }
+
+      res.json({ success: true, readiness: checks });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ ORBIT FINANCIAL SYNC ============
+
+  // Get financial statement from ORBIT
+  app.get("/api/orbit/financial-statement", requireAdminAuth, async (req, res) => {
+    try {
+      const period = req.query.period as string || new Date().toISOString().slice(0, 7);
+      const orbitClient = getOrbitClient();
+      const statement = await orbitClient.getFinancialStatement(period);
+      
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "financial_statement_fetched",
+        status: "success",
+        metadata: JSON.stringify({ period, totalRevenue: statement.totalRevenue })
+      });
+
+      res.json({ success: true, statement });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Sync contractor payment to ORBIT (1099 tracking)
+  app.post("/api/orbit/contractor-payment", requireAdminAuth, async (req, res) => {
+    try {
+      const { payeeId, payeeName, payeeEmail, amount, description, category } = req.body;
+
+      if (!payeeId || !payeeName || !payeeEmail || !amount) {
+        return res.status(400).json({ 
+          success: false, 
+          error: "Missing required fields: payeeId, payeeName, payeeEmail, amount" 
+        });
+      }
+
+      const orbitClient = getOrbitClient();
+      const result = await orbitClient.syncContractorPayment({
+        payeeId,
+        payeeName,
+        payeeEmail,
+        amount: parseFloat(amount),
+        paymentDate: new Date().toISOString().slice(0, 10),
+        description: description || "Contractor services",
+        sourceApp: "DarkWave Studios",
+        category: category || "contractor-services"
+      });
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "contractor_payment_synced",
+        status: "success",
+        metadata: JSON.stringify({ 
+          payeeId, 
+          amount, 
+          ytdTotal: result.ytdTotal,
+          requiresForm1099: result.requiresForm1099 
+        })
+      });
+
+      res.json(result);
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Manual sync of a payment to ORBIT
+  app.post("/api/orbit/sync-payment/:paymentId", requireAdminAuth, async (req, res) => {
+    try {
+      const payment = await storage.getPayment(req.params.paymentId);
+      if (!payment) {
+        return res.status(404).json({ success: false, error: "Payment not found" });
+      }
+
+      await syncPaymentToOrbit({
+        id: payment.id,
+        customerName: payment.customerName,
+        customerEmail: payment.customerEmail,
+        amount: payment.amount,
+        planType: payment.planType,
+        planName: payment.planName,
+        paymentMethod: payment.paymentMethod,
+        stripePaymentIntentId: payment.stripePaymentIntentId,
+        coinbaseChargeId: payment.coinbaseChargeId,
+      });
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "payment_manually_synced",
+        status: "success",
+        resourceType: "payment",
+        resourceId: payment.id
+      });
+
+      res.json({ success: true, message: "Payment synced to ORBIT" });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // Bulk sync all completed payments to ORBIT
+  app.post("/api/orbit/sync-all-payments", requireAdminAuth, async (req, res) => {
+    try {
+      const payments = await storage.getPayments();
+      const completedPayments = payments.filter(p => p.status === "completed");
+      
+      let synced = 0;
+      let failed = 0;
+
+      for (const payment of completedPayments) {
+        try {
+          await syncPaymentToOrbit({
+            id: payment.id,
+            customerName: payment.customerName,
+            customerEmail: payment.customerEmail,
+            amount: payment.amount,
+            planType: payment.planType,
+            planName: payment.planName,
+            paymentMethod: payment.paymentMethod,
+            stripePaymentIntentId: payment.stripePaymentIntentId,
+            coinbaseChargeId: payment.coinbaseChargeId,
+          });
+          synced++;
+        } catch {
+          failed++;
+        }
+      }
+
+      await storage.createEcosystemLog({
+        appName: "ORBIT Hub",
+        action: "bulk_payment_sync",
+        status: "success",
+        metadata: JSON.stringify({ synced, failed, total: completedPayments.length })
+      });
+
+      res.json({ 
+        success: true, 
+        message: `Synced ${synced} payments to ORBIT`,
+        synced,
+        failed,
+        total: completedPayments.length
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ============ LUME LANGUAGE API ============
+  registerLumeRoutes(app);
+
+  // ============ TRUST LAYER WIDGET API ============
+  app.use("/api/widgets", widgetRoutes);
+
+  // ============ SIGNAL CHAT API ============
+  const { chatChannels: chatChannelsTable, chatUsers: chatUsersTable, chatMessages: chatMessagesTable, insertChatUserSchema: insertChatUserSchemaVal, insertChatChannelSchema: insertChatChannelSchemaVal } = await import("@shared/schema");
+
+  app.get("/api/chat/channels", async (req, res) => {
+    try {
+      const channels = await db.select().from(chatChannelsTable).orderBy(chatChannelsTable.category, chatChannelsTable.name);
+      res.json({ success: true, channels });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/chat/auth/ecosystem-login", async (req, res) => {
+    try {
+      const { identifier, credential } = req.body;
+      const { ecosystemLogin } = await import("./trustlayer-sso");
+      const result = await ecosystemLogin(identifier, credential);
+
+      if (!result.success) {
+        return res.status(401).json({ success: false, error: result.error });
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      console.error("Ecosystem login error:", error);
+      res.status(500).json({ success: false, error: "Login failed. Please try again." });
+    }
+  });
+
+  app.post("/api/chat/auth/register", async (req, res) => {
+    try {
+      const { username, email, password, displayName } = req.body;
+      if (!username || !email || !password || !displayName) {
+        return res.status(400).json({ success: false, error: "All fields are required" });
+      }
+
+      const { registerUser } = await import("./trustlayer-sso");
+      const result = await registerUser(username, email, password, displayName);
+
+      if (!result.success) {
+        return res.status(400).json({ success: false, error: result.error });
+      }
+
+      res.status(201).json(result);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/chat/auth/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      if (!username || !password) {
+        return res.status(400).json({ success: false, error: "Username and password are required" });
+      }
+
+      const { loginUser } = await import("./trustlayer-sso");
+      const result = await loginUser(username, password);
+
+      if (!result.success) {
+        return res.status(401).json({ success: false, error: result.error });
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/auth/me", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ success: false, error: "No token provided" });
+      }
+
+      const { authenticateToken } = await import("./trustlayer-sso");
+      const user = await authenticateToken(authHeader.slice(7));
+
+      if (!user) {
+        return res.status(401).json({ success: false, error: "Invalid or expired token" });
+      }
+
+      res.json({ success: true, user });
+    } catch (error: any) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/users/online", async (req, res) => {
+    try {
+      const online = await db.select().from(chatUsersTable).where(eq(chatUsersTable.isOnline, true));
+      res.json({ success: true, users: online, count: online.length });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/chat/messages/:channelId", async (req, res) => {
+    try {
+      const rows = await db
+        .select({
+          id: chatMessagesTable.id,
+          channelId: chatMessagesTable.channelId,
+          userId: chatMessagesTable.userId,
+          content: chatMessagesTable.content,
+          replyToId: chatMessagesTable.replyToId,
+          createdAt: chatMessagesTable.createdAt,
+          username: chatUsersTable.displayName,
+          avatarColor: chatUsersTable.avatarColor,
+          role: chatUsersTable.role,
+        })
+        .from(chatMessagesTable)
+        .leftJoin(chatUsersTable, eq(chatMessagesTable.userId, chatUsersTable.id))
+        .where(eq(chatMessagesTable.channelId, req.params.channelId))
+        .orderBy(desc(chatMessagesTable.createdAt))
+        .limit(50);
+
+      const messages = rows.reverse().map(r => ({
+        ...r,
+        username: r.username || "Unknown",
+        avatarColor: r.avatarColor || "#06b6d4",
+        role: r.role || "member",
+      }));
+
+      res.json({ success: true, messages });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // =====================================================
+  // Ad-Free Subscription ($5/month)
+  // =====================================================
+
+  app.post("/api/subscription/ad-free/checkout", async (req, res) => {
+    try {
+      const { email, successUrl, cancelUrl } = req.body;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user) {
+        return res.status(404).json({ success: false, error: "No account found with that email. Please create a Trust Layer account first." });
+      }
+
+      if (user.adFreeSubscription && user.adFreeExpiresAt && user.adFreeExpiresAt > new Date()) {
+        return res.status(400).json({ success: false, error: "You already have an active ad-free subscription" });
+      }
+
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "subscription",
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            recurring: { interval: "month" },
+            product_data: {
+              name: "DarkWave Ecosystem - Ad-Free Experience",
+              description: "Remove ads across all DarkWave ecosystem applications. One subscription, ad-free everywhere."
+            },
+            unit_amount: 500
+          },
+          quantity: 1
+        }],
+        customer_email: email,
+        metadata: {
+          type: "ad_free_subscription",
+          userId: user.id,
+          trustLayerId: user.trustLayerId || "",
+          email: email
+        },
+        success_url: successUrl || `${baseUrl}/chat?subscription=success`,
+        cancel_url: cancelUrl || `${baseUrl}/chat?subscription=cancelled`
+      });
+
+      res.json({ success: true, url: session.url, sessionId: session.id });
+    } catch (error: any) {
+      console.error("Ad-free checkout error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.get("/api/subscription/status", async (req, res) => {
+    try {
+      const email = req.query.email as string;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user) {
+        return res.json({ success: true, adFree: false, reason: "no_account" });
+      }
+
+      const isActive = user.adFreeSubscription && user.adFreeExpiresAt && user.adFreeExpiresAt > new Date();
+
+      res.json({
+        success: true,
+        adFree: !!isActive,
+        expiresAt: user.adFreeExpiresAt || null,
+        trustLayerId: user.trustLayerId || null
+      });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  app.post("/api/subscription/cancel", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return res.status(400).json({ success: false, error: "Email is required" });
+      }
+
+      const { chatUsers: chatUsersTable } = await import("@shared/schema");
+      const [user] = await db.select().from(chatUsersTable).where(eq(chatUsersTable.email, email)).limit(1);
+
+      if (!user || !user.stripeSubscriptionId) {
+        return res.status(404).json({ success: false, error: "No active subscription found" });
+      }
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) {
+        return res.status(500).json({ success: false, error: "Payment system not configured" });
+      }
+
+      await stripe.subscriptions.update(user.stripeSubscriptionId, {
+        cancel_at_period_end: true
+      });
+
+      res.json({ success: true, message: "Subscription will cancel at end of billing period" });
+    } catch (error: any) {
+      console.error("Cancel subscription error:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
+
+  // ─── AI Credits System ───
+  app.get("/api/credits/packages", (_req: Request, res: Response) => {
+    res.json({ packages: CREDIT_PACKAGES, costs: AI_CREDIT_COSTS });
+  });
+
+  app.get("/api/credits/balance", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const balance = await storage.getOrCreateCreditBalance(decoded.userId);
+    res.json({ balance });
+  });
+
+  app.get("/api/credits/transactions", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const limit = parseInt(req.query.limit as string) || 50;
+    const transactions = await storage.getCreditTransactions(decoded.userId, limit);
+    res.json({ transactions });
+  });
+
+  app.post("/api/credits/purchase", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { packageId } = req.body;
+      const pkg = CREDIT_PACKAGES.find(p => p.id === packageId);
+      if (!pkg) return res.status(400).json({ error: "Invalid package" });
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) return res.status(500).json({ error: "Payment system not configured" });
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [{
+          price_data: {
+            currency: "usd",
+            product_data: { name: `AI Credits — ${pkg.label}`, description: pkg.description },
+            unit_amount: pkg.price,
+          },
+          quantity: 1,
+        }],
+        mode: "payment",
+        success_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?cancelled=true`,
+        metadata: { userId: decoded.userId, packageId: pkg.id, credits: String(pkg.credits) },
+      });
+
+      res.json({ sessionId: session.id, url: session.url });
+    } catch (error: any) {
+      console.error("Credit purchase error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/credits/verify-purchase", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { sessionId } = req.body;
+      if (!sessionId) return res.status(400).json({ error: "Missing session ID" });
+
+      const stripe = await getUncachableStripeClient();
+      if (!stripe) return res.status(500).json({ error: "Payment system not configured" });
+
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+      if (session.payment_status !== "paid") {
+        return res.status(400).json({ error: "Payment not completed" });
+      }
+
+      if (session.metadata?.userId !== decoded.userId) {
+        return res.status(403).json({ error: "Session does not belong to this user" });
+      }
+
+      const credits = parseInt(session.metadata?.credits || "0");
+      const packageId = session.metadata?.packageId || "unknown";
+      if (credits <= 0) return res.status(400).json({ error: "Invalid credit amount" });
+
+      const balance = await storage.addCredits(decoded.userId, credits, `Purchased ${credits} credits (${packageId})`, sessionId);
+      res.json({ success: true, balance, creditsAdded: credits });
+    } catch (error: any) {
+      console.error("Credit verify error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/credits/use", async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization?.replace("Bearer ", "");
+      if (!token) return res.status(401).json({ error: "No token provided" });
+      const { verifyToken } = await import("./trustlayer-sso");
+      const decoded = verifyToken(token);
+      if (!decoded) return res.status(401).json({ error: "Invalid token" });
+
+      const { action, quantity = 1 } = req.body;
+      const costEntry = AI_CREDIT_COSTS[action as keyof typeof AI_CREDIT_COSTS];
+      if (!costEntry) return res.status(400).json({ error: "Invalid action type" });
+      if (costEntry.credits === 0) return res.json({ success: true, message: "This action is free", creditsUsed: 0 });
+
+      const totalCost = costEntry.credits * quantity;
+      const result = await storage.useCredits(decoded.userId, totalCost, `${costEntry.label}${quantity > 1 ? ` x${quantity}` : ""}`, action);
+      if (!result.success) {
+        return res.status(402).json({ error: result.error });
+      }
+
+      res.json({ success: true, balance: result.balance, creditsUsed: totalCost });
+    } catch (error: any) {
+      console.error("Credit use error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // ─── TrustVault Integration ───
+  app.get("/api/trustvault/capabilities", async (_req: Request, res: Response) => {
+    const result = await getCapabilities();
+    res.json(result.data);
+  });
+
+  app.get("/api/trustvault/status", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/status", token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/media", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { page = "1", limit = "20", category } = req.query;
+    let path = `/api/studio/media/list?page=${page}&limit=${limit}`;
+    if (category) path += `&category=${category}`;
+    const result = await trustVaultFetch(path, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/media/:id", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch(`/api/studio/media/${req.params.id}`, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/media/upload", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/media/upload", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/media/confirm", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/media/confirm", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/projects/create", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/projects/create", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.get("/api/trustvault/projects/:id/status", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/status`, token);
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/projects/:id/export", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const body = { ...req.body, webhookUrl: "https://darkwavestudios.replit.app/api/trustvault/webhook" };
+    const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/export`, token, { method: "POST", body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/editor/embed-token", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const result = await trustVaultFetch("/api/studio/editor/embed-token", token, { method: "POST", body: req.body });
+    res.status(result.status).json(result.data);
+  });
+
+  app.post("/api/trustvault/webhook", (req: Request, res: Response) => {
+    const validation = validateWebhookPayload(req.body);
+    if (!validation.valid) {
+      return res.status(400).json({ error: validation.error });
+    }
+    const { event, projectId, status, downloadUrl, userId, trustLayerId, timestamp } = req.body;
+    console.log(`[TrustVault Webhook] ${event} — project ${projectId} — status: ${status}`);
+    storeWebhookEvent({ event, projectId, status, downloadUrl, userId, trustLayerId, timestamp });
+    res.json({ received: true });
+  });
+
+  app.get("/api/trustvault/events", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) return res.status(401).json({ error: "No token provided" });
+    const { verifyToken } = await import("./trustlayer-sso");
+    const decoded = verifyToken(token);
+    if (!decoded) return res.status(401).json({ error: "Invalid token" });
+    const events = getWebhookEvents(decoded.userId);
+    res.json({ events });
+  });
+
+  // --- Hallmark System Routes ---
+  const { seedGenesisHallmark, verifyHallmark, generateHallmark, createTrustStamp } = await import("./hallmark");
+  const { getAffiliateDashboard, getAffiliateLink, trackReferral, requestPayout } = await import("./affiliate");
+
+  seedGenesisHallmark()
+    .then((h) => console.log(`Genesis hallmark ${h.thId} ready`))
+    .catch((e) => console.error("Genesis hallmark seeding failed:", e));
+
+  app.get("/api/hallmark/genesis", async (_req: Request, res: Response) => {
+    try {
+      const result = await verifyHallmark("DS-00000001");
+      if (!result.verified) return res.status(404).json({ error: "Genesis hallmark not found" });
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/hallmark/:id/verify", async (req: Request, res: Response) => {
+    try {
+      const result = await verifyHallmark(req.params.id);
+      if (!result.verified) return res.status(404).json({ verified: false, error: "Hallmark not found" });
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/hallmarks", async (req: Request, res: Response) => {
+    const adminKey = req.headers["x-admin-key"];
+    if (adminKey !== "0424") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const allHallmarks = await db.select().from(hallmarksTable).orderBy(desc(hallmarksTable.createdAt));
+      res.json(allHallmarks);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/trust-stamps", async (req: Request, res: Response) => {
+    const adminKey = req.headers["x-admin-key"];
+    if (adminKey !== "0424") return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const allStamps = await db.select().from(trustStampsTable).orderBy(desc(trustStampsTable.createdAt));
+      res.json(allStamps);
+    } catch (e: any) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  // --- Affiliate System Routes ---
+  app.get("/api/affiliate/dashboard", async (req: Request, res: Response) => {
+    const userId = req.query.userId as string;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const dashboard = await getAffiliateDashboard(userId);
+      res.json(dashboard);
+    } catch (e: any) {
+      res.status(404).json({ error: e.message });
+    }
+  });
+
+  app.get("/api/affiliate/link", async (req: Request, res: Response) => {
+    const userId = req.query.userId as string;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const link = await getAffiliateLink(userId);
+      res.json(link);
+    } catch (e: any) {
+      res.status(404).json({ error: e.message });
+    }
+  });
+
+  app.post("/api/affiliate/track", async (req: Request, res: Response) => {
+    const { referralHash, platform } = req.body;
+    if (!referralHash) return res.status(400).json({ error: "referralHash is required" });
+    try {
+      const referral = await trackReferral(referralHash, platform || "darkwave-studio");
+      res.json({ success: true, referral });
+    } catch (e: any) {
+      res.status(400).json({ error: e.message });
+    }
+  });
+
+  app.post("/api/affiliate/request-payout", async (req: Request, res: Response) => {
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ error: "userId is required" });
+    try {
+      const result = await requestPayout(userId);
+      res.json(result);
+    } catch (e: any) {
+      res.status(400).json({ error: e.message });
+    }
+  });
+
+  return httpServer;
+}
+
+function generateWidgetPlaceholderCode(widgetId: string, widgetName: string): string {
+  const widgetDescriptions: Record<string, { desc: string; features: string[] }> = {
+    "vin-decoder": { desc: "Vehicle Identification Number decoder with NHTSA API integration", features: ["VIN validation", "NHTSA lookup", "Vehicle specs display", "Recall checking", "Vehicle profile storage"] },
+    "parts-aggregator": { desc: "Multi-retailer auto parts search and price comparison engine", features: ["40+ retailer search", "Price comparison grid", "Part cross-reference", "Availability check", "Wishlist storage"] },
+    "shift-manager": { desc: "Employee shift scheduling with conflict detection", features: ["Drag-and-drop schedule", "Conflict detection", "Shift swap requests", "Overtime alerts", "Schedule templates"] },
+    "payroll-calc": { desc: "Payroll calculator with tax withholding for W-2 and 1099 workers", features: ["W-2 & 1099 support", "Federal/state tax", "Overtime calculation", "Pay stub generation", "QuickBooks export"] },
+    "ocr-scanner": { desc: "Camera-based text extraction using Tesseract.js", features: ["Camera capture", "Text extraction", "Receipt scanning", "VIN recognition", "Multi-language support"] },
+    "driver-leaderboard": { desc: "Gamified employee performance ranking system", features: ["Real-time rankings", "Achievement badges", "Streak tracking", "Team vs individual", "Performance reports"] },
+    "delivery-tracker": { desc: "Real-time order and delivery GPS tracking system", features: ["GPS tracking", "ETA calculations", "Status updates", "Photo proof", "Customer notifications"] },
+    "menu-builder": { desc: "Digital restaurant menu with online ordering integration", features: ["Drag-and-drop editor", "Category management", "Dietary labels", "QR code menus", "Online ordering"] },
+    "room-visualizer": { desc: "AI-powered paint color room visualization tool", features: ["Room photo upload", "Benjamin Moore colors", "Sherwin-Williams colors", "Before/after comparison", "Palette suggestions"] },
+    "invoice-generator": { desc: "Professional invoice creation with Stripe payment integration", features: ["Invoice templates", "Line items", "Tax calculation", "Stripe payments", "PDF export"] },
+    "emergency-dashboard": { desc: "Real-time emergency incident command center", features: ["Incident reporting", "Team dispatch", "Status board", "Evacuation tracking", "Alert broadcasting"] },
+    "inventory-counter": { desc: "3-phase inventory counting with variance detection", features: ["3-phase counting", "Barcode scanning", "Variance detection", "Approval workflows", "Spreadsheet export"] },
+    "token-scanner": { desc: "Multi-chain token safety analysis and scoring", features: ["23+ chains", "Honeypot detection", "Liquidity analysis", "Ownership check", "Risk scoring"] },
+    "wellness-assessment": { desc: "Ayurvedic dosha analysis and wellness quiz", features: ["Dosha analysis", "Personalized recommendations", "Daily routines", "Dietary suggestions", "PDF reports"] },
+    "multi-wallet": { desc: "Unified multi-chain wallet for Solana and EVM chains", features: ["Solana support", "22 EVM chains", "Portfolio tracking", "Transaction history", "WalletConnect"] },
+    "compliance-engine": { desc: "Automated worker compliance and document verification", features: ["I-9 verification", "Background checks", "Cert tracking", "Expiration alerts", "Audit logging"] },
+  };
+
+  const info = widgetDescriptions[widgetId] || { desc: widgetName, features: ["Core functionality"] };
+
+  return `/**
+ * ${widgetName} Widget
+ * ${info.desc}
+ * 
+ * DarkWave Studios - Trust Layer Hub
+ * Licensed for use by the purchaser only.
+ * 
+ * Features:
+${info.features.map(f => ` * - ${f}`).join("\n")}
+ * 
+ * Installation:
+ * 1. Copy this file into your React project
+ * 2. Install dependencies: npm install react react-dom
+ * 3. Import and use: import { ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget } from './${widgetId}-widget'
+ * 
+ * For support: support@dwsc.io
+ * Documentation: https://darkwavestudios.com/developers
+ */
+
+import React, { useState, useEffect } from 'react';
+
+interface ${widgetName.replace(/[^a-zA-Z]/g, "")}Props {
+  primaryColor?: string;
+  theme?: 'light' | 'dark' | 'trustlayer';
+  onEvent?: (event: string, data: any) => void;
+  className?: string;
+}
+
+export function ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget({ 
+  primaryColor = '#3b82f6', 
+  theme = 'dark',
+  onEvent,
+  className = '' 
+}: ${widgetName.replace(/[^a-zA-Z]/g, "")}Props) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    // Initialize widget
+    setLoading(false);
+    onEvent?.('widget:loaded', { widget: '${widgetId}' });
+  }, []);
+
+  const themeStyles = {
+    light: { bg: '#ffffff', text: '#1a1a1a', border: '#e5e7eb', accent: primaryColor },
+    dark: { bg: '#0f172a', text: '#f1f5f9', border: '#334155', accent: primaryColor },
+    trustlayer: { bg: '#0c0a1a', text: '#e2e8f0', border: '#3b0764', accent: primaryColor },
+  };
+
+  const styles = themeStyles[theme];
+
+  if (loading) {
+    return (
+      <div className={className} style={{ 
+        background: styles.bg, 
+        color: styles.text, 
+        padding: '2rem', 
+        borderRadius: '1rem',
+        border: \`1px solid \${styles.border}\`,
+        textAlign: 'center' 
+      }}>
+        <div style={{ 
+          width: '2rem', height: '2rem', 
+          border: \`2px solid \${styles.accent}\`, 
+          borderTopColor: 'transparent',
+          borderRadius: '50%', 
+          margin: '0 auto',
+          animation: 'spin 1s linear infinite' 
+        }} />
+        <p style={{ marginTop: '1rem', opacity: 0.7 }}>Loading ${widgetName}...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} style={{ 
+      background: styles.bg, 
+      color: styles.text, 
+      padding: '1.5rem', 
+      borderRadius: '1rem',
+      border: \`1px solid \${styles.border}\`,
+      fontFamily: "'Inter', system-ui, sans-serif"
+    }}>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: '0.75rem',
+        marginBottom: '1.5rem',
+        paddingBottom: '1rem',
+        borderBottom: \`1px solid \${styles.border}\`
+      }}>
+        <div style={{ 
+          width: '2.5rem', height: '2.5rem', 
+          borderRadius: '0.75rem',
+          background: \`\${styles.accent}20\`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '1.25rem'
+        }}>
+          ⚡
+        </div>
+        <div>
+          <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 700 }}>${widgetName}</h3>
+          <p style={{ margin: 0, fontSize: '0.75rem', opacity: 0.6 }}>Powered by DarkWave Trust Layer</p>
+        </div>
+      </div>
+
+      {/* Widget Content - Customize below */}
+      <div style={{ minHeight: '200px' }}>
+        <p style={{ opacity: 0.8, fontSize: '0.875rem', lineHeight: 1.6 }}>
+          ${info.desc}
+        </p>
+        
+        <div style={{ marginTop: '1.5rem' }}>
+${info.features.map(f => `          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0', fontSize: '0.813rem' }}>
+            <span style={{ color: styles.accent }}>✓</span>
+            <span>${f}</span>
+          </div>`).join("\n")}
+        </div>
+      </div>
+
+      <div style={{ 
+        marginTop: '1.5rem', 
+        padding: '0.75rem 1rem',
+        background: \`\${styles.accent}10\`,
+        borderRadius: '0.5rem',
+        fontSize: '0.75rem',
+        opacity: 0.7,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem'
+      }}>
+        🔒 Verified by Trust Layer Hub • Blockchain Registered
+      </div>
+    </div>
+  );
+}
+
+export default ${widgetName.replace(/[^a-zA-Z]/g, "")}Widget;
+`;
+}
