@@ -105,18 +105,14 @@ export async function getStripeSecretKey() {
 
 let stripeSync: any = null;
 
-export async function getStripeSync() {
-  if (!stripeSync) {
-    const { StripeSync } = await import('stripe-replit-sync');
-    const secretKey = await getStripeSecretKey();
-
-    stripeSync = new StripeSync({
-      poolConfig: {
-        connectionString: process.env.DATABASE_URL!,
-        max: 2,
-      },
-      stripeSecretKey: secretKey,
-    });
-  }
-  return stripeSync;
+// Stub for getStripeSync — stripe-replit-sync removed for Render compatibility
+export async function getStripeSync(): Promise<any> {
+  return {
+    syncBackfill: async () => { /* no-op on Render */ },
+    findOrCreateManagedWebhook: async (url: string, opts: any) => ({
+      webhook: { url },
+      uuid: 'render-managed',
+    }),
+  };
 }
+
