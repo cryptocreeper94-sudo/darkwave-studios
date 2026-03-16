@@ -24,7 +24,7 @@ export function SEOHead({
   description,
   keywords,
   type = "website",
-  image = "https://replit.com/public/images/opengraph.png",
+  image = "/og-image.png",
   url,
   author = "DarkWave Studios",
   publishedTime,

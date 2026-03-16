@@ -245,7 +245,7 @@ const ecosystemMetrics: AppMetric[] = [
     totalLines: 20900,
     totalFiles: 129,
     apiEndpoints: 30,
-    stack: ["React 18", "TypeScript", "Vite", "Wouter", "TanStack Query", "shadcn/ui", "Radix UI", "Tailwind CSS v4", "Framer Motion", "Recharts", "React Hook Form", "Zod", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "OpenAI", "ElevenLabs", "Stripe", "Resend", "Replit Auth", "PWA"],
+    stack: ["React 18", "TypeScript", "Vite", "Wouter", "TanStack Query", "shadcn/ui", "Radix UI", "Tailwind CSS v4", "Framer Motion", "Recharts", "React Hook Form", "Zod", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "OpenAI", "ElevenLabs", "Stripe", "Resend", "TrustLayer SSO", "PWA"],
     breakdown: [
       { language: "TypeScript/TSX", lines: 18500, files: 129 },
       { language: "Server Modules", lines: 1800, files: 25 },
@@ -410,7 +410,7 @@ const ecosystemMetrics: AppMetric[] = [
     totalLines: 46697,
     totalFiles: 172,
     apiEndpoints: 156,
-    stack: ["React 18", "TypeScript", "Vite", "shadcn/ui", "Framer Motion", "Wouter", "TanStack Query v5", "Express.js", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI GPT-5.1", "GPT-4.1-mini", "ElevenLabs TTS", "Web Speech API", "Replit Object Storage", "Uppy", "TrustLayer SSO", "WebSocket", "Resend", "Zod", "FFmpeg", "JSZip", "PWA"],
+    stack: ["React 18", "TypeScript", "Vite", "shadcn/ui", "Framer Motion", "Wouter", "TanStack Query v5", "Express.js", "PostgreSQL", "Drizzle ORM", "Stripe", "OpenAI GPT-5.1", "GPT-4.1-mini", "ElevenLabs TTS", "Web Speech API", "Cloud Storage", "Uppy", "TrustLayer SSO", "WebSocket", "Resend", "Zod", "FFmpeg", "JSZip", "PWA"],
     breakdown: [
       { language: "React/TSX (29 pages, 30 components)", lines: 35641, files: 130 },
       { language: "TypeScript Backend (Express)", lines: 10169, files: 38 },
@@ -458,7 +458,7 @@ const ecosystemMetrics: AppMetric[] = [
     totalLines: 23532,
     totalFiles: 107,
     apiEndpoints: 72,
-    stack: ["React 18", "Vite", "Tailwind CSS", "Framer Motion", "shadcn/ui", "Wouter", "TanStack Query", "Express.js", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-5.2", "gpt-4o-mini-transcribe", "TTS", "Stripe", "Resend", "WebSocket", "Replit Auth OIDC", "PWA", "Capacitor"],
+    stack: ["React 18", "Vite", "Tailwind CSS", "Framer Motion", "shadcn/ui", "Wouter", "TanStack Query", "Express.js", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-5.2", "gpt-4o-mini-transcribe", "TTS", "Stripe", "Resend", "WebSocket", "TrustLayer SSO", "PWA", "Capacitor"],
     breakdown: [
       { language: "React/TSX (27 pages)", lines: 12800, files: 45 },
       { language: "TypeScript (Server)", lines: 5400, files: 18 },
@@ -543,7 +543,7 @@ const ecosystemMetrics: AppMetric[] = [
     totalLines: 14576,
     totalFiles: 61,
     apiEndpoints: 53,
-    stack: ["React Native 0.81", "Expo SDK 54", "Expo Router", "TypeScript", "React Query", "Express 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "Resend", "Leaflet", "Esri", "react-native-maps", "expo-location", "bcryptjs", "JWT", "Replit Object Storage", "esbuild", "PWA"],
+    stack: ["React Native 0.81", "Expo SDK 54", "Expo Router", "TypeScript", "React Query", "Express 5", "PostgreSQL", "Drizzle ORM", "OpenAI GPT-4o", "Resend", "Leaflet", "Esri", "react-native-maps", "expo-location", "bcryptjs", "JWT", "Cloud Storage", "esbuild", "PWA"],
     breakdown: [
       { language: "TypeScript (Server)", lines: 3352, files: 7 },
       { language: "TypeScript (Frontend)", lines: 9741, files: 49 },
