@@ -1,6 +1,21 @@
 import { Shield, Code2 } from "lucide-react";
+import { useRef } from "react";
 
 export default function Footer() {
+  const dwscClickRef = useRef({ count: 0, timer: null as any });
+  const handleDWSCClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dwscClickRef.current.count++;
+    if (dwscClickRef.current.count === 3) {
+      dwscClickRef.current.count = 0;
+      clearTimeout(dwscClickRef.current.timer);
+      window.open('https://dwsc.io/#portal', '_blank');
+    } else {
+      clearTimeout(dwscClickRef.current.timer);
+      dwscClickRef.current.timer = setTimeout(() => { dwscClickRef.current.count = 0; }, 800);
+    }
+  };
+
   return (
     <footer className="relative z-10 mt-6 lg:mt-12 border-t border-white/10 bg-background/80 backdrop-blur-sm" data-testid="footer">
       {/* Lume Promotional Banner */}
@@ -53,15 +68,13 @@ export default function Footer() {
               Powered by <span className="text-primary font-semibold">Trust Layer</span>
             </a>
             <span className="text-white/30">|</span>
-            <a
-              href="https://dwsc.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
+            <span
+              onClick={handleDWSCClick}
+              className="hover:text-cyan-400 transition-colors cursor-default select-none"
               data-testid="footer-link-dwsc"
             >
-              <span className="text-cyan-400 font-semibold">DWSC</span> R&D
-            </a>
+              <span className="text-cyan-400 font-semibold">◈ DWSC</span> R&D
+            </span>
           </div>
         </div>
       </div>
