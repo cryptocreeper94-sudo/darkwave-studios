@@ -312,6 +312,12 @@ export default function Lume() {
                   data-testid="cta-playground"
                 >
                   <Terminal className="w-5 h-5" /> Open Playground
+              </Link>
+              <Link
+                href="/lume/library"
+                className="group relative px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-semibold hover:bg-white/10 transition-all duration-300 hover:scale-105"
+              >
+                Widget Library
                 </Link>
                 <a
                   href="https://lume-lang.org"
