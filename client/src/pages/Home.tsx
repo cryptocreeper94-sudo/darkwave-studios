@@ -347,8 +347,8 @@ const projects = [
   {
     id: 34,
     title: "Bomber",
-    description: "Action arcade game with blockchain-backed achievements and SIG rewards",
-    tech: ["Gaming", "Arcade", "Blockchain"],
+    description: "3D long-drive golf game with Three.js physics, procedural venues, Mixamo avatars, and 299K+ lines of code",
+    tech: ["Three.js", "3D Physics", "Vite", "React"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-red-500/20 to-yellow-600/20",
     url: "https://bomber.tlid.io"
@@ -372,9 +372,9 @@ const projects = [
     url: "https://trustgen.tlid.io"
   },
   {
-    id: 37,
+    id: 2,
     title: "Lume",
-    description: "The AI-native programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, 219 tests, full toolchain",
+    description: "The AI-native programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, 4-layer self-sustaining runtime, 2,000+ tests",
     tech: ["AI", "Language", "Runtime", "Toolchain"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-cyan-500/20 to-teal-600/20",
