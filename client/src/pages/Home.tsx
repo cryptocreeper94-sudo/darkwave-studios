@@ -835,7 +835,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="hidden lg:block lg:col-span-2">
               <GlassCard variant="stat" className="rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Layers className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display text-foreground">83</div>
+                <div className="text-3xl font-bold font-display text-foreground">107</div>
                 <div className="text-muted-foreground text-sm">Widgets</div>
               </GlassCard>
             </motion.div>
