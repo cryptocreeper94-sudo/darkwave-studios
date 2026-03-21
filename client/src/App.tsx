@@ -57,6 +57,7 @@ import Lume from "@/pages/Lume";
 import Academy from "@/pages/Academy";
 import LumePlayground from "@/pages/LumePlayground";
 import LumeLibrary from "@/pages/LumeLibrary";
+import WidgetMarketplace from "@/pages/WidgetMarketplace";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
@@ -106,6 +107,7 @@ function Router() {
       <Route path="/lume" component={Lume}/>
       <Route path="/lume/playground" component={LumePlayground}/>
               <Route path="/lume/library" component={LumeLibrary}/>
+              <Route path="/developers/marketplace" component={WidgetMarketplace}/>
       <Route path="/academy" component={Academy}/>
       <Route component={NotFound} />
     </Switch>
