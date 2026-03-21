@@ -808,7 +808,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
               <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
                 <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.74M+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.87M+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
               </GlassCard>
             </motion.div>
@@ -817,7 +817,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
               <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">31</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">37</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
               </GlassCard>
             </motion.div>
@@ -835,7 +835,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="hidden lg:block lg:col-span-2">
               <GlassCard variant="stat" className="rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Layers className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display text-foreground">78</div>
+                <div className="text-3xl font-bold font-display text-foreground">83</div>
                 <div className="text-muted-foreground text-sm">Widgets</div>
               </GlassCard>
             </motion.div>
