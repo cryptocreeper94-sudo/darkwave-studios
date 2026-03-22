@@ -393,7 +393,7 @@ const widgetsList = [
   {
     id: "ocr-scanner", name: "OCR Scanner", icon: Scan, containerId: "demo-ocr-scanner", color: "#8b5cf6",
     description: "Camera-based text and document scanning", price: 99, priceId: "price_widget_ocr_scanner",
-    fullDescription: "Turn any device camera into a document scanner. Extracts text from photos of receipts, VINs, license plates, business cards, and invoices. Built from Lot Ops Pro's production OCR system for scanning vehicle stock numbers.",
+    fullDescription: "Turn any device camera into a document scanner. Extracts text from photos of receipts, VINs, license plates, business cards, and invoices. Built from a production OCR system for scanning vehicle stock numbers.",
     features: ["Camera text capture", "Receipt scanning", "VIN/plate recognition", "Business card reader", "Invoice data extraction", "Multi-language support", "Batch scanning mode", "Clipboard integration"],
     requirements: ["React or vanilla JS", "Device with camera", "No backend required"],
     includes: ["Full source code", "Camera integration guide", "OCR processing logic", "Result formatting", "Setup guide", "30-day email support", "Lifetime updates"],
@@ -404,7 +404,7 @@ const widgetsList = [
   {
     id: "driver-leaderboard", name: "Driver Leaderboard", icon: Trophy, containerId: "demo-driver-leaderboard", color: "#eab308",
     description: "Gamified employee performance rankings", price: 129, priceId: "price_widget_driver_leaderboard",
-    fullDescription: "Gamify workforce performance with real-time leaderboards. Track moves per hour, jobs completed, ratings, and streak bonuses. Drives healthy competition and boosts productivity. Extracted from Lot Ops Pro's driver ranking system.",
+    fullDescription: "Gamify workforce performance with real-time leaderboards. Track moves per hour, jobs completed, ratings, and streak bonuses. Drives healthy competition and boosts productivity. Extracted from a production driver ranking system.",
     features: ["Real-time rankings", "Moves-per-hour tracking", "Daily/weekly/monthly views", "Achievement badges", "Streak tracking", "Team vs individual modes", "Photo avatars", "Export performance reports"],
     requirements: ["React frontend", "Node.js backend", "PostgreSQL database"],
     includes: ["Leaderboard UI", "Backend API", "Scoring engine", "Badge system", "Setup guide", "30-day email support", "Lifetime updates"],

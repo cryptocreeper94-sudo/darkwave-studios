@@ -44,7 +44,6 @@ const ECOSYSTEM_REGISTRY = [
   { app: "ORBIT Staffing OS", domain: "orbit.tlid.io", prefix: "OR" },
   { app: "Orby Commander", domain: "orby.tlid.io", prefix: "OC" },
   { app: "GarageBot", domain: "garagebot.tlid.io", prefix: "GB" },
-  { app: "Lot Ops Pro", domain: "lotops.tlid.io", prefix: "LO" },
   { app: "TORQUE", domain: "torque.tlid.io", prefix: "TQ" },
   { app: "TL Driver Connect", domain: "driverconnect.tlid.io", prefix: "DC" },
   { app: "VedaSolus", domain: "vedasolus.tlid.io", prefix: "VS" },

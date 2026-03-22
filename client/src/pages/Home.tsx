@@ -120,15 +120,6 @@ const projects = [
     url: "https://getorby.io"
   },
   {
-    id: 8,
-    title: "Lot Ops Pro",
-    description: "Driver performance and workflow management for auto auctions",
-    tech: ["Automotive", "Workflow", "GPS"],
-    image: "/ecosystem/lot-ops-pro.png",
-    gradient: "from-blue-500/20 to-indigo-600/20",
-    url: "https://lotopspro.io"
-  },
-  {
     id: 9,
     title: "Brew & Board",
     description: "Nashville's premium B2B coffee and catering concierge platform",
@@ -379,6 +370,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-cyan-500/20 to-teal-600/20",
     url: "https://lume-lang.org"
+  },
+  {
+    id: 37,
+    title: "LumeLine",
+    description: "Odds intelligence platform — tracks 47+ bookmakers, detects line manipulation, ML consensus with confidence scoring. Built in Lume",
+    tech: ["ML", "Analytics", "Lume", "Sports"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-emerald-500/20 to-cyan-600/20",
+    url: "https://lumeline.bet"
   }
 ];
 

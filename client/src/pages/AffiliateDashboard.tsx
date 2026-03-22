@@ -40,7 +40,6 @@ const ECOSYSTEM_APPS = [
   { app: "ORBIT Staffing OS", domain: "orbit.tlid.io", prefix: "OR", icon: "🏢" },
   { app: "Orby Commander", domain: "orby.tlid.io", prefix: "OC", icon: "🤖" },
   { app: "GarageBot", domain: "garagebot.tlid.io", prefix: "GB", icon: "🚗" },
-  { app: "Lot Ops Pro", domain: "lotops.tlid.io", prefix: "LO", icon: "🅿️" },
   { app: "TORQUE", domain: "torque.tlid.io", prefix: "TQ", icon: "🔧" },
   { app: "TL Driver Connect", domain: "driverconnect.tlid.io", prefix: "DC", icon: "🚚" },
   { app: "VedaSolus", domain: "vedasolus.tlid.io", prefix: "VS", icon: "🧘" },

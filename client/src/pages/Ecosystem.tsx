@@ -88,15 +88,6 @@ const ecosystemApps: EcosystemApp[] = [
     category: "business"
   },
   {
-    id: "lot-ops-pro",
-    name: "Lot Ops Pro",
-    tagline: "Move Smarter. Track Better. Manage Everything.",
-    description: "Mobile-first driver performance and workflow management for auto auctions, dealerships, and industrial operations.",
-    image: "/ecosystem/lot-ops-pro.png",
-    url: "https://lotopspro.io",
-    category: "business"
-  },
-  {
     id: "brew-board",
     name: "Brew & Board Coffee",
     tagline: "Nashville's Premium B2B Coffee Concierge.",
@@ -338,6 +329,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://lume-lang.org",
     category: "devtools"
+  },
+  {
+    id: "lumeline",
+    name: "LumeLine",
+    tagline: "See the Line. Read the Game.",
+    description: "Odds intelligence platform tracking 47+ bookmakers in real-time. Scores source accuracy, detects line manipulation (sync moves, reverse steam, house divergence, late flips), and generates ML-powered consensus predictions with confidence scoring and house lean bias. 14 API endpoints, Twilio SMS alerts, and full anomaly detection pipeline. Built entirely in Lume.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://lumeline.bet",
+    category: "sports-odds"
   }
 ];
 
@@ -353,6 +353,7 @@ const categories = [
   { id: "social", name: "Social & Communication", description: "Community and messaging platforms" },
   { id: "smart-home", name: "Smart Home", description: "IoT and home automation platforms" },
   { id: "sports", name: "Sports & Fitness", description: "Athletic performance and recreation platforms" },
+  { id: "sports-odds", name: "Sports & Odds Intelligence", description: "ML-powered sports analytics and odds tracking" },
   { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" },
   { id: "creative", name: "Creative Tools", description: "3D creation, media production, and AI-powered design" },
   { id: "devtools", name: "Developer Tools", description: "Programming languages, SDKs, and developer infrastructure" }

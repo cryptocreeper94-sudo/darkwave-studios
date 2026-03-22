@@ -12,7 +12,7 @@ import orbitImg from "@/assets/ecosystem/orbitstaffing.png";
 import orbyImg from "@/assets/ecosystem/getorby.png";
 import garageBotImg from "@/assets/ecosystem/garagebot.png";
 import brewBoardImg from "@/assets/ecosystem/brewandboard.png";
-import lotOpsImg from "@/assets/ecosystem/lotopspro.png";
+
 import nashPaintImg from "@/assets/ecosystem/nashpaintpros.png";
 import paintProsImg from "@/assets/ecosystem/paintpros.png";
 import tradeWorksImg from "@/assets/ecosystem/tradeworksai.png";
@@ -91,16 +91,6 @@ const projects = [
     gradient: "from-zinc-500/20 to-slate-600/20",
     url: "https://torque.tlid.io",
     category: "Automotive"
-  },
-  {
-    id: 6,
-    title: "Lot Ops Pro",
-    description: "Mobile-first driver performance and workflow management for auto auctions and dealerships. Real-time GPS routing, moves-per-hour tracking, OCR camera scanning, AI assistant, shift management, and blockchain-verified performance records.",
-    tech: ["GPS", "OCR", "AI", "Mobile PWA"],
-    image: lotOpsImg,
-    gradient: "from-blue-500/20 to-sky-600/20",
-    url: "https://lotopspro.io",
-    category: "Logistics"
   },
   {
     id: 7,

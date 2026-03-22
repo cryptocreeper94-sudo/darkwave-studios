@@ -1457,7 +1457,6 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "strikeagent", name: "StrikeAgent", url: "https://strikeagent.io", category: "trading", loc: "~8K", pages: "6" },
     { id: "orbit-staffing", name: "ORBIT Staffing OS", url: "https://orbitstaffing.io", category: "business", loc: "~25K", pages: "15" },
     { id: "orby-commander", name: "Orby Commander", url: "https://getorby.io", category: "business", loc: "~12K", pages: "10" },
-    { id: "lot-ops-pro", name: "Lot Ops Pro", url: "https://lotopspro.io", category: "business", loc: "~10K", pages: "8" },
     { id: "brew-board", name: "Brew & Board Coffee", url: "https://brewandboard.coffee", category: "business", loc: "~6K", pages: "5" },
     { id: "tradeworks-ai", name: "TradeWorks AI", url: "https://tradeworksai.io", category: "trades", loc: "11,231", pages: "7" },
     { id: "paint-pros", name: "PaintPros", url: "https://paintpros.io", category: "trades", loc: "152,149", pages: "96" },
