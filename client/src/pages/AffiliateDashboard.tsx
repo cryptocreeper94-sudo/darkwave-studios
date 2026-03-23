@@ -189,7 +189,7 @@ function AffiliateDashboard() {
           </Link>
           <div className="flex-1">
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight" data-testid="text-affiliate-title">Share & Earn</h1>
-            <p className="text-xs sm:text-sm text-gray-500">Earn SIG across all 35 Trust Layer apps</p>
+            <p className="text-xs sm:text-sm text-gray-500">Earn SIG across all 37 Trust Layer apps</p>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />

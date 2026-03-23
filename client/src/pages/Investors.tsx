@@ -21,7 +21,7 @@ export default function Investors() {
   const metrics = [
     { icon: TrendingUp, label: "Revenue Growth", value: "180%", sublabel: "Year over Year" },
     { icon: Users, label: "Active Clients", value: "45+", sublabel: "Enterprise & SMB" },
-    { icon: Globe, label: "Live Applications", value: "12+", sublabel: "In Production" },
+    { icon: Globe, label: "Live Applications", value: "37", sublabel: "In Production" },
     { icon: DollarSign, label: "Cost Savings", value: "60%+", sublabel: "vs. Traditional Agencies" },
   ];
 
