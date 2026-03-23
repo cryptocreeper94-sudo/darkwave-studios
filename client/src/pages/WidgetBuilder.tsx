@@ -1,5 +1,4 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Helmet } from "react-helmet";
 
 // ═══════════════════════════════════════════════════════
 // WIDGET CATALOG — 60+ widgets organized by category
@@ -199,13 +198,10 @@ export default function WidgetBuilder() {
   const selectedWidget = selectedItem ? canvasItems.find(i => i.instanceId === selectedItem) : null;
   const selectedDef = selectedWidget ? WIDGET_CATALOG.find(w => w.id === selectedWidget.widgetId) : null;
 
+  useEffect(() => { document.title = 'Widget Builder - DarkWave Studios'; }, []);
+
   return (
     <>
-      <Helmet>
-        <title>Widget Builder - DarkWave Studios</title>
-        <meta name="description" content="Drag-and-drop widget builder. Build pages visually with 60+ production-ready widgets. No code required." />
-      </Helmet>
-
       <style>{`
         .wb-layout { display: grid; grid-template-columns: 300px 1fr 280px; height: calc(100vh - 64px); overflow: hidden; }
         @media(max-width:1024px) { .wb-layout { grid-template-columns: 240px 1fr; } .wb-config { display: none; } }
