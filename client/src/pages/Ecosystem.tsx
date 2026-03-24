@@ -305,9 +305,9 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "bomber",
-    name: "Bomber",
-    tagline: "Drop. Destroy. Dominate.",
-    description: "Action arcade game in the Trust Layer gaming suite. Part of the Hallmark-verified ecosystem with blockchain-backed achievement records and SIG-denominated rewards. Installable PWA at bomber.tlid.io.",
+    name: "Bomber 3D",
+    tagline: "The Long Drive Championship",
+    description: "3D long-drive golf game built with React 19, Three.js, and a custom physics engine. Deterministic ball flight with drag, wind, altitude, and weather systems. 5 procedurally generated venues (Desert Canyon, Ocean Links, Mountain Peak, Urban Rooftop, Forest Meadow), 20+ equipment tiers from Starter Wood to Quantum Driver, 3 AI opponents with distinct playstyles, and a full Shells-based economy with loot chest system. Physics tuner, asset generator, and balance checker CLI scripts. Hallmark prefix BO (BO-00000001). Express backend on port 3001 + Vite frontend.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://bomber.tlid.io",
     category: "gaming"
@@ -338,6 +338,15 @@ const ecosystemApps: EcosystemApp[] = [
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://lumeline.bet",
     category: "sports-odds"
+  },
+  {
+    id: "signalcast",
+    name: "SignalCast",
+    tagline: "One Signal. Every Platform.",
+    description: "AI-powered social media automation engine for the Trust Layer ecosystem. 9 platform connectors (X/Twitter, Facebook, Instagram, Discord, Telegram, Nextdoor, LinkedIn, Reddit, Pinterest). Unified scheduler posts hourly 6am–10pm CST rotating across 15 ecosystem tenants. Embeddable widget drops into any app via a single script tag. TrustGen integration for AI-generated marketing assets and TrustVault for secure credential storage. 4-tier subscriptions (Starter $29/Pro $59/Pro+TrustGen $89/Ultimate $99). Full dashboard with post composer, deploy feed, and per-platform analytics. Express API with 12 endpoints, Drizzle ORM with 8 database tables.",
+    image: "/ecosystem/trust-layer-icon.png",
+    url: "https://signalcast.ad",
+    category: "marketing"
   }
 ];
 
@@ -356,7 +365,8 @@ const categories = [
   { id: "sports-odds", name: "Sports & Odds Intelligence", description: "ML-powered sports analytics and odds tracking" },
   { id: "outdoor", name: "Outdoor & Recreation", description: "Nature, trails, and outdoor adventure platforms" },
   { id: "creative", name: "Creative Tools", description: "3D creation, media production, and AI-powered design" },
-  { id: "devtools", name: "Developer Tools", description: "Programming languages, SDKs, and developer infrastructure" }
+  { id: "devtools", name: "Developer Tools", description: "Programming languages, SDKs, and developer infrastructure" },
+  { id: "marketing", name: "Marketing & Advertising", description: "Social media automation, advertising engines, and growth tools" }
 ];
 
 function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => void }) {
