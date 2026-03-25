@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import { registerTrustLayerSSO } from './trustLayerSSO';
 
 import { getStripeSync } from './stripeClient';
 import { WebhookHandlers } from './webhookHandlers';
@@ -10,6 +11,7 @@ import { seedBlog } from './seedBlog';
 import { startMarketingScheduler } from './marketing-scheduler';
 import { setupChatWebSocket } from './chat-ws';
 import { seedChatChannels } from './seedChat';
+import { registerTrustLayerSSO } from './trustLayerSSO';
 
 const app = express();
 const httpServer = createServer(app);
@@ -129,6 +131,8 @@ app.use((req, res, next) => {
   setupChatWebSocket(httpServer);
   
   await registerRoutes(httpServer, app);
+  // Trust Layer SSO consumer endpoints
+  registerTrustLayerSSO(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -165,3 +169,4 @@ app.use((req, res, next) => {
     },
   );
 })();
+
