@@ -1,4 +1,4 @@
-import { verifyToken } from "./trustlayer-sso";
+import { verifyToken } from "./chat-auth";
 
 const TRUSTVAULT_BASE_URL = "https://trustvault.tlid.io";
 const RATE_LIMIT_MAP = new Map<string, { count: number; resetAt: number }>();

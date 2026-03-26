@@ -11,7 +11,6 @@ import { seedBlog } from './seedBlog';
 import { startMarketingScheduler } from './marketing-scheduler';
 import { setupChatWebSocket } from './chat-ws';
 import { seedChatChannels } from './seedChat';
-import { registerTrustLayerSSO } from './trustLayerSSO';
 
 const app = express();
 const httpServer = createServer(app);
@@ -22,7 +21,7 @@ declare module "http" {
   }
 }
 
-// Initialize Stripe (no Replit sync needed on Render)
+// Initialize Stripe
 async function initStripe() {
   try {
     console.log('Initializing Stripe...');
@@ -169,4 +168,3 @@ app.use((req, res, next) => {
     },
   );
 })();
-

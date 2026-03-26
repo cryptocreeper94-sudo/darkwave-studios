@@ -1,7 +1,7 @@
 import { db } from "./db";
 import { chatChannels, chatUsers } from "@shared/schema";
 import { eq } from "drizzle-orm";
-import { hashPassword, generateTrustLayerId } from "./trustlayer-sso";
+import { hashPassword, generateTrustLayerId } from "./chat-auth";
 
 const ECOSYSTEM_CHANNELS = [
   { name: "general", description: "Ecosystem-wide discussion", category: "ecosystem", isDefault: true },

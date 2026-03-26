@@ -3,7 +3,7 @@ import type { Server } from "http";
 import { db } from "./db";
 import { chatMessages, chatUsers, chatChannels } from "@shared/schema";
 import { eq, desc, sql } from "drizzle-orm";
-import { verifyToken } from "./trustlayer-sso";
+import { verifyToken } from "./chat-auth";
 
 const MAX_MESSAGE_LENGTH = 2000;
 

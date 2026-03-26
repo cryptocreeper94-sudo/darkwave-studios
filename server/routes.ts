@@ -585,9 +585,33 @@ export async function registerRoutes(
     }
   });
 
-  // Coinbase Webhook
+  // Coinbase Webhook (HMAC-SHA256 verified)
   app.post("/api/webhooks/coinbase", async (req: Request, res: Response) => {
     try {
+      // Verify webhook signature
+      const webhookSecret = process.env.COINBASE_COMMERCE_WEBHOOK_SECRET;
+      const signature = req.headers['x-cc-webhook-signature'] as string;
+      
+      if (webhookSecret) {
+        if (!signature) {
+          console.error("[Coinbase Webhook] Missing X-CC-Webhook-Signature header");
+          return res.status(401).json({ error: "Missing webhook signature" });
+        }
+        
+        const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+        const computedSignature = crypto
+          .createHmac('sha256', webhookSecret)
+          .update(rawBody)
+          .digest('hex');
+        
+        if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(computedSignature))) {
+          console.error("[Coinbase Webhook] Invalid signature — possible spoofed request");
+          return res.status(401).json({ error: "Invalid webhook signature" });
+        }
+      } else {
+        console.warn("[Coinbase Webhook] COINBASE_COMMERCE_WEBHOOK_SECRET not set — skipping signature verification");
+      }
+
       const event = req.body;
       
       if (event.event?.type === "charge:confirmed" || event.event?.type === "charge:resolved") {
@@ -3152,7 +3176,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.post("/api/chat/auth/ecosystem-login", async (req, res) => {
     try {
       const { identifier, credential } = req.body;
-      const { ecosystemLogin } = await import("./trustlayer-sso");
+      const { ecosystemLogin } = await import("./chat-auth");
       const result = await ecosystemLogin(identifier, credential);
 
       if (!result.success) {
@@ -3173,7 +3197,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         return res.status(400).json({ success: false, error: "All fields are required" });
       }
 
-      const { registerUser } = await import("./trustlayer-sso");
+      const { registerUser } = await import("./chat-auth");
       const result = await registerUser(username, email, password, displayName);
 
       if (!result.success) {
@@ -3193,7 +3217,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         return res.status(400).json({ success: false, error: "Username and password are required" });
       }
 
-      const { loginUser } = await import("./trustlayer-sso");
+      const { loginUser } = await import("./chat-auth");
       const result = await loginUser(username, password);
 
       if (!result.success) {
@@ -3213,7 +3237,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         return res.status(401).json({ success: false, error: "No token provided" });
       }
 
-      const { authenticateToken } = await import("./trustlayer-sso");
+      const { authenticateToken } = await import("./chat-auth");
       const user = await authenticateToken(authHeader.slice(7));
 
       if (!user) {
@@ -3395,7 +3419,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.get("/api/credits/balance", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
-    const { verifyToken } = await import("./trustlayer-sso");
+    const { verifyToken } = await import("./chat-auth");
     const decoded = verifyToken(token);
     if (!decoded) return res.status(401).json({ error: "Invalid token" });
     const balance = await storage.getOrCreateCreditBalance(decoded.userId);
@@ -3405,7 +3429,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.get("/api/credits/transactions", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
-    const { verifyToken } = await import("./trustlayer-sso");
+    const { verifyToken } = await import("./chat-auth");
     const decoded = verifyToken(token);
     if (!decoded) return res.status(401).json({ error: "Invalid token" });
     const limit = parseInt(req.query.limit as string) || 50;
@@ -3417,7 +3441,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     try {
       const token = req.headers.authorization?.replace("Bearer ", "");
       if (!token) return res.status(401).json({ error: "No token provided" });
-      const { verifyToken } = await import("./trustlayer-sso");
+      const { verifyToken } = await import("./chat-auth");
       const decoded = verifyToken(token);
       if (!decoded) return res.status(401).json({ error: "Invalid token" });
 
@@ -3455,7 +3479,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     try {
       const token = req.headers.authorization?.replace("Bearer ", "");
       if (!token) return res.status(401).json({ error: "No token provided" });
-      const { verifyToken } = await import("./trustlayer-sso");
+      const { verifyToken } = await import("./chat-auth");
       const decoded = verifyToken(token);
       if (!decoded) return res.status(401).json({ error: "Invalid token" });
 
@@ -3490,7 +3514,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     try {
       const token = req.headers.authorization?.replace("Bearer ", "");
       if (!token) return res.status(401).json({ error: "No token provided" });
-      const { verifyToken } = await import("./trustlayer-sso");
+      const { verifyToken } = await import("./chat-auth");
       const decoded = verifyToken(token);
       if (!decoded) return res.status(401).json({ error: "Invalid token" });
 
@@ -3599,7 +3623,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.get("/api/trustvault/events", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
-    const { verifyToken } = await import("./trustlayer-sso");
+    const { verifyToken } = await import("./chat-auth");
     const decoded = verifyToken(token);
     if (!decoded) return res.status(401).json({ error: "Invalid token" });
     const events = getWebhookEvents(decoded.userId);

@@ -120,10 +120,14 @@ export class OrbitEcosystemClient {
 
   async checkConnection(): Promise<{ connected: boolean; message: string }> {
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
       const response = await fetch(`${this.hubUrl}/api/ecosystem/apps`, {
         method: 'GET',
         headers: this.getHeaders(),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
 
       if (response.ok) {
         return { connected: true, message: 'Successfully connected to ORBIT Hub' };
@@ -297,8 +301,9 @@ export function getOrbitClient(): OrbitEcosystemClient {
     const apiKey = process.env.ORBIT_API_KEY;
     const apiSecret = process.env.ORBIT_API_SECRET;
 
-    if (!apiKey || !apiSecret) {
-      throw new Error('ORBIT_API_KEY and ORBIT_API_SECRET must be set');
+  if (!apiKey || !apiSecret) {
+      console.warn('[ORBIT] ORBIT_API_KEY and ORBIT_API_SECRET not set — OrbitClient disabled');
+      return null as any;
     }
 
     const baseUrl = process.env.ORBIT_ECOSYSTEM_URL || 'https://orbitstaffing.io/api/ecosystem';

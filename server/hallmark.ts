@@ -3,16 +3,67 @@ import { db } from "./db";
 import { hallmarks, trustStamps, hallmarkCounter } from "@shared/schema";
 import { eq, sql } from "drizzle-orm";
 
+const TRUST_LAYER_URL = process.env.TRUST_LAYER_URL || 'https://dwtl.io';
+
 function sha256(data: string): string {
   return createHash("sha256").update(data).digest("hex");
 }
 
-function simulatedTxHash(): string {
-  return "0x" + randomBytes(32).toString("hex");
-}
+/**
+ * Register a hallmark with Trust Layer Hub.
+ * Falls back to local SHA-256 hashing if Hub is unreachable.
+ */
+async function registerWithTrustLayer(params: {
+  appId?: string;
+  appName?: string;
+  productName?: string;
+  releaseType?: string;
+  metadata?: string;
+  dataHash: string;
+}): Promise<{ txHash: string; blockHeight: string; verificationMethod: string }> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
 
-function simulatedBlockHeight(): string {
-  return String(Math.floor(1000000 + Math.random() * 9000000));
+    const response = await fetch(`${TRUST_LAYER_URL}/api/hallmark/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        appId: params.appId,
+        appName: params.appName,
+        productName: params.productName,
+        releaseType: params.releaseType,
+        metadata: params.metadata ? JSON.parse(params.metadata) : undefined,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+
+    if (response.ok) {
+      const data = await response.json();
+      const hallmark = data.hallmark || data;
+      if (hallmark?.txHash && hallmark?.blockHeight) {
+        console.log(`[Hallmark] Registered with Trust Layer Hub: ${hallmark.thId || 'OK'}`);
+        return {
+          txHash: hallmark.txHash,
+          blockHeight: hallmark.blockHeight,
+          verificationMethod: "trust-layer-hub",
+        };
+      }
+    }
+
+    console.warn(`[Hallmark] Trust Layer Hub returned non-OK (${response.status}), using local hash`);
+  } catch (error: any) {
+    console.warn(`[Hallmark] Trust Layer Hub unreachable (${error.message}), using local hash`);
+  }
+
+  // Fallback: local SHA-256 hash verification
+  return {
+    txHash: "0x" + params.dataHash,
+    blockHeight: "local",
+    verificationMethod: "sha256-local",
+  };
 }
 
 export async function generateHallmark(params: {
@@ -48,8 +99,13 @@ export async function generateHallmark(params: {
   });
 
   const dataHash = sha256(payload);
-  const txHash = simulatedTxHash();
-  const blockHeight = simulatedBlockHeight();
+
+  // Register with Trust Layer Hub (falls back to local hash if unreachable)
+  const { txHash, blockHeight } = await registerWithTrustLayer({
+    ...params,
+    dataHash,
+  });
+
   const verificationUrl = `https://darkwavestudios.io/hallmark/${thId}/verify`;
 
   const [hallmark] = await db
@@ -85,8 +141,15 @@ export async function createTrustStamp(params: {
   });
 
   const dataHash = sha256(payload);
-  const txHash = simulatedTxHash();
-  const blockHeight = simulatedBlockHeight();
+
+  // Trust stamps also go through the Hub
+  const { txHash, blockHeight } = await registerWithTrustLayer({
+    appId: "darkwave-trust-stamp",
+    appName: "DarkWave Studios",
+    productName: params.category,
+    releaseType: "trust-stamp",
+    dataHash,
+  });
 
   const [stamp] = await db
     .insert(trustStamps)
@@ -127,7 +190,7 @@ export async function seedGenesisHallmark() {
     version: "1.0.0",
     domain: "darkwavestudio.tlid.io",
     operator: "DarkWave Studios LLC",
-    chain: "Trust Layer Blockchain",
+    chain: "Trust Layer",
     consensus: "Proof of Trust",
     launchDate: "2026-08-23T00:00:00.000Z",
     nativeAsset: "SIG",
