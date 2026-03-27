@@ -8,6 +8,10 @@ import crypto from "crypto";
 
 function getJwtSecret(): string {
   if (process.env.JWT_SECRET) return process.env.JWT_SECRET;
+  if (process.env.NODE_ENV === "production") {
+    console.error("FATAL: JWT_SECRET must be set in production");
+    process.exit(1);
+  }
   if (!getJwtSecret._fallback) {
     getJwtSecret._fallback = crypto.randomBytes(64).toString("hex");
     console.warn("[Trust Layer SSO] No JWT_SECRET env var set, using generated secret (tokens will not survive restarts)");
