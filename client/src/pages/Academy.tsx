@@ -4,6 +4,12 @@ import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   GraduationCap,
   Code2,
@@ -272,6 +278,48 @@ function getLevelColor(level: string) {
 
 export default function Academy() {
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
+
+  // Subscription Logic
+  const [showSubscribe, setShowSubscribe] = useState(false);
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const [subscribeCompany, setSubscribeCompany] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const { toast } = useToast();
+
+  const subscribeMutation = useMutation({
+    mutationFn: async (data: { plan: string; email: string; companyName: string }) => {
+      const res = await fetch("/api/marketing/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        toast({ title: "Checkout failed", description: data.error, variant: "destructive" });
+      }
+    }
+  });
+
+  const handleSubscribe = (plan: string) => {
+    setSelectedPlan(plan);
+    setShowSubscribe(true);
+  };
+
+  const handleCheckout = () => {
+    if (!subscribeEmail.trim()) {
+      toast({ title: "Email required", description: "Please enter your email", variant: "destructive" });
+      return;
+    }
+    subscribeMutation.mutate({
+      plan: selectedPlan,
+      email: subscribeEmail,
+      companyName: subscribeCompany
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
@@ -799,6 +847,83 @@ export default function Academy() {
         </div>
       </section>
 
+      {/* Academy Pricing Section */}
+      <motion.section 
+        className="relative px-4 py-20" 
+        data-testid="section-pricing"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <span className="text-sm text-cyan-300 font-medium">Ecosystem Access</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Invest in Your Skills</span>
+            </h2>
+            <p className="text-white/40 max-w-2xl mx-auto">
+              Get full access to the Trust Academy curriculum, take proctor exams, and become a Certified Developer in the native Trust Layer ecosystem.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Lume Apprentice (Free) */}
+            <GlassCard className="p-8 text-center flex flex-col h-full" data-testid="card-pricing-apprentice">
+                <h3 className="text-lg font-semibold mb-2">Lume Apprentice</h3>
+                <p className="text-4xl font-bold mb-1">$0<span className="text-sm text-muted-foreground">/mo</span></p>
+                <p className="text-sm text-muted-foreground mb-6">Perfect for beginners and hobbyists</p>
+                
+                <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-500 mt-0.5 shrink-0" /> <span className="text-gray-300">Access to Web Dev 101</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-500 mt-0.5 shrink-0" /> <span className="text-gray-300">Lume Syntax Fundamentals</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-500 mt-0.5 shrink-0" /> <span className="text-gray-300">Read-only Signal Chat access</span></li>
+                  <li className="flex items-start gap-3 opacity-50"><XCircle className="w-5 h-5 text-red-900 mt-0.5 shrink-0" /> <span className="text-gray-500">No Certification Exams</span></li>
+                  <li className="flex items-start gap-3 opacity-50"><XCircle className="w-5 h-5 text-red-900 mt-0.5 shrink-0" /> <span className="text-gray-500">No AI Playground</span></li>
+                </ul>
+                <Button variant="outline" className="w-full" onClick={() => window.location.href = "/lume"} data-testid="button-pricing-free">Start Reading</Button>
+            </GlassCard>
+
+            {/* Pro Builder */}
+            <GlassCard glow className="p-8 text-center flex flex-col h-full relative border-cyan-500/30" data-testid="card-pricing-pro">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-full max-w-[150px]">
+                <div className="bg-gradient-to-r from-cyan-500 to-teal-500 text-black text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full shadow-lg shadow-cyan-500/20"> Most Popular </div>
+              </div>
+                <h3 className="text-lg font-semibold mb-2 text-cyan-50">Pro Builder</h3>
+                <p className="text-4xl font-bold mb-1 text-white">$49<span className="text-sm text-cyan-200/50">/mo</span></p>
+                <p className="text-sm text-cyan-200/60 mb-6">For serious Lume developers</p>
+                
+                <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 mt-0.5 shrink-0" /> <span className="text-white">All 60+ Advanced Courses</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 mt-0.5 shrink-0" /> <span className="text-white">Trust Layer Architecture Guides</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 mt-0.5 shrink-0" /> <span className="text-white">AI Content Generator Limits</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 mt-0.5 shrink-0" /> <span className="text-white">Full Signal Chat Support</span></li>
+                </ul>
+                <Button className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-black hover:opacity-90 font-semibold" onClick={() => handleSubscribe("pro-builder")} data-testid="button-pricing-pro">Subscribe Now</Button>
+            </GlassCard>
+
+            {/* Certified Partner */}
+            <GlassCard className="p-8 text-center flex flex-col h-full" data-testid="card-pricing-partner">
+                <h3 className="text-lg font-semibold mb-2">Certified Partner</h3>
+                <p className="text-4xl font-bold mb-1">$199<span className="text-sm text-muted-foreground">/mo</span></p>
+                <p className="text-sm text-muted-foreground mb-6">Agencies & Guardian Specialists</p>
+                
+                <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white">Everything in Pro</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white">Unlimited Proctor Exams</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white">On-chain Hallmarked Certifications</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white">1-on-1 Mentorship</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white">VIP Direct Line Support</span></li>
+                </ul>
+                <Button variant="outline" className="w-full border-teal-500/30 hover:bg-teal-500/10" onClick={() => handleSubscribe("certified-partner")} data-testid="button-pricing-partner">Become a Partner</Button>
+            </GlassCard>
+          </div>
+        </div>
+      </motion.section>
+
       <section className="relative px-4 py-20" data-testid="section-cta">
         <div className="max-w-4xl mx-auto">
           <GlassCard glow className="p-6 sm:p-10 md:p-16 text-center">
@@ -849,6 +974,45 @@ export default function Academy() {
           </GlassCard>
         </div>
       </section>
+
+      <Dialog open={showSubscribe} onOpenChange={setShowSubscribe}>
+        <DialogContent className="glass-card border-white/10">
+          <DialogHeader>
+            <DialogTitle>Enroll in {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Email</label>
+              <Input 
+                type="email"
+                value={subscribeEmail}
+                onChange={(e) => setSubscribeEmail(e.target.value)}
+                placeholder="developer@ecosystem.io"
+                data-testid="input-subscribe-email"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">Company / Agency (Optional)</label>
+              <Input 
+                value={subscribeCompany}
+                onChange={(e) => setSubscribeCompany(e.target.value)}
+                placeholder="DarkWave Partner"
+                data-testid="input-subscribe-company"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowSubscribe(false)}>Cancel</Button>
+            <Button 
+              onClick={handleCheckout} 
+              disabled={!subscribeEmail.trim() || subscribeMutation.isPending}
+              data-testid="button-checkout"
+            >
+              {subscribeMutation.isPending ? "Loading..." : "Secure Checkout"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>

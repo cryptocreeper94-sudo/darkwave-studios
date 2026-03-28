@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: darkwavestudios
+    name: DarkWave-Studios
     runtime: node
     region: ohio
     plan: free

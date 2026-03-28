@@ -62,6 +62,20 @@ import WidgetBuilder from "@/pages/WidgetBuilder";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
+  const isAcademySubdomain = window.location.hostname === "academy.tlid.io";
+
+  if (isAcademySubdomain) {
+    return (
+      <Switch>
+        {/* Force the Academy component to be the homepage on this subdomain */}
+        <Route path="/" component={Academy}/>
+        {/* Retain the explicitly requested /academy path so hard-links don't break */}
+        <Route path="/academy" component={Academy}/>
+        <Route component={NotFound} />
+      </Switch>
+    );
+  }
+
   return (
     <Switch>
       <Route path="/" component={Explore}/>
