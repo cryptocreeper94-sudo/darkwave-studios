@@ -265,7 +265,7 @@ const ecosystemApps: EcosystemApp[] = [
     description: "Zone-based food delivery platform connecting food truck vendors and mobile commissaries with customers across Middle Tennessee. Multi-truck cart ordering, 11 delivery zones along the I-24/I-840 corridor, vendor self-service portal with menu management, AI-powered marketing toolkit with flyer creator and TLI d.io social posting, customer rewards and referral program, receipt scanning (OCR), Stripe live checkout, and franchise model with territory isolation. Shared codebase with TL Driver Connect: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 database tables.",
     image: "/emblems/happy-eats.png",
     url: "https://happyeats.app",
-    category: "auto"
+    category: "food"
   },
   {
     id: "trust-book",
@@ -325,9 +325,9 @@ const ecosystemApps: EcosystemApp[] = [
     id: "lume",
     name: "Lume",
     tagline: "The AI-Native Programming Language",
-    description: "The first programming language where artificial intelligence is a syntax primitive — not a library import. Write 'ask', 'think', and 'generate' as keywords the same way you write 'if' or 'for'. Lume programs are alive: they monitor their own performance, heal themselves when errors occur, optimize their own bottlenecks, and evolve their behavior over time. 4-layer self-sustaining runtime (self-monitoring, self-healing, self-optimizing, self-evolving). Full toolchain: formatter, linter, REPL, watcher, source maps, IDE grammar. 219 passing tests across 6 milestones. 90% less code than Python for equivalent AI operations. 12,215 LOC, 41 files.",
+    description: "The world's first AI-native programming language — write in English, compile with voice, ship with confidence. Every line is security-certified at birth via the 3-layer Guardian model. 7-layer Tolerance Chain resolves natural language to deterministic JavaScript. English Mode with 102 patterns, voice-to-code pipeline, interactive playground with sandboxed execution, Lume as a Service (LaaS) cloud deployment. Self-sustaining runtime: self-monitoring, self-healing, self-optimizing, self-evolving. CI-verified build pipeline. CHI 2027 paper submitted. ~18,000+ LOC across 10 completed milestones.",
     image: "/ecosystem/trust-layer-icon.png",
-    url: "https://lume-lang.org",
+    url: "https://lume-lang.com",
     category: "devtools"
   },
   {
@@ -355,7 +355,8 @@ const categories = [
   { id: "trading", name: "Trading & Crypto", description: "AI-powered trading and blockchain tools" },
   { id: "business", name: "Business Operations", description: "Enterprise workflow and staffing solutions" },
   { id: "trades", name: "Trade Services", description: "Field service platforms for contractors" },
-  { id: "auto", name: "Auto & Delivery", description: "Vehicle and food service platforms" },
+  { id: "auto", name: "Auto & Delivery", description: "Vehicle and fleet service platforms" },
+  { id: "food", name: "Food & Delivery", description: "Food service, delivery, and vendor management platforms" },
   { id: "health", name: "Health & Wellness", description: "Holistic wellness solutions" },
   { id: "gaming", name: "Gaming", description: "Immersive gaming experiences" },
   { id: "real-estate", name: "Real Estate", description: "Property transaction and brokerage platforms" },
@@ -538,7 +539,7 @@ export default function Ecosystem() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
-        description="Explore the complete Trust Layer ecosystem. 27 connected applications spanning trading, business operations, trade services, gaming, education, and more. Over 1.6 million lines of code."
+        description={`Explore the complete Trust Layer ecosystem. ${ecosystemApps.length} connected applications spanning trading, business operations, trade services, gaming, food delivery, education, and more. Over 1.86 million lines of code.`}
         keywords="Trust Layer ecosystem, blockchain apps, trading platforms, business software"
       />
       <BreadcrumbSchema

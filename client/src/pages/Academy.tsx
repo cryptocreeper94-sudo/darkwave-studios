@@ -264,7 +264,7 @@ const stats = [
   { label: "Courses", value: "60+", icon: BookOpen },
   { label: "Learning Hours", value: "296+", icon: Clock },
   { label: "Certification Tracks", value: "5", icon: Award },
-  { label: "Ecosystem Apps Covered", value: "37+", icon: Rocket }
+  { label: "Ecosystem Apps Covered", value: "38+", icon: Rocket }
 ];
 
 function getLevelColor(level: string) {

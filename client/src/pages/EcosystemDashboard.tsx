@@ -152,7 +152,7 @@ export default function EcosystemDashboard() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem Dashboard - DarkWave Studios"
-        description="Master control center for monitoring All 37 DarkWave ecosystem apps. Real-time health checks, response times, and quick access to developer tools."
+        description="Master control center for monitoring All 38 DarkWave ecosystem apps. Real-time health checks, response times, and quick access to developer tools."
         keywords="ecosystem dashboard, health monitoring, developer tools, API, widgets"
       />
       <BreadcrumbSchema
@@ -242,7 +242,7 @@ export default function EcosystemDashboard() {
                 </span>
               </motion.h1>
               <p className="text-muted-foreground text-sm lg:text-base mb-6 max-w-xl">
-                Real-time health monitoring across all 37 production apps. 1.86M+ lines of code, live status, and instant access to every developer tool.
+                Real-time health monitoring across all 38 production apps. 1.86M+ lines of code, live status, and instant access to every developer tool.
               </p>
 
               {/* Summary Stats */}
@@ -556,7 +556,7 @@ export default function EcosystemDashboard() {
                 { icon: Shield, label: "Guardian AI", desc: "Agent certification & security", href: "/guardian-ai", gradient: "from-red-500 to-orange-500" },
                 { icon: Bot, label: "AI Agent Marketplace", desc: "Build & deploy AI agents", href: "https://dwtl.io/ai-agents", ext: true, gradient: "from-emerald-500 to-teal-500" },
                 { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-purple-500 to-pink-500" },
-                { icon: Globe, label: "Ecosystem", desc: "All 37 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
+                { icon: Globe, label: "Ecosystem", desc: "All 38 apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
               ].map((tool, i) => (
                 tool.ext ? (
                   <a key={tool.label} href={tool.href} target="_blank" rel="noopener noreferrer" data-testid={`tool-${tool.label.toLowerCase().replace(/\s+/g, '-')}`}>
