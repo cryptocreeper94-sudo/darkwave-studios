@@ -50,7 +50,7 @@ const learningPaths = [
   {
     id: "lume",
     title: "Lume Programming",
-    description: "Master the AI-native programming language from syntax basics to self-sustaining runtime architecture.",
+    description: "Master the deterministic natural-language programming language from syntax basics to self-sustaining runtime architecture.",
     icon: Terminal,
     color: "from-cyan-500 to-teal-500",
     courses: 8,
@@ -123,7 +123,7 @@ const featuredCourses = [
   {
     id: "lume-fundamentals",
     title: "Lume Fundamentals",
-    description: "Learn the basics of Lume — variables, types, functions, and your first AI-native program.",
+    description: "Learn the basics of Lume — variables, types, functions, and your first deterministic natural-language program.",
     level: "Beginner",
     duration: "6 hours",
     lessons: 24,
@@ -197,7 +197,7 @@ const lumeCurriculum = [
     tier: "Beginner",
     color: "from-cyan-500 to-sky-500",
     topics: ["Syntax & Keywords", "Types & Variables", "Functions & Closures", "Control Flow", "Module System", "Standard Library Basics"],
-    description: "Start from zero. Learn Lume syntax, types, functions, and write your first AI-native programs."
+    description: "Start from zero. Learn Lume syntax, types, functions, and write your first deterministic natural-language programs."
   },
   {
     tier: "Intermediate",

@@ -207,9 +207,9 @@ export default function Lume() {
   return (
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
-        title="Lume - The AI-Native Programming Language"
+        title="Lume - The Deterministic Natural-Language Programming Language"
         description="The first programming language where AI is a syntax primitive. Write ask, think, and generate as keywords. Self-sustaining runtime with 219 passing tests. Built by DarkWave Studios."
-        keywords="Lume, programming language, AI-native, self-sustaining runtime, DarkWave Studios, transpiler, AST"
+        keywords="Lume, programming language, deterministic, self-sustaining runtime, DarkWave Studios, transpiler, AST"
         url="https://darkwavestudios.io/lume"
       />
       <BreadcrumbSchema
@@ -292,7 +292,7 @@ export default function Lume() {
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-hero">
                 <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">
-                  The AI-Native
+                  The Deterministic Natural-Language
                 </span>
                 <br />
                 <span className="text-white">Programming Language</span>

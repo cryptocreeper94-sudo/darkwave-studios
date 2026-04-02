@@ -365,7 +365,7 @@ const projects = [
   {
     id: 2,
     title: "Lume",
-    description: "The AI-native programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, 4-layer self-sustaining runtime, 2,000+ tests",
+    description: "The deterministic natural-language programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, 4-layer self-sustaining runtime, 2,000+ tests",
     tech: ["AI", "Language", "Runtime", "Toolchain"],
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-cyan-500/20 to-teal-600/20",

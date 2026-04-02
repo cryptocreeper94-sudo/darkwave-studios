@@ -178,7 +178,7 @@ const categories: CommandCategory[] = [
       },
       {
         label: "Lume Language",
-        description: "The AI-native programming language — syntax, runtime, toolchain",
+        description: "The deterministic natural-language programming language — syntax, runtime, toolchain",
         href: "/lume",
         icon: <Code2 className="size-5" />,
         image: "/command/developers.png",

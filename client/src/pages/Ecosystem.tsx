@@ -324,8 +324,8 @@ const ecosystemApps: EcosystemApp[] = [
   {
     id: "lume",
     name: "Lume",
-    tagline: "The AI-Native Programming Language",
-    description: "The world's first AI-native programming language — write in English, compile with voice, ship with confidence. Every line is security-certified at birth via the 3-layer Guardian model. 7-layer Tolerance Chain resolves natural language to deterministic JavaScript. English Mode with 102 patterns, voice-to-code pipeline, interactive playground with sandboxed execution, Lume as a Service (LaaS) cloud deployment. Self-sustaining runtime: self-monitoring, self-healing, self-optimizing, self-evolving. CI-verified build pipeline. CHI 2027 paper submitted. ~18,000+ LOC across 10 completed milestones.",
+    tagline: "The Deterministic Natural-Language Programming Language",
+    description: "The world's first deterministic natural-language programming language — write in English, compile with voice, ship with confidence. Every line is security-certified at birth via the 3-layer Guardian model. 7-layer Tolerance Chain resolves natural language to deterministic JavaScript. English Mode with 102 patterns, voice-to-code pipeline, interactive playground with sandboxed execution, Lume as a Service (LaaS) cloud deployment. Self-sustaining runtime: self-monitoring, self-healing, self-optimizing, self-evolving. CI-verified build pipeline. CHI 2027 paper submitted. ~18,000+ LOC across 10 completed milestones.",
     image: "/ecosystem/trust-layer-icon.png",
     url: "https://lume-lang.com",
     category: "devtools"

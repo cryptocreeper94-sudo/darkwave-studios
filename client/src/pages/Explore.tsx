@@ -226,7 +226,7 @@ const categories: ExploreCategory[] = [
       },
       {
         label: "Lume Language",
-        description: "The AI-native programming language — ask/think/generate as syntax",
+        description: "The deterministic natural-language programming language — ask/think/generate as syntax",
         href: "/lume",
         icon: <Code2 className="size-5" />,
         image: "/command/developers.png",

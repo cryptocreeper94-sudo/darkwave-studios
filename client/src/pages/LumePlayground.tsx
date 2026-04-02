@@ -55,7 +55,7 @@ interface Example {
 
 const MODE_DEFAULTS: Record<LumeMode, string> = {
   standard: `// Welcome to the Lume Playground
-// The AI-native programming language
+// The deterministic natural-language programming language
 
 print("Hello from Lume!")
 
@@ -99,7 +99,7 @@ ask the AI to explain quantum computing in simple terms
 };
 
 const MODE_INFO: Record<LumeMode, { label: string; badge: string; color: string; description: string }> = {
-  standard: { label: "Standard Lume", badge: "v0.6.0", color: "cyan", description: "Traditional Lume syntax with AI-native keywords" },
+  standard: { label: "Standard Lume", badge: "v0.6.0", color: "cyan", description: "Traditional Lume syntax with native keywords" },
   english: { label: "English Mode", badge: "M7", color: "violet", description: "Write code in plain English — no syntax required" },
   natural: { label: "Natural Mode", badge: "M8", color: "emerald", description: "Write code in any human language" },
 };
@@ -284,7 +284,7 @@ export default function LumePlayground() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume Playground - Write & Run Lume Code"
-        description="Interactive Lume programming playground. Write, execute, and transpile Lume code in your browser. AI-native programming with ask, think, and generate keywords."
+        description="Interactive Lume programming playground. Write, execute, and transpile Lume code in your browser. English-mode programming with ask, think, and generate keywords."
         keywords="Lume playground, code editor, AI programming, Lume REPL, interactive coding"
         url="https://darkwavestudios.io/lume/playground"
       />

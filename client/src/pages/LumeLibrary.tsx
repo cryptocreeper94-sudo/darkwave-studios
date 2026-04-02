@@ -613,7 +613,7 @@ export default function LumeLibrary() {
       <SEOHead
         title="Lume Widget Library - Self-Healing Components | DarkWave Studios"
         description="Production-ready self-healing widgets written in Lume. Circuit breakers, fallback chains, status monitors — all with automatic recovery built into the language."
-        keywords="Lume widgets, self-healing components, circuit breaker, fallback chain, AI-native, monitoring, auto-recovery"
+        keywords="Lume widgets, self-healing components, circuit breaker, fallback chain, deterministic, monitoring, auto-recovery"
       />
       <BreadcrumbSchema
         items={[

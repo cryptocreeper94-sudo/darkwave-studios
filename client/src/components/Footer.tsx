@@ -27,7 +27,7 @@ export default function Footer() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
             <span className="text-xs lg:text-sm text-white/80">
-              Built with <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">Lume</a> — the AI-native programming language
+              Built with <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">Lume</a> — the deterministic natural-language programming language
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs">

@@ -1043,7 +1043,7 @@ export function registerLumeRoutes(app: Express) {
           title: "Hello World",
           description: "Your first Lume program",
           code: `print("Hello from Lume!")
-print("The AI-native programming language")
+print("The deterministic natural-language programming language")
 
 let name = "World"
 print("Hello, {name}!")`,
