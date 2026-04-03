@@ -397,7 +397,7 @@ export default function Academy() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {lumeCurriculum.map((tier, index) => (
-              <motion.div key={tier.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15 }}>
+              <motion.div key={tier.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15 }} className="h-full">
                 <GlassCard glow className="p-6 h-full relative overflow-hidden">
                   {/* Step Number Watermark */}
                   <div className="absolute -top-2 -right-2 text-[100px] font-black text-white/[0.02] leading-none select-none pointer-events-none">{tier.step}</div>
