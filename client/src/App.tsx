@@ -62,7 +62,11 @@ import WidgetBuilder from "@/pages/WidgetBuilder";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 
 function Router() {
-  const isAcademySubdomain = window.location.hostname === "academy.tlid.io";
+  const hostname = window.location.hostname;
+  const isAcademySubdomain = hostname === "academy.tlid.io" || hostname.startsWith("academy.");
+  if (typeof window !== 'undefined' && window.location.hostname.includes('academy')) {
+    console.log('[Router] Academy subdomain detected:', hostname, 'isAcademy:', isAcademySubdomain);
+  }
 
   if (isAcademySubdomain) {
     return (
