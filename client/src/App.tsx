@@ -1,5 +1,30 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+
+class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error: Error | null}> {
+  constructor(props: {children: React.ReactNode}) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.error('[ErrorBoundary] Academy crashed:', error, info.componentStack);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{padding: '40px', color: '#ff6b6b', background: '#0a0a0f', minHeight: '100vh', fontFamily: 'monospace'}}>
+          <h1 style={{color: '#06b6d4'}}>Academy Error</h1>
+          <pre style={{whiteSpace: 'pre-wrap', color: '#fff', marginTop: '20px'}}>{this.state.error?.message}</pre>
+          <pre style={{whiteSpace: 'pre-wrap', color: '#888', marginTop: '10px', fontSize: '12px'}}>{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -70,13 +95,15 @@ function Router() {
 
   if (isAcademySubdomain) {
     return (
-      <Switch>
-        {/* Force the Academy component to be the homepage on this subdomain */}
-        <Route path="/" component={Academy}/>
-        {/* Retain the explicitly requested /academy path so hard-links don't break */}
-        <Route path="/academy" component={Academy}/>
-        <Route component={NotFound} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          {/* Force the Academy component to be the homepage on this subdomain */}
+          <Route path="/" component={Academy}/>
+          {/* Retain the explicitly requested /academy path so hard-links don't break */}
+          <Route path="/academy" component={Academy}/>
+          <Route component={NotFound} />
+        </Switch>
+      </ErrorBoundary>
     );
   }
 
