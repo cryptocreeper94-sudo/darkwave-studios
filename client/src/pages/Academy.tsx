@@ -40,7 +40,8 @@ import {
   Sparkles,
   Target,
   BadgeCheck,
-  Languages
+  Languages,
+  XCircle
 } from "lucide-react";
 
 const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
