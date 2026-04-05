@@ -113,12 +113,22 @@ const toolchainCommands = [
 ];
 
 const milestones = [
-  { name: "M1: Lexer", tests: 28, total: 28 },
-  { name: "M2: Parser", tests: 41, total: 41 },
-  { name: "M3: Transpiler", tests: 38, total: 38 },
-  { name: "M4: Runtime", tests: 44, total: 44 },
-  { name: "M5: Toolchain", tests: 35, total: 35 },
-  { name: "M6: Self-Sustaining", tests: 33, total: 33 },
+  { name: "M1: Lexer", tests: 65, total: 65 },
+  { name: "M2: Parser", tests: 114, total: 114 },
+  { name: "M3: Transpiler", tests: 63, total: 63 },
+  { name: "M4: Runtime", tests: 29, total: 29 },
+  { name: "M5: Toolchain", tests: 24, total: 24 },
+  { name: "M6: Self-Sustaining", tests: 60, total: 60 },
+  { name: "M7: English Mode", tests: 83, total: 83 },
+  { name: "M8: Multilingual", tests: 58, total: 58 },
+  { name: "M9: Voice-to-Code", tests: 48, total: 48 },
+  { name: "M10: App Generator", tests: 39, total: 39 },
+  { name: "M11: Reverse Mode", tests: 44, total: 44 },
+  { name: "M12: AST Diffing", tests: 28, total: 28 },
+  { name: "M13: Zero-Dep Runtime", tests: 33, total: 33 },
+  { name: "Expansion: LDIR", tests: 43, total: 43 },
+  { name: "Expansion: Trust", tests: 22, total: 22 },
+  { name: "Expansion: SOR/Agent", tests: 41, total: 41 },
 ];
 
 const ecosystemIntegrations = [
@@ -140,67 +150,67 @@ const nlRoadmap = [
   {
     id: "M7",
     name: "English Mode",
-    status: "active" as const,
+    status: "complete" as const,
     icon: MessageSquare,
-    desc: "Plain English as compiler input. Intent Resolver converts sentences into Lume AST nodes. Pattern library with 50+ common phrases plus AI-powered resolution for complex inputs.",
+    desc: "Plain English as compiler input. Intent Resolver converts sentences into Lume AST nodes. 114-pattern library with AI-powered resolution and 7-layer Tolerance Chain.",
     capabilities: ["Pattern matching (Layer A)", "AI resolution (Layer B)", "Context Engine", "Pronoun resolution"],
   },
   {
     id: "M8",
     name: "Multilingual Mode",
-    status: "planned" as const,
+    status: "complete" as const,
     icon: Languages,
-    desc: "Accept input in any human language. Auto-detect language per line. Same AST and JavaScript output regardless of input language. Mixed-language files supported.",
+    desc: "Accept input in any of 10 human languages. Auto-detect language per line. Same AST and JavaScript output regardless of input language. Mixed-language files supported.",
     capabilities: ["10 languages supported", "Auto language detection", "Mixed-language files", "Localized errors"],
   },
   {
     id: "M9",
     name: "Voice-to-Code",
-    status: "planned" as const,
+    status: "complete" as const,
     icon: Mic,
-    desc: "Spoken language as compiler input. Speech transcription feeds directly into the Intent Resolver. Browser microphone and CLI support.",
-    capabilities: ["Browser Speech API", "CLI lume listen", "Verbal structure cues", "Pause detection"],
+    desc: "Spoken language as compiler input. Speech transcription feeds directly into the Intent Resolver. Browser microphone, CLI lume voice, and deterministic normalization bridge.",
+    capabilities: ["Browser Speech API", "CLI lume listen", "Normalization Bridge", "Silence detection"],
   },
   {
     id: "M10",
-    name: "Visual Context Awareness",
-    status: "planned" as const,
+    name: "Visual Context / App Generator",
+    status: "complete" as const,
     icon: Monitor,
-    desc: "Compiler understands visual layout and UI state. Resolve spatial references like 'put the form in the center' or 'add a sidebar on the left.'",
-    capabilities: ["UI Element Registry", "Spatial resolution", "Style modification", "Component generation"],
+    desc: "Compiler understands visual layout and UI state. UI Element Registry for spatial and visual context awareness. lume create generates full-stack applications.",
+    capabilities: ["UI Element Registry", "Spatial resolution", "lume create", "Component generation"],
   },
   {
     id: "M11",
     name: "Reverse Mode",
-    status: "planned" as const,
+    status: "complete" as const,
     icon: RotateCcw,
-    desc: "Flip the pipeline — take existing code and explain it in plain language. Any JavaScript, TypeScript, or Lume file translated to natural language.",
+    desc: "Code-to-English bidirectional pipeline. Any JavaScript, TypeScript, or Lume file explained in plain language with lume explain.",
     capabilities: ["Line-by-line annotation", "Summary explanation", "Multilingual output", "Code review assist"],
   },
   {
     id: "M12",
     name: "Collaborative Intent",
-    status: "planned" as const,
+    status: "complete" as const,
     icon: Brain,
-    desc: "Multiple developers describe a system in natural language simultaneously. The compiler merges intents, detects conflicts, and generates a unified codebase.",
-    capabilities: ["Multi-user sessions", "Intent merging", "Conflict detection", "Unified output"],
+    desc: "AST-level diffing replaces text-level diffs. Two changes to the same AST node = conflict; different nodes = clean merge. lume diff for comparison.",
+    capabilities: ["AST-level diffing", "Intent merging", "Conflict detection", "Merge driver"],
   },
   {
     id: "M13",
-    name: "Autonomous Agent Mode",
-    status: "planned" as const,
+    name: "Zero-Dependency Runtime",
+    status: "complete" as const,
     icon: Rocket,
-    desc: "Lume programs that write themselves. Given a high-level goal, the compiler generates, tests, deploys, and maintains an entire application autonomously.",
-    capabilities: ["Goal decomposition", "Self-testing", "Auto-deployment", "Continuous maintenance"],
+    desc: "Natural language programs compile to standalone executables. 5 targets: linux, macos, windows, browser, wasm. lume bundle and lume compile.",
+    capabilities: ["5 compile targets", "Standalone executables", "lume bundle", "lume compile"],
   },
 ];
 
 const stats = [
-  { label: "Lines of Code", value: "12,215" },
-  { label: "Files", value: "41" },
-  { label: "Tests", value: "219" },
-  { label: "Milestones", value: "6" },
-  { label: "Version", value: "v0.6.0" },
+  { label: "Source Modules", value: "82" },
+  { label: "Test Files", value: "60" },
+  { label: "Tests", value: "2,266" },
+  { label: "Milestones", value: "13+" },
+  { label: "Version", value: "v1.1.0" },
 ];
 
 export default function Lume() {
@@ -208,7 +218,7 @@ export default function Lume() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume - The Deterministic Natural-Language Programming Language"
-        description="The first programming language where AI is a syntax primitive. Write ask, think, and generate as keywords. Self-sustaining runtime with 219 passing tests. Built by DarkWave Studios."
+        description="The deterministic natural-language programming language. 82 source modules, 2,266 passing tests, Ed25519 trust certificates, 31-rule inference engine. Write English, ship JavaScript. Built by DarkWave Studios."
         keywords="Lume, programming language, deterministic, self-sustaining runtime, DarkWave Studios, transpiler, AST"
         url="https://darkwavestudios.io/lume"
       />
@@ -251,7 +261,7 @@ export default function Lume() {
                 <Code2 className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Lume</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-semibold">v0.6.0</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-semibold">v1.1.0</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -544,7 +554,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Test Coverage</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                219 passing tests across 6 milestones — 100% pass rate.
+                2,266 passing tests across 13 milestones + Expansion Block — 100% pass rate.
               </p>
             </motion.div>
 
@@ -591,7 +601,7 @@ export default function Lume() {
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="total-tests">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-lg font-bold text-white">219/219 Tests Passing</span>
+                <span className="text-lg font-bold text-white">2,266/2,266 Tests Passing</span>
                 <span className="text-sm text-green-400 font-semibold">100%</span>
               </GlassCard>
             </motion.div>
@@ -752,8 +762,8 @@ export default function Lume() {
               {nlRoadmap.map((milestone, i) => (
                 <motion.div key={milestone.id} variants={staggerItem}>
                   <GlassCard
-                    glow={milestone.status === "active"}
-                    className={`p-5 sm:p-6 rounded-2xl ${milestone.status === "active" ? "border-cyan-500/30" : ""}`}
+                    glow={milestone.status === "complete" || milestone.status === "active"}
+                    className={`p-5 sm:p-6 rounded-2xl ${milestone.status === "complete" ? "border-green-500/20" : milestone.status === "active" ? "border-cyan-500/30" : ""}`}
                     data-testid={`nl-milestone-${milestone.id.toLowerCase()}`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
@@ -768,7 +778,11 @@ export default function Lume() {
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-bold text-cyan-400" style={{ fontFamily: "JetBrains Mono, monospace" }}>{milestone.id}</span>
-                            {milestone.status === "active" ? (
+                            {milestone.status === "complete" ? (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/20 text-green-400" data-testid={`status-${milestone.id.toLowerCase()}`}>
+                                <CheckCircle2 className="w-2.5 h-2.5" /> Complete
+                              </span>
+                            ) : milestone.status === "active" ? (
                               <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400" data-testid={`status-${milestone.id.toLowerCase()}`}>
                                 <CircleDot className="w-2.5 h-2.5" /> Active
                               </span>

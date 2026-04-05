@@ -99,7 +99,7 @@ ask the AI to explain quantum computing in simple terms
 };
 
 const MODE_INFO: Record<LumeMode, { label: string; badge: string; color: string; description: string }> = {
-  standard: { label: "Standard Lume", badge: "v0.6.0", color: "cyan", description: "Traditional Lume syntax with native keywords" },
+  standard: { label: "Standard Lume", badge: "v1.1.0", color: "cyan", description: "Traditional Lume syntax with native keywords" },
   english: { label: "English Mode", badge: "M7", color: "violet", description: "Write code in plain English — no syntax required" },
   natural: { label: "Natural Mode", badge: "M8", color: "emerald", description: "Write code in any human language" },
 };

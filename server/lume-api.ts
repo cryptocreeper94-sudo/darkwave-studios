@@ -757,7 +757,7 @@ class LumeInterpreter {
     }
 
     const header = [
-      "// Transpiled from Lume v0.6.0",
+      "// Transpiled from Lume v1.1.0",
       "// Self-sustaining runtime: active",
       `// Generated: ${new Date().toISOString()}`,
       "",
@@ -783,7 +783,7 @@ class LumeInterpreter {
     const ast: any = {
       type: "Program",
       source: "lume",
-      version: "0.6.0",
+      version: "1.1.0",
       body: [],
     };
 
@@ -880,7 +880,7 @@ export function registerLumeRoutes(app: Express) {
   app.get("/api/lume/health", (_req: Request, res: Response) => {
     res.json({
       status: "operational",
-      runtime: "lume-interpreter-v0.6.0",
+      runtime: "lume-interpreter-v1.1.0",
       platform: PLATFORM_ID,
       uptime: process.uptime(),
       capabilities: handshakeState.capabilities,
@@ -924,7 +924,7 @@ export function registerLumeRoutes(app: Express) {
         result: result.result !== undefined ? String(result.result) : null,
         variables: result.variables,
         executionTime,
-        runtime: "lume-interpreter-v0.6.0",
+        runtime: "lume-interpreter-v1.1.0",
         mode: detectedMode,
         resolvedLume: resolvedLume || null,
         errors: [],
