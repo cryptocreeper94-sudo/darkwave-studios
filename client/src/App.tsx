@@ -85,6 +85,7 @@ import LumeLibrary from "@/pages/LumeLibrary";
 import WidgetMarketplace from "@/pages/WidgetMarketplace";
 import WidgetBuilder from "@/pages/WidgetBuilder";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
+import { FloatingThemeToggle } from "@/components/theme-toggle";
 
 function Router() {
   const hostname = window.location.hostname;
@@ -97,6 +98,7 @@ function Router() {
     return (
       <ErrorBoundary>
         <Switch>
+      <FloatingThemeToggle />
           {/* Force the Academy component to be the homepage on this subdomain */}
           <Route path="/" component={Academy}/>
           {/* Retain the explicitly requested /academy path so hard-links don't break */}
@@ -109,6 +111,7 @@ function Router() {
 
   return (
     <Switch>
+      <FloatingThemeToggle />
       <Route path="/" component={Explore}/>
       <Route path="/home" component={Home}/>
       <Route path="/services" component={Services}/>

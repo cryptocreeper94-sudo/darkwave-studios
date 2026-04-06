@@ -1310,7 +1310,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           {
             id: "ann-001",
             title: "Trust Layer Hub Launch",
-            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 35 ecosystem apps.",
+            body: "Trust Layer Hub (#33) is now live at trusthub.tlid.io — the genesis application connecting all 38 ecosystem apps.",
             type: "release",
             priority: "high",
             createdAt: "2026-03-01T00:00:00.000Z",
@@ -1348,7 +1348,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           endpoints: [
             { method: "GET", path: "/api/ecosystem/catalog", description: "Canonical 35-app ecosystem catalog with URLs, categories, LOC, and page counts", auth: "none" },
             { method: "GET", path: "/api/ecosystem/stats", description: "Ecosystem-wide aggregate statistics", auth: "none" },
-            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 35 ecosystem apps", auth: "none" },
+            { method: "GET", path: "/api/ecosystem/health", description: "Real-time health check for all 38 ecosystem apps", auth: "none" },
             { method: "GET", path: "/api/ecosystem/shared/components", description: "Shared component library catalog", auth: "none" },
             { method: "GET", path: "/api/ecosystem/widget-data", description: "Embeddable widget data for Trust Layer Hub", auth: "none" },
             { method: "GET", path: "/api/announcements", description: "Platform announcements and milestones", auth: "none" },
