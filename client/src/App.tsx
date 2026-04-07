@@ -97,8 +97,8 @@ function Router() {
   if (isAcademySubdomain) {
     return (
       <ErrorBoundary>
+        <FloatingThemeToggle />
         <Switch>
-      <FloatingThemeToggle />
           {/* Force the Academy component to be the homepage on this subdomain */}
           <Route path="/" component={Academy}/>
           {/* Retain the explicitly requested /academy path so hard-links don't break */}
@@ -110,57 +110,59 @@ function Router() {
   }
 
   return (
-    <Switch>
+    <>
       <FloatingThemeToggle />
-      <Route path="/" component={Explore}/>
-      <Route path="/home" component={Home}/>
-      <Route path="/services" component={Services}/>
-      <Route path="/projects" component={Projects}/>
-      <Route path="/about" component={About}/>
-      <Route path="/contact" component={Contact}/>
-      <Route path="/compare" component={Compare}/>
-      <Route path="/quote" component={Quote}/>
-      <Route path="/book" component={Book}/>
-      <Route path="/payment" component={Payment}/>
-      <Route path="/payment/success" component={PaymentSuccess}/>
-      <Route path="/payment/cancel" component={PaymentCancel}/>
-      <Route path="/admin" component={Admin}/>
-      <Route path="/analytics" component={Analytics}/>
-      <Route path="/blog" component={Blog}/>
-      <Route path="/blog/admin" component={BlogAdmin}/>
-      <Route path="/mission" component={Mission}/>
-      <Route path="/investors" component={Investors}/>
-      <Route path="/terms" component={Terms}/>
-      <Route path="/privacy" component={Privacy}/>
-      <Route path="/documents" component={Documents}/>
-      <Route path="/hub" component={TrustLayerHub}/>
-      <Route path="/guardian-ai" component={GuardianAI}/>
-      <Route path="/guardian-ai-registry" component={GuardianAIRegistry}/>
-      <Route path="/developers" component={Developers}/>
-      <Route path="/ecosystem" component={Ecosystem}/>
-      <Route path="/audit" component={WebsiteAudit}/>
-      <Route path="/resources" component={Resources}/>
-      <Route path="/marketing" component={MarketingHub}/>
-      <Route path="/chat" component={SignalChat}/>
-      <Route path="/metrics" component={EcosystemMetrics}/>
-      <Route path="/affiliate-disclosure" component={AffiliateDisclosure}/>
-      <Route path="/support" component={Support}/>
-      <Route path="/studio" component={Studio}/>
-      <Route path="/credits" component={Credits}/>
-      <Route path="/command" component={CommandCenter}/>
-      <Route path="/explore" component={Explore}/>
-      <Route path="/developers/components" component={SharedComponentsManager}/>
-      <Route path="/developers/api" component={DeveloperApi}/>
-      <Route path="/developers/ecosystem" component={EcosystemDashboard}/>
-      <Route path="/affiliate" component={AffiliateDashboard}/>
-      <Route path="/lume" component={Lume}/>
-      <Route path="/lume/playground" component={LumePlayground}/>
-              <Route path="/lume/library" component={LumeLibrary}/>
-              <Route path="/developers/marketplace" component={WidgetMarketplace}/>
-              <Route path="/widget-builder" component={WidgetBuilder}/>
-      <Route path="/academy" component={Academy}/>
-      <Route component={NotFound} />
-    </Switch>
+      <Switch>
+        <Route path="/" component={Explore}/>
+        <Route path="/home" component={Home}/>
+        <Route path="/services" component={Services}/>
+        <Route path="/projects" component={Projects}/>
+        <Route path="/about" component={About}/>
+        <Route path="/contact" component={Contact}/>
+        <Route path="/compare" component={Compare}/>
+        <Route path="/quote" component={Quote}/>
+        <Route path="/book" component={Book}/>
+        <Route path="/payment" component={Payment}/>
+        <Route path="/payment/success" component={PaymentSuccess}/>
+        <Route path="/payment/cancel" component={PaymentCancel}/>
+        <Route path="/admin" component={Admin}/>
+        <Route path="/analytics" component={Analytics}/>
+        <Route path="/blog" component={Blog}/>
+        <Route path="/blog/admin" component={BlogAdmin}/>
+        <Route path="/mission" component={Mission}/>
+        <Route path="/investors" component={Investors}/>
+        <Route path="/terms" component={Terms}/>
+        <Route path="/privacy" component={Privacy}/>
+        <Route path="/documents" component={Documents}/>
+        <Route path="/hub" component={TrustLayerHub}/>
+        <Route path="/guardian-ai" component={GuardianAI}/>
+        <Route path="/guardian-ai-registry" component={GuardianAIRegistry}/>
+        <Route path="/developers" component={Developers}/>
+        <Route path="/ecosystem" component={Ecosystem}/>
+        <Route path="/audit" component={WebsiteAudit}/>
+        <Route path="/resources" component={Resources}/>
+        <Route path="/marketing" component={MarketingHub}/>
+        <Route path="/chat" component={SignalChat}/>
+        <Route path="/metrics" component={EcosystemMetrics}/>
+        <Route path="/affiliate-disclosure" component={AffiliateDisclosure}/>
+        <Route path="/support" component={Support}/>
+        <Route path="/studio" component={Studio}/>
+        <Route path="/credits" component={Credits}/>
+        <Route path="/command" component={CommandCenter}/>
+        <Route path="/explore" component={Explore}/>
+        <Route path="/developers/components" component={SharedComponentsManager}/>
+        <Route path="/developers/api" component={DeveloperApi}/>
+        <Route path="/developers/ecosystem" component={EcosystemDashboard}/>
+        <Route path="/affiliate" component={AffiliateDashboard}/>
+        <Route path="/lume" component={Lume}/>
+        <Route path="/lume/playground" component={LumePlayground}/>
+        <Route path="/lume/library" component={LumeLibrary}/>
+        <Route path="/developers/marketplace" component={WidgetMarketplace}/>
+        <Route path="/widget-builder" component={WidgetBuilder}/>
+        <Route path="/academy" component={Academy}/>
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
