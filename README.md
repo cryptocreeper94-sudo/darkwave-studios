@@ -1,5 +1,7 @@
 # DarkWave Studios
 
+> 🔒 **Patent Pending:** The core deterministic governance capabilities (Lume-V) within this repository are protected under U.S. Provisional Patent Application **No. 64/032,339** (Filed April 7, 2026).
+
 The ecosystem IDE and developer portal. Hosts the Lume language playground, Signal Chat integration, and app cataloging for the Trust Layer ecosystem.
 
 **Live:** [darkwavestudios.io](https://darkwavestudios.io)
@@ -34,3 +36,4 @@ npm install
 npm run dev
 npm run db:push
 ```
+
