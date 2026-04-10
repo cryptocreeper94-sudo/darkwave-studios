@@ -623,7 +623,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "Website (React SPA)", lines: 3519, files: 14 },
       { language: "CLI + Editor Grammar + Config", lines: 1347, files: 10 },
     ],
-    highlights: ["AI as Syntax (ask/think/generate)", "4-Layer Self-Sustaining Runtime", "2,266 Tests (100% Pass Rate)", "13 Milestones Complete + Expansion", "31-Rule Deterministic Inference Rulebook (LDIR)", "Ed25519 Trust Certificates (LTC)", "Synthetic Organism Runtime (SOR)", "Multi-Agent Protocol (LMADP)", "Voice-to-Code Normalization Bridge", "10 Human Languages Supported", "5 Compile Targets (linux/macos/win/browser/wasm)", "Full Toolchain (25 CLI Commands)", "Trust Layer SSO", "Signal Chat", "Zenodo DOI: 10.5281/zenodo.19430898"],
+    highlights: ["AI as Syntax (ask/think/generate)", "4-Layer Self-Sustaining Runtime", "2,266 Tests (100% Pass Rate)", "13 Milestones Complete + Expansion", "31-Rule Deterministic Inference Rulebook (LDIR)", "Ed25519 Trust Certificates (LTC)", "Synthetic Organism Runtime (SOR)", "Multi-Agent Protocol (LMADP)", "Voice-to-Code Normalization Bridge", "10 Human Languages Supported", "5 Compile Targets (linux/macos/win/browser/wasm)", "Full Toolchain (25 CLI Commands)", "Trust Layer SSO", "Signal Chat", "30 Zenodo Publications (DAIGS Ecosystem)"],
     icon: Code2,
     gradient: "from-cyan-500 to-teal-500",
     status: "Production",
