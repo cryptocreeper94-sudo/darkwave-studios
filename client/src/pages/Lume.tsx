@@ -211,7 +211,7 @@ const stats = [
   { label: "Tests", value: "2,331" },
   { label: "Milestones", value: "13+" },
   { label: "Version", value: "v1.1.0" },
-  { label: "DOIs", value: "30" },
+  { label: "DOIs", value: "32" },
 ];
 
 export default function Lume() {
@@ -219,7 +219,7 @@ export default function Lume() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume - The Deterministic Natural-Language Programming Language"
-        description="The deterministic natural-language programming language. 82 source modules, 2,331 passing tests, Ed25519 trust certificates, 31-rule inference engine, 30 Zenodo publications across the DAIGS ecosystem. Write English, ship JavaScript. Built by DarkWave Studios."
+        description="The deterministic natural-language programming language. 82 source modules, 2,331 passing tests, Ed25519 trust certificates, 31-rule inference engine, 32 Zenodo publications across the DAIGS ecosystem. Write English, ship JavaScript. Built by DarkWave Studios."
         keywords="Lume, programming language, deterministic, self-sustaining runtime, DarkWave Studios, transpiler, AST"
         url="https://darkwavestudios.io/lume"
       />
