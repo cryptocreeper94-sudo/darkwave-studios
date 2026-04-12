@@ -15,12 +15,12 @@ export class WebhookHandlers {
       );
     }
 
-    // Process with stripe-replit-sync (handles verification and syncs to stripe schema)
+    // Process with stripe-sync (handles verification and syncs to stripe schema)
     const sync = await getStripeSync();
     await sync.processWebhook(payload, signature);
 
     // Parse the event to update our payments table
-    // The signature was already verified by stripe-replit-sync
+    // The signature was already verified by stripe-sync
     try {
       const event = JSON.parse(payload.toString());
       await WebhookHandlers.handlePaymentEvents(event);

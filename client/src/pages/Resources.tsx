@@ -310,7 +310,7 @@ Backend:
 - Drizzle ORM
 
 Hosting:
-- Vercel or Replit
+- Vercel or render
 - Managed PostgreSQL
 
 E-COMMERCE

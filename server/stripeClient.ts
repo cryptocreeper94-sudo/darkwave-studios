@@ -32,19 +32,19 @@ async function getCredentials() {
         return cachedCredentials;
       }
 
-      const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-      const xReplitToken = process.env.REPL_IDENTITY
-        ? 'repl ' + process.env.REPL_IDENTITY
+      const hostname = process.env.SERVICE_CONNECTORS_HOSTNAME;
+      const xrenderToken = process.env.APP_IDENTITY
+        ? 'repl ' + process.env.APP_IDENTITY
         : process.env.WEB_REPL_RENEWAL
           ? 'depl ' + process.env.WEB_REPL_RENEWAL
           : null;
 
-      if (!xReplitToken) {
+      if (!xrenderToken) {
         throw new Error('No Stripe credentials found (no env vars or connector token)');
       }
 
       const connectorName = 'stripe';
-      const isProduction = process.env.REPLIT_DEPLOYMENT === '1';
+      const isProduction = process.env.PRODUCTION_DEPLOYMENT === '1';
       const targetEnvironment = isProduction ? 'production' : 'development';
 
       const url = new URL(`https://${hostname}/api/v2/connection`);
@@ -55,7 +55,7 @@ async function getCredentials() {
       const response = await fetch(url.toString(), {
         headers: {
           'Accept': 'application/json',
-          'X_REPLIT_TOKEN': xReplitToken
+          'X_SERVICE_TOKEN': xrenderToken
         }
       });
 
@@ -105,7 +105,7 @@ export async function getStripeSecretKey() {
 
 let stripeSync: any = null;
 
-// Stub for getStripeSync — stripe-replit-sync removed for Render compatibility
+// Stub for getStripeSync — stripe-sync removed for Render compatibility
 export async function getStripeSync(): Promise<any> {
   return {
     syncBackfill: async () => { /* no-op on Render */ },

@@ -3463,8 +3463,8 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           quantity: 1,
         }],
         mode: "payment",
-        success_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin || "https://darkwavestudios.replit.app"}/credits?cancelled=true`,
+        success_url: `${req.headers.origin || "https://darkwavestudios.onrender.com"}/credits?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin || "https://darkwavestudios.onrender.com"}/credits?cancelled=true`,
         metadata: { userId: decoded.userId, packageId: pkg.id, credits: String(pkg.credits) },
       });
 
@@ -3597,7 +3597,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.post("/api/trustvault/projects/:id/export", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
-    const body = { ...req.body, webhookUrl: "https://darkwavestudios.replit.app/api/trustvault/webhook" };
+    const body = { ...req.body, webhookUrl: "https://darkwavestudios.onrender.com/api/trustvault/webhook" };
     const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/export`, token, { method: "POST", body });
     res.status(result.status).json(result.data);
   });
