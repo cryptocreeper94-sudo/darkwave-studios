@@ -206,9 +206,9 @@ const nlRoadmap = [
 ];
 
 const stats = [
-  { label: "Source Modules", value: "82" },
-  { label: "Test Files", value: "62" },
-  { label: "Tests", value: "2,331" },
+  { label: "Source Modules", value: "93" },
+  { label: "Test Files", value: "63" },
+  { label: "Tests", value: "2,358" },
   { label: "Milestones", value: "13+" },
   { label: "Version", value: "v1.1.0" },
   { label: "DOIs", value: "32" },
@@ -219,7 +219,7 @@ export default function Lume() {
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
         title="Lume - The Deterministic Natural-Language Programming Language"
-        description="The deterministic natural-language programming language. 82 source modules, 2,331 passing tests, Ed25519 trust certificates, 31-rule inference engine, 32 Zenodo publications across the DAIGS ecosystem. Write English, ship JavaScript. Built by DarkWave Studios."
+        description="The deterministic natural-language programming language. 93 source modules, 2,358 passing tests, Ed25519 trust certificates, 31-rule inference engine, 32 Zenodo publications across the DAIGS ecosystem. Write English, ship JavaScript. Built by DarkWave Studios."
         keywords="Lume, programming language, deterministic, self-sustaining runtime, DarkWave Studios, transpiler, AST"
         url="https://darkwavestudios.io/lume"
       />
@@ -555,7 +555,7 @@ export default function Lume() {
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Test Coverage</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                2,331 passing tests across 13 milestones + Expansion Block — 100% pass rate.
+                2,358 passing tests across 13 milestones + Expansion Block — 100% pass rate.
               </p>
             </motion.div>
 
@@ -602,7 +602,7 @@ export default function Lume() {
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="total-tests">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-lg font-bold text-white">2,331/2,331 Tests Passing</span>
+                <span className="text-lg font-bold text-white">2,358/2,358 Tests Passing</span>
                 <span className="text-sm text-green-400 font-semibold">100%</span>
               </GlassCard>
             </motion.div>
