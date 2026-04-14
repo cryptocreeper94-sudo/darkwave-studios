@@ -66,6 +66,15 @@ import processSupportImg from "@/assets/images/process-support.png";
 
 const projects = [
   {
+    id: 2,
+    title: "Lume",
+    description: "The deterministic natural-language programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, and 2,000+ tests",
+    tech: ["AI", "Language", "Runtime", "Toolchain"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-teal-600/20",
+    url: "https://lume-lang.org"
+  },
+  {
     id: 1,
     title: "Trust Layer",
     description: "Layer 1 blockchain providing verified identity and AI agent certification",
@@ -363,15 +372,6 @@ const projects = [
     url: "https://trustgen.tlid.io"
   },
   {
-    id: 2,
-    title: "Lume",
-    description: "The deterministic natural-language programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, 4-layer self-sustaining runtime, 2,000+ tests",
-    tech: ["AI", "Language", "Runtime", "Toolchain"],
-    image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-cyan-500/20 to-teal-600/20",
-    url: "https://lume-lang.org"
-  },
-  {
     id: 37,
     title: "LumeLine",
     description: "Odds intelligence platform — tracks 47+ bookmakers, detects line manipulation, ML consensus with confidence scoring. Built in Lume",
@@ -384,67 +384,67 @@ const projects = [
 
 const services = [
   {
-    icon: Globe,
-    title: "Custom Web Development",
-    description: "From simple business sites to complex web applications — built exactly how you envision it. No templates, no compromises.",
-    image: webDevImg
+    icon: Code2,
+    title: "Lume Compiler Engine",
+    description: "The world's first deterministic natural-language programming language. Write code in English, compile via voice, and deploy self-healing architectures.",
+    image: webDevImg // Placeholder until new images generated
   },
   {
-    icon: MessageSquare,
-    title: "Unlimited Support",
-    description: "Forget 1 hour per month. Get responsive, ongoing support whenever you need it. Your success is our priority.",
+    icon: Shield,
+    title: "Trust Layer Protocol",
+    description: "High-performance Layer-1 blockchain delivering verified identity, certified AI agents, and non-repudiable audit trails for enterprise.",
     image: supportImg
   },
   {
     icon: Database,
-    title: "Domain & Hosting",
-    description: "Full-service domain registration and hosting setup. We handle the technical stuff so you don't have to.",
+    title: "DAIGS Research Division",
+    description: "36 peer-reviewed academic papers published on Zenodo detailing Deterministic Autonomous Infrastructure Governance Systems.",
     image: domainImg
   },
   {
-    icon: Palette,
-    title: "Design & Branding",
-    description: "Modern, professional designs that reflect your brand identity and convert visitors into customers.",
+    icon: Layers,
+    title: "Guardian AI Security",
+    description: "Continuous enterprise monitoring and security scanning for multi-chain environments, ensuring regulatory compliance and threat detection.",
     image: designImg
   },
   {
-    icon: Code2,
-    title: "App Development",
-    description: "Full-stack applications with databases, user accounts, payments, and everything your business needs to operate.",
+    icon: Rocket,
+    title: "DarkWave Studio IDE",
+    description: "The premier cloud-based development environment for compiling Lume directives, integrating Trust Layer subroutines, and generating 3D assets.",
     image: appDevImg
   },
   {
-    icon: Layers,
-    title: "Maintenance & Updates",
-    description: "Keep your site secure, fast, and up-to-date. We're your ongoing technology partner, not just a one-time vendor.",
+    icon: Globe,
+    title: "Ecosystem Integration",
+    description: "Connect your enterprise to a network of 38 interconnected applications ranging from logistics to automated staffing, powered by the Trust Layer.",
     image: maintenanceImg
   }
 ];
 
 const faqs = [
   {
-    question: "How are you different from traditional agencies?",
-    answer: "Traditional agencies charge $40,000+ for websites, then limit you to 1 hour of support per month at $200/hour. We don't operate that way. You get direct access to your developer, responsive support when you need it, and pricing that doesn't require a second mortgage."
+    question: "What is the Lume Programming Language?",
+    answer: "Lume is the world's first AI-native programming language. It eliminates the cognitive distance between human intent and machine execution by using English as its fundamental syntax. With native keywords like 'ask', 'think', and 'generate', Lume compiles deterministic intent into JavaScript, C++, or Rust."
   },
   {
-    question: "What kind of support do you actually provide?",
-    answer: "Real support. Need a quick change? Text me. Have a question about your site? I'll respond same-day. Want to discuss new features? Let's hop on a call. No ticket systems, no waiting weeks, no nickel-and-diming for every small request."
+    question: "What is the Trust Layer?",
+    answer: "The Trust Layer is a high-performance Layer-1 blockchain infrastructure specifically architected to verify Lume AI agents. It ensures that any autonomous system deployed across our framework leaves a non-repudiable, cryptographic trail of its decisions."
   },
   {
-    question: "How can you charge so much less?",
-    answer: "No downtown office. No layers of project managers. No bloated team. You work directly with the person building your project. Every dollar goes toward actual development, not overhead. Simple math."
+    question: "Are your DAIGS academic algorithms peer-reviewed?",
+    answer: "Yes. The DarkWave Systems Collective (DWSC) has publicly released 36 academic papers via Zenodo, detailing the Deterministic Autonomous Infrastructure Governance Systems (DAIGS). These frameworks apply Lume across medical, aerospace, finance, and 25+ other enterprise verticals."
   },
   {
-    question: "Can you really build what the big agencies build?",
-    answer: "Look at the portfolio above — those are all live, functional applications handling real users and real transactions. AI trading platforms, staffing systems, e-commerce, blockchain apps. If they can build it, so can we. Usually faster."
+    question: "What is a 'Self-Sustaining Runtime'?",
+    answer: "Unlike traditional applications that crash when an error occurs, Lume applications are governed by a 4-layer runtime (Monitor, Optimizer, Healer, Evolver). If a failure is detected, the Healer attempts to rewrite and patch its own AST to recover without human intervention."
   },
   {
-    question: "What about domains and hosting?",
-    answer: "We handle everything. Domain registration, DNS setup, hosting configuration, SSL certificates — the full package. You don't need to juggle multiple vendors or figure out the technical details yourself."
+    question: "How does Guardian Security work?",
+    answer: "The Guardian Scanner performs complete static and dynamic analysis on Lume code prior to compilation. It flags security threats within your intent, verifying logic against 11 predefined threat models, granting a cryptographic certificate of safety on successful deployment."
   },
   {
-    question: "How fast can you deliver?",
-    answer: "Most websites launch in 2-4 weeks. Complex applications take 4-8 weeks. You'll see working demos every week so you can guide the direction. No surprises at the end."
+    question: "Can I use Lume for my internal enterprise systems?",
+    answer: "Absolutely. With Lume-Ops (our infrastructure framework), you define operational boundaries in plain English, and the compiler ensures total adherence to your compliance standards (NIST, OSHA, FDA, HIPAA). Contact our integration team to begin."
   }
 ];
 
@@ -766,37 +766,36 @@ export default function Home() {
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-1.5 lg:gap-2 bg-primary/10 border border-primary/20 rounded-full px-2 lg:px-4 py-1 lg:py-2 mb-3 lg:mb-6">
                     <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 bg-primary rounded-full animate-pulse" />
-                    <span className="text-[10px] lg:text-sm font-medium text-primary">Full-Service Web Agency</span>
+                    <span className="text-[10px] lg:text-sm font-medium text-primary">Deep-Tech R&D Lab</span>
                   </div>
                   
                   <h1 className="text-xl lg:text-6xl font-bold font-display leading-tight mb-2 lg:mb-4" data-testid="hero-title">
-                    Agency Quality.
+                    Deterministic AI.
                     <br />
-                    <span className="gradient-text text-glow-primary">Without the Agency Price.</span>
+                    <span className="gradient-text text-glow-primary">Planet-Scale Infrastructure.</span>
                   </h1>
                   
                   <p className="text-xs lg:text-lg text-muted-foreground max-w-xl mb-3 lg:mb-6 leading-relaxed hidden lg:block" data-testid="hero-description">
-                    Custom websites, web applications, and ongoing support — all with direct access to your developer. 
-                    No gatekeepers. No limits on support. Just results.
+                    The architectural engine behind the Lume programming language, the Trust Layer blockchain ecosystem, and 36 peer-reviewed DAIGS research frameworks.
                   </p>
                   
                   <div className="flex flex-wrap gap-2 lg:gap-3">
                     <Link 
-                      href="/contact"
+                      href="/ecosystem"
                       onClick={() => haptic("medium")}
                       className="btn-glow btn-press ripple-effect inline-flex items-center gap-1 lg:gap-2 bg-primary text-primary-foreground px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold animate-pulse-glow"
                       data-testid="hero-cta-primary"
                     >
-                      Start Project
+                      Explore Ecosystem
                       <ArrowRight className="w-3 h-3 lg:w-5 lg:h-5" />
                     </Link>
                     <Link 
-                      href="/projects"
+                      href="/developers"
                       onClick={() => haptic("light")}
                       className="inline-flex items-center gap-1 glass px-3 lg:px-6 py-1.5 lg:py-3 rounded-lg lg:rounded-xl text-xs lg:text-base font-semibold hover:bg-white/10 transition-colors btn-press"
                       data-testid="hero-cta-secondary"
                     >
-                      View Work
+                      Developer API
                     </Link>
                   </div>
                 </div>
@@ -1594,48 +1593,51 @@ export default function Home() {
             </div>
             <div className="col-span-3 lg:col-span-6">
               <GlassCard className="rounded-2xl lg:rounded-3xl p-6 lg:p-8 gradient-border card-3d h-full">
-                <h3 className="font-bold text-lg lg:text-xl mb-4 gradient-text">Quick Actions</h3>
+                <h3 className="font-bold text-lg lg:text-xl mb-4 gradient-text">Ecosystem Links</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <Link 
-                    href="/quote"
+                    href="https://lume-lang.org/playground"
+                    target="_blank"
                     className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
-                    data-testid="link-quote-calculator"
+                    data-testid="link-lume-playground"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <DollarSign className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Terminal className="w-6 h-6 text-cyan-400" />
                     </div>
-                    <span className="text-sm font-medium text-center">Quote Calculator</span>
+                    <span className="text-sm font-medium text-center">Lume Playground</span>
                   </Link>
                   <Link 
-                    href="/book"
+                    href="/ecosystem"
                     className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
-                    data-testid="link-book-call"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Clock className="w-6 h-6 text-accent" />
-                    </div>
-                    <span className="text-sm font-medium text-center">Book a Call</span>
-                  </Link>
-                  <Link 
-                    href="/compare"
-                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
-                    data-testid="link-compare-pricing"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Shield className="w-6 h-6 text-green-400" />
-                    </div>
-                    <span className="text-sm font-medium text-center">Compare Pricing</span>
-                  </Link>
-                  <Link 
-                    href="/projects"
-                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
-                    data-testid="link-view-portfolio"
+                    data-testid="link-ecosystem-map"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Rocket className="w-6 h-6 text-purple-400" />
+                      <Globe className="w-6 h-6 text-purple-400" />
                     </div>
-                    <span className="text-sm font-medium text-center">View Portfolio</span>
+                    <span className="text-sm font-medium text-center">Ecosystem Map</span>
                   </Link>
+                  <Link 
+                    href="/developers"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-developer-api"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Code2 className="w-6 h-6 text-green-400" />
+                    </div>
+                    <span className="text-sm font-medium text-center">Developer API</span>
+                  </Link>
+                  <a 
+                    href="https://dwtl.io/research"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
+                    data-testid="link-daigs-research"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-yellow-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Database className="w-6 h-6 text-orange-400" />
+                    </div>
+                    <span className="text-sm font-medium text-center">DAIGS Whitepapers</span>
+                  </a>
                 </div>
               </GlassCard>
             </div>

@@ -321,6 +321,16 @@ const projects = [
     gradient: "from-cyan-500/20 to-teal-600/20",
     url: "https://lume-lang.org",
     category: "Developer Tools"
+  },
+  {
+    id: 36,
+    title: "TLPP",
+    description: "Trust Layer Privacy Protocol. The 'Verified-but-Private' blockchain transaction architecture leveraging Pedersen commitments, Bulletproof range proofs, and Lume-governed Audit Escrow Vaults for FATF/SEC/IRS compliance. Establishes the standard for regulatory-compliant privacy infrastructure. Zenodo DOI: 10.5281/zenodo.19571979.",
+    tech: ["Blockchain", "Privacy", "Zero-Knowledge", "Lume Governance"],
+    image: "/ecosystem/trust-shield-icon.png",
+    gradient: "from-purple-500/20 to-cyan-600/20",
+    url: "https://zenodo.org/records/19571979",
+    category: "Security"
   }
 ];
 

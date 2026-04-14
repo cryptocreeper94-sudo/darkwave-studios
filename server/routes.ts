@@ -81,6 +81,21 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  // --- Start Neon Bandwidth Reduction Cache ---
+  const routeCache = new Map<string, { data: any, expiry: number }>();
+  function getCached(key: string) {
+    const item = routeCache.get(key);
+    if (!item) return null;
+    if (Date.now() > item.expiry) {
+      routeCache.delete(key);
+      return null;
+    }
+    return item.data;
+  }
+  function setCached(key: string, data: any, ttlSeconds = 60) {
+    routeCache.set(key, { data, expiry: Date.now() + (ttlSeconds * 1000) });
+  }
+  // --- End Caching Setup ---
 
   // ============ LEADS / CONTACT FORM ============
   app.post("/api/leads", async (req, res) => {
@@ -1652,11 +1667,21 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
   app.get("/api/ecosystem/shared/components", async (req, res) => {
     try {
       const { type, slug } = req.query;
+      const cacheKey = `shared_components_${type || 'all'}_${slug || 'all'}`;
+      const cached = getCached(cacheKey);
+      
+      if (cached) {
+        return res.json({ success: true, components: cached, count: cached.length, cached: true });
+      }
+
       let query = db.select().from(sharedComponents).where(eq(sharedComponents.isActive, true));
       const results = await query;
       let filtered = results;
       if (type) filtered = filtered.filter(c => c.type === type);
       if (slug) filtered = filtered.filter(c => c.slug === slug);
+      
+      setCached(cacheKey, filtered, 120); // Cache for 2 minutes
+      
       res.json({ success: true, components: filtered, count: filtered.length });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
@@ -3252,7 +3277,15 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
 
   app.get("/api/chat/users/online", async (req, res) => {
     try {
+      const cacheKey = 'chat_users_online';
+      const cached = getCached(cacheKey);
+      if (cached) {
+        return res.json({ success: true, users: cached, count: cached.length, cached: true });
+      }
+
       const online = await db.select().from(chatUsersTable).where(eq(chatUsersTable.isOnline, true));
+      setCached(cacheKey, online, 15); // Cache for 15 seconds to prevent polling spam
+
       res.json({ success: true, users: online, count: online.length });
     } catch (error: any) {
       res.status(500).json({ success: false, error: error.message });
