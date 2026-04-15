@@ -84,6 +84,7 @@ import LumePlayground from "@/pages/LumePlayground";
 import LumeLibrary from "@/pages/LumeLibrary";
 import WidgetMarketplace from "@/pages/WidgetMarketplace";
 import WidgetBuilder from "@/pages/WidgetBuilder";
+import LumeLearn from "@/pages/LumeLearn";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 import { FloatingThemeToggle } from "@/components/theme-toggle";
 
@@ -160,6 +161,7 @@ function Router() {
         <Route path="/developers/marketplace" component={WidgetMarketplace}/>
         <Route path="/widget-builder" component={WidgetBuilder}/>
         <Route path="/academy" component={Academy}/>
+        <Route path="/lumelearn" component={LumeLearn}/>
         <Route component={NotFound} />
       </Switch>
     </>
