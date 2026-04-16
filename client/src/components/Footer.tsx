@@ -30,13 +30,17 @@ export default function Footer() {
               Built with <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">Lume</a> — the deterministic natural-language programming language
             </span>
           </div>
-          <div className="flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-3 text-xs flex-wrap justify-center">
             <a href="https://dwsc.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 hover:bg-cyan-500/10 transition-colors" data-testid="footer-link-dwsc">
               <Code2 className="w-3 h-3" />
               <span>DWSC.io</span>
             </a>
             <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-teal-500/20 bg-teal-500/5 text-teal-400 hover:bg-teal-500/10 transition-colors" data-testid="footer-link-lume">
               <span>Lume Docs</span>
+            </a>
+            <a href="https://zenodo.org/communities/lume-daigs-ecosystem/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-cyan-500/25 bg-gradient-to-r from-cyan-500/5 to-teal-500/5 text-cyan-300 hover:bg-cyan-500/10 transition-colors" data-testid="footer-link-zenodo">
+              <span>📚</span>
+              <span>42 Papers — Zenodo</span>
             </a>
           </div>
         </div>
