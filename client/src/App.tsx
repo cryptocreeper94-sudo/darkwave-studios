@@ -87,6 +87,7 @@ import WidgetBuilder from "@/pages/WidgetBuilder";
 import LumeLearn from "@/pages/LumeLearn";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 import { FloatingThemeToggle } from "@/components/theme-toggle";
+import { EcosystemAccountHub } from "@/components/EcosystemAccountHub";
 
 function Router() {
   const hostname = window.location.hostname;
@@ -176,6 +177,7 @@ function App() {
         <ScrollToTop />
         <Router />
         <SignalChatSidebar />
+        <EcosystemAccountHub />
       </TooltipProvider>
     </QueryClientProvider>
   );
