@@ -67,7 +67,7 @@ const stats = [
   { label: "Courses", value: "60+", icon: BookOpen },
   { label: "Learning Hours", value: "296+", icon: Clock },
   { label: "Certification Tracks", value: "5", icon: Award },
-  { label: "Ecosystem Apps", value: "38+", icon: Rocket },
+  { label: "Ecosystem Apps", value: "42+", icon: Rocket },
 ];
 
 /* ═══════════════════════════════════════════
