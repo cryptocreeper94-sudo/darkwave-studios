@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation } from "wouter";
+﻿import { Switch, Route, useLocation } from "wouter";
 import React, { useEffect } from "react";
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error: Error | null}> {
@@ -88,6 +88,7 @@ import LumeLearn from "@/pages/LumeLearn";
 import SignalChatSidebar from "@/components/SignalChatSidebar";
 import { FloatingThemeToggle } from "@/components/theme-toggle";
 import { EcosystemAccountHub } from "@/components/EcosystemAccountHub";
+import { EcosystemNavigator } from '@/components/EcosystemNavigator';
 
 function Router() {
   const hostname = window.location.hostname;
@@ -178,6 +179,7 @@ function App() {
         <Router />
         <SignalChatSidebar />
         <EcosystemAccountHub />
+        <EcosystemNavigator />
       </TooltipProvider>
     </QueryClientProvider>
   );
