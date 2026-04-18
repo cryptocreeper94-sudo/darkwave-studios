@@ -89,6 +89,7 @@ import SignalChatSidebar from "@/components/SignalChatSidebar";
 import { FloatingThemeToggle } from "@/components/theme-toggle";
 import { EcosystemAccountHub } from "@/components/EcosystemAccountHub";
 import { EcosystemNavigator } from '@/components/EcosystemNavigator';
+import { EcosystemFooter } from '@/components/EcosystemFooter';
 
 function Router() {
   const hostname = window.location.hostname;
@@ -180,6 +181,7 @@ function App() {
         <SignalChatSidebar />
         <EcosystemAccountHub />
         <EcosystemNavigator />
+        <EcosystemFooter appId="darkwavestudios" />
       </TooltipProvider>
     </QueryClientProvider>
   );
