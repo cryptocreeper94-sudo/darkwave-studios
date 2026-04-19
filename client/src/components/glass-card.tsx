@@ -9,10 +9,10 @@ interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<GlassCardVariant, string> = {
-  default: "bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08] rounded-xl",
-  stat: "bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-xl",
-  feature: "bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl",
-  elevated: "bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08] rounded-xl shadow-[0_0_40px_rgba(0,255,255,0.15)]",
+  default: "glass-card-surface backdrop-blur-2xl border rounded-xl",
+  stat: "glass-card-surface-subtle backdrop-blur-xl border rounded-xl",
+  feature: "glass-card-surface-feature backdrop-blur-xl border rounded-xl",
+  elevated: "glass-card-surface backdrop-blur-2xl border rounded-xl shadow-[0_0_40px_rgba(0,255,255,0.15)]",
 };
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
