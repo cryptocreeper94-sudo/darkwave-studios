@@ -29,6 +29,8 @@ const learningPaths = [
   { id: "mobile", title: "Mobile Development", description: "Cross-platform mobile apps with React Native, Expo SDK 54, and PWA deployment.", icon: Smartphone, image: "/academy/mobile-dev.png", courses: 7, hours: 35, level: "Intermediate" },
   { id: "security", title: "Security & Guardian AI", description: "AI agent certification, security scanning, and the Guardian Certification Program.", icon: Shield, image: "/academy/security.png", courses: 6, hours: 30, level: "Advanced" },
   { id: "natural-language", title: "Natural Language Programming", description: "Write code in plain English or any human language. Master intent resolution, voice-to-code, and multilingual compilation.", icon: Languages, image: "/academy/nlp.png", courses: 8, hours: 36, level: "All Levels" },
+  { id: "synthetic-organisms", title: "Synthetic Organisms", description: "Design deterministic, self-healing cyber-physical constructs governed by the Lume runtime. From Type-0 sensors to Type-5 swarms.", icon: Cpu, image: "/academy/ai-integration.png", courses: 5, hours: 25, level: "Advanced" },
+  { id: "strata-research", title: "Strata & Academic Publishing", description: "Navigate the Lume Open Science Archive, contribute canonical preprints, and prepare papers for arXiv and CHI submission.", icon: BookOpen, image: "/academy/blockchain.png", courses: 4, hours: 18, level: "All Levels" },
 ];
 
 const featuredCourses = [
@@ -65,10 +67,10 @@ const certifications = [
 ];
 
 const stats = [
-  { label: "Courses", value: "60+", icon: BookOpen },
-  { label: "Learning Hours", value: "296+", icon: Clock },
+  { label: "Courses", value: "69+", icon: BookOpen },
+  { label: "Learning Hours", value: "339+", icon: Clock },
   { label: "Certification Tracks", value: "5", icon: Award },
-  { label: "Ecosystem Apps", value: "42+", icon: Rocket },
+  { label: "Ecosystem Apps", value: "42", icon: Rocket },
 ];
 
 /* ═══════════════════════════════════════════
@@ -176,7 +178,7 @@ export default function Academy() {
   };
 
   return (
-    <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden transition-colors duration-300" style={{ background: 'var(--nav-bg, #06060a)', color: 'var(--text-primary, #fff)' }}>
       <SEOHead
         title="Trust Layer Academy"
         description="The Learning & Building Nexus of the Trust Layer ecosystem. Master Lume programming, blockchain development, AI integration, and earn verified certifications."
@@ -189,7 +191,7 @@ export default function Academy() {
       ]} />
 
       {/* ═══ Sticky Header ═══ */}
-      <header className="sticky top-0 z-50 bg-[#06060a]/80 backdrop-blur-xl border-b border-white/10">
+      <header className="sticky top-0 z-50 backdrop-blur-xl border-b transition-colors duration-300" style={{ background: 'var(--nav-bg, rgba(6,6,10,0.9))', borderColor: 'var(--glass-border, rgba(255,255,255,0.1))' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-cyan-400 transition-colors"><ChevronLeft className="w-5 h-5" /></Link>
@@ -214,7 +216,7 @@ export default function Academy() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/academy/hero-bg.png')" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#06060a]/50 via-[#06060a]/40 to-[#06060a] " />
+          <div className="absolute inset-0 transition-colors duration-300" style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--nav-bg) 50%, transparent), color-mix(in srgb, var(--nav-bg) 40%, transparent), var(--nav-bg))' }} />
         </div>
 
         {/* Ambient Orbs */}
@@ -400,18 +402,18 @@ export default function Academy() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {lumeCurriculum.map((tier, index) => (
               <motion.div key={tier.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15 }} className="h-full">
-                <GlassCard glow className="p-6 h-full relative overflow-hidden">
+                <GlassCard glow className="p-6 h-full relative overflow-hidden flex flex-col" style={{ minHeight: '380px' }}>
                   {/* Step Number Watermark */}
                   <div className="absolute -top-2 -right-2 text-[100px] font-black text-white/[0.02] leading-none select-none pointer-events-none">{tier.step}</div>
 
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex flex-col flex-1">
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
                         <span className="text-xs font-bold text-black">{tier.step}</span>
                       </div>
-                      <span className="text-sm font-bold text-white">{tier.tier}</span>
+                      <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{tier.tier}</span>
                     </div>
-                    <p className="text-white/40 text-sm mb-6 leading-relaxed">{tier.description}</p>
+                    <p className="text-sm mb-6 leading-relaxed min-h-[60px]" style={{ color: 'var(--text-dim)' }}>{tier.description}</p>
                     <ul className="space-y-3">
                       {tier.topics.map((topic) => (
                         <li key={topic} className="flex items-center gap-3 text-sm text-white/60">
@@ -570,7 +572,7 @@ export default function Academy() {
       </section>
 
       {/* ═══ ACADEMIC RESEARCH & CANONICAL PAPERS ═══ */}
-      <section className="py-24 px-4 bg-gradient-to-b from-[#06060a] to-[#0a0a10]">
+      <section className="py-24 px-4 transition-colors duration-300" style={{ background: 'linear-gradient(to bottom, var(--nav-bg), color-mix(in srgb, var(--nav-bg) 90%, #000))' }}>
         <div className="max-w-7xl mx-auto">
           <motion.div className="flex flex-col md:flex-row gap-12 items-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="flex-1">
@@ -704,8 +706,8 @@ export default function Academy() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Start Your <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">Learning Journey</span>
               </h2>
-              <p className="text-white/35 max-w-xl mx-auto mb-8">
-                Join DarkWave Academy and gain the skills to build, deploy, and scale across the entire Trust Layer ecosystem.
+              <p className="max-w-xl mx-auto mb-8" style={{ color: 'var(--text-dim)' }}>
+                Join Trust Layer Academy and gain the skills to build, deploy, and scale across the entire Trust Layer ecosystem.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold hover:from-cyan-400 hover:to-teal-400 transition-all duration-300 shadow-lg shadow-cyan-500/20 relative overflow-hidden">
