@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import { useMutation } from "@tanstack/react-query";
@@ -13,7 +14,7 @@ import {
   GraduationCap, Code2, Globe, Shield, Cpu, Smartphone, Layers, BookOpen,
   Award, Users, MessageSquare, Trophy, Zap, Terminal, Brain, Lock, Rocket,
   Star, ChevronRight, ChevronLeft, ExternalLink, ArrowRight, CheckCircle2,
-  Clock, Blocks, FileCode2, Sparkles, Target, BadgeCheck, Languages, XCircle
+  Clock, Blocks, FileCode2, Sparkles, Target, BadgeCheck, Languages, XCircle, Archive
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════
@@ -177,9 +178,9 @@ export default function Academy() {
   return (
     <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
       <SEOHead
-        title="DarkWave Academy"
+        title="Trust Layer Academy"
         description="The Learning & Building Nexus of the Trust Layer ecosystem. Master Lume programming, blockchain development, AI integration, and earn verified certifications."
-        keywords="DarkWave Academy, Lume programming, blockchain courses, AI development, Trust Layer certification"
+        keywords="Trust Layer Academy, Lume programming, blockchain courses, AI development, Trust Layer certification"
         url="https://darkwavestudios.io/academy"
       />
       <BreadcrumbSchema items={[
@@ -196,10 +197,11 @@ export default function Academy() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
                 <GraduationCap className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Academy</span>
+              <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Trust Layer Academy</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link href="/lume" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white">
               <Terminal className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Lume</span>
             </Link>
@@ -228,7 +230,7 @@ export default function Academy() {
           </motion.div>
 
           <motion.h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
-            <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">DarkWave</span>
+            <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Trust Layer</span>
             <br />
             <span className="text-white">Academy</span>
           </motion.h1>
@@ -564,6 +566,59 @@ export default function Academy() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══ ACADEMIC RESEARCH & CANONICAL PAPERS ═══ */}
+      <section className="py-24 px-4 bg-gradient-to-b from-[#06060a] to-[#0a0a10]">
+        <div className="max-w-7xl mx-auto">
+          <motion.div className="flex flex-col md:flex-row gap-12 items-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
+                <BookOpen className="w-4 h-4 text-purple-400" />
+                <span className="text-sm text-purple-300 font-medium">Ecosystem Research</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                <span className="text-white">Canonical </span>
+                <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Publications</span>
+              </h2>
+              <p className="text-white/40 leading-relaxed mb-8">
+                Trust Layer natively supports open academic research. Dive into the 36 officially archived, peer-reviewed ecosystem papers detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
+              </p>
+              <div className="flex items-center gap-4">
+                <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-cyan-500/40 text-white font-medium hover:bg-white/5 transition-all">
+                  <Archive className="w-4 h-4 text-cyan-400" /> View Strata Hub
+                </a>
+                <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-purple-500/40 text-white font-medium hover:bg-white/5 transition-all">
+                  <Globe className="w-4 h-4 text-purple-400" /> Zenodo DOIs
+                </a>
+              </div>
+            </div>
+            <div className="flex-1 w-full relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-[80px] rounded-full" />
+              <GlassCard className="relative p-8 border-purple-500/20 bg-[#0a0a10]/80">
+                <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/5">
+                  <h3 className="text-lg font-bold">Featured Doctrinal Preprints</h3>
+                  <BadgeCheck className="w-5 h-5 text-teal-400" />
+                </div>
+                <div className="space-y-4">
+                  {[
+                    { doi: "10.lume.0036", title: "Signal as Synthetic Metabolism", author: "Andrews, J. R." },
+                    { doi: "10.lume.0022", title: "Zero-Knowledge State Reversal", author: "Trust Layer Cryptography Team" },
+                    { doi: "10.lume.0001", title: "English Mode Intent Resolver", author: "Trust Layer Scientific" }
+                  ].map(p => (
+                    <div key={p.doi} className="flex flex-col gap-1 p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-colors cursor-pointer">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-semibold text-white/90">{p.title}</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/30">{p.doi}</span>
+                      </div>
+                      <span className="text-[11px] text-white/30">{p.author}</span>
+                    </div>
+                  ))}
+                </div>
+              </GlassCard>
+            </div>
+          </motion.div>
         </div>
       </section>
 

@@ -66,6 +66,15 @@ import processSupportImg from "@/assets/images/process-support.png";
 
 const projects = [
   {
+    id: 99,
+    title: "Strata",
+    description: "Sovereign research registry for deterministic systems. Mint your researcher ID and publish to the ecosystem.",
+    tech: ["Research", "Registry", "Academic"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-teal-500/20",
+    url: "https://strata.tlid.io"
+  },
+  {
     id: 2,
     title: "Lume",
     description: "The deterministic natural-language programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, and 2,000+ tests",
