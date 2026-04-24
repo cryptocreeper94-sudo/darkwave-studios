@@ -36,6 +36,8 @@ export class WebhookHandlers {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data?.object;
+
+        // ── DWTL Ad-Free Subscription ──
         if (session?.metadata?.type === 'ad_free_subscription' && session.subscription) {
           const email = session.metadata.email || session.customer_email;
           if (email) {
@@ -53,11 +55,28 @@ export class WebhookHandlers {
             console.log(`[Ad-Free] Activated subscription for ${email}`);
           }
         }
+
+        // ── Axiom Studio Subscription ──
+        if (session?.metadata?.type === 'axiom_subscription' && session.subscription) {
+          const userId = session.metadata.userId;
+          const tierId = session.metadata.tierId;
+          if (userId && tierId) {
+            await db.update(chatUsers)
+              .set({
+                subscriptionTier: tierId,
+                stripeCustomerId: session.customer || null,
+                stripeSubscriptionId: session.subscription
+              } as any)
+              .where(eq(chatUsers.id, userId));
+            console.log(`[Axiom] Activated ${tierId} subscription for user ${userId}`);
+          }
+        }
         break;
       }
       case 'customer.subscription.deleted': {
         const subscription = event.data?.object;
         if (subscription?.id) {
+          // Ad-Free cancellation
           await db.update(chatUsers)
             .set({
               adFreeSubscription: false,
@@ -65,7 +84,13 @@ export class WebhookHandlers {
               stripeSubscriptionId: null
             })
             .where(eq(chatUsers.stripeSubscriptionId, subscription.id));
-          console.log(`[Ad-Free] Cancelled subscription ${subscription.id}`);
+
+          // Axiom Studio cancellation — downgrade to free
+          await db.update(chatUsers)
+            .set({ subscriptionTier: 'free' } as any)
+            .where(eq(chatUsers.stripeSubscriptionId, subscription.id));
+
+          console.log(`[Webhook] Cancelled subscription ${subscription.id}`);
         }
         break;
       }
@@ -87,7 +112,11 @@ export class WebhookHandlers {
       case 'invoice.payment_failed': {
         const invoice = event.data?.object;
         if (invoice?.subscription) {
-          console.log(`[Ad-Free] Payment failed for subscription ${invoice.subscription}`);
+          console.log(`[Webhook] Payment failed for subscription ${invoice.subscription}`);
+          // Downgrade Axiom users on payment failure
+          await db.update(chatUsers)
+            .set({ subscriptionTier: 'free' } as any)
+            .where(eq(chatUsers.stripeSubscriptionId, invoice.subscription));
         }
         break;
       }
