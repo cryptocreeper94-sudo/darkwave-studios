@@ -388,6 +388,15 @@ const projects = [
     image: "/ecosystem/trust-layer-icon.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://lumeline.bet"
+  },
+  {
+    id: 38,
+    title: "Axiom Studio",
+    description: "Multi-agent AI development environment with auto-routing engine, snippet dock, and artifact viewer. 5-tier SaaS billing.",
+    tech: ["AI", "IDE", "Agents", "Stripe"],
+    image: "/ecosystem/trust-layer-icon.png",
+    gradient: "from-cyan-500/20 to-purple-600/20",
+    url: "https://axiomstudio.dev"
   }
 ];
 
@@ -425,7 +434,7 @@ const services = [
   {
     icon: Globe,
     title: "Ecosystem Integration",
-    description: "Connect your enterprise to a network of 38 interconnected applications ranging from logistics to automated staffing, powered by the Trust Layer.",
+    description: "Connect your enterprise to a network of 42 interconnected applications ranging from logistics to automated staffing, powered by the Trust Layer.",
     image: maintenanceImg
   }
 ];
@@ -816,7 +825,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
               <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-code">
                 <Code2 className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">1.87M+</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">13.7M+</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Lines of Code</div>
               </GlassCard>
             </motion.div>
@@ -825,7 +834,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="col-span-1 lg:col-span-2">
               <GlassCard variant="stat" className="lg:rounded-2xl p-2 lg:p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-apps">
                 <Rocket className="w-5 h-5 lg:w-8 lg:h-8 text-primary mb-1 lg:mb-2" />
-                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">37</div>
+                <div className="text-lg lg:text-3xl font-bold font-display text-foreground">42</div>
                 <div className="text-muted-foreground text-[9px] lg:text-sm">Live Apps</div>
               </GlassCard>
             </motion.div>
@@ -843,7 +852,7 @@ export default function Home() {
             <motion.div variants={staggerItem} className="hidden lg:block lg:col-span-2">
               <GlassCard variant="stat" className="rounded-2xl p-5 hover-lift h-full flex flex-col justify-center" data-testid="stat-widgets">
                 <Layers className="w-8 h-8 text-primary mb-2" />
-                <div className="text-3xl font-bold font-display text-foreground">107</div>
+                <div className="text-3xl font-bold font-display text-foreground">130+</div>
                 <div className="text-muted-foreground text-sm">Widgets</div>
               </GlassCard>
             </motion.div>
