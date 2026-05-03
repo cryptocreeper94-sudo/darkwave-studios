@@ -71,6 +71,60 @@ export class WebhookHandlers {
             console.log(`[Axiom] Activated ${tierId} subscription for user ${userId}`);
           }
         }
+
+        // ── Axiom Studio Credit Pack Purchase (Pay-As-You-Go) ──
+        if (session?.metadata?.type === 'credit_purchase') {
+          const userId = session.metadata.userId;
+          const packId = session.metadata.packId;
+          const credits = parseInt(session.metadata.credits || '0');
+
+          if (userId && credits > 0) {
+            try {
+              const { aiCreditBalances, aiCreditTransactions } = await import('@shared/schema');
+
+              // Check existing balance
+              const [existing] = await db
+                .select()
+                .from(aiCreditBalances)
+                .where(eq(aiCreditBalances.userId, userId))
+                .limit(1);
+
+              if (existing) {
+                await db
+                  .update(aiCreditBalances)
+                  .set({
+                    credits: existing.credits + credits,
+                    totalPurchased: existing.totalPurchased + credits,
+                    updatedAt: new Date(),
+                  })
+                  .where(eq(aiCreditBalances.userId, userId));
+              } else {
+                await db.insert(aiCreditBalances).values({
+                  userId,
+                  credits,
+                  totalPurchased: credits,
+                  totalUsed: 0,
+                });
+              }
+
+              // Log transaction
+              const newBalance = (existing?.credits ?? 0) + credits;
+              await db.insert(aiCreditTransactions).values({
+                userId,
+                type: 'purchase',
+                amount: credits,
+                balanceAfter: newBalance,
+                description: `${packId} pack — ${credits} credits`,
+                category: 'credit_pack',
+                stripeSessionId: session.id,
+              });
+
+              console.log(`[Axiom PAYG] Credit purchase: user=${userId} pack=${packId} credits=+${credits} balance=${newBalance}`);
+            } catch (err: any) {
+              console.error(`[Axiom PAYG] Failed to process credit purchase:`, err.message);
+            }
+          }
+        }
         break;
       }
       case 'customer.subscription.deleted': {
