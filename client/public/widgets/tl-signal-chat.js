@@ -1,5 +1,5 @@
 /**
- * TrustLayer Signal Chat Widget
+ * TrustLayer ChronoChat Widget
  * Version: 2.0.0
  * Cross-ecosystem community chat with SSO, bots & subscription billing
  *

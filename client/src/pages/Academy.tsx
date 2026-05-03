@@ -51,7 +51,7 @@ const lumeCurriculum = [
 
 const ecosystemSkills = [
   { skill: "Trust Layer SSO", apps: ["Trust Hub", "TrustVault", "GarageBot", "Chronicles", "TrustHome"], icon: Lock },
-  { skill: "Signal Chat Integration", apps: ["All Ecosystem Apps", "Custom Widgets", "Community Bots"], icon: MessageSquare },
+  { skill: "ChronoChat Integration", apps: ["All Ecosystem Apps", "Custom Widgets", "Community Bots"], icon: MessageSquare },
   { skill: "Blockchain Hallmarks", apps: ["Trust Layer", "Guardian Shield", "DarkWave Studio", "TrustGen"], icon: Blocks },
   { skill: "Widget Development", apps: ["Trust Layer Hub", "PaintPros", "TradeWorks AI", "GarageBot"], icon: Layers },
   { skill: "AI Agent Building", apps: ["Guardian Scanner", "StrikeAgent", "Pulse", "TrustVault"], icon: Brain },
@@ -549,7 +549,7 @@ export default function Academy() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: MessageSquare, title: "Signal Chat", desc: "Real-time support in the #academy-support channel. Ask questions, share progress, get instant feedback from mentors.", meta: "Active community", metaIcon: Users },
+              { icon: MessageSquare, title: "ChronoChat", desc: "Real-time support in the #academy-support channel. Ask questions, share progress, get instant feedback from mentors.", meta: "Active community", metaIcon: Users },
               { icon: Users, title: "Study Groups", desc: "Join cohort-based study groups organized by learning path. Weekly meetups, pair programming, and collaborative projects.", meta: "Cohort-based learning", metaIcon: Sparkles },
               { icon: Star, title: "Mentorship", desc: "Connect with experienced ecosystem developers for 1-on-1 guidance. Code reviews, career advice, and project mentoring.", meta: "1-on-1 mentoring", metaIcon: Target },
             ].map((item) => (

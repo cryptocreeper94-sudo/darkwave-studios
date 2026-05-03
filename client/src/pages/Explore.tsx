@@ -252,7 +252,7 @@ const categories: ExploreCategory[] = [
     description: "Join the conversation. Chat in real-time, read the latest blog posts, get support, browse resources, or create in the media studio.",
     cards: [
       {
-        label: "Signal Chat",
+        label: "ChronoChat",
         description: "Real-time community chat with channels",
         href: "/chat",
         icon: <Radio className="size-5" />,

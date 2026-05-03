@@ -1,4 +1,4 @@
-﻿import { Link } from "wouter";
+import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { 
   ArrowLeft, Code2, FileCode2, Database, Globe, Globe2, Layers, Terminal, 
@@ -72,7 +72,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "CSS", lines: 3500, files: 8 },
       { language: "HTML", lines: 2000, files: 6 },
     ],
-    highlights: ["436+ API Endpoints", "134 Tables", "50+ Pages", "58 Components", "93+ Retailers", "Buddy AI Symptom Diagnosis", "P2P Parts Marketplace", "TORQUE Shop OS", "Signal Chat", "54 Affiliate Partnerships"],
+    highlights: ["436+ API Endpoints", "134 Tables", "50+ Pages", "58 Components", "93+ Retailers", "Buddy AI Symptom Diagnosis", "P2P Parts Marketplace", "TORQUE Shop OS", "ChronoChat", "54 Affiliate Partnerships"],
     icon: Car,
     gradient: "from-orange-500 to-red-500",
     status: "Production",
@@ -215,7 +215,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "Shared Schema/Types", lines: 1119, files: 5 },
       { language: "CSS Styling", lines: 459, files: 1 },
     ],
-    highlights: ["Shared Codebase with Happy Eats (91,408 LOC)", "63 Pages, 83 Components, 5 Custom Hooks", "212 API Endpoints, 48 DB Tables", "GPS Mileage Tracking + Expense OCR", "Fuel Finder (Diesel/Gas/EV) + Google Maps", "CDL Program Directory + Training Referrals", "Driver Concierge + Weather Dashboard", "Office Dashboard (Expenses, Trips, Revenue)", "Trucker Talk + Signal Chat (8 Channels)", "OrbitStaffing Integration (Payroll/HR)", "Delivery Network + Zone-Based Assignments", "Blockchain-Verified Partner Agreements"],
+    highlights: ["Shared Codebase with Happy Eats (91,408 LOC)", "63 Pages, 83 Components, 5 Custom Hooks", "212 API Endpoints, 48 DB Tables", "GPS Mileage Tracking + Expense OCR", "Fuel Finder (Diesel/Gas/EV) + Google Maps", "CDL Program Directory + Training Referrals", "Driver Concierge + Weather Dashboard", "Office Dashboard (Expenses, Trips, Revenue)", "Trucker Talk + ChronoChat (8 Channels)", "OrbitStaffing Integration (Payroll/HR)", "Delivery Network + Zone-Based Assignments", "Blockchain-Verified Partner Agreements"],
     icon: Car,
     gradient: "from-cyan-500 to-blue-500",
     status: "Production",
@@ -398,7 +398,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "TypeScript Backend (Express)", lines: 10169, files: 38 },
       { language: "Shared (schemas, contracts)", lines: 887, files: 4 },
     ],
-    highlights: ["14 AI Creative Tools + Spinny Agent", "Image/Audio/Video/Merge Editors", "17 Transition Effects (FFmpeg xfade)", "Layer Panel + Visual History (30 states)", "Watermark Tool + Eyedropper", "Voice-Commanded Editing", "Beat-Sync Video Maker", "4-Tier Stripe Subscriptions", "Signal Chat + TrustLayer SSO", "AI Blog Platform", "Multi-Tenant Family Vault", "156 API Endpoints", "PWA + Offline Ready"],
+    highlights: ["14 AI Creative Tools + Spinny Agent", "Image/Audio/Video/Merge Editors", "17 Transition Effects (FFmpeg xfade)", "Layer Panel + Visual History (30 states)", "Watermark Tool + Eyedropper", "Voice-Commanded Editing", "Beat-Sync Video Maker", "4-Tier Stripe Subscriptions", "ChronoChat + TrustLayer SSO", "AI Blog Platform", "Multi-Tenant Family Vault", "156 API Endpoints", "PWA + Offline Ready"],
     icon: Shield,
     gradient: "from-emerald-500 to-cyan-500",
     status: "Production",
@@ -420,7 +420,7 @@ const ecosystemMetrics: AppMetric[] = [
   },
   {
     id: "signal-chat",
-    name: "Signal Chat",
+    name: "ChronoChat",
     url: "https://signalchat.tlid.io",
     totalLines: 1224,
     totalFiles: 8,
@@ -494,7 +494,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "Shared Schema/Types", lines: 1119, files: 5 },
       { language: "CSS Styling", lines: 459, files: 1 },
     ],
-    highlights: ["Shared Codebase with TL Driver Connect (80,234 LOC)", "Zone-Based Batch Ordering (11 Zones)", "Multi-Truck Cart + $3.99 Delivery", "Vendor Self-Service Portal + Menu Management", "AI Marketing Hub + Flyer Creator", "TLI d.io Automated Social Posting", "Receipt Scanner (OCR via Tesseract.js)", "Customer Rewards + Referral Program", "Trucker Talk + Signal Chat (8 Channels)", "Franchise Model + Territory Isolation", "Stripe Live Checkout + Revenue Dashboard", "Blockchain-Verified Transactions"],
+    highlights: ["Shared Codebase with TL Driver Connect (80,234 LOC)", "Zone-Based Batch Ordering (11 Zones)", "Multi-Truck Cart + $3.99 Delivery", "Vendor Self-Service Portal + Menu Management", "AI Marketing Hub + Flyer Creator", "TLI d.io Automated Social Posting", "Receipt Scanner (OCR via Tesseract.js)", "Customer Rewards + Referral Program", "Trucker Talk + ChronoChat (8 Channels)", "Franchise Model + Territory Isolation", "Stripe Live Checkout + Revenue Dashboard", "Blockchain-Verified Transactions"],
     icon: Utensils,
     gradient: "from-orange-500 to-red-500",
     status: "Production",
@@ -601,7 +601,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "CSS (7,400+ lines hand-crafted)", lines: 7400, files: 14 },
       { language: "Backend (Express API)", lines: 2000, files: 7 },
     ],
-    highlights: ["3D Creation Studio", "Studio IDE (Monaco Editor)", "AI Text-to-3D (Meshy.ai)", "Auto-Rigging Engine", "Skeletal Animation Player", "GPU Particle System", "Post-Processing (7 FX)", "Animation Timeline (Keyframes)", "AI Code Assistant (GPT-4o)", "9 Project Templates", "Command Palette", "Scene Hierarchy", "20+ Database Tables", "Blockchain Hallmarks", "Deploy to .trustgen.app", "Stripe Subscriptions", "Signal Chat", "SMS Alerts (Twilio)"],
+    highlights: ["3D Creation Studio", "Studio IDE (Monaco Editor)", "AI Text-to-3D (Meshy.ai)", "Auto-Rigging Engine", "Skeletal Animation Player", "GPU Particle System", "Post-Processing (7 FX)", "Animation Timeline (Keyframes)", "AI Code Assistant (GPT-4o)", "9 Project Templates", "Command Palette", "Scene Hierarchy", "20+ Database Tables", "Blockchain Hallmarks", "Deploy to .trustgen.app", "Stripe Subscriptions", "ChronoChat", "SMS Alerts (Twilio)"],
     icon: Sparkles,
     gradient: "from-purple-500 to-cyan-500",
     status: "Production",
@@ -613,7 +613,7 @@ const ecosystemMetrics: AppMetric[] = [
     totalLines: 184079,
     totalFiles: 180,
     apiEndpoints: 15,
-    stack: ["Node.js", "JavaScript", "Vite 6", "React 19", "React Router 7", "Framer Motion", "Custom CSS", "Trust Layer SSO", "Signal Chat", "WebSocket"],
+    stack: ["Node.js", "JavaScript", "Vite 6", "React 19", "React Router 7", "Framer Motion", "Custom CSS", "Trust Layer SSO", "ChronoChat", "WebSocket"],
     breakdown: [
       { language: "Language Core (lexer, parser, transpiler, formatter, linter, stdlib, runtime)", lines: 5128, files: 7 },
       { language: "Intent Resolver (39 modules, English/Voice/App Gen)", lines: 8200, files: 39 },
@@ -623,7 +623,7 @@ const ecosystemMetrics: AppMetric[] = [
       { language: "Website (React SPA)", lines: 3519, files: 14 },
       { language: "CLI + Editor Grammar + Config", lines: 1347, files: 10 },
     ],
-    highlights: ["AI as Syntax (ask/think/generate)", "4-Layer Self-Sustaining Runtime", "2,266 Tests (100% Pass Rate)", "13 Milestones Complete + Expansion", "31-Rule Deterministic Inference Rulebook (LDIR)", "Ed25519 Trust Certificates (LTC)", "Synthetic Organism Runtime (SOR)", "Multi-Agent Protocol (LMADP)", "Voice-to-Code Normalization Bridge", "10 Human Languages Supported", "5 Compile Targets (linux/macos/win/browser/wasm)", "Full Toolchain (25 CLI Commands)", "Trust Layer SSO", "Signal Chat", "36 Zenodo Publications (DAIGS Ecosystem)"],
+    highlights: ["AI as Syntax (ask/think/generate)", "4-Layer Self-Sustaining Runtime", "2,266 Tests (100% Pass Rate)", "13 Milestones Complete + Expansion", "31-Rule Deterministic Inference Rulebook (LDIR)", "Ed25519 Trust Certificates (LTC)", "Synthetic Organism Runtime (SOR)", "Multi-Agent Protocol (LMADP)", "Voice-to-Code Normalization Bridge", "10 Human Languages Supported", "5 Compile Targets (linux/macos/win/browser/wasm)", "Full Toolchain (25 CLI Commands)", "Trust Layer SSO", "ChronoChat", "36 Zenodo Publications (DAIGS Ecosystem)"],
     icon: Code2,
     gradient: "from-cyan-500 to-teal-500",
     status: "Production",

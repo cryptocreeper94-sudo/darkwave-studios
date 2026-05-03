@@ -68,7 +68,7 @@ const WIDGET_CATALOG: WidgetDef[] = [
   { id: 'multi-wallet', name: 'Multi-Wallet', icon: '👛', description: 'Unified wallet for Solana + 22 EVM chains', category: 'Crypto & Web3', price: 299, priceId: 'price_widget_multi_wallet', tags: ['wallet','solana','evm'], size: { w: 2, h: 2 } },
 
   // ── PLATFORM ──
-  { id: 'signal-chat', name: 'Signal Chat', icon: '💬', description: 'Cross-ecosystem community chat with SSO', category: 'Platform', price: 349, priceId: 'price_widget_signal_chat', tags: ['chat','community','sso'], size: { w: 2, h: 2 } },
+  { id: 'signal-chat', name: 'ChronoChat', icon: '💬', description: 'Cross-ecosystem community chat with SSO', category: 'Platform', price: 349, priceId: 'price_widget_signal_chat', tags: ['chat','community','sso'], size: { w: 2, h: 2 } },
   { id: 'effects-kit', name: 'Effects Kit', icon: '✨', description: 'Glass, 3D hover, shimmer & animations', category: 'Platform', price: 149, priceId: 'price_widget_effects_kit', tags: ['animations','effects','ui'], size: { w: 1, h: 1 } },
   { id: 'room-visualizer', name: 'Room Visualizer', icon: '🎨', description: 'AI color visualizer for painting & design', category: 'Platform', price: 199, priceId: 'price_widget_room_visualizer', tags: ['paint','visualization','ar'], size: { w: 2, h: 2 } },
   { id: 'emergency-dashboard', name: 'Emergency Dashboard', icon: '🚨', description: 'Real-time emergency command center', category: 'Platform', price: 349, priceId: 'price_widget_emergency_dashboard', tags: ['emergency','alerts','command'], size: { w: 2, h: 2 } },

@@ -615,7 +615,7 @@ export const insertPostAnalyticsSchema = createInsertSchema(postAnalytics).omit(
 export type InsertPostAnalytics = z.infer<typeof insertPostAnalyticsSchema>;
 export type PostAnalytics = typeof postAnalytics.$inferSelect;
 
-// Signal Chat - Ecosystem Communication
+// ChronoChat - Ecosystem Communication
 export const chatChannels = pgTable("chat_channels", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull().unique(),

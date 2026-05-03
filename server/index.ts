@@ -126,10 +126,10 @@ app.use((req, res, next) => {
   // Seed blog with AI-generated SEO content
   await seedBlog();
   
-  // Seed Signal Chat channels
+  // Seed ChronoChat channels
   await seedChatChannels();
   
-  // Setup WebSocket for Signal Chat
+  // Setup WebSocket for ChronoChat
   setupChatWebSocket(httpServer);
   
   await registerRoutes(httpServer, app);

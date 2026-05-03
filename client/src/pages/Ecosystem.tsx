@@ -127,7 +127,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "garagebot",
     name: "GarageBot",
     tagline: "Right Part. First Time. Every Engine.",
-    description: "AI-powered parts aggregator unifying inventory from 93+ retailers across 20 categories. Buddy AI assistant with symptom diagnosis engine, DIY repair guides, VIN decoding, fleet management, TORQUE shop management OS, peer-to-peer parts marketplace, Signal Chat, weather radar, CDL directory, Shade Tree Mechanics community, 54 active affiliate partnerships, and Google AdSense monetization. 111,000+ lines of code, 50+ pages, 436+ API endpoints, 134 database tables, 58 React components. Full PWA with offline support.",
+    description: "AI-powered parts aggregator unifying inventory from 93+ retailers across 20 categories. Buddy AI assistant with symptom diagnosis engine, DIY repair guides, VIN decoding, fleet management, TORQUE shop management OS, peer-to-peer parts marketplace, ChronoChat, weather radar, CDL directory, Shade Tree Mechanics community, 54 active affiliate partnerships, and Google AdSense monetization. 111,000+ lines of code, 50+ pages, 436+ API endpoints, 134 database tables, 58 React components. Full PWA with offline support.",
     image: "/ecosystem/garagebot.png",
     url: "https://garagebot.io",
     category: "auto"
@@ -199,7 +199,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trusthome",
     name: "TrustHome",
     tagline: "Every Transaction. Verified. Transparent. Trusted.",
-    description: "White-label real estate platform for agents, buyers, sellers, inspectors, and brokers. Expo React Native (iOS/Android/Web) with 20 app screens and 21 reusable components. Voice AI assistant (STT/TTS/Chat via GPT-5.2), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), Signal Chat, and 103 API endpoints across 6 database tables. 26,653 lines of production code. Woman-owned (WOSB eligible).",
+    description: "White-label real estate platform for agents, buyers, sellers, inspectors, and brokers. Expo React Native (iOS/Android/Web) with 20 app screens and 21 reusable components. Voice AI assistant (STT/TTS/Chat via GPT-5.2), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), ChronoChat, and 103 API endpoints across 6 database tables. 26,653 lines of production code. Woman-owned (WOSB eligible).",
     image: "/ecosystem/trusthome.png",
     url: "https://trusthome.tlid.io",
     category: "real-estate"
@@ -208,7 +208,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "trustvault",
     name: "TrustVault",
     tagline: "Your Universal IP Storage & Creative Platform",
-    description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, layers, watermark, eyedropper, drawing, stickers, AI auto-enhance, background removal, smart erase, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, text overlays, frame capture, custom thumbnails), and merge/combine studio with 17 transition effects. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $9.99/Pro $19.99/Studio $49.99), Signal Chat, AI Blog platform, and TrustLayer SSO. 46,697 lines of code, 172 files, 29 pages, 30 components, 156 API endpoints, 12 database tables.",
+    description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, layers, watermark, eyedropper, drawing, stickers, AI auto-enhance, background removal, smart erase, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, text overlays, frame capture, custom thumbnails), and merge/combine studio with 17 transition effects. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $9.99/Pro $19.99/Studio $49.99), ChronoChat, AI Blog platform, and TrustLayer SSO. 46,697 lines of code, 172 files, 29 pages, 30 components, 156 API endpoints, 12 database tables.",
     image: "/ecosystem/trustvault.png",
     url: "https://trustvault.tlid.io",
     category: "security"
@@ -224,7 +224,7 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "signal-chat",
-    name: "Signal Chat",
+    name: "ChronoChat",
     tagline: "Connect Across Timelines",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all ecosystem apps.",
     image: "/ecosystem/signal-chat.png",
@@ -235,7 +235,7 @@ const ecosystemApps: EcosystemApp[] = [
     id: "the-void",
     name: "THE VOID",
     tagline: "Scream into the abyss. The abyss talks back.",
-    description: "The world's first voice-first venting app — scream, rant, or whisper into 5 AI personalities (Smart-Ass, Calming, Therapist, Hype Man, Roast Master) powered by GPT-5.2 with real-time transcription. 20+ wellness tools including Emotional Voice Fingerprint (vocal biomarker analysis), Living Mood Portrait (generative AI art from emotions), Void Echo time capsules, Voice Journal, Zen Zone with guided breathing, Sleep Sounds mixer, Virtual Rage Room, crisis toolkit, Signal Chat, and gamification with streaks and achievements. Stripe subscriptions ($9.99/mo founders, $14.99/mo standard), affiliate program with blockchain-stamped Void IDs, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
+    description: "The world's first voice-first venting app — scream, rant, or whisper into 5 AI personalities (Smart-Ass, Calming, Therapist, Hype Man, Roast Master) powered by GPT-5.2 with real-time transcription. 20+ wellness tools including Emotional Voice Fingerprint (vocal biomarker analysis), Living Mood Portrait (generative AI art from emotions), Void Echo time capsules, Voice Journal, Zen Zone with guided breathing, Sleep Sounds mixer, Virtual Rage Room, crisis toolkit, ChronoChat, and gamification with streaks and achievements. Stripe subscriptions ($9.99/mo founders, $14.99/mo standard), affiliate program with blockchain-stamped Void IDs, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
     image: "/projects/the-void.png",
     url: "https://intothevoid.app",
     category: "health"

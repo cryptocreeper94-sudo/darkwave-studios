@@ -281,7 +281,7 @@ const categories: CommandCategory[] = [
     description: "Stay connected with clients and the community. Real-time WebSocket chat, customer support portal, and lead capture through contact forms.",
     cards: [
       {
-        label: "Signal Chat",
+        label: "ChronoChat",
         description: "Real-time WebSocket chat, channels, community",
         href: "/chat",
         icon: <Radio className="size-5" />,

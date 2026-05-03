@@ -274,7 +274,7 @@ const projects = [
   },
   {
     id: 25,
-    title: "Signal Chat",
+    title: "ChronoChat",
     description: "Real-time community chat with WebSocket channels and AI bot integration",
     tech: ["Chat", "WebSocket", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
@@ -1434,7 +1434,7 @@ export default function Home() {
                   {[
                     { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
                     { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
-                    { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "ChronoChat", gradient: "from-purple-400 to-pink-500" },
                     { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
                     { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
                     { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
@@ -1444,7 +1444,7 @@ export default function Home() {
                     { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
                     { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
                     { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
-                    { name: "Signal Chat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "ChronoChat", gradient: "from-purple-400 to-pink-500" },
                     { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
                     { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
                     { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },

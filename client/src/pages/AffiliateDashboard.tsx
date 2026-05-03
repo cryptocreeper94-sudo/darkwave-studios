@@ -26,7 +26,7 @@ const ECOSYSTEM_APPS = [
   { app: "TrustVault", domain: "trustvault.tlid.io", prefix: "TV", icon: "🔐" },
   { app: "TLID.io", domain: "tlid.io", prefix: "TI", icon: "🆔" },
   { app: "THE VOID", domain: "thevoid.tlid.io", prefix: "VO", icon: "🌀" },
-  { app: "Signal Chat", domain: "signalchat.tlid.io", prefix: "SC", icon: "💬" },
+  { app: "ChronoChat", domain: "signalchat.tlid.io", prefix: "SC", icon: "💬" },
   { app: "Guardian Shield", domain: "guardianshield.tlid.io", prefix: "GS", icon: "🛡️" },
   { app: "Guardian Scanner", domain: "guardianscanner.tlid.io", prefix: "GN", icon: "🔍" },
   { app: "Guardian Screener", domain: "guardianscreener.tlid.io", prefix: "GR", icon: "📊" },

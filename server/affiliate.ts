@@ -29,7 +29,7 @@ const ECOSYSTEM_REGISTRY = [
   { app: "TrustVault", domain: "trustvault.tlid.io", prefix: "TV" },
   { app: "TLID.io", domain: "tlid.io", prefix: "TI" },
   { app: "THE VOID", domain: "thevoid.tlid.io", prefix: "VO" },
-  { app: "Signal Chat", domain: "signalchat.tlid.io", prefix: "SC" },
+  { app: "ChronoChat", domain: "signalchat.tlid.io", prefix: "SC" },
   { app: "DarkWave Studio", domain: "darkwavestudio.tlid.io", prefix: "DS" },
   { app: "Guardian Shield", domain: "guardianshield.tlid.io", prefix: "GS" },
   { app: "Guardian Scanner", domain: "guardianscanner.tlid.io", prefix: "GN" },

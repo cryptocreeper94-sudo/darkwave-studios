@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EcosystemNavigator V1 — Trust Layer Visual TOC
  * ================================================
  * Three-tab full-screen overlay:
@@ -63,7 +63,7 @@ const APPS: App[] = [
   { id:'torque',         v:'automotive', n:'TORQUE',              i:'🏎️', u:'https://garagebot.io/torque',     hook:'Verified Automotive Marketplace' },
   { id:'brew-board',     v:'automotive', n:'Brew & Board',        i:'☕', u:'https://brewandboard.coffee',     hook:'Social Gaming Meets Coffee'      },
   { id:'dwsc',           v:'automotive', n:'DWSC Portal',         i:'◈',  u:'https://dwsc.io',                 hook:'Ecosystem Portal'                },
-  { id:'signal-chat',    v:'automotive', n:'Signal Chat',         i:'💬', u:'https://dwtl.io/signal-chat',     hook:'Blockchain-Verified Messaging'   },
+  { id:'signal-chat',    v:'automotive', n:'ChronoChat',         i:'💬', u:'https://dwtl.io/signal-chat',     hook:'Blockchain-Verified Messaging'   },
   // Lifestyle & Health (6)
   { id:'verdara',        v:'lifestyle',  n:'Verdara',             i:'🌲', u:'https://verdara.tlid.io',         hook:'AI Outdoor Command Center'       },
   { id:'arbora',         v:'lifestyle',  n:'Arbora',              i:'🌳', u:'https://verdara.tlid.io/arbora',  hook:'Pro Arborist Business Suite'     },
