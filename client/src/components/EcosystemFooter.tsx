@@ -48,7 +48,7 @@ const APPS: AppEntry[] = [
   { id:'torque',         v:'automotive', n:'TORQUE',              i:'🏎️', u:'https://garagebot.io/torque',    hook:'Verified Automotive Marketplace' },
   { id:'brew-board',     v:'automotive', n:'Brew & Board',        i:'☕', u:'https://brewandboard.coffee',    hook:'Social Gaming Meets Coffee'      },
   { id:'dwsc',           v:'automotive', n:'DWSC Portal',         i:'◈',  u:'https://dwsc.io',                hook:'Ecosystem Portal'                },
-  { id:'signal-chat',    v:'automotive', n:'ChronoChat',         i:'💬', u:'https://dwtl.io/signal-chat',    hook:'Blockchain-Verified Messaging'   },
+  { id:'signal-chat',    v:'automotive', n:'Signal Chat',         i:'💬', u:'https://dwtl.io/signal-chat',    hook:'Blockchain-Verified Messaging'   },
   { id:'verdara',        v:'lifestyle',  n:'Verdara',             i:'🌲', u:'https://verdara.tlid.io',        hook:'AI Outdoor Command Center'       },
   { id:'arbora',         v:'lifestyle',  n:'Arbora',              i:'🌳', u:'https://verdara.tlid.io/arbora', hook:'Pro Arborist Business Suite'     },
   { id:'vedasolus',      v:'lifestyle',  n:'VedaSolus',           i:'🌿', u:'https://vedasolus.io',           hook:'Ancient Wisdom Meets Science'    },
@@ -180,7 +180,7 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
             marginTop:14, paddingTop:12, borderTop:'1px solid rgba(255,255,255,0.03)',
             flexWrap:'wrap', gap:6 }}>
             <span style={{ fontSize:9, color:'rgba(255,255,255,0.11)', letterSpacing:'0.03em' }}>
-              © {new Date().getFullYear()} DarkWave Studios LLC · 42 apps · 42 papers · Lume-V governed
+              © {new Date().getFullYear()} DarkWave Studios LLC · 42 apps · 71 papers · 3 books · Lume-V governed
             </span>
             <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer"
               style={{ fontSize:9, color:'rgba(6,182,212,0.3)', textDecoration:'none',

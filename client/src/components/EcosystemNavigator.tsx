@@ -63,7 +63,7 @@ const APPS: App[] = [
   { id:'torque',         v:'automotive', n:'TORQUE',              i:'🏎️', u:'https://garagebot.io/torque',     hook:'Verified Automotive Marketplace' },
   { id:'brew-board',     v:'automotive', n:'Brew & Board',        i:'☕', u:'https://brewandboard.coffee',     hook:'Social Gaming Meets Coffee'      },
   { id:'dwsc',           v:'automotive', n:'DWSC Portal',         i:'◈',  u:'https://dwsc.io',                 hook:'Ecosystem Portal'                },
-  { id:'signal-chat',    v:'automotive', n:'ChronoChat',         i:'💬', u:'https://dwtl.io/signal-chat',     hook:'Blockchain-Verified Messaging'   },
+  { id:'signal-chat',    v:'automotive', n:'Signal Chat',         i:'💬', u:'https://dwtl.io/signal-chat',     hook:'Blockchain-Verified Messaging'   },
   // Lifestyle & Health (6)
   { id:'verdara',        v:'lifestyle',  n:'Verdara',             i:'🌲', u:'https://verdara.tlid.io',         hook:'AI Outdoor Command Center'       },
   { id:'arbora',         v:'lifestyle',  n:'Arbora',              i:'🌳', u:'https://verdara.tlid.io/arbora',  hook:'Pro Arborist Business Suite'     },
@@ -402,11 +402,11 @@ export function EcosystemNavigator() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))', gap: 12, marginBottom: 28 }}>
         {[
           { label: 'Apps', value: '42', icon: '📱', color: '#06b6d4' },
-          { label: 'Papers', value: '42', icon: '📄', color: '#a78bfa' },
+          { label: 'Papers', value: '71', icon: '📄', color: '#a78bfa' },
           { label: 'LOC', value: '13.7M+', icon: '💻', color: '#10b981' },
           { label: 'Verticals', value: '8', icon: '◈', color: '#f59e0b' },
-          { label: 'Papers', value: '42', icon: '🎓', color: '#ec4899' },
-          { label: 'Zenodo DOIs', value: '42', icon: '🔗', color: '#84cc16' },
+          { label: 'Books', value: '3', icon: '📚', color: '#ec4899' },
+          { label: 'Zenodo DOIs', value: '71', icon: '🔗', color: '#84cc16' },
         ].map(m => (
           <div key={m.label + m.value} style={{
             padding: '16px', borderRadius: 14, textAlign: 'center',
@@ -449,14 +449,14 @@ export function EcosystemNavigator() {
         <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', lineHeight: 1.6 }}>
           All 42 applications are governed by the Lume-V deployment standard. Every non-Lume app is wrapped in a
           deterministic governance envelope before deployment. 2 apps are Lume-native. Architecture is locked
-          at 42/42 (apps/papers) — the symmetric, deterministic form.
+          at 42 apps / 71 papers / 3 books — the deterministic form.
         </div>
       </div>
 
       {/* Citation */}
       <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.2)', lineHeight: 1.7 }}>
-          Built by DarkWave Studios LLC · Nashville, TN · All 42 canon papers available on Zenodo via community{' '}
+          Built by DarkWave Studios LLC · Nashville, TN · All 71 papers + 3 books available on Zenodo via community{' '}
           <a href="https://zenodo.org/communities/lume-daigs-ecosystem" target="_blank" rel="noopener noreferrer"
             style={{ color: 'rgba(6,182,212,0.6)', textDecoration: 'none' }}>lume-daigs-ecosystem</a>
         </div>
@@ -528,7 +528,7 @@ export function EcosystemNavigator() {
                 Trust Layer Ecosystem
               </div>
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 1 }}>
-                42 applications · 42 papers · 8 verticals · Lume-V governed
+                42 applications · 71 papers · 3 books · 8 verticals · Lume-V governed
               </div>
             </div>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
