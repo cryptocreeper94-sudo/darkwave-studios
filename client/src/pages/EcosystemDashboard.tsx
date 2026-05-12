@@ -242,7 +242,7 @@ export default function EcosystemDashboard() {
                 </span>
               </motion.h1>
               <p className="text-muted-foreground text-sm lg:text-base mb-6 max-w-xl">
-                Real-time health monitoring across all 42 production apps. 1.86M+ lines of code, live status, and instant access to every developer tool.
+                Real-time health monitoring across all 42 production apps. 13.7M+ lines of code, live status, and instant access to every developer tool.
               </p>
 
               {/* Summary Stats */}
@@ -593,9 +593,9 @@ export default function EcosystemDashboard() {
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
         >
           {[
-            { label: "Total Apps", value: "35", icon: Server },
+            { label: "Total Apps", value: "42", icon: Server },
             { label: "Total Widgets", value: "102", icon: Boxes },
-            { label: "Lines of Code", value: "1.86M+", icon: FileCode },
+            { label: "Lines of Code", value: "13.7M+", icon: FileCode },
             { label: "API Endpoints", value: "1,500+", icon: Zap },
           ].map(stat => (
             <GlassCard variant="stat" key={stat.label} className="p-4 rounded-xl text-center" data-testid={`stat-footer-${stat.label.toLowerCase().replace(/\s/g, '-')}`}>

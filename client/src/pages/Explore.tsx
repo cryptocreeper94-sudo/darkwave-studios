@@ -143,11 +143,11 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full Trust Layer ecosystem — 42 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 1.86M+ lines of code.",
+    description: "Explore the full Trust Layer ecosystem — 42 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 13.7M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
-        description: "All 37 connected applications in one view",
+        description: "All 42 connected applications in one view",
         href: "/ecosystem",
         icon: <Globe className="size-5" />,
         image: "/command/ecosystem.png",
@@ -603,8 +603,8 @@ export default function Explore() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
         >
           {[
-            { icon: <Rocket className="w-5 h-5" />, value: "37", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
-            { icon: <Code2 className="w-5 h-5" />, value: "1.86M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
+            { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
+            { icon: <Code2 className="w-5 h-5" />, value: "13.7M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
             { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
           ].map((stat, i) => (
