@@ -1,4 +1,4 @@
-﻿import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import React, { useEffect } from "react";
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error: Error | null}> {
@@ -165,6 +165,9 @@ function Router() {
         <Route path="/widget-builder" component={WidgetBuilder}/>
         <Route path="/academy" component={Academy}/>
         <Route path="/lumelearn" component={LumeLearn}/>
+        {/* Through The Veil — free book redirect */}
+        <Route path="/veil">{() => { window.location.href = 'https://throughtheveil.tlid.io'; return null; }}</Route>
+        <Route path="/veilread">{() => { window.location.href = 'https://throughtheveil.tlid.io/read'; return null; }}</Route>
         <Route component={NotFound} />
       </Switch>
     </>
