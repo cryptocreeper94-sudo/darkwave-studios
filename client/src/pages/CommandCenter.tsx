@@ -31,7 +31,7 @@ interface LaunchCard {
 
 const glowMap: Record<string, string> = {
   "shadow-cyan-500/20": "0 10px 40px rgba(6,182,212,0.2)",
-  "shadow-purple-500/20": "0 10px 40px rgba(168,85,247,0.2)",
+  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-amber-500/20": "0 10px 40px rgba(245,158,11,0.2)",
   "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
   "shadow-rose-500/20": "0 10px 40px rgba(244,63,94,0.2)",
@@ -42,7 +42,7 @@ const glowMap: Record<string, string> = {
   "shadow-blue-500/20": "0 10px 40px rgba(59,130,246,0.2)",
   "shadow-yellow-500/20": "0 10px 40px rgba(234,179,8,0.2)",
   "shadow-pink-500/20": "0 10px 40px rgba(236,72,153,0.2)",
-  "shadow-violet-500/20": "0 10px 40px rgba(139,92,246,0.2)",
+  "shadow-cyan-500/20": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-slate-500/20": "0 10px 40px rgba(100,116,139,0.2)",
   "shadow-gray-500/20": "0 10px 40px rgba(107,114,128,0.2)",
 };
@@ -78,7 +78,7 @@ const categories: CommandCategory[] = [
         href: "/analytics",
         icon: <BarChart3 className="size-5" />,
         image: "/command/analytics.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         badge: "Live",
       },
       {
@@ -102,7 +102,7 @@ const categories: CommandCategory[] = [
   {
     title: "Content & Marketing",
     icon: <PenTool className="size-4" />,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     description: "Content creation and marketing automation tools. Write AI-powered blog posts, run marketing campaigns, and manage your brand's public content presence.",
     cards: [
       {
@@ -111,7 +111,7 @@ const categories: CommandCategory[] = [
         href: "/blog/admin",
         icon: <PenTool className="size-5" />,
         image: "/command/blog-admin.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         badge: "AI",
         featured: true,
       },
@@ -262,7 +262,7 @@ const categories: CommandCategory[] = [
         href: "/services",
         icon: <Store className="size-5" />,
         image: "/command/services.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
       },
       {
         label: "Compare Plans",
@@ -277,7 +277,7 @@ const categories: CommandCategory[] = [
   {
     title: "Communication & Community",
     icon: <MessageSquare className="size-4" />,
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-cyan-500 to-sky-500",
     description: "Stay connected with clients and the community. Real-time WebSocket chat, customer support portal, and lead capture through contact forms.",
     cards: [
       {
@@ -286,7 +286,7 @@ const categories: CommandCategory[] = [
         href: "/chat",
         icon: <Radio className="size-5" />,
         image: "/command/signal-chat.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         badge: "Live",
         featured: true,
       },
@@ -387,7 +387,7 @@ const categories: CommandCategory[] = [
         href: "/resources",
         icon: <FolderOpen className="size-5" />,
         image: "/command/resources.png",
-        glowColor: "shadow-violet-500/20",
+        glowColor: "shadow-cyan-500/20",
       },
     ],
   },
@@ -604,7 +604,7 @@ export default function CommandCenter() {
           className="relative w-full max-w-md mx-4"
         >
           <GlassCard glow className="relative rounded-2xl overflow-hidden p-8 lg:p-10">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-cyan-500/20">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-2xl shadow-cyan-500/20">
               <Command className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-2xl font-display font-bold text-center mb-2 text-white">
@@ -631,7 +631,7 @@ export default function CommandCenter() {
               )}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                 data-testid="button-command-login"
               >
                 <Unlock className="w-4 h-4" />
@@ -659,7 +659,7 @@ export default function CommandCenter() {
               <ArrowLeft className="w-5 h-5 text-white/70" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                 <Command className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -699,7 +699,7 @@ export default function CommandCenter() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#070b16] via-[#070b16]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
             <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-white">
-              Master <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Command Center</span>
+              Master <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-pink-400 bg-clip-text text-transparent">Command Center</span>
             </h1>
             <p className="text-sm lg:text-base text-white/50 max-w-xl leading-relaxed">
               Every tool. Every page. One click away. {totalFeatures} features organized across {categories.length} categories.

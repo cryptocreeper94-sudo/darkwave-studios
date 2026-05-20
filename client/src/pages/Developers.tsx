@@ -73,7 +73,7 @@ const developerProducts = [
     icon: Shield,
     href: "https://trustshield.tech",
     external: true,
-    gradient: "from-violet-500 to-purple-600",
+    gradient: "from-cyan-500 to-sky-600",
     features: ["Continuous monitoring", "Threat detection", "Enterprise security", "Real-time alerts"]
   },
   {
@@ -92,7 +92,7 @@ const developerProducts = [
     icon: Terminal,
     href: "https://dwtl.io/studio",
     external: true,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     features: ["Visual builder", "Code editor", "Live preview", "One-click deploy"]
   },
   {
@@ -500,8 +500,8 @@ export default function Developers() {
               {/* Blockchain & Web3 Publications */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                    <Shield className="w-4 h-4 text-purple-400" />
+                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-sky-400" />
                   </div>
                   <h3 className="text-lg font-semibold">Blockchain & Web3 Publications</h3>
                 </div>
@@ -514,15 +514,15 @@ export default function Developers() {
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-sky-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <pub.icon className="w-4 h-4 text-purple-400" />
+                          <pub.icon className="w-4 h-4 text-sky-400" />
                           <span className="font-semibold text-sm">{pub.name}</span>
                         </div>
                         <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 font-medium">{pub.type}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 font-medium">{pub.type}</span>
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
                     </a>
                   ))}

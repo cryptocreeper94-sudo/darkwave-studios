@@ -280,7 +280,7 @@ export default function WidgetBuilder() {
             ◆ Widget Builder
           </h1>
           <span className="wb-counter">{canvasItems.length} placed</span>
-          <span className="wb-counter" style={{ background: 'rgba(168,85,247,.06)', borderColor: 'rgba(168,85,247,.12)', color: '#c4b5fd' }}>
+          <span className="wb-counter" style={{ background: 'rgba(14,165,233,.06)', borderColor: 'rgba(14,165,233,.12)', color: '#c4b5fd' }}>
             {WIDGET_CATALOG.length} available
           </span>
         </div>
@@ -439,7 +439,7 @@ export default function WidgetBuilder() {
               <div className="wb-config-section">
                 <div className="wb-config-label">Primary Color</div>
                 <div style={{ display: 'flex', gap: 6 }}>
-                  {['#06b6d4', '#3b82f6', '#a855f7', '#6ee7b7', '#fbbf24', '#ef4444'].map(c => (
+                  {['#06b6d4', '#3b82f6', '#38bdf8', '#6ee7b7', '#fbbf24', '#ef4444'].map(c => (
                     <div
                       key={c}
                       onClick={() => updateConfig(selectedWidget.instanceId, 'primaryColor', c)}

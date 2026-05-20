@@ -623,7 +623,7 @@ export default function SignalChatSidebar() {
                     )}
                     {appChannels.length > 0 && (
                       <>
-                        <div className="text-[9px] font-semibold uppercase tracking-wider text-purple-400/60 px-2 pt-2 pb-0.5">App Support</div>
+                        <div className="text-[9px] font-semibold uppercase tracking-wider text-sky-400/60 px-2 pt-2 pb-0.5">App Support</div>
                         {appChannels.map(ch => (
                           <button
                             key={ch.id}

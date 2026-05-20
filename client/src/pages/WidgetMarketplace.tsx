@@ -297,7 +297,7 @@ export default function WidgetMarketplace() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.1),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.06),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -307,7 +307,7 @@ export default function WidgetMarketplace() {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                 <Package className="w-4.5 h-4.5 text-white" />
               </div>
               <div>
@@ -330,7 +330,7 @@ export default function WidgetMarketplace() {
         {/* Hero Stats */}
         <motion.section initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <h1 className="text-2xl lg:text-4xl font-display font-bold mb-3">
-            <span className="bg-gradient-to-r from-cyan-400 via-primary to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-primary to-sky-400 bg-clip-text text-transparent">
               Widget Marketplace
             </span>
           </h1>
@@ -348,7 +348,7 @@ export default function WidgetMarketplace() {
               <Crown className="w-3 h-3 text-amber-400" /> {premiumCount} Premium
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 text-xs text-white/50">
-              <Layers className="w-3 h-3 text-purple-400" /> {categoryCount} Categories
+              <Layers className="w-3 h-3 text-sky-400" /> {categoryCount} Categories
             </div>
           </div>
         </motion.section>
@@ -381,7 +381,7 @@ export default function WidgetMarketplace() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${
                   activeCategory === cat.id
-                    ? "bg-gradient-to-r from-cyan-500/15 to-purple-500/15 border border-cyan-500/30 text-cyan-400"
+                    ? "bg-gradient-to-r from-cyan-500/15 to-sky-500/15 border border-cyan-500/30 text-cyan-400"
                     : "bg-white/[0.03] border border-white/8 text-white/40 hover:text-white/60 hover:bg-white/[0.06]"
                 }`}
                 data-testid={`category-${cat.id}`}

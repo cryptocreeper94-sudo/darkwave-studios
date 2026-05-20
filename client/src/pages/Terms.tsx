@@ -79,7 +79,7 @@ export default function Terms() {
           >
             <GlassCard glow className="rounded-2xl p-8 lg:p-12">
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 flex items-center justify-center">
                   <FileText className="w-6 h-6 text-primary" />
                 </div>
                 <h1 className="text-3xl lg:text-4xl font-bold font-display" data-testid="terms-title">Terms of Service</h1>

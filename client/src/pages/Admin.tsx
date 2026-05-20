@@ -331,10 +331,10 @@ export default function Admin() {
                   </Link>
 
                   <Link href="/blog/admin" className="col-span-3 lg:col-span-3">
-                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 transition-all cursor-pointer group" data-testid="link-blog-admin">
+                    <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-sky-500/20 to-pink-600/20 hover:from-sky-500/30 hover:to-pink-600/30 transition-all cursor-pointer group" data-testid="link-blog-admin">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-400/30 to-pink-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <PenTool className="w-6 h-6 text-purple-400" />
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400/30 to-pink-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <PenTool className="w-6 h-6 text-sky-400" />
                         </div>
                         <div>
                           <div className="font-bold text-white">Blog Manager</div>

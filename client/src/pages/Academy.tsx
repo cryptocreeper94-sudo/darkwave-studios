@@ -134,7 +134,7 @@ function LevelBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
     Beginner: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     Intermediate: "text-sky-400 bg-sky-500/10 border-sky-500/20",
-    Advanced: "text-violet-400 bg-violet-500/10 border-violet-500/20",
+    Advanced: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
   };
   return (
     <span className={`px-2.5 py-1 rounded-full border text-[10px] font-semibold uppercase tracking-wider ${colors[level] || "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"}`}>
@@ -576,13 +576,13 @@ export default function Academy() {
         <div className="max-w-7xl mx-auto">
           <motion.div className="flex flex-col md:flex-row gap-12 items-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
-                <BookOpen className="w-4 h-4 text-purple-400" />
-                <span className="text-sm text-purple-300 font-medium">Ecosystem Research</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 mb-6">
+                <BookOpen className="w-4 h-4 text-sky-400" />
+                <span className="text-sm text-sky-300 font-medium">Ecosystem Research</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
                 <span className="text-white">Canonical </span>
-                <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Publications</span>
+                <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Publications</span>
               </h2>
               <p className="text-white/40 leading-relaxed mb-8">
                 Trust Layer natively supports open academic research. Dive into the 36 officially archived, peer-reviewed ecosystem papers detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
@@ -591,14 +591,14 @@ export default function Academy() {
                 <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-cyan-500/40 text-white font-medium hover:bg-white/5 transition-all">
                   <Archive className="w-4 h-4 text-cyan-400" /> View Strata Hub
                 </a>
-                <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-purple-500/40 text-white font-medium hover:bg-white/5 transition-all">
-                  <Globe className="w-4 h-4 text-purple-400" /> Zenodo DOIs
+                <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-sky-500/40 text-white font-medium hover:bg-white/5 transition-all">
+                  <Globe className="w-4 h-4 text-sky-400" /> Zenodo DOIs
                 </a>
               </div>
             </div>
             <div className="flex-1 w-full relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-[80px] rounded-full" />
-              <GlassCard className="relative p-8 border-purple-500/20 bg-[#0a0a10]/80">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 blur-[80px] rounded-full" />
+              <GlassCard className="relative p-8 border-sky-500/20 bg-[#0a0a10]/80">
                 <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/5">
                   <h3 className="text-lg font-bold">Featured Doctrinal Preprints</h3>
                   <BadgeCheck className="w-5 h-5 text-teal-400" />

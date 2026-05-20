@@ -15,7 +15,7 @@ const TIERS = [
   { name: "Base", minReferrals: 0, rate: "10%", rateNum: 10, color: "text-gray-400", accent: "#9ca3af", bg: "from-gray-600/20 to-gray-700/20", ring: "ring-gray-500/30", icon: Medal },
   { name: "Silver", minReferrals: 5, rate: "12.5%", rateNum: 12.5, color: "text-slate-300", accent: "#cbd5e1", bg: "from-slate-500/20 to-slate-600/20", ring: "ring-slate-400/30", icon: Star },
   { name: "Gold", minReferrals: 15, rate: "15%", rateNum: 15, color: "text-amber-400", accent: "#fbbf24", bg: "from-amber-500/20 to-orange-600/20", ring: "ring-amber-500/30", icon: Crown },
-  { name: "Platinum", minReferrals: 30, rate: "17.5%", rateNum: 17.5, color: "text-purple-400", accent: "#a78bfa", bg: "from-purple-500/20 to-fuchsia-600/20", ring: "ring-purple-500/30", icon: Gem },
+  { name: "Platinum", minReferrals: 30, rate: "17.5%", rateNum: 17.5, color: "text-sky-400", accent: "#38bdf8", bg: "from-sky-500/20 to-teal-600/20", ring: "ring-sky-500/30", icon: Gem },
   { name: "Diamond", minReferrals: 50, rate: "20%", rateNum: 20, color: "text-cyan-400", accent: "#22d3ee", bg: "from-cyan-500/20 to-blue-600/20", ring: "ring-cyan-500/30", icon: Diamond },
 ];
 
@@ -172,7 +172,7 @@ function AffiliateDashboard() {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-500/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-sky-500/[0.03] rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 w-full max-w-2xl mx-auto px-4 pt-20 pb-24 sm:pt-24 sm:pb-28">
@@ -269,7 +269,7 @@ function AffiliateDashboard() {
             { icon: Users, label: "Referrals", value: stats.totalReferrals, color: "text-blue-400", glow: "bg-blue-500/10" },
             { icon: CheckCircle, label: "Converted", value: stats.convertedCount, color: "text-green-400", glow: "bg-green-500/10" },
             { icon: Clock, label: "Pending", value: `${stats.pendingEarnings} SIG`, color: "text-amber-400", glow: "bg-amber-500/10" },
-            { icon: Wallet, label: "Earned", value: `${stats.paidEarnings} SIG`, color: "text-purple-400", glow: "bg-purple-500/10" },
+            { icon: Wallet, label: "Earned", value: `${stats.paidEarnings} SIG`, color: "text-sky-400", glow: "bg-sky-500/10" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -303,7 +303,7 @@ function AffiliateDashboard() {
           className="mb-5"
         >
           <div className="relative rounded-2xl overflow-hidden border border-cyan-500/20" data-testid="card-referral-link">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.06] to-purple-500/[0.06]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.06] to-sky-500/[0.06]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3">
@@ -330,7 +330,7 @@ function AffiliateDashboard() {
                 </button>
                 <button
                   onClick={shareLink}
-                  className="h-11 px-5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-medium text-sm flex items-center gap-2 transition-all active:scale-[0.97] shadow-lg shadow-purple-500/10"
+                  className="h-11 px-5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-medium text-sm flex items-center gap-2 transition-all active:scale-[0.97] shadow-lg shadow-sky-500/10"
                   data-testid="button-share-link"
                 >
                   <Share2 className="w-4 h-4" />
@@ -638,7 +638,7 @@ function AffiliateDashboard() {
           transition={{ delay: 0.45 }}
         >
           <div className="relative rounded-2xl overflow-hidden border border-cyan-500/20" data-testid="card-genesis-hallmark">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-purple-500/[0.04]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-sky-500/[0.04]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
               <button
@@ -647,7 +647,7 @@ function AffiliateDashboard() {
                 data-testid="button-toggle-genesis"
               >
                 <div className="relative shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/20 flex items-center justify-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-cyan-500/20 flex items-center justify-center">
                     <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-black flex items-center justify-center">

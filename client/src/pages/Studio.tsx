@@ -146,7 +146,7 @@ function Studio() {
             transition={{ duration: 0.5 }}
             className="text-center mb-8"
           >
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center mb-4">
               <Monitor className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold mb-2">TrustVault Studio</h1>
@@ -166,7 +166,7 @@ function Studio() {
                     type="text"
                     value={loginForm.username}
                     onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-sky-500 focus:outline-none"
                     placeholder="Your Trust Layer username"
                     data-testid="input-studio-username"
                   />
@@ -177,7 +177,7 @@ function Studio() {
                     type="password"
                     value={loginForm.password}
                     onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-purple-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-sky-500 focus:outline-none"
                     placeholder="Your password"
                     data-testid="input-studio-password"
                   />
@@ -186,7 +186,7 @@ function Studio() {
                 <button
                   type="submit"
                   disabled={loginMutation.isPending}
-                  className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 font-semibold transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 font-semibold transition-all flex items-center justify-center gap-2"
                   data-testid="button-studio-login"
                 >
                   {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
@@ -237,7 +237,7 @@ function Studio() {
 
         {checkingConnection && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+            <Loader2 className="w-8 h-8 animate-spin text-sky-400" />
             <span className="ml-3 text-gray-400">Connecting to TrustVault...</span>
           </div>
         )}
@@ -265,7 +265,7 @@ function Studio() {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium capitalize transition ${
-                    activeTab === tab ? "bg-gradient-to-r from-purple-600 to-cyan-600 text-white" : "text-gray-400 hover:text-white"
+                    activeTab === tab ? "bg-gradient-to-r from-sky-600 to-cyan-600 text-white" : "text-gray-400 hover:text-white"
                   }`}
                   data-testid={`tab-studio-${tab}`}
                 >
@@ -288,7 +288,7 @@ function Studio() {
                         key={cat}
                         onClick={() => setMediaCategory(cat)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition ${
-                          mediaCategory === cat ? "bg-purple-600 text-white" : "bg-white/5 text-gray-400 hover:text-white"
+                          mediaCategory === cat ? "bg-sky-600 text-white" : "bg-white/5 text-gray-400 hover:text-white"
                         }`}
                         data-testid={`filter-media-${cat}`}
                       >
@@ -305,13 +305,13 @@ function Studio() {
                         placeholder="Search media..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:border-purple-500 focus:outline-none w-48"
+                        className="pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white focus:border-sky-500 focus:outline-none w-48"
                         data-testid="input-media-search"
                       />
                     </div>
                     <button
                       onClick={() => uploadMutation.mutate({ filename: "new-upload", contentType: "video/mp4", size: 0 })}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-sm font-medium transition"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-sm font-medium transition"
                       data-testid="button-upload-media"
                     >
                       <Upload className="w-4 h-4" />
@@ -329,7 +329,7 @@ function Studio() {
                 ) : mediaData?.items?.length > 0 ? (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {mediaData.items.map((item: any) => (
-                      <GlassCard key={item.id} className="rounded-xl overflow-hidden group cursor-pointer hover:border-purple-500/50 transition" data-testid={`media-item-${item.id}`}>
+                      <GlassCard key={item.id} className="rounded-xl overflow-hidden group cursor-pointer hover:border-sky-500/50 transition" data-testid={`media-item-${item.id}`}>
                         <div className="aspect-video bg-white/5 flex items-center justify-center relative">
                           {item.thumbnailUrl ? (
                             <img src={item.thumbnailUrl} alt={item.filename} className="w-full h-full object-cover" />
@@ -354,7 +354,7 @@ function Studio() {
                     <p className="text-gray-400 text-sm mb-4">Upload your first file to get started with TrustVault Studio</p>
                     <button
                       onClick={() => uploadMutation.mutate({ filename: "new-upload", contentType: "video/mp4", size: 0 })}
-                      className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 text-sm font-medium"
+                      className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 text-sm font-medium"
                       data-testid="button-upload-empty"
                     >
                       Upload Media
@@ -375,7 +375,7 @@ function Studio() {
                   <h2 className="text-xl font-bold">Projects</h2>
                   <button
                     onClick={() => createProjectMutation.mutate({ name: `Project ${Date.now()}`, type: "video" })}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 text-sm font-medium hover:from-purple-500 hover:to-cyan-500 transition"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 text-sm font-medium hover:from-sky-500 hover:to-cyan-500 transition"
                     data-testid="button-create-project"
                   >
                     <FolderPlus className="w-4 h-4" />
@@ -404,9 +404,9 @@ function Studio() {
                 </div>
 
                 <GlassCard className="rounded-xl overflow-hidden">
-                  <div className="aspect-video bg-gradient-to-br from-purple-900/20 to-cyan-900/20 flex items-center justify-center">
+                  <div className="aspect-video bg-gradient-to-br from-sky-900/20 to-cyan-900/20 flex items-center justify-center">
                     <div className="text-center">
-                      <Monitor className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                      <Monitor className="w-16 h-16 text-sky-400 mx-auto mb-4" />
                       <h3 className="text-xl font-bold mb-2">TrustVault Editor</h3>
                       <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
                         Select a project first, then launch the embedded editor to start editing your media
@@ -414,7 +414,7 @@ function Studio() {
                       <button
                         onClick={() => embedMutation.mutate("latest")}
                         disabled={embedMutation.isPending}
-                        className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 font-semibold flex items-center gap-2 mx-auto transition"
+                        className="px-6 py-3 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 font-semibold flex items-center gap-2 mx-auto transition"
                         data-testid="button-launch-editor"
                       >
                         {embedMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
@@ -474,7 +474,7 @@ function Studio() {
                         <div className="text-right">
                           <p className="text-sm capitalize text-gray-300">{evt.status}</p>
                           {evt.downloadUrl && (
-                            <a href={evt.downloadUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1">
+                            <a href={evt.downloadUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1">
                               <Download className="w-3 h-3" /> Download
                             </a>
                           )}

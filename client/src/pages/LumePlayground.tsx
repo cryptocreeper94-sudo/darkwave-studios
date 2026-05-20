@@ -305,7 +305,7 @@ export default function LumePlayground() {
                   onClick={() => setShowModeMenu(!showModeMenu)}
                   className={`text-[10px] px-2 py-0.5 rounded-full font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
                     mode === "standard" ? "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30" :
-                    mode === "english" ? "bg-violet-500/20 text-violet-400 hover:bg-violet-500/30" :
+                    mode === "english" ? "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30" :
                     "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"
                   }`}
                   data-testid="button-mode-selector"
@@ -339,7 +339,7 @@ export default function LumePlayground() {
                               <span className={`text-sm font-medium ${isActive ? "text-white" : "text-gray-300"}`}>{info.label}</span>
                               <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
                                 m === "standard" ? "bg-cyan-500/20 text-cyan-400" :
-                                m === "english" ? "bg-violet-500/20 text-violet-400" :
+                                m === "english" ? "bg-cyan-500/20 text-cyan-400" :
                                 "bg-emerald-500/20 text-emerald-400"
                               }`}>{info.badge}</span>
                             </div>
@@ -477,7 +477,7 @@ export default function LumePlayground() {
           <div className="flex flex-col">
             <div className="flex items-center justify-between px-3 py-2 bg-white/5 rounded-t-xl border border-white/10 border-b-0">
               <div className="flex items-center gap-2">
-                {mode === "standard" ? <Code2 className="w-4 h-4 text-cyan-400" /> : mode === "english" ? <MessageSquareText className="w-4 h-4 text-violet-400" /> : <Languages className="w-4 h-4 text-emerald-400" />}
+                {mode === "standard" ? <Code2 className="w-4 h-4 text-cyan-400" /> : mode === "english" ? <MessageSquareText className="w-4 h-4 text-cyan-400" /> : <Languages className="w-4 h-4 text-emerald-400" />}
                 <span className="text-xs font-semibold text-gray-400" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                   {mode === "standard" ? "main.lume" : mode === "english" ? "main.lume [english]" : "main.lume [natural]"}
                 </span>
@@ -485,7 +485,7 @@ export default function LumePlayground() {
               <div className="flex items-center gap-2">
                 {mode !== "standard" && (
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                    mode === "english" ? "bg-violet-500/20 text-violet-400" : "bg-emerald-500/20 text-emerald-400"
+                    mode === "english" ? "bg-cyan-500/20 text-cyan-400" : "bg-emerald-500/20 text-emerald-400"
                   }`}>
                     Intent Resolver
                   </span>
@@ -533,7 +533,7 @@ export default function LumePlayground() {
                     onClick={() => setActiveTab(tab)}
                     className={`px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                       activeTab === tab
-                        ? tab === "resolved" ? (mode === "natural" ? "bg-emerald-500/20 text-emerald-400" : "bg-violet-500/20 text-violet-400") : "bg-cyan-500/20 text-cyan-400"
+                        ? tab === "resolved" ? (mode === "natural" ? "bg-emerald-500/20 text-emerald-400" : "bg-cyan-500/20 text-cyan-400") : "bg-cyan-500/20 text-cyan-400"
                         : "text-gray-500 hover:text-gray-300"
                     }`}
                     data-testid={`tab-${tab}`}
@@ -609,11 +609,11 @@ export default function LumePlayground() {
                 ) : (
                   <p className="text-xs text-gray-500">
                     Write in plain {mode === "english" ? "English" : "any language"}:{" "}
-                    <code className="text-violet-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>show "hello"</code>{" "}
-                    <code className="text-violet-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>set x to 5</code>{" "}
-                    <code className="text-violet-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask the AI to...</code>{" "}
-                    <code className="text-violet-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>if this fails, retry 3 times</code>{" "}
-                    <code className="text-violet-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>monitor this</code>
+                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>show "hello"</code>{" "}
+                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>set x to 5</code>{" "}
+                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask the AI to...</code>{" "}
+                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>if this fails, retry 3 times</code>{" "}
+                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>monitor this</code>
                   </p>
                 )}
               </div>

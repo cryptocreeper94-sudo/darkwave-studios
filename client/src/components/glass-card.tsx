@@ -20,7 +20,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
     if (glow) {
       return (
         <div className="relative group">
-          <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+          <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-cyan-500/20 via-sky-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
           <div
             ref={ref}
             className={cn(

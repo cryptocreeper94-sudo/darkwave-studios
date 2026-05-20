@@ -69,7 +69,7 @@ export default function Analytics() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text text-transparent">
                 Analytics Command Center
               </h1>
               <p className="text-white/60">Real-time insights that Google would envy</p>
@@ -111,10 +111,10 @@ export default function Analytics() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="col-span-3 md:col-span-3"
             >
-              <GlassCard variant="stat" className="hover:border-purple-400/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]" data-testid="stat-unique-visitors">
+              <GlassCard variant="stat" className="hover:border-sky-400/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(14,165,233,0.2)]" data-testid="stat-unique-visitors">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-white/70">Unique Visitors</CardTitle>
-                  <Users className="h-5 w-5 text-purple-400" />
+                  <Users className="h-5 w-5 text-sky-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold text-white">{stats.uniqueVisitors.toLocaleString()}</div>
@@ -193,7 +193,7 @@ export default function Analytics() {
                           <div className="flex items-center gap-2">
                             <div className="w-20 h-2 bg-white/10 rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
+                                className="h-full bg-gradient-to-r from-cyan-400 to-sky-500 rounded-full"
                                 style={{ width: `${(page.views / (stats.topPages[0]?.views || 1)) * 100}%` }}
                               />
                             </div>
@@ -219,7 +219,7 @@ export default function Analytics() {
               <GlassCard variant="stat" data-testid="card-events">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
-                    <MousePointer className="h-5 w-5 text-purple-400" />
+                    <MousePointer className="h-5 w-5 text-sky-400" />
                     Event Breakdown
                   </CardTitle>
                 </CardHeader>
@@ -284,7 +284,7 @@ export default function Analytics() {
                               <td className="py-3 px-2 text-center text-white/70">{kw.volume?.toLocaleString() || '-'}</td>
                               <td className="py-3 px-2 text-center text-cyan-400">{kw.clicks || 0}</td>
                               <td className="py-3 px-2 text-center text-white/70">{kw.impressions?.toLocaleString() || '-'}</td>
-                              <td className="py-3 px-2 text-center text-purple-400">{kw.ctr || 0}%</td>
+                              <td className="py-3 px-2 text-center text-sky-400">{kw.ctr || 0}%</td>
                             </tr>
                           ))}
                         </tbody>
@@ -294,7 +294,7 @@ export default function Analytics() {
                     <div className="text-center py-8">
                       <p className="text-white/40 mb-4">No keywords tracked yet</p>
                       <Link href="/admin">
-                        <Button className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500" data-testid="button-add-keywords">
+                        <Button className="bg-gradient-to-r from-cyan-500 to-sky-600 hover:from-cyan-400 hover:to-sky-500" data-testid="button-add-keywords">
                           Add Keywords to Track
                         </Button>
                       </Link>
@@ -311,7 +311,7 @@ export default function Analytics() {
               transition={{ duration: 0.5 }}
               className="col-span-3 md:col-span-4"
             >
-              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-purple-600/20 border-cyan-400/30" data-testid="card-realtime">
+              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border-cyan-400/30" data-testid="card-realtime">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -371,10 +371,10 @@ export default function Analytics() {
                     <div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-white/70">Conversions</span>
-                        <span className="text-purple-400">{stats.eventBreakdown?.conversion || 0}</span>
+                        <span className="text-sky-400">{stats.eventBreakdown?.conversion || 0}</span>
                       </div>
                       <div className="w-full h-2 bg-white/10 rounded-full">
-                        <div className="h-full bg-purple-400 rounded-full" style={{ width: '42%' }} />
+                        <div className="h-full bg-sky-400 rounded-full" style={{ width: '42%' }} />
                       </div>
                     </div>
                   </div>
@@ -389,7 +389,7 @@ export default function Analytics() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="col-span-3 md:col-span-4"
             >
-              <GlassCard variant="feature" className="bg-gradient-to-br from-purple-500/20 to-pink-600/20 border-purple-400/30" data-testid="card-traffic-sources">
+              <GlassCard variant="feature" className="bg-gradient-to-br from-sky-500/20 to-pink-600/20 border-sky-400/30" data-testid="card-traffic-sources">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-white">Traffic Sources</CardTitle>
                 </CardHeader>
@@ -404,7 +404,7 @@ export default function Analytics() {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-purple-400" />
+                        <div className="w-3 h-3 rounded-full bg-sky-400" />
                         <span className="text-white/70 text-sm">Organic Search</span>
                       </div>
                       <span className="text-white font-semibold">32%</span>

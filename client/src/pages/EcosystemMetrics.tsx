@@ -146,7 +146,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["80,558+ StrikeAgent predictions", "135,769+ ML predictions", "54 AI Agent personas", "Multi-chain wallet (Solana + 22 EVM)"],
     icon: Zap,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     status: "Production",
   },
   {
@@ -314,7 +314,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["11 pages with dedicated PWA", "5-step onboarding", "Organic posting", "Ad campaigns", "Self-service for any business type", "Shared backend via PaintPros"],
     icon: TrendingUp,
-    gradient: "from-blue-500 to-purple-500",
+    gradient: "from-blue-500 to-sky-500",
     status: "Production",
   },
   {
@@ -430,7 +430,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["Real-time WebSocket", "Cross-App JWT SSO", "Channel Management", "Community Hub", "Invite System", "User Presence"],
     icon: Radio,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     status: "Production",
   },
   {
@@ -449,7 +449,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["5 AI Personalities (GPT-5.2)", "Emotional Voice Fingerprint", "Living Mood Portrait", "Void Echo Time Capsules", "Voice Journal", "Zen Zone + Sleep Sounds", "Virtual Rage Room", "72 API Endpoints", "20+ DB Tables", "Stripe Subscriptions", "Blockchain Void IDs", "Capacitor iOS/Android"],
     icon: Radio,
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-cyan-500 to-sky-500",
     status: "Production",
   },
   {
@@ -515,7 +515,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["Immersive E-Reader", "AI Narration (Nova HD)", "PDF/EPUB Downloads", "110K Word Flagship Title", "Chapter Navigation", "Blockchain Provenance", "PWA"],
     icon: BookOpen,
-    gradient: "from-cyan-500 to-purple-500",
+    gradient: "from-cyan-500 to-sky-500",
     status: "Production",
   },
   {
@@ -603,7 +603,7 @@ const ecosystemMetrics: AppMetric[] = [
     ],
     highlights: ["3D Creation Studio", "Studio IDE (Monaco Editor)", "AI Text-to-3D (Meshy.ai)", "Auto-Rigging Engine", "Skeletal Animation Player", "GPU Particle System", "Post-Processing (7 FX)", "Animation Timeline (Keyframes)", "AI Code Assistant (GPT-4o)", "9 Project Templates", "Command Palette", "Scene Hierarchy", "20+ Database Tables", "Blockchain Hallmarks", "Deploy to .trustgen.app", "Stripe Subscriptions", "ChronoChat", "SMS Alerts (Twilio)"],
     icon: Sparkles,
-    gradient: "from-purple-500 to-cyan-500",
+    gradient: "from-sky-500 to-cyan-500",
     status: "Production",
   },
   {
@@ -682,11 +682,11 @@ function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: num
 function LanguageBar({ breakdown, totalLines }: { breakdown: AppMetric["breakdown"]; totalLines: number }) {
   const colors = [
     "bg-gradient-to-r from-cyan-400 to-blue-500",
-    "bg-gradient-to-r from-purple-400 to-pink-500",
+    "bg-gradient-to-r from-sky-400 to-pink-500",
     "bg-gradient-to-r from-amber-400 to-orange-500",
     "bg-gradient-to-r from-emerald-400 to-green-500",
     "bg-gradient-to-r from-rose-400 to-red-500",
-    "bg-gradient-to-r from-indigo-400 to-violet-500",
+    "bg-gradient-to-r from-indigo-400 to-cyan-500",
   ];
 
   return (
@@ -745,7 +745,7 @@ export default function EcosystemMetrics() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(168,85,247,0.08),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.08),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(6,182,212,0.06),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -783,7 +783,7 @@ export default function EcosystemMetrics() {
             Living Codebase Metrics
           </div>
           <h1 className="text-4xl lg:text-7xl font-display font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-cyan-400 via-primary to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-primary to-sky-400 bg-clip-text text-transparent">
               <AnimatedCounter target={totalLines} duration={2500} />
             </span>
             <span className="block text-xl lg:text-3xl mt-2 text-white/60 font-medium">Lines of Hand-Written Code</span>
@@ -805,10 +805,10 @@ export default function EcosystemMetrics() {
         >
           {[
             { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-cyan-400" },
-            { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-purple-500/20 to-pink-500/20", color: "text-purple-400" },
+            { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-sky-500/20 to-pink-500/20", color: "text-sky-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
-            { icon: LayoutGrid, label: "Widgets", value: 102, gradient: "from-indigo-500/20 to-violet-500/20", color: "text-indigo-400" },
+            { icon: LayoutGrid, label: "Widgets", value: 102, gradient: "from-indigo-500/20 to-cyan-500/20", color: "text-indigo-400" },
           ].map((stat, i) => (
             <motion.div key={i} variants={itemVariants}>
               <GlassCard variant="stat" className="rounded-2xl p-6 lg:p-8 text-center hover:border-primary/30 transition-all duration-500 hover:-translate-y-1 group" data-testid={`stat-card-${i}`}>

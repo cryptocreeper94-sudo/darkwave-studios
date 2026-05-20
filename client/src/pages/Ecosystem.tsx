@@ -551,7 +551,7 @@ export default function Ecosystem() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.1),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.1),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.5))] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -600,7 +600,7 @@ export default function Ecosystem() {
           </div>
           <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
             The Trust Layer{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">Ecosystem</span>
+            <span className="bg-gradient-to-r from-primary via-sky-400 to-accent bg-clip-text text-transparent">Ecosystem</span>
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
             A complete suite of interconnected applications spanning trading, business operations, 

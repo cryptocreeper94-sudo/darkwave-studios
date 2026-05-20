@@ -68,7 +68,7 @@ const certificationTiers = [
     price: "$4,999",
     duration: "1-2 weeks",
     validity: "12 months",
-    color: "from-purple-500 to-pink-500",
+    color: "from-sky-500 to-pink-500",
     features: [
       "Everything in Basic",
       "Deep code review by experts",
@@ -125,7 +125,7 @@ const trustMetrics = [
     name: "Compliance Score",
     icon: FileCheck,
     description: "Regulatory alignment, data handling, consent mechanisms",
-    color: "text-purple-400"
+    color: "text-sky-400"
   }
 ];
 
@@ -293,7 +293,7 @@ export default function GuardianAI() {
         ]}
       />
 
-      <div className="fixed inset-0 bg-gradient-to-br from-red-500/5 via-background to-purple-500/5 -z-10" />
+      <div className="fixed inset-0 bg-gradient-to-br from-red-500/5 via-background to-sky-500/5 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(239,68,68,0.1),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 glass-strong border-b border-white/10">
@@ -364,7 +364,7 @@ export default function GuardianAI() {
               href="https://dwtl.io/ai-agents"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity"
               data-testid="link-hero-create-agent"
             >
               <Rocket className="w-5 h-5" /> Create an AI Agent <ExternalLink className="w-4 h-4" />
@@ -384,7 +384,7 @@ export default function GuardianAI() {
               href="https://dwtl.io/ai-agents" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-purple-400 hover:text-purple-300 underline underline-offset-2"
+              className="text-sky-400 hover:text-sky-300 underline underline-offset-2"
               data-testid="link-hero-create-inline"
             >
               Build and train one at our AI Agent Marketplace
@@ -423,14 +423,14 @@ export default function GuardianAI() {
               Paste any AI agent's URL or contract address. Our AI analyzes it for scam indicators, 
               honeypot patterns, rug pull risks, and fraudulent behavior.
             </p>
-            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-sm" data-testid="banner-create-agent">
-              <Rocket className="w-5 h-5 text-purple-400 shrink-0" />
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sm" data-testid="banner-create-agent">
+              <Rocket className="w-5 h-5 text-sky-400 shrink-0" />
               <span className="text-muted-foreground">Want to create your own AI agent?</span>
               <a 
                 href="https://dwtl.io/ai-agents" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-purple-400 hover:text-purple-300 font-semibold inline-flex items-center gap-1 whitespace-nowrap"
+                className="text-sky-400 hover:text-sky-300 font-semibold inline-flex items-center gap-1 whitespace-nowrap"
                 data-testid="link-scanner-create-agent"
               >
                 Build & Train at DW Agent Marketplace <ExternalLink className="w-3.5 h-3.5" />
@@ -559,7 +559,7 @@ export default function GuardianAI() {
                       { label: "Security", score: scanResult.securityScore, icon: Lock, color: "text-red-400" },
                       { label: "Transparency", score: scanResult.transparencyScore, icon: Eye, color: "text-blue-400" },
                       { label: "Reliability", score: scanResult.reliabilityScore, icon: Activity, color: "text-green-400" },
-                      { label: "Compliance", score: scanResult.complianceScore, icon: FileCheck, color: "text-purple-400" },
+                      { label: "Compliance", score: scanResult.complianceScore, icon: FileCheck, color: "text-sky-400" },
                     ].map((metric, i) => {
                       const Icon = metric.icon;
                       return (
@@ -793,10 +793,10 @@ export default function GuardianAI() {
               <GlassCard 
                 key={i}
                 variant="feature"
-                className={`rounded-2xl p-6 lg:p-8 relative overflow-hidden ${tier.popular ? 'ring-2 ring-purple-500' : ''}`}
+                className={`rounded-2xl p-6 lg:p-8 relative overflow-hidden ${tier.popular ? 'ring-2 ring-sky-500' : ''}`}
               >
                 {tier.popular && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 text-xs font-bold rounded-bl-xl">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-sky-500 to-pink-500 text-white px-4 py-1 text-xs font-bold rounded-bl-xl">
                     MOST POPULAR
                   </div>
                 )}

@@ -188,7 +188,7 @@ export default function PaymentSuccess() {
                 {purchase.items.map((item: PurchaseItem, i: number) => (
                   <div key={i} className="flex items-center justify-between py-3 px-4 rounded-xl bg-white/5" data-testid={`row-item-${i}`}>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/30 to-blue-500/30 flex items-center justify-center text-sm font-bold">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500/30 to-blue-500/30 flex items-center justify-center text-sm font-bold">
                         {item.type === "widget" ? "W" : "S"}
                       </div>
                       <div>

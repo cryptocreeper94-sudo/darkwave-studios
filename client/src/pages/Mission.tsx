@@ -104,7 +104,7 @@ export default function Mission() {
               >
                 <GlassCard glow className="rounded-2xl p-8 lg:p-12">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 flex items-center justify-center">
                       <Target className="w-8 h-8 text-primary" />
                     </div>
                     <div>
@@ -143,7 +143,7 @@ export default function Mission() {
             >
               <GlassCard variant="feature" className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <Rocket className="w-6 h-6 text-purple-400" />
+                  <Rocket className="w-6 h-6 text-sky-400" />
                   <h2 className="text-xl font-bold">Mission Statement</h2>
                 </div>
                 <p className="text-muted-foreground leading-relaxed" data-testid="mission-text">
@@ -170,7 +170,7 @@ export default function Mission() {
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <GlassCard className="rounded-xl p-6 h-full">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/20 to-sky-500/20 flex items-center justify-center mb-4">
                       <value.icon className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">{value.title}</h3>

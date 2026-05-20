@@ -20,7 +20,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
           data-testid="banner-signal-presale-inline"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/30 to-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500/30 to-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
               <Zap className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1 min-w-0">
@@ -44,9 +44,9 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
           className="block p-4 lg:p-6 group relative transition-all"
           data-testid="banner-signal-presale-compact"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-primary/10 to-accent/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-sky-600/10 via-primary/10 to-accent/10" />
           <div className="relative z-10 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/30 to-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/30 to-primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
               <Zap className="w-6 h-6 text-primary" />
             </div>
             <div className="flex-1 min-w-0">
@@ -73,7 +73,7 @@ export function SignalPresaleBanner({ variant = "full", className = "" }: Signal
         className="block group relative transition-all"
         data-testid="banner-signal-presale-full"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/15 via-primary/10 to-accent/15" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-600/15 via-primary/10 to-accent/15" />
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="relative z-10 p-5 lg:p-8">
           <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-8">

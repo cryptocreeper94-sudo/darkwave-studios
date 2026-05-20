@@ -380,7 +380,7 @@ export default function SignalChat() {
       <div className="min-h-screen bg-[#0a0a1a] flex items-center justify-center p-4">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-sky-500/5 rounded-full blur-3xl" />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -715,7 +715,7 @@ export default function SignalChat() {
             )}
             {appChannels.length > 0 && (
               <>
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-purple-400/60 px-2 pt-4 pb-1" data-testid="text-section-support">App Support</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-sky-400/60 px-2 pt-4 pb-1" data-testid="text-section-support">App Support</div>
                 {appChannels.map(ch => (
                   <button
                     key={ch.id}

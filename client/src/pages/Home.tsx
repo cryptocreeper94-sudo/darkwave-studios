@@ -89,7 +89,7 @@ const projects = [
     description: "Layer 1 blockchain providing verified identity and AI agent certification",
     tech: ["Blockchain", "Identity", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-purple-500/20 to-pink-600/20",
+    gradient: "from-sky-500/20 to-pink-600/20",
     url: "https://dwtl.io"
   },
   {
@@ -107,7 +107,7 @@ const projects = [
     description: "AI-driven cryptocurrency trading and analytics with predictive signals",
     tech: ["AI", "Trading", "Analytics"],
     image: "/ecosystem/pulse.png",
-    gradient: "from-violet-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://darkwavepulse.com"
   },
   {
@@ -170,7 +170,7 @@ const projects = [
     description: "Ecosystem hub connecting 20+ platforms with affiliate tracking",
     tech: ["Painting", "Estimates", "Booking"],
     image: "/ecosystem/nash-paint-pros.png",
-    gradient: "from-violet-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://nashpaintpros.io"
   },
   {
@@ -260,7 +260,7 @@ const projects = [
     description: "Decentralized identity provider with passkey authentication and cross-app SSO",
     tech: ["Identity", "Auth", "Blockchain"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-indigo-500/20 to-purple-600/20",
+    gradient: "from-indigo-500/20 to-sky-600/20",
     url: "https://tlid.io"
   },
   {
@@ -278,7 +278,7 @@ const projects = [
     description: "Real-time community chat with WebSocket channels and AI bot integration",
     tech: ["Chat", "WebSocket", "AI"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-violet-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://signalchat.tlid.io"
   },
   {
@@ -323,7 +323,7 @@ const projects = [
     description: "Censorship-free ebook publishing platform with AI narration and blockchain provenance",
     tech: ["Publishing", "AI", "E-Reader"],
     image: "/emblems/trust-book.png",
-    gradient: "from-cyan-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://trustbook.tlid.io"
   },
   {
@@ -377,7 +377,7 @@ const projects = [
     description: "AI-powered 3D creation and code studio — Three.js editor, Meshy.ai text-to-3D, Studio IDE with Monaco editor, auto-rigging, GPU particles, and blockchain provenance",
     tech: ["Three.js", "AI", "3D", "Blockchain"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-purple-500/20 to-cyan-600/20",
+    gradient: "from-sky-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io"
   },
   {
@@ -395,7 +395,7 @@ const projects = [
     description: "Multi-agent AI development environment with auto-routing engine, snippet dock, and artifact viewer. 5-tier SaaS billing.",
     tech: ["AI", "IDE", "Agents", "Stripe"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-cyan-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://axiomstudio.dev"
   }
 ];
@@ -518,7 +518,7 @@ export default function Home() {
 
   const processSteps = [
     { icon: Search, label: "Discovery", desc: "We learn your business, goals, and users. Through in-depth conversations we map out your vision, target audience, and success metrics.", color: "from-cyan-500 to-blue-500", image: processDiscoveryImg },
-    { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction. We create interactive prototypes so you can see and feel your product before a single line of code is written.", color: "from-purple-500 to-pink-500", image: processDesignImg },
+    { icon: PenTool, label: "Design", desc: "Wireframes, mockups, and visual direction. We create interactive prototypes so you can see and feel your product before a single line of code is written.", color: "from-sky-500 to-pink-500", image: processDesignImg },
     { icon: Wrench, label: "Build", desc: "Full-stack development with weekly demos. You see real progress every week and guide the direction as we build your product.", color: "from-orange-500 to-red-500", image: processBuildImg },
     { icon: Send, label: "Launch", desc: "Deployment, testing, and go-live. We handle everything — hosting, domain setup, performance optimization, and a smooth launch day.", color: "from-green-500 to-emerald-500", image: processLaunchImg },
     { icon: Headphones, label: "Support", desc: "Ongoing maintenance and updates. We don't disappear after launch. Bug fixes, feature additions, and performance monitoring — we're here for the long run.", color: "from-yellow-500 to-orange-500", image: processSupportImg },
@@ -1320,7 +1320,7 @@ export default function Home() {
                   name: "Avery B.",
                   role: "Product User",
                   quote: "I use several of the apps in the ecosystem daily. The design is clean, everything just works, and new features keep showing up. It's honestly impressive how much is built into these platforms.",
-                  color: "#8b5cf6",
+                  color: "#0ea5e9",
                   rating: 5,
                 },
                 {
@@ -1369,7 +1369,7 @@ export default function Home() {
                   name: "Carlos M.",
                   role: "Startup Co-Founder",
                   quote: "We went from idea to working MVP in under three weeks. DarkWave Studios moves fast without cutting corners. Our investors were impressed with the quality on the first demo.",
-                  color: "#a855f7",
+                  color: "#38bdf8",
                   rating: 5,
                 },
               ];
@@ -1434,22 +1434,22 @@ export default function Home() {
                   {[
                     { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
                     { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
-                    { name: "ChronoChat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "ChronoChat", gradient: "from-sky-400 to-pink-500" },
                     { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
                     { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
                     { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
                     { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
-                    { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
+                    { name: "TrustVault", gradient: "from-cyan-400 to-sky-500" },
                     { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
                     { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
                     { name: "Trust Layer", gradient: "from-cyan-400 to-blue-500" },
                     { name: "Guardian AI", gradient: "from-green-400 to-emerald-500" },
-                    { name: "ChronoChat", gradient: "from-purple-400 to-pink-500" },
+                    { name: "ChronoChat", gradient: "from-sky-400 to-pink-500" },
                     { name: "StrikeAgent", gradient: "from-red-400 to-orange-500" },
                     { name: "TL Driver Connect", gradient: "from-yellow-400 to-orange-500" },
                     { name: "TradeWorks AI", gradient: "from-blue-400 to-indigo-500" },
                     { name: "Validitor", gradient: "from-emerald-400 to-teal-500" },
-                    { name: "TrustVault", gradient: "from-violet-400 to-purple-500" },
+                    { name: "TrustVault", gradient: "from-cyan-400 to-sky-500" },
                     { name: "TrustShield", gradient: "from-amber-400 to-red-500" },
                     { name: "Chronicles", gradient: "from-pink-400 to-rose-500" },
                   ].map((brand, i) => (
@@ -1588,9 +1588,9 @@ export default function Home() {
                       <span className="text-xs text-muted-foreground ml-2">studio.darkwavestudios.io</span>
                     </div>
                     <div className="font-mono text-xs space-y-1 text-muted-foreground">
-                      <div><span className="text-purple-400">import</span> <span className="text-green-400">{'{ createApp }'}</span> <span className="text-purple-400">from</span> <span className="text-yellow-400">'darkwave'</span>;</div>
+                      <div><span className="text-sky-400">import</span> <span className="text-green-400">{'{ createApp }'}</span> <span className="text-sky-400">from</span> <span className="text-yellow-400">'darkwave'</span>;</div>
                       <div></div>
-                      <div><span className="text-purple-400">const</span> <span className="text-blue-400">app</span> = <span className="text-yellow-400">createApp</span>{'({'}</div>
+                      <div><span className="text-sky-400">const</span> <span className="text-blue-400">app</span> = <span className="text-yellow-400">createApp</span>{'({'}</div>
                       <div>  <span className="text-blue-400">name</span>: <span className="text-green-400">'My Awesome Site'</span>,</div>
                       <div>  <span className="text-blue-400">ai</span>: <span className="text-orange-400">true</span>,</div>
                       <div>  <span className="text-blue-400">deploy</span>: <span className="text-green-400">'production'</span></div>
@@ -1629,8 +1629,8 @@ export default function Home() {
                     className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
                     data-testid="link-ecosystem-map"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Globe className="w-6 h-6 text-purple-400" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Globe className="w-6 h-6 text-sky-400" />
                     </div>
                     <span className="text-sm font-medium text-center">Ecosystem Map</span>
                   </Link>

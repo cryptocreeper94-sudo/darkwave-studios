@@ -254,7 +254,7 @@ function MetricsWidget() {
             <span className="text-white/50">Latency</span>
             <span className="text-white/70 font-mono">{Math.round(metrics.latency)}ms</span>
           </div>
-          <GaugeBar value={metrics.latency} max={200} color={metrics.latency > 100 ? "bg-red-500" : "bg-purple-500"} />
+          <GaugeBar value={metrics.latency} max={200} color={metrics.latency > 100 ? "bg-red-500" : "bg-sky-500"} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2 pt-1">
@@ -380,7 +380,7 @@ function EcosystemBadgeWidget() {
         transition={{ duration: 0.8 }}
         className="relative"
       >
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 flex items-center justify-center">
+        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-cyan-500/30 flex items-center justify-center">
           <Shield className="w-8 h-8 text-cyan-400" />
         </div>
         <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-[#0a0f1e] flex items-center justify-center">
@@ -557,7 +557,7 @@ const widgets = [
     name: "Runtime Metrics",
     description: "Live system metrics with CPU, memory, latency gauges and automatic optimization triggers.",
     icon: BarChart3,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     tags: ["monitor", "optimize", "evolve"],
     component: MetricsWidget,
   },
@@ -575,7 +575,7 @@ const widgets = [
     name: "Trust Badge",
     description: "Self-verifying ecosystem badge with auto-renewal, expiration monitoring, and revocation detection.",
     icon: CheckCircle2,
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-cyan-500 to-sky-500",
     tags: ["monitor", "heal", "evolve"],
     component: EcosystemBadgeWidget,
   },
@@ -625,7 +625,7 @@ export default function LumeLibrary() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.12),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.06),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -697,7 +697,7 @@ export default function LumeLibrary() {
               4-Layer Runtime
             </div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/50">
-              <Shield className="w-3 h-3 text-purple-400" />
+              <Shield className="w-3 h-3 text-sky-400" />
               Zero-Config Healing
             </div>
           </div>
@@ -806,7 +806,7 @@ export default function LumeLibrary() {
             {[
               { icon: Monitor, title: "Self-Monitoring", desc: "Every function tracks its own execution time, error rate, and resource usage. Dashboards appear automatically.", gradient: "from-cyan-500 to-blue-500" },
               { icon: Heart, title: "Self-Healing", desc: "Exponential backoff, circuit breakers, and fallback chains kick in before errors reach the user.", gradient: "from-emerald-500 to-green-500" },
-              { icon: Gauge, title: "Self-Optimizing", desc: "Detects slow functions, suggests fixes, and tracks every optimization with full rollback support.", gradient: "from-purple-500 to-pink-500" },
+              { icon: Gauge, title: "Self-Optimizing", desc: "Detects slow functions, suggests fixes, and tracks every optimization with full rollback support.", gradient: "from-sky-500 to-pink-500" },
               { icon: Brain, title: "Self-Evolving", desc: "Learns performance patterns over time, suggests model swaps for cost savings, and auto-updates dependencies.", gradient: "from-amber-500 to-orange-500" },
             ].map((f, i) => (
               <motion.div key={i} variants={staggerItem}>

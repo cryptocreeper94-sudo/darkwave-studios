@@ -144,7 +144,7 @@ const tiers = ["All", "Basic", "Advanced", "Enterprise"];
 function getTierColor(tier: string) {
   switch (tier) {
     case "Enterprise": return "from-amber-500 to-orange-500";
-    case "Advanced": return "from-purple-500 to-pink-500";
+    case "Advanced": return "from-sky-500 to-pink-500";
     default: return "from-blue-500 to-cyan-500";
   }
 }
@@ -299,7 +299,7 @@ export default function GuardianAIRegistry() {
             <div className="text-sm text-muted-foreground">Certified Agents</div>
           </GlassCard>
           <GlassCard variant="stat" className="rounded-xl p-4 text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-purple-400">
+            <div className="text-2xl lg:text-3xl font-bold text-sky-400">
               {mockAgents.filter(a => a.tier === "Enterprise").length}
             </div>
             <div className="text-sm text-muted-foreground">Enterprise Tier</div>
@@ -369,7 +369,7 @@ export default function GuardianAIRegistry() {
                   <div className="text-[10px] text-muted-foreground">Reliability</div>
                 </div>
                 <div className="text-center p-2 rounded-lg bg-white/5">
-                  <FileCheck className="w-4 h-4 mx-auto mb-1 text-purple-400" />
+                  <FileCheck className="w-4 h-4 mx-auto mb-1 text-sky-400" />
                   <div className={`text-sm font-bold ${getScoreColor(agent.complianceScore)}`}>{agent.complianceScore}</div>
                   <div className="text-[10px] text-muted-foreground">Compliance</div>
                 </div>

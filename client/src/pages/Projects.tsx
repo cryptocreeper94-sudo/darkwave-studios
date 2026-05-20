@@ -38,7 +38,7 @@ const projects = [
     description: "AI-driven cryptocurrency trading and analytics platform. Predictive signals, quantitative analysis, StrikeAgent asset discovery, Pulse AI agent with 54 personas, portfolio tracking, and social trading with leaderboards.",
     tech: ["AI/ML", "Crypto", "Analytics", "Trading"],
     image: pulseImg,
-    gradient: "from-purple-500/20 to-indigo-600/20",
+    gradient: "from-sky-500/20 to-indigo-600/20",
     url: "https://darkwavepulse.com",
     category: "FinTech"
   },
@@ -138,7 +138,7 @@ const projects = [
     description: "Full Layer 1 Proof-of-Authority blockchain ecosystem. Native Signal (SIG) token, wallet, DEX/swap, cross-chain bridge, staking, NFT marketplace, presale, blockchain explorer, DAO governance, and business tenant portals. 672,085 lines across 5 PWAs, 743 endpoints, 289 tables.",
     tech: ["Blockchain", "DeFi", "5 PWAs", "289 Tables"],
     image: trustLayerIconImg,
-    gradient: "from-indigo-500/20 to-purple-600/20",
+    gradient: "from-indigo-500/20 to-sky-600/20",
     url: "https://dwtl.io",
     category: "Blockchain"
   },
@@ -178,7 +178,7 @@ const projects = [
     description: "Self-service automated advertising for any business type. 5-step onboarding, organic posting, and ad campaigns. 11 pages with dedicated PWA manifest. 7,133 lines of production code powered by PaintPros shared backend.",
     tech: ["Marketing", "Advertising", "Automation", "PWA"],
     image: trustLayerIconImg,
-    gradient: "from-violet-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://tlid.io",
     category: "Marketing"
   },
@@ -248,7 +248,7 @@ const projects = [
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 42 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
-    gradient: "from-purple-500/20 to-pink-600/20",
+    gradient: "from-sky-500/20 to-pink-600/20",
     url: "https://signalchat.tlid.io",
     category: "Social"
   },
@@ -258,7 +258,7 @@ const projects = [
     description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, ChronoChat, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
     tech: ["GPT-5.2", "Voice AI", "Stripe", "PWA"],
     image: "/projects/the-void.png",
-    gradient: "from-violet-500/20 to-purple-600/20",
+    gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://intothevoid.app",
     category: "Wellness"
   },
@@ -288,7 +288,7 @@ const projects = [
     description: "Censorship-free ebook publishing and reading platform with AI narration via OpenAI Nova HD, multi-format downloads (PDF/EPUB), and blockchain-verified provenance. Features immersive full-screen e-reader with chapter/volume navigation, progress tracking, and the flagship title 'Through The Veil' — 110,000 words, 54+ chapters, 15 volumes. Premium glassmorphism UI. 9,861 lines of code, 4 files, 5 API endpoints.",
     tech: ["OpenAI TTS", "E-Reader", "PWA", "Blockchain"],
     image: "/emblems/trust-book.png",
-    gradient: "from-cyan-500/20 to-purple-500/20",
+    gradient: "from-cyan-500/20 to-sky-500/20",
     url: "https://trustbook.tlid.io",
     category: "Publishing"
   },
@@ -308,7 +308,7 @@ const projects = [
     description: "Premium browser-based 3D creation and code studio. Full 3D editor with OrbitControls, scene hierarchy, PBR material editor, transform gizmos, and 5 light types with shadow mapping. AI model generation via Meshy.ai (800 char prompts). Studio IDE with Monaco editor, 9 project templates, AI code assistant (GPT-4o), command palette, file tree, multi-tab editing, hot apply to viewport, and deploy to .trustgen.app. Auto-rigging engine with skeleton generation, skeletal animation player, GPU particle system, post-processing pipeline (7 FX), and keyframe animation timeline with easing curves. Blockchain hallmarks, Stripe subscriptions, ChronoChat, Twilio SMS. 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
     tech: ["Three.js", "Meshy.ai", "Monaco Editor", "React 18", "Stripe"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-purple-500/20 to-cyan-600/20",
+    gradient: "from-sky-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io",
     category: "Creative Tools"
   },
@@ -328,7 +328,7 @@ const projects = [
     description: "Trust Layer Privacy Protocol. The 'Verified-but-Private' blockchain transaction architecture leveraging Pedersen commitments, Bulletproof range proofs, and Lume-governed Audit Escrow Vaults for FATF/SEC/IRS compliance. Establishes the standard for regulatory-compliant privacy infrastructure. Zenodo DOI: 10.5281/zenodo.19571979.",
     tech: ["Blockchain", "Privacy", "Zero-Knowledge", "Lume Governance"],
     image: "/ecosystem/trust-shield-icon.png",
-    gradient: "from-purple-500/20 to-cyan-600/20",
+    gradient: "from-sky-500/20 to-cyan-600/20",
     url: "https://zenodo.org/records/19571979",
     category: "Security"
   }

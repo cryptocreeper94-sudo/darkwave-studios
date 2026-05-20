@@ -152,7 +152,7 @@ export default function Investors() {
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
                   <GlassCard variant="stat" className="rounded-xl p-6 h-full text-center">
-                    <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-primary/20 to-sky-500/20 flex items-center justify-center mb-4">
                       <metric.icon className="w-6 h-6 text-primary" />
                     </div>
                     <div className="text-3xl font-bold gradient-text mb-1" data-testid={`metric-${i}`}>{metric.value}</div>
@@ -218,7 +218,7 @@ export default function Investors() {
             >
               <GlassCard glow className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <Shield className="w-6 h-6 text-purple-400" />
+                  <Shield className="w-6 h-6 text-sky-400" />
                   <h2 className="text-xl font-bold">Get In Touch</h2>
                 </div>
                 <p className="text-muted-foreground mb-6">

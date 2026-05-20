@@ -37,10 +37,10 @@ const categoryMeta: Record<string, { label: string; color: string; gradient: str
   core: { label: "Core Platform", color: "cyan", gradient: "from-cyan-500 to-blue-600" },
   trading: { label: "Trading & Crypto", color: "amber", gradient: "from-amber-500 to-orange-600" },
   business: { label: "Business Ops", color: "emerald", gradient: "from-emerald-500 to-teal-600" },
-  trades: { label: "Trade Services", color: "violet", gradient: "from-violet-500 to-purple-600" },
+  trades: { label: "Trade Services", color: "violet", gradient: "from-cyan-500 to-sky-600" },
   auto: { label: "Auto & Delivery", color: "sky", gradient: "from-sky-500 to-blue-600" },
   health: { label: "Health & Wellness", color: "rose", gradient: "from-rose-500 to-pink-600" },
-  gaming: { label: "Gaming", color: "purple", gradient: "from-purple-500 to-indigo-600" },
+  gaming: { label: "Gaming", color: "purple", gradient: "from-sky-500 to-indigo-600" },
   "real-estate": { label: "Real Estate", color: "green", gradient: "from-green-500 to-emerald-600" },
   social: { label: "Social", color: "indigo", gradient: "from-indigo-500 to-blue-600" },
   security: { label: "Security", color: "red", gradient: "from-red-500 to-rose-600" },
@@ -49,7 +49,7 @@ const categoryMeta: Record<string, { label: string; color: string; gradient: str
 
 const quickActions = [
   { label: "Shared Components", href: "/developers/components", icon: Layers, desc: "Manage ecosystem-wide UI", gradient: "from-cyan-500 to-teal-500" },
-  { label: "Command Center", href: "/command", icon: Command, desc: "Full feature access", gradient: "from-purple-500 to-indigo-500" },
+  { label: "Command Center", href: "/command", icon: Command, desc: "Full feature access", gradient: "from-sky-500 to-indigo-500" },
   { label: "Trust Layer Hub", href: "/hub", icon: Boxes, desc: "102 embeddable widgets", gradient: "from-amber-500 to-orange-500" },
   { label: "API Documentation", href: "/developers/api", icon: BookOpen, desc: "Pulse API & endpoints", gradient: "from-emerald-500 to-green-500" },
   { label: "Marketing Hub", href: "/marketing", icon: PenTool, desc: "Automated social posting", gradient: "from-rose-500 to-pink-500" },
@@ -164,7 +164,7 @@ export default function EcosystemDashboard() {
 
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(139,92,246,0.06),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
 
       {/* Animated grid background */}
       <div className="fixed inset-0 -z-10 opacity-[0.03]" style={{
@@ -237,7 +237,7 @@ export default function EcosystemDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-sky-400 bg-clip-text text-transparent">
                   Master Control
                 </span>
               </motion.h1>
@@ -555,7 +555,7 @@ export default function EcosystemDashboard() {
               {[
                 { icon: Shield, label: "Guardian AI", desc: "Agent certification & security", href: "/guardian-ai", gradient: "from-red-500 to-orange-500" },
                 { icon: Bot, label: "AI Agent Marketplace", desc: "Build & deploy AI agents", href: "https://dwtl.io/ai-agents", ext: true, gradient: "from-emerald-500 to-teal-500" },
-                { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-purple-500 to-pink-500" },
+                { icon: Terminal, label: "Studio IDE", desc: "Browser-based development", href: "https://dwtl.io/studio", ext: true, gradient: "from-sky-500 to-pink-500" },
                 { icon: Globe, label: "Ecosystem", desc: "All 42 Apps showcase", href: "/ecosystem", gradient: "from-indigo-500 to-blue-500" },
               ].map((tool, i) => (
                 tool.ext ? (

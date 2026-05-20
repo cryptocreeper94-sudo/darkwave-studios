@@ -38,7 +38,7 @@ interface ExploreCategory {
 
 const glowMap: Record<string, string> = {
   "shadow-cyan-500/20": "0 10px 40px rgba(6,182,212,0.2)",
-  "shadow-purple-500/20": "0 10px 40px rgba(168,85,247,0.2)",
+  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-amber-500/20": "0 10px 40px rgba(245,158,11,0.2)",
   "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
   "shadow-rose-500/20": "0 10px 40px rgba(244,63,94,0.2)",
@@ -49,7 +49,7 @@ const glowMap: Record<string, string> = {
   "shadow-blue-500/20": "0 10px 40px rgba(59,130,246,0.2)",
   "shadow-yellow-500/20": "0 10px 40px rgba(234,179,8,0.2)",
   "shadow-pink-500/20": "0 10px 40px rgba(236,72,153,0.2)",
-  "shadow-violet-500/20": "0 10px 40px rgba(139,92,246,0.2)",
+  "shadow-cyan-500/20": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-slate-500/20": "0 10px 40px rgba(100,116,139,0.2)",
   "shadow-gray-500/20": "0 10px 40px rgba(107,114,128,0.2)",
 };
@@ -100,7 +100,7 @@ const categories: ExploreCategory[] = [
   {
     title: "Services",
     icon: <Store className="size-4" />,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-sky-500 to-pink-500",
     description: "See what we build and what it costs. Compare plans, request a custom quote, or book a free consultation call to discuss your project.",
     cards: [
       {
@@ -109,7 +109,7 @@ const categories: ExploreCategory[] = [
         href: "/services",
         icon: <Store className="size-5" />,
         image: "/command/services.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         featured: true,
       },
       {
@@ -169,7 +169,7 @@ const categories: ExploreCategory[] = [
         href: "/metrics",
         icon: <BarChart3 className="size-5" />,
         image: "/command/metrics.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         badge: "Stats",
       },
     ],
@@ -248,7 +248,7 @@ const categories: ExploreCategory[] = [
   {
     title: "Community",
     icon: <Radio className="size-4" />,
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-cyan-500 to-sky-500",
     description: "Join the conversation. Chat in real-time, read the latest blog posts, get support, browse resources, or create in the media studio.",
     cards: [
       {
@@ -257,7 +257,7 @@ const categories: ExploreCategory[] = [
         href: "/chat",
         icon: <Radio className="size-5" />,
         image: "/command/signal-chat.png",
-        glowColor: "shadow-purple-500/20",
+        glowColor: "shadow-sky-500/20",
         badge: "Live",
         featured: true,
       },
@@ -283,7 +283,7 @@ const categories: ExploreCategory[] = [
         href: "/resources",
         icon: <FolderOpen className="size-5" />,
         image: "/command/resources.png",
-        glowColor: "shadow-violet-500/20",
+        glowColor: "shadow-cyan-500/20",
       },
       {
         label: "TrustVault Studio",
@@ -418,7 +418,7 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-sky-600 text-white shadow-lg">
                 {card.badge}
               </span>
             </div>
@@ -549,12 +549,12 @@ export default function Explore() {
     <div className="min-h-screen bg-[#070b16] text-white overflow-x-hidden">
       <div className="fixed inset-0 bg-gradient-to-b from-[#070b16] via-[#0c1222] to-[#070b16] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.06),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
 
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
               <Compass className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -588,7 +588,7 @@ export default function Explore() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#070b16] via-[#070b16]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
             <h1 className="text-2xl lg:text-4xl font-display font-bold mb-1 text-white">
-              Where do you want to <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">go?</span>
+              Where do you want to <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-pink-400 bg-clip-text text-transparent">go?</span>
             </h1>
             <p className="text-sm text-white/50 max-w-xl">
               {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer, one click away.
@@ -604,7 +604,7 @@ export default function Explore() {
         >
           {[
             { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
-            { icon: <Code2 className="w-5 h-5" />, value: "13.7M+", label: "Lines of Code", gradient: "from-purple-500 to-pink-500" },
+            { icon: <Code2 className="w-5 h-5" />, value: "13.7M+", label: "Lines of Code", gradient: "from-sky-500 to-pink-500" },
             { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
           ].map((stat, i) => (
@@ -646,7 +646,7 @@ export default function Explore() {
         <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
           <Link
             href="/home"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02]"
             data-testid="explore-footer-home"
           >
             <Home className="w-4 h-4" />

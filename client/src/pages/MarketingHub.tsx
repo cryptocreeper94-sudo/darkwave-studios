@@ -569,7 +569,7 @@ export default function MarketingHub() {
             <p className="text-xs text-muted-foreground">Comments</p>
           </GlassCard>
           <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-shares">
-            <Share2 className="w-6 h-6 mx-auto text-purple-400 mb-2" />
+            <Share2 className="w-6 h-6 mx-auto text-sky-400 mb-2" />
             <p className="text-2xl font-bold">{analytics.shares.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Shares</p>
           </GlassCard>
@@ -802,7 +802,7 @@ export default function MarketingHub() {
                 <p className="text-sm text-muted-foreground">Total Comments</p>
               </GlassCard>
               <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-shares">
-                <Share2 className="w-8 h-8 mx-auto text-purple-400 mb-2" />
+                <Share2 className="w-8 h-8 mx-auto text-sky-400 mb-2" />
                 <p className="text-3xl font-bold">{analytics.shares.toLocaleString()}</p>
                 <p className="text-sm text-muted-foreground">Total Shares</p>
               </GlassCard>

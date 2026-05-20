@@ -151,7 +151,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   { 
-    id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#8b5cf6", 
+    id: "lead-capture", name: "Lead Capture", icon: UserPlus, containerId: "demo-lead-capture", color: "#0ea5e9", 
     description: "Convert visitors into qualified leads", price: 99, priceId: "price_widget_lead_capture",
     fullDescription: "Turn website visitors into qualified leads with smart forms that adapt to user behavior. Multi-step forms, conditional logic, and instant notifications help you never miss an opportunity.",
     features: ["Multi-step form wizard", "Conditional field logic", "Email & SMS notifications", "CRM integration ready", "Spam protection built-in", "Mobile-optimized design", "A/B testing support"],
@@ -228,7 +228,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   { 
-    id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#8b5cf6", 
+    id: "proposal", name: "Proposal Builder", icon: FileText, containerId: "demo-proposal", color: "#0ea5e9", 
     description: "Create professional proposals", price: 199, priceId: "price_widget_proposal",
     fullDescription: "Create stunning proposals in minutes, not hours. Customizable templates, dynamic pricing tables, e-signature capture, and Stripe integration for instant deposits.",
     features: ["Customizable templates", "Dynamic pricing tables", "E-signature capture", "Stripe payment integration", "Deposit collection", "Expiration tracking", "Client portal", "Automated follow-ups"],
@@ -301,7 +301,7 @@ const widgetsList = [
     ]
   },
   { 
-    id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#8b5cf6", 
+    id: "pulse-enterprise", name: "Pulse Enterprise", icon: Shield, containerId: "demo-pulse-enterprise", color: "#0ea5e9", 
     description: "White-label quant system for institutions", price: 3999, priceId: "price_1SwJOfPCLBtdVWVNEGp2zZUu",
     fullDescription: "Deploy Pulse under your own brand. Full white-label rights, dedicated infrastructure, custom model training, and SLA-backed uptime. Perfect for funds, brokerages, and fintech platforms seeking institutional-grade predictive intelligence.",
     features: ["All Pulse Pro features", "White-label rights", "Custom branding", "Dedicated infrastructure", "Custom model training", "99.9% SLA uptime", "Priority 24/7 support", "Compliance documentation", "On-premise deployment option"],
@@ -391,7 +391,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "ocr-scanner", name: "OCR Scanner", icon: Scan, containerId: "demo-ocr-scanner", color: "#8b5cf6",
+    id: "ocr-scanner", name: "OCR Scanner", icon: Scan, containerId: "demo-ocr-scanner", color: "#0ea5e9",
     description: "Camera-based text and document scanning", price: 99, priceId: "price_widget_ocr_scanner",
     fullDescription: "Turn any device camera into a document scanner. Extracts text from photos of receipts, VINs, license plates, business cards, and invoices. Built from a production OCR system for scanning vehicle stock numbers.",
     features: ["Camera text capture", "Receipt scanning", "VIN/plate recognition", "Business card reader", "Invoice data extraction", "Multi-language support", "Batch scanning mode", "Clipboard integration"],
@@ -501,7 +501,7 @@ const widgetsList = [
     complexity: "Beginner-friendly"
   },
   {
-    id: "multi-wallet", name: "Multi-Chain Wallet", icon: Wallet, containerId: "demo-multi-wallet", color: "#8b5cf6",
+    id: "multi-wallet", name: "Multi-Chain Wallet", icon: Wallet, containerId: "demo-multi-wallet", color: "#0ea5e9",
     description: "Unified wallet for Solana + 22 EVM chains", price: 299, priceId: "price_widget_multi_wallet",
     fullDescription: "Connect and manage wallets across Solana and 22 EVM-compatible chains from a single interface. Portfolio tracking, token balances, transaction history, and one-click swaps. Extracted from Pulse's production multi-chain wallet system.",
     features: ["Solana wallet support", "22 EVM chain support", "Unified portfolio view", "Token balance tracking", "Transaction history", "One-click chain switching", "WalletConnect integration", "Phantom/MetaMask support", "Portfolio value charts"],
@@ -512,7 +512,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "effects-kit", name: "Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#a855f7",
+    id: "effects-kit", name: "Effects Kit", icon: Sparkles, containerId: "demo-effects-kit", color: "#38bdf8",
     description: "Complete UI effects system — glass, 3D hover, shimmer, scroll animations, haptics & micro-interactions", price: 149, priceId: "price_widget_effects_kit",
     fullDescription: "Drop-in UI polish kit used across the entire production platform. Includes glassmorphism panels, 3D perspective card hover, purple gradient shimmer loading, IntersectionObserver scroll-triggered animations, navigator.vibrate haptic feedback, and micro-interaction classes (press, lift, ripple). One CSS file + two utility modules — paste into any React or vanilla project and instantly elevate your UI.",
     features: ["Glassmorphism (glass, glass-card, glass-strong)", "3D perspective card tilt on hover", "Purple gradient shimmer skeleton loading", "Scroll-triggered fade, slide & scale animations", "IntersectionObserver hook + ScrollReveal component", "Haptic feedback utility (6 vibration patterns)", "Button press scale effect", "Hover elevation with shadow", "Expanding ripple click effect", "Animated toggle switch", "CSS-only — no runtime dependencies", "Dark & light theme compatible"],
@@ -556,7 +556,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "audio-editor", name: "Audio Editor", icon: Headphones, containerId: "demo-audio-editor", color: "#8b5cf6",
+    id: "audio-editor", name: "Audio Editor", icon: Headphones, containerId: "demo-audio-editor", color: "#0ea5e9",
     description: "Audio trimming with fade, EQ, reverb, and noise gate", price: 199, priceId: "price_widget_audio_editor",
     fullDescription: "Audio trimming with fade, EQ, reverb, and noise gate. Includes waveform visualization with visual scrubbing, fade in/out controls, volume normalization, 3-band EQ, reverb effect, noise gate, and export as new audio file.",
     features: ["Waveform trim with visual scrubbing", "Fade in/out controls", "Volume normalization", "3-band EQ (bass/mid/treble)", "Reverb effect", "Noise gate", "Export as new audio file"],
@@ -644,7 +644,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "franchise-onboard", name: "Franchise Onboarding", icon: Building, containerId: "demo-franchise-onboard", color: "#8b5cf6",
+    id: "franchise-onboard", name: "Franchise Onboarding", icon: Building, containerId: "demo-franchise-onboard", color: "#0ea5e9",
     description: "Multi-step franchise setup wizard with isolated tenant provisioning", price: 349, priceId: "price_widget_franchise_onboard",
     fullDescription: "Multi-step franchise setup wizard with isolated tenant provisioning. Guide new franchisees through territory assignment, isolated data provisioning, custom branding per tenant, configuration templates, training checklists, performance dashboards, and document collection.",
     features: ["Multi-step onboarding wizard", "Territory assignment", "Isolated data provisioning", "Custom branding per tenant", "Configuration templates", "Training checklist", "Performance dashboards", "Document collection"],
@@ -710,7 +710,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "media-collections", name: "Collections Manager", icon: FolderOpen, containerId: "demo-media-collections", color: "#a855f7",
+    id: "media-collections", name: "Collections Manager", icon: FolderOpen, containerId: "demo-media-collections", color: "#38bdf8",
     description: "Smart media organization with timeline view and batch actions", price: 99, priceId: "price_widget_media_collections",
     fullDescription: "Smart media organization with timeline view and batch actions. Create and manage collections, drag-and-drop organization, toggle between grid and timeline views, filter by date range, sort with multiple options, bulk select with batch actions, filter by category, and manage tags.",
     features: ["Create/manage collections", "Drag-and-drop organization", "Timeline view with grid/timeline toggle", "Date range filtering", "Multiple sort options", "Bulk selection with batch actions", "Category filtering", "Tag management"],
@@ -787,7 +787,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "provably-fair", name: "Provably Fair Engine", icon: Dice1, containerId: "demo-provably-fair", color: "#8b5cf6",
+    id: "provably-fair", name: "Provably Fair Engine", icon: Dice1, containerId: "demo-provably-fair", color: "#0ea5e9",
     description: "Cryptographic fairness verification for games and contests", price: 199, priceId: "price_widget_provably_fair",
     fullDescription: "Cryptographic provably fair system for games, contests, giveaways, and random selection processes. Uses server seed + client seed + nonce to generate verifiable random outcomes. Players can independently verify every result using SHA-256 hashing. Includes audit trail, fairness verification UI, and compliance documentation. Extracted from The Arcade's production provably fair gaming system.",
     features: ["Server seed + client seed + nonce system", "SHA-256 cryptographic verification", "Player-side verification tool", "Seed rotation with reveal history", "Complete audit trail", "Fairness percentage dashboard", "API for game integration", "Compliance documentation generator", "Multi-game support (dice, slots, crash, card draws)"],
@@ -897,7 +897,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "ambient-soundscape", name: "Ambient Soundscape Engine", icon: Music, containerId: "demo-ambient-soundscape", color: "#a855f7",
+    id: "ambient-soundscape", name: "Ambient Soundscape Engine", icon: Music, containerId: "demo-ambient-soundscape", color: "#38bdf8",
     description: "Procedural audio engine with 21 location soundscapes and day/night variations", price: 149, priceId: "price_widget_ambient_soundscape",
     fullDescription: "Zero-dependency procedural ambient audio engine built entirely on the Web Audio API. Generates 21 unique location soundscapes across multiple environments with automatic day/night variations, seasonal changes, and smooth crossfading between locations. Includes a floating audio controller UI widget with volume, mute, and location selection. No external audio files required — all sounds are procedurally generated in real-time. Built from Chronicles' Procedural Ambient Audio Engine.",
     features: ["21 procedural location soundscapes", "Day/night audio variations", "Web Audio API (zero dependencies)", "Smooth crossfading between locations", "Floating audio controller widget", "Volume and mute controls", "Location-based sound profiles", "Seasonal sound variations", "Memory-optimized with proper cleanup"],
@@ -1018,7 +1018,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "golf-analytics-dashboard", name: "Self-Hosted Analytics Module", icon: BarChart3, containerId: "demo-golf-analytics", color: "#8b5cf6",
+    id: "golf-analytics-dashboard", name: "Self-Hosted Analytics Module", icon: BarChart3, containerId: "demo-golf-analytics", color: "#0ea5e9",
     description: "First-party analytics with sessions, events, UTM tracking, and KPI dashboard", price: 249, priceId: "price_widget_golf_analytics",
     fullDescription: "Drop-in first-party analytics system that runs entirely on your own infrastructure — no third-party scripts, no cookie banners, no data leaving your server. Tracks sessions, page views, custom events, UTM parameters, device/browser detection, and referrer data. Includes a premium admin dashboard with 6 KPI cards, daily trend charts, date range filtering, and real-time session counts. 12 API endpoints handle ingestion, aggregation, and dashboard queries. Extracted from Trust Golf's production self-hosted analytics — proven at scale.",
     features: ["First-party tracking — no third-party scripts", "Session & page view tracking", "Custom event system", "UTM parameter capture", "Device & browser detection", "Referrer tracking", "6 KPI dashboard cards", "Daily trend charts (Recharts)", "Date range filtering", "Real-time session counter", "12 API endpoints", "Privacy-first — no cookies required"],
@@ -1029,7 +1029,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "shared-components", name: "Shared Components System", icon: Layers, containerId: "demo-shared-components", color: "#8b5cf6",
+    id: "shared-components", name: "Shared Components System", icon: Layers, containerId: "demo-shared-components", color: "#0ea5e9",
     description: "Centralized UI component system for ecosystem-wide consistency", price: 199, priceId: "price_widget_shared_components",
     fullDescription: "Centralized shared component system that lets you define any UI element once and deploy it across your entire ecosystem of apps instantly. Footer, header, announcement bar, trust badge, cookie consent, notification banner — create any component in the admin panel, and every app that includes the loader script gets the update in real-time. No redeployments needed. One script tag, unlimited shared components, instant ecosystem-wide consistency.",
     features: ["One script tag installs all shared components", "Admin CRUD for creating/editing components", "Real-time updates — change once, propagate everywhere", "Component types: footer, header, banner, badge, and any custom", "Dark and light theme support via {{theme}} variable", "Bundle endpoint for loading multiple components at once", "Individual render endpoint per component", "Version tracking with auto-increment", "Event system for load/error callbacks", "Auto-placement (footers append, headers prepend)", "5-minute cache with instant cache-busting on update"],
@@ -1040,7 +1040,7 @@ const widgetsList = [
     complexity: "Intermediate"
   },
   {
-    id: "ai-narration-player", name: "AI Narration Player", icon: Volume2, containerId: "demo-ai-narration", color: "#a855f7",
+    id: "ai-narration-player", name: "AI Narration Player", icon: Volume2, containerId: "demo-ai-narration", color: "#38bdf8",
     description: "OpenAI Nova HD text-to-speech narration with chapter controls and voice selection", price: 179, priceId: "price_widget_ai_narration",
     fullDescription: "Drop-in AI narration engine that converts any text content into professional-grade spoken audio using OpenAI's Nova HD voice model. Supports chapter-by-chapter narration with automatic segmentation, playback speed controls (0.5x–2x), voice selection from 6 OpenAI voices, progress tracking with resume-from-last-position, and streaming audio for zero-wait playback. Beautiful floating audio player UI with waveform visualization, chapter navigation, and sleep timer. Perfect for blogs, documentation, ebooks, articles, or any long-form content. Extracted from Trust Book's production narration engine.",
     features: ["OpenAI Nova HD text-to-speech", "6 selectable voice profiles", "Chapter-by-chapter narration", "Playback speed controls (0.5x–2x)", "Streaming audio — zero-wait start", "Progress tracking with resume", "Waveform visualization", "Sleep timer with auto-pause", "Floating mini-player mode", "Chapter navigation with titles", "Background audio playback", "Keyboard shortcuts (space/arrows)"],
@@ -1106,7 +1106,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "staking-calculator", name: "Staking Calculator", icon: TrendingUp, containerId: "demo-staking-calc", color: "#8b5cf6",
+    id: "staking-calculator", name: "Staking Calculator", icon: TrendingUp, containerId: "demo-staking-calc", color: "#0ea5e9",
     description: "Interactive APY calculator for 5 staking pools with earnings projections", price: 149, priceId: "price_widget_staking_calc",
     fullDescription: "Interactive staking calculator widget that lets users explore all 5 Trust Layer staking pools and project earnings over custom time periods. Each pool displays its APY (12%–38%), lock period, minimum stake, and risk level. Users input their SIG amount and see projected daily, weekly, monthly, and yearly earnings with compounding visualizations on animated Recharts line graphs. Includes a pool comparison mode side-by-side, auto-compounding toggle, and a 'What if?' slider for hypothetical SIG price scenarios. Clean glassmorphism cards with gradient pool indicators. Extracted from Trust Layer Hub's production staking interface.",
     features: ["5 staking pools (12%–38% APY)", "Custom stake amount input", "Daily/weekly/monthly/yearly projections", "Compound interest visualization", "Interactive Recharts line graphs", "Pool comparison mode (side-by-side)", "Auto-compounding toggle", "SIG price 'What if?' slider", "Lock period and risk display", "Minimum stake requirements", "Animated earnings counter", "Responsive pool cards"],
@@ -1139,7 +1139,7 @@ const widgetsList = [
     complexity: "Beginner-friendly"
   },
   {
-    id: "3d-model-viewer", name: "3D Model Viewer", icon: Boxes, containerId: "demo-3d-viewer", color: "#8b5cf6",
+    id: "3d-model-viewer", name: "3D Model Viewer", icon: Boxes, containerId: "demo-3d-viewer", color: "#0ea5e9",
     description: "Three.js embeddable 3D viewer with orbit controls, lighting presets, and GLTF/GLB support", price: 249, priceId: "price_widget_3d_viewer",
     fullDescription: "Production-grade embeddable 3D model viewer powered by Three.js with full orbit/pan/zoom controls, 6 lighting presets (studio, outdoor, dramatic, soft, neon, custom), HDR environment maps, and support for GLTF, GLB, and FBX model formats. Includes auto-rotate with adjustable speed, model info overlay (vertices, triangles, materials), wireframe toggle, screenshot capture, fullscreen mode, and responsive container sizing. Drag-and-drop model loading for interactive demos. Ground plane with shadow casting and configurable background colors/gradients. Extracted from TrustGen's production 3D rendering pipeline — Three.js r170, battle-tested with complex models up to 500K triangles.",
     features: ["Three.js r170 rendering engine", "GLTF, GLB, and FBX format support", "Orbit, pan, and zoom controls", "6 lighting presets + custom", "HDR environment maps", "Auto-rotate with speed control", "Model info overlay (verts/tris/materials)", "Wireframe toggle", "Screenshot capture (PNG)", "Fullscreen mode", "Drag-and-drop model loading", "Ground plane with shadow casting", "Responsive container sizing", "Configurable backgrounds"],
@@ -1194,7 +1194,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "post-processing-pipeline", name: "Post-Processing Pipeline", icon: Palette, containerId: "demo-post-processing", color: "#8b5cf6",
+    id: "post-processing-pipeline", name: "Post-Processing Pipeline", icon: Palette, containerId: "demo-post-processing", color: "#0ea5e9",
     description: "7 real-time visual effects with per-effect controls for Three.js scenes", price: 249, priceId: "price_widget_post_processing",
     fullDescription: "Complete real-time post-processing pipeline for Three.js scenes with 7 production-grade visual effects: bloom (threshold, intensity, radius), SSAO (ambient occlusion with kernel size and radius), depth of field (focus distance, aperture, max blur), chromatic aberration (offset and intensity), film grain (intensity and speed), color grading (brightness, contrast, saturation, hue shift with LUT support), and vignette (offset and darkness). Each effect has a dedicated control panel with sliders and toggles. Effects are composable — stack any combination with per-effect enable/disable. Includes 8 visual presets (cinematic, noir, dreamy, vibrant, horror, sci-fi, vintage, clean). Extracted from TrustGen's production post-processing system.",
     features: ["Bloom (threshold, intensity, radius)", "SSAO (kernel size, radius, bias)", "Depth of Field (focus, aperture, blur)", "Chromatic Aberration (offset, intensity)", "Film Grain (intensity, speed)", "Color Grading (B/C/S/hue + LUT)", "Vignette (offset, darkness)", "Per-effect enable/disable toggles", "8 visual presets", "Composable effect stacking", "Real-time preview", "Export/import effect configurations"],
@@ -1260,7 +1260,7 @@ const widgetsList = [
     complexity: "Advanced"
   },
   {
-    id: "self-sustaining-dashboard", name: "Self-Sustaining Dashboard", icon: Activity, containerId: "demo-self-sustaining-dashboard", color: "#8b5cf6",
+    id: "self-sustaining-dashboard", name: "Self-Sustaining Dashboard", icon: Activity, containerId: "demo-self-sustaining-dashboard", color: "#0ea5e9",
     description: "Real-time monitoring dashboard for Lume's 4 self-sustaining runtime layers", price: 349, priceId: "price_widget_self_sustaining_dashboard",
     fullDescription: "Monitor the four layers of Lume's self-sustaining runtime in real time: Self-Monitoring, Self-Healing, Self-Optimizing, and Self-Evolving. Each layer has its own metrics panel with live gauges, sparkline charts, event logs, and health indicators. The Self-Monitoring layer tracks memory usage, CPU cycles, and error rates. Self-Healing shows auto-recovery events, patch applications, and fallback activations. Self-Optimizing displays hot-path detection, cache hit rates, and JIT compilation stats. Self-Evolving visualizes model retraining cycles, fitness scores, and mutation history. Includes a unified timeline view that correlates events across all four layers.",
     features: ["4-layer runtime monitoring", "Self-Monitoring: memory, CPU, errors", "Self-Healing: recovery events, patches", "Self-Optimizing: hot paths, cache, JIT", "Self-Evolving: retraining, fitness, mutations", "Live gauges and sparkline charts", "Event log with filtering", "Health status indicators", "Unified cross-layer timeline", "Configurable refresh intervals", "Alert thresholds with notifications", "Export metrics as JSON/CSV"],
@@ -1551,14 +1551,14 @@ export default function TrustLayerHub() {
       // All widget configurations
       const widgetConfigs = [
         { name: 'tl-estimator', container: 'demo-estimator', color: '#3b82f6', extra: { 'data-trade': 'painting' } },
-        { name: 'tl-lead-capture', container: 'demo-lead-capture', color: '#8b5cf6' },
+        { name: 'tl-lead-capture', container: 'demo-lead-capture', color: '#0ea5e9' },
         { name: 'tl-reviews', container: 'demo-reviews', color: '#10b981' },
         { name: 'tl-booking', container: 'demo-booking', color: '#f59e0b' },
         { name: 'tl-analytics', container: 'demo-analytics', color: '#6366f1' },
         { name: 'tl-chat', container: 'demo-chat', color: '#ec4899' },
         { name: 'tl-crm', container: 'demo-crm', color: '#14b8a6' },
         { name: 'tl-crew-tracker', container: 'demo-crew-tracker', color: '#f97316' },
-        { name: 'tl-proposal', container: 'demo-proposal', color: '#8b5cf6' },
+        { name: 'tl-proposal', container: 'demo-proposal', color: '#0ea5e9' },
         { name: 'tl-seo', container: 'demo-seo', color: '#22c55e' },
         { name: 'tl-weather', container: 'demo-weather', color: '#0ea5e9' },
         { name: 'tl-golf-distance', container: 'demo-golf-distance', color: '#10b981' },
@@ -1566,7 +1566,7 @@ export default function TrustLayerHub() {
         { name: 'tl-golf-course-card', container: 'demo-golf-course-card', color: '#6366f1' },
         { name: 'tl-golf-swing', container: 'demo-golf-swing', color: '#ec4899' },
         { name: 'tl-golf-blog', container: 'demo-golf-blog', color: '#14b8a6' },
-        { name: 'tl-golf-analytics', container: 'demo-golf-analytics', color: '#8b5cf6' },
+        { name: 'tl-golf-analytics', container: 'demo-golf-analytics', color: '#0ea5e9' },
       ];
       
       // Clear existing widget content
@@ -2059,7 +2059,7 @@ export default function TrustLayerHub() {
                   onClick={(e) => { e.stopPropagation(); setWidgetTheme("trustlayer"); }}
                   className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/30" 
+                      ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-lg shadow-cyan-500/30" 
                       : "text-white/60 hover:text-white"
                   }`}
                   data-testid="theme-trustlayer"
@@ -2092,7 +2092,7 @@ export default function TrustLayerHub() {
 
               <div className={`rounded-xl overflow-hidden transition-all relative ${
                 widgetTheme === "trustlayer" 
-                  ? "bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 text-gray-100" 
+                  ? "bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-gray-100" 
                   : widgetTheme === "dark" 
                     ? "bg-slate-900 text-gray-100" 
                     : "bg-white text-gray-800"
@@ -2101,7 +2101,7 @@ export default function TrustLayerHub() {
               {widgetTheme === "trustlayer" && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                   <div className="absolute -top-20 -left-20 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-                  <div className="absolute top-1/2 -right-10 w-32 h-32 bg-purple-500/15 rounded-full blur-3xl"></div>
+                  <div className="absolute top-1/2 -right-10 w-32 h-32 bg-sky-500/15 rounded-full blur-3xl"></div>
                   <div className="absolute -bottom-10 left-1/3 w-36 h-36 bg-pink-500/10 rounded-full blur-3xl"></div>
                 </div>
               )}
@@ -2109,7 +2109,7 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "estimator" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-4">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Project Estimator</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Project Estimator</div>
                     <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Get instant pricing</div>
                   </div>
                   <div className="space-y-3 flex-1">
@@ -2127,7 +2127,7 @@ export default function TrustLayerHub() {
                       <span className={widgetTheme === "trustlayer" ? "text-gray-300" : ""}>Square Feet</span>
                       <input type="number" className={`rounded-full px-3 py-1.5 w-24 text-xs text-center transition-all ${
                         widgetTheme === "trustlayer" 
-                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 text-purple-200 shadow-lg shadow-purple-500/10" 
+                          ? "bg-white/10 backdrop-blur-sm border border-sky-500/30 text-sky-200 shadow-lg shadow-sky-500/10" 
                           : widgetTheme === "dark" 
                             ? "bg-slate-800 border-slate-700 text-white" 
                             : "border bg-white"
@@ -2145,18 +2145,18 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`rounded-xl p-4 mt-4 transition-all ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-gradient-to-br from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-400/30 shadow-xl shadow-cyan-500/20" 
+                        ? "bg-gradient-to-br from-cyan-500/20 to-sky-500/20 backdrop-blur-sm border border-cyan-400/30 shadow-xl shadow-cyan-500/20" 
                         : widgetTheme === "dark" 
                           ? "bg-blue-900/50" 
                           : "bg-blue-50"
                     }`}>
                       <div className={`text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-cyan-300" : widgetTheme === "dark" ? "text-blue-400" : "text-blue-600"}`}>Estimated Total</div>
-                      <div className={`text-3xl font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg" : widgetTheme === "dark" ? "text-blue-300" : "text-blue-700"}`}>$2,450</div>
+                      <div className={`text-3xl font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-300 via-sky-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg" : widgetTheme === "dark" ? "text-blue-300" : "text-blue-700"}`}>$2,450</div>
                     </div>
                   </div>
                   <button className={`w-full py-2.5 rounded-full text-sm font-semibold mt-3 transition-all ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.02]" 
+                      ? "bg-gradient-to-r from-cyan-500 to-sky-500 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-[1.02]" 
                       : "bg-blue-600 text-white hover:bg-blue-700"
                   }`}>Get Full Quote</button>
                 </div>
@@ -2165,13 +2165,13 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "lead-capture" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-4">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Get a Free Consultation</div>
-                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>We'll get back to you within 24 hours</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Get a Free Consultation</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>We'll get back to you within 24 hours</div>
                   </div>
                   <div className="space-y-3 flex-1">
                     <input className={`w-full px-4 py-2.5 text-sm transition-all ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 rounded-full text-purple-100 placeholder-purple-300/50 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 shadow-lg shadow-purple-500/10" 
+                        ? "bg-white/10 backdrop-blur-sm border border-sky-500/30 rounded-full text-sky-100 placeholder-sky-300/50 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 shadow-lg shadow-sky-500/10" 
                         : widgetTheme === "dark"
                           ? "bg-slate-800 border border-slate-700 rounded-lg text-white"
                           : "border rounded-lg bg-white"
@@ -2200,8 +2200,8 @@ export default function TrustLayerHub() {
                   </div>
                   <button className={`w-full py-2.5 text-sm font-semibold mt-3 transition-all ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]" 
-                      : "bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                      ? "bg-gradient-to-r from-sky-500 via-pink-500 to-cyan-500 text-white rounded-full shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]" 
+                      : "bg-sky-600 text-white rounded-lg hover:bg-sky-700"
                   }`}>Submit Request</button>
                 </div>
               )}
@@ -2279,7 +2279,7 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "analytics" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full relative z-10">
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Analytics</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-300 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Analytics</div>
                     <select className={`text-xs px-3 py-1.5 transition-all ${
                       widgetTheme === "trustlayer"
                         ? "bg-white/10 border border-indigo-500/30 rounded-full text-indigo-200"
@@ -2307,17 +2307,17 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`rounded-xl p-2 text-center transition-all ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
-                        : widgetTheme === "dark" ? "bg-purple-900/50" : "bg-purple-50"
+                        ? "bg-sky-500/20 border border-sky-500/30 shadow-lg shadow-sky-500/10" 
+                        : widgetTheme === "dark" ? "bg-sky-900/50" : "bg-sky-50"
                     }`}>
-                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>$12.4k</div>
-                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Revenue</div>
+                      <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "text-sky-300" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>$12.4k</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-sky-300/60" : "text-gray-500"}`}>Revenue</div>
                     </div>
                   </div>
                   <div className="h-24 flex items-end gap-1">
                     {[40,65,45,80,60,90,75].map((h,i)=><div key={i} className={`flex-1 rounded-t transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-gradient-to-t from-indigo-600 to-purple-500 shadow-lg shadow-indigo-500/30"
+                        ? "bg-gradient-to-t from-indigo-600 to-sky-500 shadow-lg shadow-indigo-500/30"
                         : "bg-indigo-500"
                     }`} style={{height:`${h}%`}}></div>)}
                   </div>
@@ -2330,7 +2330,7 @@ export default function TrustLayerHub() {
                   <div className={`flex items-center gap-2 mb-3 pb-2 border-b ${widgetTheme === "trustlayer" ? "border-pink-500/30" : widgetTheme === "dark" ? "border-slate-700" : ""}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg shadow-pink-500/30" 
+                        ? "bg-gradient-to-r from-pink-500 to-sky-500 shadow-lg shadow-pink-500/30" 
                         : "bg-pink-500"
                     }`}>AI</div>
                     <div>
@@ -2342,21 +2342,21 @@ export default function TrustLayerHub() {
                     <div className="flex gap-2">
                       <div className={`rounded-2xl rounded-tl-sm p-3 text-xs max-w-[80%] ${
                         widgetTheme === "trustlayer" 
-                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/20 text-purple-100" 
+                          ? "bg-white/10 backdrop-blur-sm border border-sky-500/20 text-sky-100" 
                           : widgetTheme === "dark" ? "bg-slate-700 text-white" : "bg-gray-100"
                       }`}>Hi! How can I help you today?</div>
                     </div>
                     <div className="flex gap-2 justify-end">
                       <div className={`rounded-2xl rounded-tr-sm p-3 text-xs max-w-[80%] ${
                         widgetTheme === "trustlayer" 
-                          ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30" 
+                          ? "bg-gradient-to-r from-pink-500 to-sky-500 text-white shadow-lg shadow-pink-500/30" 
                           : "bg-pink-500 text-white"
                       }`}>I need a quote for my project</div>
                     </div>
                     <div className="flex gap-2">
                       <div className={`rounded-2xl rounded-tl-sm p-3 text-xs max-w-[80%] ${
                         widgetTheme === "trustlayer" 
-                          ? "bg-white/10 backdrop-blur-sm border border-purple-500/20 text-purple-100" 
+                          ? "bg-white/10 backdrop-blur-sm border border-sky-500/20 text-sky-100" 
                           : widgetTheme === "dark" ? "bg-slate-700 text-white" : "bg-gray-100"
                       }`}>I'd be happy to help! What type of project are you looking for?</div>
                     </div>
@@ -2369,7 +2369,7 @@ export default function TrustLayerHub() {
                     }`} placeholder="Type a message..." />
                     <button className={`rounded-full w-9 h-9 flex items-center justify-center text-sm transition-all ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40" 
+                        ? "bg-gradient-to-r from-pink-500 to-sky-500 text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40" 
                         : "bg-pink-500 text-white"
                     }`}>→</button>
                   </div>
@@ -2458,15 +2458,15 @@ export default function TrustLayerHub() {
               {/* Proposal Demo */}
               {widgetsList[selectedWidget].id === "proposal" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
-                  <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Proposal Builder</div>
+                  <div className={`text-lg font-bold mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Proposal Builder</div>
                   <div className={`rounded-xl p-4 mb-3 flex-1 ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-white/5 backdrop-blur-sm border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                      ? "bg-white/5 backdrop-blur-sm border border-sky-500/30 shadow-lg shadow-sky-500/10" 
                       : widgetTheme === "dark" ? "bg-slate-800/50 border border-slate-700" : "border"
                   }`}>
                     <div className="flex justify-between text-sm mb-3">
-                      <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-purple-100" : widgetTheme === "dark" ? "text-white" : ""}`}>Kitchen Renovation</span>
-                      <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>$8,500</span>
+                      <span className={`font-semibold ${widgetTheme === "trustlayer" ? "text-sky-100" : widgetTheme === "dark" ? "text-white" : ""}`}>Kitchen Renovation</span>
+                      <span className={`font-bold ${widgetTheme === "trustlayer" ? "text-sky-300" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>$8,500</span>
                     </div>
                     <div className={`space-y-1.5 text-xs ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
                       <div className="flex justify-between"><span>Cabinet Painting</span><span>$2,500</span></div>
@@ -2476,14 +2476,14 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`border-t mt-3 pt-3 flex justify-between text-sm font-semibold ${
                       widgetTheme === "trustlayer" 
-                        ? "border-purple-500/30 text-purple-200" 
+                        ? "border-sky-500/30 text-sky-200" 
                         : widgetTheme === "dark" ? "border-slate-700 text-white" : ""
-                    }`}><span>Total</span><span className={widgetTheme === "trustlayer" ? "text-purple-300" : ""}>$8,500</span></div>
+                    }`}><span>Total</span><span className={widgetTheme === "trustlayer" ? "text-sky-300" : ""}>$8,500</span></div>
                   </div>
                   <button className={`w-full py-2.5 text-sm font-semibold transition-all ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]" 
-                      : "bg-purple-600 text-white rounded-lg"
+                      ? "bg-gradient-to-r from-sky-500 to-cyan-500 text-white rounded-full shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]" 
+                      : "bg-sky-600 text-white rounded-lg"
                   }`}>Send Proposal</button>
                 </div>
               )}
@@ -2577,11 +2577,11 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`rounded-xl p-2 text-center ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                        ? "bg-sky-500/20 border border-sky-500/30 shadow-lg shadow-sky-500/10" 
                         : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
                     }`}>
-                      <div className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "text-purple-300 drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>94.1%</div>
-                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Confidence</div>
+                      <div className={`text-xl font-bold ${widgetTheme === "trustlayer" ? "text-sky-300 drop-shadow-[0_0_8px_rgba(125,211,252,0.5)]" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>94.1%</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-sky-300/60" : "text-gray-500"}`}>Confidence</div>
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -2640,7 +2640,7 @@ export default function TrustLayerHub() {
                     <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>{"{"}</div>
                     <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"asset": <span className={widgetTheme === "trustlayer" ? "text-amber-300" : "text-amber-400"}>"BTC/USD"</span>,</div>
                     <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"signal": <span className={widgetTheme === "trustlayer" ? "text-green-300" : "text-green-400"}>"LONG"</span>,</div>
-                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"confidence": <span className={widgetTheme === "trustlayer" ? "text-purple-300" : "text-purple-400"}>0.89</span>,</div>
+                    <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"confidence": <span className={widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-400"}>0.89</span>,</div>
                     <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"timestamp": <span className={widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-400"}>"2026-02-02T09:15:00Z"</span>,</div>
                     <div className={`text-[10px] pl-3 ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>"hash": <span className={widgetTheme === "trustlayer" ? "text-pink-300" : "text-pink-400"}>"0x7f3a9c..."</span></div>
                     <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-cyan-300" : "text-green-400"}`}>{"}"}</div>
@@ -2668,25 +2668,25 @@ export default function TrustLayerHub() {
               )}
               {/* Pulse Enterprise Demo */}
               {widgetsList[selectedWidget].id === "pulse-enterprise" && (
-                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-purple-50 to-indigo-50" : ""}`}>
+                <div className={`p-4 pt-10 lg:pt-4 h-full relative z-10 ${widgetTheme === "light" ? "bg-gradient-to-br from-sky-50 to-indigo-50" : ""}`}>
                   <div className="flex items-center justify-between mb-3">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Enterprise Suite</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(14,165,233,0.3)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Enterprise Suite</div>
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/30" 
-                        : "bg-purple-200 text-purple-800"
+                        ? "bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-lg shadow-sky-500/30" 
+                        : "bg-sky-200 text-sky-800"
                     }`}>WHITE-LABEL</span>
                   </div>
                   <div className={`rounded-xl p-3 mb-3 ${
                     widgetTheme === "trustlayer" 
-                      ? "bg-white/5 backdrop-blur-sm border border-purple-500/30 shadow-xl shadow-purple-500/10" 
+                      ? "bg-white/5 backdrop-blur-sm border border-sky-500/30 shadow-xl shadow-sky-500/10" 
                       : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
                   }`}>
-                    <div className={`text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-purple-300/70" : "text-gray-500"}`}>Your Brand Here</div>
+                    <div className={`text-xs mb-1 ${widgetTheme === "trustlayer" ? "text-sky-300/70" : "text-gray-500"}`}>Your Brand Here</div>
                     <div className={`h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-gradient-to-r from-purple-600 via-indigo-500 to-cyan-500 shadow-lg shadow-purple-500/30" 
-                        : "bg-gradient-to-r from-purple-500 to-indigo-500"
+                        ? "bg-gradient-to-r from-sky-600 via-indigo-500 to-cyan-500 shadow-lg shadow-sky-500/30" 
+                        : "bg-gradient-to-r from-sky-500 to-indigo-500"
                     }`}>ACME PREDICTIONS™</div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 mb-3">
@@ -2700,11 +2700,11 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`rounded-xl p-2 text-center ${
                       widgetTheme === "trustlayer" 
-                        ? "bg-purple-500/20 border border-purple-500/30 shadow-lg shadow-purple-500/10" 
+                        ? "bg-sky-500/20 border border-sky-500/30 shadow-lg shadow-sky-500/10" 
                         : widgetTheme === "dark" ? "bg-slate-800" : "bg-white shadow-sm"
                     }`}>
-                      <div className={`font-bold ${widgetTheme === "trustlayer" ? "text-purple-300 drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>24/7</div>
-                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-purple-300/60" : "text-gray-500"}`}>Priority Support</div>
+                      <div className={`font-bold ${widgetTheme === "trustlayer" ? "text-sky-300 drop-shadow-[0_0_8px_rgba(125,211,252,0.5)]" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>24/7</div>
+                      <div className={`text-[10px] ${widgetTheme === "trustlayer" ? "text-sky-300/60" : "text-gray-500"}`}>Priority Support</div>
                     </div>
                   </div>
                   <div className={`space-y-1.5 text-[10px] ${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
@@ -2733,9 +2733,9 @@ export default function TrustLayerHub() {
                     <div className="flex gap-1">
                       <span className={`px-2 py-0.5 rounded text-[8px] font-semibold ${
                         widgetTheme === "trustlayer"
-                          ? "bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30"
-                          : widgetTheme === "dark" ? "bg-purple-900/30 text-purple-400 border border-purple-500/30"
-                          : "bg-purple-100 text-purple-700"
+                          ? "bg-gradient-to-r from-sky-500/20 to-pink-500/20 text-sky-300 border border-sky-500/30"
+                          : widgetTheme === "dark" ? "bg-sky-900/30 text-sky-400 border border-sky-500/30"
+                          : "bg-sky-100 text-sky-700"
                       }`}>SSO</span>
                       <span className={`px-2 py-0.5 rounded text-[8px] font-semibold ${
                         widgetTheme === "trustlayer"
@@ -2760,7 +2760,7 @@ export default function TrustLayerHub() {
                             : "text-gray-500 hover:bg-gray-100"
                         }`}>{ch}</div>
                       ))}
-                      <div className={`text-[8px] font-semibold uppercase tracking-wider mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-purple-400/60" : widgetTheme === "dark" ? "text-purple-400/50" : "text-purple-600/70"}`}>App Support</div>
+                      <div className={`text-[8px] font-semibold uppercase tracking-wider mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-sky-400/60" : widgetTheme === "dark" ? "text-sky-400/50" : "text-sky-600/70"}`}>App Support</div>
                       <div className={`text-[8px] px-1.5 py-1 rounded cursor-pointer transition-all ${
                         widgetTheme === "trustlayer"
                           ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
@@ -2806,7 +2806,7 @@ export default function TrustLayerHub() {
                           : widgetTheme === "dark" ? "bg-slate-800/30" : "bg-white border"
                       }`}>
                         {[
-                          { user: "Sarah", msg: "Need help with my booking widget config", time: "2:31 PM", color: "from-pink-500 to-purple-500", badge: "GarageBot" },
+                          { user: "Sarah", msg: "Need help with my booking widget config", time: "2:31 PM", color: "from-pink-500 to-sky-500", badge: "GarageBot" },
                           { user: "🤖 SignalBot", msg: "Ticket #284 created. @DWS team notified.", time: "2:31 PM", color: "from-green-500 to-emerald-500", isBot: true },
                           { user: "Alex", msg: "Checking your setup now — same TL account right?", time: "2:33 PM", color: "from-blue-500 to-cyan-500", badge: "DWS Team" },
                         ].map((m, i) => (
@@ -2827,7 +2827,7 @@ export default function TrustLayerHub() {
                                   <span className={`text-[7px] px-1 py-0.5 rounded font-medium ${
                                     (m as any).badge === "DWS Team"
                                       ? widgetTheme === "trustlayer" ? "bg-cyan-500/20 text-cyan-300" : widgetTheme === "dark" ? "bg-cyan-500/20 text-cyan-400" : "bg-cyan-100 text-cyan-700"
-                                      : widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300" : widgetTheme === "dark" ? "bg-purple-500/20 text-purple-400" : "bg-purple-100 text-purple-700"
+                                      : widgetTheme === "trustlayer" ? "bg-sky-500/20 text-sky-300" : widgetTheme === "dark" ? "bg-sky-500/20 text-sky-400" : "bg-sky-100 text-sky-700"
                                   }`}>{(m as any).badge}</span>
                                 )}
                                 <span className={`text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-slate-500" : "text-gray-400"}`}>{m.time}</span>
@@ -3126,23 +3126,23 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "ocr-scanner" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-3">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>OCR Scanner</div>
-                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Camera-based text capture</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>OCR Scanner</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Camera-based text capture</div>
                   </div>
                   <div className="space-y-3 flex-1">
                     <div className={`rounded-xl p-4 flex items-center justify-center relative transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "border-2 border-dashed border-purple-500/40 bg-white/5 backdrop-blur-sm"
+                        ? "border-2 border-dashed border-sky-500/40 bg-white/5 backdrop-blur-sm"
                         : widgetTheme === "dark"
                           ? "border-2 border-dashed border-slate-600 bg-slate-800/40"
                           : "border-2 border-dashed border-gray-300 bg-gray-50"
                     }`} style={{ minHeight: "80px" }}>
-                      <div className={`absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
-                      <div className={`absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
-                      <div className={`absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
-                      <div className={`absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-purple-400" : widgetTheme === "dark" ? "border-purple-400" : "border-purple-500"}`}></div>
+                      <div className={`absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-sky-400" : widgetTheme === "dark" ? "border-sky-400" : "border-sky-500"}`}></div>
+                      <div className={`absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-sky-400" : widgetTheme === "dark" ? "border-sky-400" : "border-sky-500"}`}></div>
+                      <div className={`absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 ${widgetTheme === "trustlayer" ? "border-sky-400" : widgetTheme === "dark" ? "border-sky-400" : "border-sky-500"}`}></div>
+                      <div className={`absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 ${widgetTheme === "trustlayer" ? "border-sky-400" : widgetTheme === "dark" ? "border-sky-400" : "border-sky-500"}`}></div>
                       <div className="text-center">
-                        <div className={`text-xs animate-pulse font-semibold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-600"}`}>Scanning...</div>
+                        <div className={`text-xs animate-pulse font-semibold ${widgetTheme === "trustlayer" ? "text-sky-300" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-600"}`}>Scanning...</div>
                         <div className={`text-[10px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-400"}`}>Point camera at text</div>
                       </div>
                     </div>
@@ -3159,21 +3159,21 @@ export default function TrustLayerHub() {
                     <div className="flex justify-end">
                       <span className={`px-2 py-0.5 rounded text-[9px] font-semibold ${
                         widgetTheme === "trustlayer"
-                          ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                          : widgetTheme === "dark" ? "bg-purple-900/30 text-purple-400 border border-purple-500/30"
-                          : "bg-purple-100 text-purple-700"
+                          ? "bg-sky-500/20 text-sky-300 border border-sky-500/30"
+                          : widgetTheme === "dark" ? "bg-sky-900/30 text-sky-400 border border-sky-500/30"
+                          : "bg-sky-100 text-sky-700"
                       }`}>98.7% Match</span>
                     </div>
                   </div>
                   <div className="flex gap-2 mt-3">
                     <button className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]"
-                        : "bg-purple-600 text-white hover:bg-purple-700"
+                        ? "bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]"
+                        : "bg-sky-600 text-white hover:bg-sky-700"
                     }`}>Copy Text</button>
                     <button className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-white/10 backdrop-blur-sm border border-purple-500/30 text-purple-300 hover:bg-white/15"
+                        ? "bg-white/10 backdrop-blur-sm border border-sky-500/30 text-sky-300 hover:bg-white/15"
                         : widgetTheme === "dark"
                           ? "bg-slate-800 border border-slate-700 text-white hover:bg-slate-700"
                           : "bg-white border text-gray-700 hover:bg-gray-50"
@@ -3466,12 +3466,12 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "invoice-generator" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Invoice Generator</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Invoice Generator</div>
                     <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-indigo-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Professional invoicing</div>
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-indigo-300 drop-shadow-[0_0_6px_rgba(129,140,248,0.4)]" : widgetTheme === "dark" ? "text-indigo-400" : "text-indigo-600"}`}>#INV-2024-0089</span>
+                      <span className={`text-xs font-bold ${widgetTheme === "trustlayer" ? "text-indigo-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.4)]" : widgetTheme === "dark" ? "text-indigo-400" : "text-indigo-600"}`}>#INV-2024-0089</span>
                       <span className={`px-2 py-0.5 rounded text-[8px] font-bold ${
                         widgetTheme === "trustlayer"
                           ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
@@ -3509,7 +3509,7 @@ export default function TrustLayerHub() {
                     </div>
                     <div className={`rounded-lg p-2 transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-gradient-to-br from-indigo-500/10 to-violet-500/10 backdrop-blur-sm border border-indigo-400/20 shadow-lg shadow-indigo-500/10"
+                        ? "bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 backdrop-blur-sm border border-indigo-400/20 shadow-lg shadow-indigo-500/10"
                         : widgetTheme === "dark"
                           ? "bg-slate-800/60 border border-indigo-500/20"
                           : "bg-indigo-50 border border-indigo-200"
@@ -3523,7 +3523,7 @@ export default function TrustLayerHub() {
                         <span className={`${widgetTheme === "trustlayer" ? "text-gray-300" : widgetTheme === "dark" ? "text-gray-300" : "text-gray-700"}`}>$494.40</span>
                       </div>
                       <div className={`flex justify-between text-sm font-bold pt-1 border-t ${
-                        widgetTheme === "trustlayer" ? "border-indigo-400/20 text-indigo-300 drop-shadow-[0_0_6px_rgba(129,140,248,0.4)]" : widgetTheme === "dark" ? "border-slate-600 text-indigo-400" : "border-indigo-200 text-indigo-700"
+                        widgetTheme === "trustlayer" ? "border-indigo-400/20 text-indigo-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.4)]" : widgetTheme === "dark" ? "border-slate-600 text-indigo-400" : "border-indigo-200 text-indigo-700"
                       }`}>
                         <span>Total</span>
                         <span>$6,674.40</span>
@@ -3532,7 +3532,7 @@ export default function TrustLayerHub() {
                   </div>
                   <button className={`w-full py-2.5 rounded-lg text-sm font-semibold mt-3 transition-all ${
                     widgetTheme === "trustlayer"
-                      ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-[1.02]"
+                      ? "bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-[1.02]"
                       : "bg-indigo-600 text-white hover:bg-indigo-700"
                   }`}>Download PDF</button>
                 </div>
@@ -3797,16 +3797,16 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "multi-wallet" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Portfolio</div>
-                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Multi-chain overview</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Portfolio</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Multi-chain overview</div>
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className={`rounded-lg p-3 text-center transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-gradient-to-br from-purple-500/10 to-violet-500/10 backdrop-blur-sm border border-purple-400/20 shadow-lg shadow-purple-500/10"
-                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-purple-500/20" : "bg-purple-50 border border-purple-200"
+                        ? "bg-gradient-to-br from-sky-500/10 to-cyan-500/10 backdrop-blur-sm border border-sky-400/20 shadow-lg shadow-sky-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-sky-500/20" : "bg-sky-50 border border-sky-200"
                     }`}>
-                      <div className={`text-2xl font-black ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-violet-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(168,85,247,0.4)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>$12,847.32</div>
+                      <div className={`text-2xl font-black ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(14,165,233,0.4)]" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>$12,847.32</div>
                       <div className={`text-xs font-semibold mt-0.5 ${widgetTheme === "trustlayer" ? "text-green-400" : widgetTheme === "dark" ? "text-green-400" : "text-green-600"}`}>+3.2% (24h)</div>
                     </div>
                     <div className="space-y-1.5">
@@ -3837,13 +3837,13 @@ export default function TrustLayerHub() {
                   <div className="flex gap-2 mt-3">
                     <button className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]"
-                        : "bg-purple-600 text-white hover:bg-purple-700"
+                        ? "bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-[1.02]"
+                        : "bg-sky-600 text-white hover:bg-sky-700"
                     }`}>Send</button>
                     <button className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-all ${
                       widgetTheme === "trustlayer"
-                        ? "bg-white/10 border border-purple-400/30 text-purple-300 hover:bg-purple-500/10"
-                        : widgetTheme === "dark" ? "bg-slate-700 text-purple-400 hover:bg-slate-600" : "bg-purple-100 text-purple-700 hover:bg-purple-200"
+                        ? "bg-white/10 border border-sky-400/30 text-sky-300 hover:bg-sky-500/10"
+                        : widgetTheme === "dark" ? "bg-slate-700 text-sky-400 hover:bg-slate-600" : "bg-sky-100 text-sky-700 hover:bg-sky-200"
                     }`}>Swap</button>
                   </div>
                 </div>
@@ -3852,18 +3852,18 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "effects-kit" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-3">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Effects Kit</div>
-                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-purple-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Interactive demo — try each effect</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-300 to-pink-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Effects Kit</div>
+                    <div className={`text-xs ${widgetTheme === "trustlayer" ? "text-sky-300/70" : widgetTheme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Interactive demo — try each effect</div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 flex-1">
                     <div className={`rounded-lg p-2.5 text-center transition-all cursor-pointer hover:scale-105 ${
                       widgetTheme === "trustlayer"
-                        ? "bg-white/5 backdrop-blur-md border border-purple-400/30 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/30"
-                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-purple-500/20 hover:bg-slate-700/60" : "bg-purple-50 border border-purple-200 hover:bg-purple-100"
+                        ? "bg-white/5 backdrop-blur-md border border-sky-400/30 shadow-lg shadow-sky-500/10 hover:shadow-sky-500/30"
+                        : widgetTheme === "dark" ? "bg-slate-800/60 border border-sky-500/20 hover:bg-slate-700/60" : "bg-sky-50 border border-sky-200 hover:bg-sky-100"
                     }`} style={{ perspective: "600px" }}>
                       <div className="transition-transform duration-300 hover:rotate-y-6 hover:rotate-x-3" style={{ transformStyle: "preserve-3d" }}>
-                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : ""}`}>🪟</div>
-                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-purple-300" : widgetTheme === "dark" ? "text-purple-400" : "text-purple-700"}`}>Glassmorphism</div>
+                        <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(14,165,233,0.5)]" : ""}`}>🪟</div>
+                        <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-sky-300" : widgetTheme === "dark" ? "text-sky-400" : "text-sky-700"}`}>Glassmorphism</div>
                         <div className={`text-[8px] mt-0.5 ${widgetTheme === "trustlayer" ? "text-gray-400" : widgetTheme === "dark" ? "text-gray-500" : "text-gray-500"}`}>blur + transparency</div>
                       </div>
                     </div>
@@ -3881,7 +3881,7 @@ export default function TrustLayerHub() {
                         ? "bg-white/5 backdrop-blur-md border border-pink-400/30"
                         : widgetTheme === "dark" ? "bg-slate-800/60 border border-pink-500/20" : "bg-pink-50 border border-pink-200"
                     }`}>
-                      <div className="absolute inset-0 shimmer-skeleton opacity-30" style={{ background: "linear-gradient(90deg, transparent, rgba(168,85,247,0.3), transparent)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }}></div>
+                      <div className="absolute inset-0 shimmer-skeleton opacity-30" style={{ background: "linear-gradient(90deg, transparent, rgba(14,165,233,0.3), transparent)", backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }}></div>
                       <div className="relative z-10">
                         <div className={`text-lg mb-0.5 ${widgetTheme === "trustlayer" ? "drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]" : ""}`}>✨</div>
                         <div className={`text-[10px] font-bold ${widgetTheme === "trustlayer" ? "text-pink-300" : widgetTheme === "dark" ? "text-pink-400" : "text-pink-700"}`}>Shimmer Load</div>
@@ -3917,7 +3917,7 @@ export default function TrustLayerHub() {
                     </div>
                   </div>
                   <div className={`flex items-center justify-center gap-1 mt-2 px-2 py-1 rounded text-[9px] font-semibold ${
-                    widgetTheme === "trustlayer" ? "bg-purple-500/10 text-purple-300 border border-purple-500/20" : widgetTheme === "dark" ? "bg-purple-900/20 text-purple-400" : "bg-purple-50 text-purple-600 border border-purple-200"
+                    widgetTheme === "trustlayer" ? "bg-sky-500/10 text-sky-300 border border-sky-500/20" : widgetTheme === "dark" ? "bg-sky-900/20 text-sky-400" : "bg-sky-50 text-sky-600 border border-sky-200"
                   }`}>
                     <Sparkles className="w-3 h-3" />
                     <span>6 effect modules · ~420 lines · zero dependencies</span>
@@ -4011,21 +4011,21 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "image-editor" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Image Editor</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Image Editor</div>
                   </div>
-                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-900/30 to-purple-900/30 border border-violet-500/20" : "bg-gray-100 border"}`}>
+                  <div className={`flex-1 rounded-lg overflow-hidden relative ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-900/30 to-sky-900/30 border border-cyan-500/20" : "bg-gray-100 border"}`}>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className={`w-20 h-20 rounded-xl ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-500/40 to-purple-500/40 shadow-lg shadow-purple-500/20" : "bg-gradient-to-br from-cyan-200 to-purple-200"}`} />
+                      <div className={`w-20 h-20 rounded-xl ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-500/40 to-sky-500/40 shadow-lg shadow-sky-500/20" : "bg-gradient-to-br from-cyan-200 to-sky-200"}`} />
                     </div>
                     <div className={`absolute top-2 left-2 flex gap-1`}>
                       {["Crop","Rotate","Filter","Resize"].map(t=>(
-                        <span key={t} className={`text-[8px] px-1.5 py-0.5 rounded ${widgetTheme === "trustlayer" ? "bg-white/10 text-violet-300 border border-violet-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
+                        <span key={t} className={`text-[8px] px-1.5 py-0.5 rounded ${widgetTheme === "trustlayer" ? "bg-white/10 text-cyan-300 border border-cyan-500/20" : "bg-white text-gray-600 border"}`}>{t}</span>
                       ))}
                     </div>
                   </div>
                   <div className="flex gap-2 mt-2">
-                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-violet-500/20 text-violet-300 border border-violet-500/30" : "bg-violet-100 text-violet-700"}`}>Export PNG</button>
-                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Export WebP</button>
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" : "bg-cyan-100 text-cyan-700"}`}>Export PNG</button>
+                    <button className={`flex-1 py-1.5 rounded-lg text-xs font-semibold ${widgetTheme === "trustlayer" ? "bg-sky-500/20 text-sky-300 border border-sky-500/30" : "bg-sky-100 text-sky-700"}`}>Export WebP</button>
                   </div>
                 </div>
               )}
@@ -4100,7 +4100,7 @@ export default function TrustLayerHub() {
                         <span key={t} className={`text-[9px] px-2 py-0.5 rounded-full ${widgetTheme === "trustlayer" ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/20" : "bg-cyan-50 text-cyan-700 border border-cyan-200"}`}>{t}</span>
                       ))}
                     </div>
-                    <div className={`text-[10px] font-semibold mt-1 ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-gray-700"}`}>AI Confidence</div>
+                    <div className={`text-[10px] font-semibold mt-1 ${widgetTheme === "trustlayer" ? "text-sky-300" : "text-gray-700"}`}>AI Confidence</div>
                     {[{tag:"landscape",pct:98},{tag:"sunset",pct:94},{tag:"mountains",pct:87}].map(item=>(
                       <div key={item.tag} className="flex items-center gap-2">
                         <span className={`text-[9px] w-16 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-500"}`}>{item.tag}</span>
@@ -4117,7 +4117,7 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "ai-smart-search" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Smart Search</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>AI Smart Search</div>
                   </div>
                   <div className={`rounded-lg overflow-hidden ${widgetTheme === "trustlayer" ? "bg-white/5 border border-indigo-500/20" : "bg-white border"}`}>
                     <div className={`flex items-center gap-2 p-2.5 border-b ${widgetTheme === "trustlayer" ? "border-indigo-500/20" : "border-gray-200"}`}>
@@ -4225,7 +4225,7 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "franchise-onboard" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Franchise Onboard</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-indigo-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Franchise Onboard</div>
                   </div>
                   <div className="space-y-1.5 flex-1">
                     {[{step:"Business License",done:true},{step:"Location Setup",done:true},{step:"Staff Training",done:false},{step:"POS Integration",done:false},{step:"Grand Opening",done:false}].map((s,i)=>(
@@ -4235,7 +4235,7 @@ export default function TrustLayerHub() {
                       </div>
                     ))}
                   </div>
-                  <div className={`text-center text-[10px] mt-2 ${widgetTheme === "trustlayer" ? "text-violet-300/70" : "text-gray-500"}`}>2 of 5 complete · 40%</div>
+                  <div className={`text-center text-[10px] mt-2 ${widgetTheme === "trustlayer" ? "text-cyan-300/70" : "text-gray-500"}`}>2 of 5 complete · 40%</div>
                 </div>
               )}
 
@@ -4301,15 +4301,15 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "voice-estimate" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-purple-400 to-fuchsia-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Voice Estimate</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-sky-400 to-teal-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Voice Estimate</div>
                   </div>
-                  <div className={`flex-1 flex flex-col items-center justify-center rounded-lg p-4 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-purple-500/20" : "bg-purple-50 border border-purple-200"}`}>
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-purple-500/30 to-fuchsia-500/30 border-2 border-purple-400/40 shadow-lg shadow-purple-500/20 animate-pulse" : "bg-purple-100 border-2 border-purple-300"}`}>
+                  <div className={`flex-1 flex flex-col items-center justify-center rounded-lg p-4 ${widgetTheme === "trustlayer" ? "bg-white/5 border border-sky-500/20" : "bg-sky-50 border border-sky-200"}`}>
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-3 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-sky-500/30 to-teal-500/30 border-2 border-sky-400/40 shadow-lg shadow-sky-500/20 animate-pulse" : "bg-sky-100 border-2 border-sky-300"}`}>
                       <span className="text-2xl">🎙️</span>
                     </div>
-                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-purple-300" : "text-purple-700"}`}>Tap to speak your estimate</div>
+                    <div className={`text-xs font-semibold ${widgetTheme === "trustlayer" ? "text-sky-300" : "text-sky-700"}`}>Tap to speak your estimate</div>
                     <div className={`text-[9px] mt-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>"Paint the master bedroom eggshell white"</div>
-                    <div className={`mt-3 px-4 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" : "bg-purple-100 text-purple-700"}`}>Estimated: $1,200 — $1,800</div>
+                    <div className={`mt-3 px-4 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-sky-500/20 text-sky-300 border border-sky-500/30" : "bg-sky-100 text-sky-700"}`}>Estimated: $1,200 — $1,800</div>
                   </div>
                 </div>
               )}
@@ -4340,7 +4340,7 @@ export default function TrustLayerHub() {
                     {[
                       {name:"Logos",count:24,color:"from-cyan-500/30 to-blue-500/30"},
                       {name:"Photos",count:156,color:"from-green-500/30 to-emerald-500/30"},
-                      {name:"Icons",count:89,color:"from-purple-500/30 to-violet-500/30"},
+                      {name:"Icons",count:89,color:"from-sky-500/30 to-cyan-500/30"},
                     ].map(c=>(
                       <div key={c.name} className={`p-2 rounded-lg text-center ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${c.color} border border-white/10` : "bg-white border"}`}>
                         <div className={`text-sm font-bold ${widgetTheme === "trustlayer" ? "text-white" : "text-gray-800"}`}>{c.count}</div>
@@ -4350,7 +4350,7 @@ export default function TrustLayerHub() {
                   </div>
                   <div className="grid grid-cols-4 gap-1 flex-1">
                     {Array.from({length:8}).map((_,i)=>(
-                      <div key={i} className={`rounded-md ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${["from-cyan-500/20 to-blue-600/20","from-purple-500/20 to-pink-500/20","from-amber-500/20 to-orange-500/20","from-green-500/20 to-teal-500/20"][i%4]}` : "bg-gray-100"}`} />
+                      <div key={i} className={`rounded-md ${widgetTheme === "trustlayer" ? `bg-gradient-to-br ${["from-cyan-500/20 to-blue-600/20","from-sky-500/20 to-pink-500/20","from-amber-500/20 to-orange-500/20","from-green-500/20 to-teal-500/20"][i%4]}` : "bg-gray-100"}`} />
                     ))}
                   </div>
                 </div>
@@ -4404,7 +4404,7 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "shop-onboarding" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Shop Onboarding</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Shop Onboarding</div>
                     <div className={`text-[9px] ${widgetTheme === "trustlayer" ? "text-indigo-300/70" : "text-gray-500"}`}>Step 3 of 6</div>
                   </div>
                   <div className="flex gap-0.5 mb-3">
@@ -4418,7 +4418,7 @@ export default function TrustLayerHub() {
                       <div key={i} className={`text-[10px] py-1 ${widgetTheme === "trustlayer" ? "text-gray-400" : "text-gray-600"}`}>{h}</div>
                     ))}
                   </div>
-                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30" : "bg-indigo-600 text-white"}`}>Continue to Step 4</button>
+                  <button className={`w-full py-2 rounded-lg text-xs font-semibold mt-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/30" : "bg-indigo-600 text-white"}`}>Continue to Step 4</button>
                 </div>
               )}
 
@@ -4504,13 +4504,13 @@ export default function TrustLayerHub() {
               {widgetsList[selectedWidget].id === "provably-fair" && (
                 <div className="p-4 pt-10 lg:pt-4 h-full flex flex-col relative z-10">
                   <div className="text-center mb-2">
-                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Provably Fair</div>
+                    <div className={`text-lg font-bold ${widgetTheme === "trustlayer" ? "bg-gradient-to-r from-cyan-400 to-sky-300 bg-clip-text text-transparent" : widgetTheme === "dark" ? "text-white" : "text-gray-900"}`}>Provably Fair</div>
                   </div>
-                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20" : "bg-violet-50 border border-violet-200"}`}>
+                  <div className={`rounded-lg p-3 mb-2 ${widgetTheme === "trustlayer" ? "bg-gradient-to-br from-cyan-500/10 to-sky-500/10 border border-cyan-500/20" : "bg-cyan-50 border border-cyan-200"}`}>
                     <div className={`text-[9px] font-mono mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Server Seed Hash</div>
-                    <div className={`text-[8px] font-mono break-all ${widgetTheme === "trustlayer" ? "text-violet-300/80" : "text-violet-600"}`}>e3b0c44298fc1c149afbf4c8996fb924</div>
+                    <div className={`text-[8px] font-mono break-all ${widgetTheme === "trustlayer" ? "text-cyan-300/80" : "text-cyan-600"}`}>e3b0c44298fc1c149afbf4c8996fb924</div>
                     <div className={`text-[9px] font-mono mt-2 mb-1 ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>Result</div>
-                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-violet-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]" : "text-violet-600"}`}>🎲 4</div>
+                    <div className={`text-2xl font-black text-center ${widgetTheme === "trustlayer" ? "text-cyan-300 drop-shadow-[0_0_12px_rgba(14,165,233,0.5)]" : "text-cyan-600"}`}>🎲 4</div>
                   </div>
                   <div className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold ${widgetTheme === "trustlayer" ? "bg-green-500/15 text-green-400 border border-green-500/20" : "bg-green-100 text-green-700"}`}>
                     <span>✓</span> Verified Fair — SHA-256
@@ -4531,10 +4531,10 @@ export default function TrustLayerHub() {
                       <span className={`ml-2 text-[8px] ${widgetTheme === "trustlayer" ? "text-gray-500" : "text-gray-400"}`}>app.tsx</span>
                     </div>
                     <div className="p-2 space-y-0.5">
-                      <div><span className="text-purple-400">import</span> <span className="text-cyan-300">React</span> <span className="text-purple-400">from</span> <span className="text-green-300">'react'</span>;</div>
+                      <div><span className="text-sky-400">import</span> <span className="text-cyan-300">React</span> <span className="text-sky-400">from</span> <span className="text-green-300">'react'</span>;</div>
                       <div />
-                      <div><span className="text-purple-400">function</span> <span className="text-yellow-300">App</span>() {"{"}</div>
-                      <div>  <span className="text-purple-400">return</span> (</div>
+                      <div><span className="text-sky-400">function</span> <span className="text-yellow-300">App</span>() {"{"}</div>
+                      <div>  <span className="text-sky-400">return</span> (</div>
                       <div>    &lt;<span className="text-blue-300">div</span> <span className="text-cyan-200">className</span>=<span className="text-green-300">"app"</span>&gt;</div>
                       <div>      &lt;<span className="text-yellow-300">Header</span> /&gt;</div>
                       <div>      &lt;<span className="text-yellow-300">Main</span> /&gt;</div>
@@ -4704,7 +4704,7 @@ export default function TrustLayerHub() {
                     ? "bg-amber-500/20 text-amber-400"
                     : widgetsList[selectedWidget].complexity === "Advanced"
                     ? "bg-orange-500/20 text-orange-400"
-                    : "bg-purple-500/20 text-purple-400"
+                    : "bg-sky-500/20 text-sky-400"
                 }`}>
                   {widgetsList[selectedWidget].complexity}
                 </div>
@@ -4755,13 +4755,13 @@ export default function TrustLayerHub() {
               {/* What's Included */}
               <div className="bg-white/5 rounded-xl p-4">
                 <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                  <Package className="w-4 h-4 text-purple-400" />
+                  <Package className="w-4 h-4 text-sky-400" />
                   What's Included
                 </h5>
                 <ul className="space-y-1.5">
                   {widgetsList[selectedWidget].includes.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                      <Check className="w-3 h-3 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <Check className="w-3 h-3 text-sky-400 mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -4883,7 +4883,7 @@ export default function TrustLayerHub() {
         {/* Side Tab Button */}
         <button
           onClick={() => setAiChatOpen(!aiChatOpen)}
-          className={`flex items-center justify-center w-10 h-24 bg-gradient-to-b from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white shadow-xl shadow-purple-500/30 transition-all rounded-l-xl border border-purple-400/30 ${
+          className={`flex items-center justify-center w-10 h-24 bg-gradient-to-b from-sky-600 to-sky-800 hover:from-sky-500 hover:to-sky-700 text-white shadow-xl shadow-sky-500/30 transition-all rounded-l-xl border border-sky-400/30 ${
             aiChatOpen ? "translate-x-full opacity-0 pointer-events-none" : "translate-x-0 opacity-100"
           }`}
           data-testid="ai-chat-tab"
@@ -4896,18 +4896,18 @@ export default function TrustLayerHub() {
         </button>
 
         {/* Full Chat Panel */}
-        <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-slate-950 via-purple-950/90 to-slate-950 border-l border-purple-500/30 shadow-2xl shadow-purple-500/20 transition-transform duration-300 flex flex-col ${
+        <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-slate-950 via-sky-950/90 to-slate-950 border-l border-sky-500/30 shadow-2xl shadow-sky-500/20 transition-transform duration-300 flex flex-col ${
           aiChatOpen ? "translate-x-0" : "translate-x-full"
         }`} data-testid="ai-chat-panel">
           {/* Chat Header */}
-          <div className="p-4 border-b border-purple-500/20 bg-black/40 flex items-center justify-between">
+          <div className="p-4 border-b border-sky-500/20 bg-black/40 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center shadow-lg shadow-sky-500/30">
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h3 className="font-display font-bold text-white">Trust Layer AI</h3>
-                <p className="text-xs text-purple-300">Powered by Trust Layer</p>
+                <p className="text-xs text-sky-300">Powered by Trust Layer</p>
               </div>
             </div>
             <button
@@ -4925,11 +4925,11 @@ export default function TrustLayerHub() {
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   msg.role === "user"
-                    ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-br-sm"
-                    : "bg-white/10 backdrop-blur-sm text-gray-100 rounded-bl-sm border border-purple-500/20"
+                    ? "bg-gradient-to-r from-sky-600 to-sky-700 text-white rounded-br-sm"
+                    : "bg-white/10 backdrop-blur-sm text-gray-100 rounded-bl-sm border border-sky-500/20"
                 }`}>
                   {msg.role === "assistant" && (
-                    <div className="flex items-center gap-2 mb-2 text-purple-300">
+                    <div className="flex items-center gap-2 mb-2 text-sky-300">
                       <Bot className="w-4 h-4" />
                       <span className="text-xs font-semibold">AI Assistant</span>
                     </div>
@@ -4940,11 +4940,11 @@ export default function TrustLayerHub() {
             ))}
             {aiLoading && (
               <div className="flex justify-start">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-3 border border-purple-500/20">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-3 border border-sky-500/20">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                   </div>
                 </div>
               </div>
@@ -4952,26 +4952,26 @@ export default function TrustLayerHub() {
           </div>
 
           {/* Input Area */}
-          <form onSubmit={handleAiSubmit} className="p-4 border-t border-purple-500/20 bg-black/40">
+          <form onSubmit={handleAiSubmit} className="p-4 border-t border-sky-500/20 bg-black/40">
             <div className="flex items-center gap-2">
               <input
                 type="text"
                 value={aiInput}
                 onChange={(e) => setAiInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 bg-white/5 border border-purple-500/30 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/50 text-sm"
+                className="flex-1 bg-white/5 border border-sky-500/30 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400/50 text-sm"
                 data-testid="ai-chat-input"
               />
               <button
                 type="submit"
                 disabled={!aiInput.trim() || aiLoading}
-                className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 text-white flex items-center justify-center hover:from-purple-500 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30"
+                className="w-12 h-12 rounded-xl bg-gradient-to-r from-sky-600 to-sky-700 text-white flex items-center justify-center hover:from-sky-500 hover:to-sky-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-sky-500/30"
                 data-testid="ai-chat-send"
               >
                 <Send className="w-5 h-5" />
               </button>
             </div>
-            <p className="text-[10px] text-purple-300/60 mt-2 text-center">Powered by 11 Labs Voice AI</p>
+            <p className="text-[10px] text-sky-300/60 mt-2 text-center">Powered by 11 Labs Voice AI</p>
           </form>
         </div>
       </div>

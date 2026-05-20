@@ -242,7 +242,7 @@ function Credits() {
           </GlassCard>
           <GlassCard variant="stat" className="p-6 rounded-xl" data-testid="card-used">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-cyan-600 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
               <span className="text-gray-400 text-sm">Total Used</span>
@@ -250,7 +250,7 @@ function Credits() {
             {loadingBalance ? (
               <div className="h-10 shimmer-skeleton rounded-lg" />
             ) : (
-              <p className="text-4xl font-bold text-purple-400">{balance?.totalUsed ?? 0}</p>
+              <p className="text-4xl font-bold text-sky-400">{balance?.totalUsed ?? 0}</p>
             )}
           </GlassCard>
         </motion.div>
@@ -351,8 +351,8 @@ function Credits() {
                 return (
                   <GlassCard key={tx.id} className="p-4 rounded-xl flex items-center justify-between" data-testid={`tx-${tx.id}`}>
                     <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isPositive ? "bg-green-500/10" : "bg-purple-500/10"}`}>
-                        {isPositive ? <TrendingUp className="w-4 h-4 text-green-400" /> : <TrendingDown className="w-4 h-4 text-purple-400" />}
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isPositive ? "bg-green-500/10" : "bg-sky-500/10"}`}>
+                        {isPositive ? <TrendingUp className="w-4 h-4 text-green-400" /> : <TrendingDown className="w-4 h-4 text-sky-400" />}
                       </div>
                       <div>
                         <p className="text-sm font-medium">{tx.description}</p>
@@ -363,7 +363,7 @@ function Credits() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className={`font-bold ${isPositive ? "text-green-400" : "text-purple-400"}`}>
+                      <p className={`font-bold ${isPositive ? "text-green-400" : "text-sky-400"}`}>
                         {isPositive ? "+" : ""}{tx.amount}
                       </p>
                       <p className="text-xs text-gray-500">Bal: {tx.balanceAfter}</p>
