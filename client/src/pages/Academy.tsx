@@ -538,34 +538,38 @@ export default function Academy() {
         <CarouselControls index={certsCarousel.index} itemCount={certifications.length} scroll={certsCarousel.scroll} />
       </section>
 
-      {/* ═══ COMMUNITY — 3-Column Bento (naturally fits) ═══ */}
+      {/* ═══ ECOSYSTEM TOOLS — 3-Column Bento ═══ */}
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Community</span>
+              <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Ecosystem Tools</span>
             </h2>
-            <p className="text-white/35 max-w-2xl mx-auto">
-              Learning is better together. Join study groups, connect with mentors, and get real-time help in the #academy-support channel.
+            <p style={{ color: 'var(--text-dim)' }} className="max-w-2xl mx-auto">
+              Every learner gets access to the same tools powering the ecosystem. Research, reference, and build — all self-service, all on-demand.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: MessageSquare, title: "ChronoChat", desc: "Real-time support in the #academy-support channel. Ask questions, share progress, get instant feedback from mentors.", meta: "Active community", metaIcon: Users },
-              { icon: Users, title: "Study Groups", desc: "Join cohort-based study groups organized by learning path. Weekly meetups, pair programming, and collaborative projects.", meta: "Cohort-based learning", metaIcon: Sparkles },
-              { icon: Star, title: "Mentorship", desc: "Connect with experienced ecosystem developers for 1-on-1 guidance. Code reviews, career advice, and project mentoring.", meta: "1-on-1 mentoring", metaIcon: Target },
+              { icon: BookOpen, title: "Strata Research Archive", desc: "Browse 36 peer-reviewed ecosystem papers covering deterministic governance, autonomous runtimes, and natural language AST bridging. All DOI-registered on Zenodo.", meta: "strata.tlid.io", metaIcon: Globe, link: "https://strata.tlid.io" },
+              { icon: Layers, title: "TrustBook Knowledge Base", desc: "The canonical reference library for the Trust Layer ecosystem. API documentation, architecture guides, and integration patterns — all in one place.", meta: "trustbook.tlid.io", metaIcon: BookOpen, link: "https://trustbook.tlid.io" },
+              { icon: Rocket, title: "Self-Paced Learning", desc: "Every course is fully self-service. Work through lessons at your own speed, revisit material anytime, and earn certifications when you're ready — no schedules, no pressure.", meta: "Learn on your terms", metaIcon: Clock },
             ].map((item) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <GlassCard glow className="p-6 h-full">
                   <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-cyan-400" />
+                    <item.icon className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                  <p className="text-white/35 text-sm mb-4 leading-relaxed">{item.desc}</p>
-                  <div className="flex items-center gap-2 text-xs text-white/25">
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
+                  <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-dim)' }}>{item.desc}</p>
+                  <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-dim)' }}>
                     <item.metaIcon className="w-3.5 h-3.5" />
-                    <span>{item.meta}</span>
+                    {'link' in item ? (
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{item.meta}</a>
+                    ) : (
+                      <span>{item.meta}</span>
+                    )}
                   </div>
                 </GlassCard>
               </motion.div>
