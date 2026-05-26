@@ -226,9 +226,8 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Light mode section backgrounds */
-.light section { background: transparent !important; }
-.light [class*="bg-gradient-to"] { background: transparent !important; }
+/* Light mode section backgrounds — only target section-level containers, NOT gradient text or buttons */
+.light section > [class*="bg-gradient-to"]:not([class*="bg-clip-text"]):not(a):not(button):not(span):not(h1):not(h2):not(h3) { background: transparent !important; }
 .light .bg-\[rgba\(12] { background: rgba(255,255,255,0.92) !important; }
 
 /* Light mode glow effects — toned down */
