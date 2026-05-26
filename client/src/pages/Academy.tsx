@@ -554,7 +554,7 @@ export default function Academy() {
             {[
               { icon: BookOpen, title: "Strata Research Archive", desc: "Browse 36 peer-reviewed ecosystem papers covering deterministic governance, autonomous runtimes, and natural language AST bridging. All DOI-registered on Zenodo.", meta: "strata.tlid.io", metaIcon: Globe, link: "https://strata.tlid.io" },
               { icon: Layers, title: "TrustBook Knowledge Base", desc: "The canonical reference library for the Trust Layer ecosystem. API documentation, architecture guides, and integration patterns — all in one place.", meta: "trustbook.tlid.io", metaIcon: BookOpen, link: "https://trustbook.tlid.io" },
-              { icon: Rocket, title: "Self-Paced Learning", desc: "Every course is fully self-service. Work through lessons at your own speed, revisit material anytime, and earn certifications when you're ready — no schedules, no pressure.", meta: "Learn on your terms", metaIcon: Clock },
+              { icon: MessageSquare, title: "Signal Chat Study Groups", desc: "Create your own study group and learn alongside other developers. Share progress, discuss coursework, and collaborate on projects — all inside Signal Chat.", meta: "signalchat.tlid.io", metaIcon: Users, link: "https://signalchat.tlid.io" },
             ].map((item) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <GlassCard glow className="p-6 h-full">
