@@ -591,17 +591,17 @@ export default function Academy() {
                 Trust Layer natively supports open academic research. Dive into the 36 officially archived, peer-reviewed ecosystem papers detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
               </p>
               <div className="flex items-center gap-4">
-                <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-cyan-500/40 text-white font-medium hover:bg-white/5 transition-all">
-                  <Archive className="w-4 h-4 text-cyan-400" /> View Strata Hub
+                <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-cyan-500/40" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
+                  <Archive className="w-4 h-4 text-cyan-600 dark:text-cyan-400" /> View Strata Hub
                 </a>
-                <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#10101a] border border-white/10 hover:border-sky-500/40 text-white font-medium hover:bg-white/5 transition-all">
-                  <Globe className="w-4 h-4 text-sky-400" /> Zenodo DOIs
+                <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-sky-500/40" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
+                  <Globe className="w-4 h-4 text-sky-600 dark:text-sky-400" /> Zenodo DOIs
                 </a>
               </div>
             </div>
             <div className="flex-1 w-full relative">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 blur-[80px] rounded-full" />
-              <GlassCard className="relative p-8 border-sky-500/20 bg-[#0a0a10]/80">
+              <GlassCard className="relative p-8 border-sky-500/20">
                 <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/5">
                   <h3 className="text-lg font-bold">Featured Doctrinal Preprints</h3>
                   <BadgeCheck className="w-5 h-5 text-teal-400" />
