@@ -7,7 +7,7 @@ function getStoredTheme(): Theme {
     const stored = localStorage.getItem("dwtl-theme");
     if (stored === "dark" || stored === "light" || stored === "system") return stored;
   } catch {}
-  return "dark";
+  return "light";
 }
 
 function applyTheme(theme: Theme) {

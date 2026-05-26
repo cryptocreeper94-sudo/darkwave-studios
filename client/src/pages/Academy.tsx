@@ -211,47 +211,50 @@ export default function Academy() {
         </div>
       </header>
 
-      {/* ═══ CINEMATIC HERO ═══ */}
+      {/* ═══ CINEMATIC KEN BURNS HERO ═══ */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+        {/* Ken Burns Animated Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/academy/hero-bg.png')" }} />
-          <div className="absolute inset-0 transition-colors duration-300" style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--nav-bg) 50%, transparent), color-mix(in srgb, var(--nav-bg) 40%, transparent), var(--nav-bg))' }} />
+          <motion.div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/academy/hero-bg.png')", scale: 1.15 }}
+            animate={{ scale: [1.15, 1.25, 1.15], x: [0, 30, 0], y: [0, -15, 0] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Light mode: white fade overlay. Dark mode: dark fade overlay */}
+          <div className="absolute inset-0 bg-white/80 dark:bg-transparent transition-colors duration-300" />
+          <div className="absolute inset-0 transition-colors duration-300" style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--nav-bg) 70%, transparent), color-mix(in srgb, var(--nav-bg) 50%, transparent), var(--nav-bg))' }} />
         </div>
-
-        {/* Ambient Orbs */}
-        <motion.div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%)" }} animate={{ x: [0, 60, 0], y: [0, -40, 0], scale: [1, 1.15, 1] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} />
-        <motion.div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(20,184,166,0.08) 0%, transparent 70%)" }} animate={{ x: [0, -50, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }} transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }} />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center px-4 pt-20 pb-16">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8">
-              <GraduationCap className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm text-cyan-300/80 font-medium">academy.tlid.io</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm mb-8 transition-colors duration-300" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)' }}>
+              <GraduationCap className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <span className="text-sm font-medium text-cyan-700 dark:text-cyan-300/80">academy.tlid.io</span>
             </div>
           </motion.div>
 
           <motion.h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
-            <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Trust Layer</span>
+            <span className="bg-gradient-to-r from-cyan-600 via-teal-600 to-sky-600 dark:from-cyan-400 dark:via-teal-400 dark:to-sky-400 bg-clip-text text-transparent">Trust Layer</span>
             <br />
-            <span className="text-white">Academy</span>
+            <span style={{ color: 'var(--text-primary)' }}>Academy</span>
           </motion.h1>
 
-          <motion.p className="text-xl md:text-2xl text-cyan-200/50 font-light mb-3" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
+          <motion.p className="text-xl md:text-2xl font-light mb-3" style={{ color: 'var(--text-muted)' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
             The Learning & Building Nexus
           </motion.p>
-          <motion.p className="text-base md:text-lg text-white/35 max-w-2xl mx-auto mb-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+          <motion.p className="text-base md:text-lg max-w-2xl mx-auto mb-10" style={{ color: 'var(--text-dim)' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
             Master Lume programming, blockchain architecture, AI integration, and full-stack development. Earn Trust Layer verified certifications with blockchain-hallmarked completion badges.
           </motion.p>
 
           {/* Hero CTAs */}
           <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
-            <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold hover:from-cyan-400 hover:to-teal-400 transition-all duration-300 shadow-lg shadow-cyan-500/20 relative overflow-hidden">
+            <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-500 dark:to-teal-500 text-white font-semibold hover:from-cyan-500 hover:to-teal-500 transition-all duration-300 shadow-lg shadow-cyan-500/20 relative overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               <Rocket className="w-4 h-4 relative z-10" />
               <span className="relative z-10">Start Learning</span>
             </a>
-            <a href="#courses" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm text-white font-medium hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+            <a href="#courses" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border font-medium transition-all duration-300" style={{ borderColor: 'var(--glass-border)', background: 'var(--badge-bg)', color: 'var(--text-primary)' }}>
               <BookOpen className="w-4 h-4" /> Browse Courses
             </a>
           </motion.div>
@@ -260,11 +263,11 @@ export default function Academy() {
           <motion.div className="flex flex-wrap items-center justify-center gap-3 sm:gap-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.5 }}>
             {stats.map((stat, i) => (
               <div key={stat.label} className="flex items-center">
-                {i > 0 && <div className="w-px h-8 bg-white/10 mx-4 sm:mx-6 hidden sm:block" />}
+                {i > 0 && <div className="w-px h-8 mx-4 sm:mx-6 hidden sm:block" style={{ background: 'var(--glass-border)' }} />}
                 <div className="flex flex-col items-center px-4">
-                  <stat.icon className="w-4 h-4 text-cyan-400/60 mb-1" />
-                  <span className="text-xl sm:text-2xl font-bold font-mono bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">{stat.value}</span>
-                  <span className="text-[11px] text-white/30 uppercase tracking-wider">{stat.label}</span>
+                  <stat.icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400/60 mb-1" />
+                  <span className="text-xl sm:text-2xl font-bold font-mono bg-gradient-to-r from-cyan-600 to-teal-600 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent">{stat.value}</span>
+                  <span className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--text-dim)' }}>{stat.label}</span>
                 </div>
               </div>
             ))}
