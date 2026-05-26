@@ -552,7 +552,7 @@ export default function Academy() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: BookOpen, title: "Strata Research Archive", desc: "Browse 36 peer-reviewed ecosystem papers covering deterministic governance, autonomous runtimes, and natural language AST bridging. All DOI-registered on Zenodo.", meta: "strata.tlid.io", metaIcon: Globe, link: "https://strata.tlid.io" },
+              { icon: BookOpen, title: "Strata Research Archive", desc: "Browse 93 peer-reviewed ecosystem papers and 4 published books covering deterministic governance, autonomous runtimes, and natural language AST bridging. All DOI-registered on Zenodo.", meta: "strata.tlid.io", metaIcon: Globe, link: "https://strata.tlid.io" },
               { icon: Layers, title: "TrustBook Knowledge Base", desc: "The canonical reference library for the Trust Layer ecosystem. API documentation, architecture guides, and integration patterns — all in one place.", meta: "trustbook.tlid.io", metaIcon: BookOpen, link: "https://trustbook.tlid.io" },
               { icon: MessageSquare, title: "Signal Chat Study Groups", desc: "Create your own study group and learn alongside other developers. Share progress, discuss coursework, and collaborate on projects — all inside Signal Chat.", meta: "signalchat.tlid.io", metaIcon: Users, link: "https://signalchat.tlid.io" },
             ].map((item) => (
@@ -592,7 +592,7 @@ export default function Academy() {
                 <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Publications</span>
               </h2>
               <p className="text-white/40 leading-relaxed mb-8">
-                Trust Layer natively supports open academic research. Dive into the 36 officially archived, peer-reviewed ecosystem papers detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
+                Trust Layer natively supports open academic research. Dive into the 93 officially archived papers and 4 published books detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
               </p>
               <div className="flex items-center gap-4">
                 <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-cyan-500/40" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
