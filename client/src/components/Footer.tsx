@@ -33,11 +33,34 @@ export default function Footer() {
     <footer className="relative z-10 border-t transition-colors duration-300" style={{ borderColor: 'var(--glass-border)', background: 'var(--nav-bg)' }} data-testid="footer">
       <div className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex flex-col items-center gap-3 text-center">
+          {/* Ecosystem Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-2 mb-2 text-[10px] sm:text-xs">
+            <a href="https://axiomstudio.dev" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom 42</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://trustgen.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustGen 3D</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://trustvault.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Trust Vault</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://lume-lang.org" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Cortex</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://lumescan.com" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Scan</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://trustbook.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustBook</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://trustshield.tech" target="_blank" className="hover:text-cyan-600 transition-colors">TrustShield</a>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://chronoverse.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Chronoverse</a>
+          </div>
+
           {/* Company + Links */}
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs" style={{ color: 'var(--text-dim)' }}>
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-semibold" style={{ color: 'var(--text-dim)' }}>
+            <span className="text-cyan-500 border border-cyan-500/30 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-cyan-500/10">Patent Pending</span>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span style={{ color: 'var(--text-muted)' }}>DarkWave Studios, LLC</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span>&copy; 2026</span>
+            <span style={{ color: 'var(--text-dim)' }}>•</span>
+            <a href="https://dwtl.io/presale" className="text-cyan-500 hover:text-cyan-400 transition-colors">$SIG Presale</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <Link href="/terms" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Terms</Link>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
@@ -45,8 +68,8 @@ export default function Footer() {
           </div>
 
           {/* Powered by Lume */}
-          <div className="text-xs" style={{ color: 'var(--text-dim)' }}>
-            Powered by <span className="text-cyan-600 dark:text-cyan-400 font-bold">Lume</span>
+          <div className="text-[10px] mt-1" style={{ color: 'var(--text-dim)' }}>
+            Architected by <span className="text-cyan-600 dark:text-cyan-400 font-bold">DarkWave Systems</span>
           </div>
 
           {/* Hidden shield easter egg */}
