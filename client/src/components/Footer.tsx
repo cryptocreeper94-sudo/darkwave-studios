@@ -1,7 +1,6 @@
 import { Shield } from "lucide-react";
 import { useState, useRef, useCallback } from "react";
 import { Link } from "wouter";
-import LumeWeatherWidget from "./LumeWeatherWidget";
 
 export default function Footer() {
   const clickCountRef = useRef(0);
@@ -33,13 +32,7 @@ export default function Footer() {
     <>
     <footer className="relative z-10 border-t transition-colors duration-300" style={{ borderColor: 'var(--glass-border)', background: 'var(--nav-bg)' }} data-testid="footer">
       <div className="max-w-5xl mx-auto px-4 py-6">
-        <div className="flex flex-col items-center gap-4 text-center">
-          
-          {/* Weather Widget */}
-          <div className="mb-2 w-full flex justify-center z-20">
-            <LumeWeatherWidget />
-          </div>
-
+        <div className="flex flex-col items-center gap-3 text-center">
           {/* Ecosystem Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-2 mb-2 text-[10px] sm:text-xs">
             <a href="https://axiomstudio.dev" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom 42</a>
