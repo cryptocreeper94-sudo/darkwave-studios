@@ -764,10 +764,6 @@ export default function Academy() {
         </DialogContent>
       </Dialog>
 
-      <div className="text-center py-6 text-sm text-slate-500 dark:text-white/40 border-t border-black/5 dark:border-white/10">
-        Brought to you by <a href="https://lume-lang.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-cyan-400 font-semibold transition-colors">lume-lang.com</a> and <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-cyan-400 font-semibold transition-colors">dwtl.io</a>
-      </div>
-
       <Footer />
     </div>
   );
