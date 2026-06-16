@@ -22,7 +22,7 @@ function Credits() {
   const cancelled = params.get("cancelled");
 
   useEffect(() => {
-    const saved = localStorage.getItem("tl-sso-token") || localStorage.getItem("trustvault_token") || localStorage.getItem("signal_chat_token");
+    const saved = localStorage.getItem("tl-sso-token") || localStorage.getItem("axiom42suite_token") || localStorage.getItem("signal_chat_token");
     if (saved) setToken(saved);
   }, []);
 
@@ -39,7 +39,7 @@ function Credits() {
       if (data.success) {
         setToken(data.token);
         localStorage.setItem("tl-sso-token", data.token);
-        localStorage.setItem("trustvault_token", data.token);
+        localStorage.setItem("axiom42suite_token", data.token);
         localStorage.setItem("signal_chat_token", data.token);
         if (data.user) localStorage.setItem("signal_chat_user", JSON.stringify(data.user));
         setLoginError("");

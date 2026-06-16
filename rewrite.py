@@ -30,10 +30,10 @@ const CORE_APPS = [
     tag: "Creative"
   }},
   {{
-    title: "Trust Vault",
+    title: "Axiom42 Suite",
     desc: "Offline-capable media vault with military-grade AES-256 encryption and decentralized syncing.",
     icon: Lock,
-    url: "https://trustvault.tlid.io",
+    url: "https://axiom42suite.tlid.io",
     tag: "Security"
   }},
   {{

@@ -101,14 +101,14 @@ export default function SignalChatSidebar() {
             localStorage.removeItem("tl-sso-token");
             localStorage.removeItem("signal_chat_token");
             localStorage.removeItem("signal_chat_user");
-            localStorage.removeItem("trustvault_token");
+            localStorage.removeItem("axiom42suite_token");
           }
         })
         .catch(() => {
           localStorage.removeItem("tl-sso-token");
           localStorage.removeItem("signal_chat_token");
           localStorage.removeItem("signal_chat_user");
-          localStorage.removeItem("trustvault_token");
+          localStorage.removeItem("axiom42suite_token");
         });
     }
   }, []);
@@ -320,7 +320,7 @@ export default function SignalChatSidebar() {
     localStorage.removeItem("tl-sso-token");
     localStorage.removeItem("signal_chat_token");
     localStorage.removeItem("signal_chat_user");
-    localStorage.removeItem("trustvault_token");
+    localStorage.removeItem("axiom42suite_token");
     setCurrentUser(null);
     setAuthToken(null);
     setMessages([]);

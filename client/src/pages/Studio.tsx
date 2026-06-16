@@ -21,7 +21,7 @@ function Studio() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const saved = localStorage.getItem("tl-sso-token") || localStorage.getItem("trustvault_token") || localStorage.getItem("signal_chat_token");
+    const saved = localStorage.getItem("tl-sso-token") || localStorage.getItem("axiom42suite_token") || localStorage.getItem("signal_chat_token");
     if (saved) setToken(saved);
   }, []);
 
@@ -38,7 +38,7 @@ function Studio() {
       if (data.success) {
         setToken(data.token);
         localStorage.setItem("tl-sso-token", data.token);
-        localStorage.setItem("trustvault_token", data.token);
+        localStorage.setItem("axiom42suite_token", data.token);
         localStorage.setItem("signal_chat_token", data.token);
         if (data.user) localStorage.setItem("signal_chat_user", JSON.stringify(data.user));
         setLoginError("");
@@ -49,9 +49,9 @@ function Studio() {
   });
 
   const { data: connectionStatus, isLoading: checkingConnection } = useQuery({
-    queryKey: ["trustvault-status", token],
+    queryKey: ["axiom42suite-status", token],
     queryFn: async () => {
-      const res = await fetch("/api/trustvault/status", {
+      const res = await fetch("/api/axiom42suite/status", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.json();
@@ -61,11 +61,11 @@ function Studio() {
   });
 
   const { data: mediaData, isLoading: loadingMedia } = useQuery({
-    queryKey: ["trustvault-media", token, mediaCategory],
+    queryKey: ["axiom42suite-media", token, mediaCategory],
     queryFn: async () => {
       const params = new URLSearchParams({ page: "1", limit: "20" });
       if (mediaCategory !== "all") params.set("category", mediaCategory);
-      const res = await fetch(`/api/trustvault/media?${params}`, {
+      const res = await fetch(`/api/axiom42suite/media?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.json();
@@ -74,9 +74,9 @@ function Studio() {
   });
 
   const { data: eventsData } = useQuery({
-    queryKey: ["trustvault-events", token],
+    queryKey: ["axiom42suite-events", token],
     queryFn: async () => {
-      const res = await fetch("/api/trustvault/events", {
+      const res = await fetch("/api/axiom42suite/events", {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.json();
@@ -87,19 +87,19 @@ function Studio() {
 
   const createProjectMutation = useMutation({
     mutationFn: async (projectData: { name: string; type: string }) => {
-      const res = await fetch("/api/trustvault/projects/create", {
+      const res = await fetch("/api/axiom42suite/projects/create", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(projectData),
       });
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["trustvault-media"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["axiom42suite-media"] }),
   });
 
   const uploadMutation = useMutation({
     mutationFn: async (uploadData: { filename: string; contentType: string; size: number }) => {
-      const res = await fetch("/api/trustvault/media/upload", {
+      const res = await fetch("/api/axiom42suite/media/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(uploadData),
@@ -110,7 +110,7 @@ function Studio() {
 
   const embedMutation = useMutation({
     mutationFn: async (projectId: string) => {
-      const res = await fetch("/api/trustvault/editor/embed-token", {
+      const res = await fetch("/api/axiom42suite/editor/embed-token", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ projectId }),
@@ -127,7 +127,7 @@ function Studio() {
   const handleLogout = () => {
     setToken(null);
     localStorage.removeItem("tl-sso-token");
-    localStorage.removeItem("trustvault_token");
+    localStorage.removeItem("axiom42suite_token");
     localStorage.removeItem("signal_chat_token");
     localStorage.removeItem("signal_chat_user");
   };
@@ -149,7 +149,7 @@ function Studio() {
             <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center mb-4">
               <Monitor className="w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold mb-2">TrustVault Studio</h1>
+            <h1 className="text-3xl font-bold mb-2">Axiom42 Suite Studio</h1>
             <p className="text-gray-400">Sign in with your Trust Layer account to access the media editor</p>
           </motion.div>
 
@@ -220,8 +220,8 @@ function Studio() {
               </button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold">TrustVault Studio</h1>
-              <p className="text-gray-400 text-sm">Media editor powered by TrustVault</p>
+              <h1 className="text-3xl font-bold">Axiom42 Suite Studio</h1>
+              <p className="text-gray-400 text-sm">Media editor powered by Axiom42 Suite</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -238,7 +238,7 @@ function Studio() {
         {checkingConnection && (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-sky-400" />
-            <span className="ml-3 text-gray-400">Connecting to TrustVault...</span>
+            <span className="ml-3 text-gray-400">Connecting to Axiom42 Suite...</span>
           </div>
         )}
 
@@ -252,7 +252,7 @@ function Studio() {
               <AlertCircle className="w-12 h-12 text-amber-400 mx-auto mb-4" />
               <h2 className="text-xl font-bold mb-2">Connection Issue</h2>
               <p className="text-gray-400 mb-4">{connectionStatus.error}</p>
-              <p className="text-sm text-gray-500">TrustVault may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
+              <p className="text-sm text-gray-500">Axiom42 Suite may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
             </GlassCard>
           </motion.div>
         )}
@@ -351,7 +351,7 @@ function Studio() {
                   <div className="text-center py-20">
                     <Film className="w-12 h-12 text-gray-600 mx-auto mb-4" />
                     <h3 className="text-lg font-semibold mb-2">No media yet</h3>
-                    <p className="text-gray-400 text-sm mb-4">Upload your first file to get started with TrustVault Studio</p>
+                    <p className="text-gray-400 text-sm mb-4">Upload your first file to get started with Axiom42 Suite Studio</p>
                     <button
                       onClick={() => uploadMutation.mutate({ filename: "new-upload", contentType: "video/mp4", size: 0 })}
                       className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 text-sm font-medium"
@@ -400,14 +400,14 @@ function Studio() {
               >
                 <div className="mb-6">
                   <h2 className="text-xl font-bold mb-2">Embedded Editor</h2>
-                  <p className="text-gray-400 text-sm">Open TrustVault's full media editor directly in DarkWave Studios</p>
+                  <p className="text-gray-400 text-sm">Open Axiom42 Suite's full media editor directly in DarkWave Studios</p>
                 </div>
 
                 <GlassCard className="rounded-xl overflow-hidden">
                   <div className="aspect-video bg-gradient-to-br from-sky-900/20 to-cyan-900/20 flex items-center justify-center">
                     <div className="text-center">
                       <Monitor className="w-16 h-16 text-sky-400 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold mb-2">TrustVault Editor</h3>
+                      <h3 className="text-xl font-bold mb-2">Axiom42 Suite Editor</h3>
                       <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
                         Select a project first, then launch the embedded editor to start editing your media
                       </p>
@@ -428,7 +428,7 @@ function Studio() {
                       className="w-full"
                       style={{ height: "70vh" }}
                       allow="camera; microphone; fullscreen"
-                      title="TrustVault Editor"
+                      title="Axiom42 Suite Editor"
                     />
                   )}
                 </GlassCard>
@@ -445,7 +445,7 @@ function Studio() {
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold">Render Events</h2>
                   <button
-                    onClick={() => queryClient.invalidateQueries({ queryKey: ["trustvault-events"] })}
+                    onClick={() => queryClient.invalidateQueries({ queryKey: ["axiom42suite-events"] })}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition"
                     data-testid="button-refresh-events"
                   >

@@ -143,7 +143,7 @@ const categories: ExploreCategory[] = [
     title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: "Explore the full Trust Layer ecosystem — 42 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 13.7M+ lines of code.",
+    description: "Explore the full Trust Layer ecosystem — 42 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 29.2M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
@@ -286,7 +286,7 @@ const categories: ExploreCategory[] = [
         glowColor: "shadow-cyan-500/20",
       },
       {
-        label: "TrustVault Studio",
+        label: "Axiom42 Suite Studio",
         description: "Media editor — images, audio, video, and merges",
         href: "/studio",
         icon: <Eye className="size-5" />,
@@ -604,7 +604,7 @@ export default function Explore() {
         >
           {[
             { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
-            { icon: <Code2 className="w-5 h-5" />, value: "13.7M+", label: "Lines of Code", gradient: "from-sky-500 to-pink-500" },
+            { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code", gradient: "from-sky-500 to-pink-500" },
             { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
             { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
           ].map((stat, i) => (

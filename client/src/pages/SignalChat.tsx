@@ -100,14 +100,14 @@ export default function SignalChat() {
             localStorage.removeItem("tl-sso-token");
             localStorage.removeItem("signal_chat_token");
             localStorage.removeItem("signal_chat_user");
-            localStorage.removeItem("trustvault_token");
+            localStorage.removeItem("axiom42suite_token");
           }
         })
         .catch(() => {
           localStorage.removeItem("tl-sso-token");
           localStorage.removeItem("signal_chat_token");
           localStorage.removeItem("signal_chat_user");
-          localStorage.removeItem("trustvault_token");
+          localStorage.removeItem("axiom42suite_token");
         });
     }
   }, []);
@@ -312,7 +312,7 @@ export default function SignalChat() {
     localStorage.removeItem("tl-sso-token");
     localStorage.removeItem("signal_chat_token");
     localStorage.removeItem("signal_chat_user");
-    localStorage.removeItem("trustvault_token");
+    localStorage.removeItem("axiom42suite_token");
     setCurrentUser(null);
     setAuthToken(null);
     setMessages([]);
@@ -451,7 +451,7 @@ export default function SignalChat() {
                 <div className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
                   <p className="text-xs text-gray-400">
                     Sign in with your Trust Layer ID or the email from any DarkWave ecosystem app
-                    (Happy Eats, TrustHome, Verdara, TrustVault, etc.)
+                    (Happy Eats, TrustHome, Verdara, Axiom42 Suite, etc.)
                   </p>
                 </div>
 

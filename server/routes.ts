@@ -15,7 +15,7 @@ import { z } from "zod";
 import OpenAI from "openai";
 import multer from "multer";
 import widgetRoutes from "./widgets/widget-routes";
-import { trustVaultFetch, getCapabilities, storeWebhookEvent, getWebhookEvents, validateWebhookPayload } from "./trustvault-client";
+import { trustVaultFetch, getCapabilities, storeWebhookEvent, getWebhookEvents, validateWebhookPayload } from "./axiom42suite-client";
 import { registerLumeRoutes } from "./lume-api";
 
 const uploadDir = "uploads/marketing";
@@ -1509,7 +1509,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     { id: "the-arcade", name: "The Arcade", url: "https://darkwavegames.io", category: "gaming", loc: "~15K", pages: "12" },
     { id: "darkwave-studio", name: "DarkWave Studio", url: "https://studio.tlid.io", category: "core", loc: "7,006", pages: "5" },
     { id: "trusthome", name: "TrustHome", url: "https://trusthome.tlid.io", category: "real-estate", loc: "26,653", pages: "20" },
-    { id: "trustvault", name: "TrustVault", url: "https://trustvault.tlid.io", category: "security", loc: "46,697", pages: "29" },
+    { id: "axiom42suite", name: "Axiom42 Suite", url: "https://axiom42suite.tlid.io", category: "security", loc: "46,697", pages: "29" },
     { id: "guardian-scanner", name: "Guardian Scanner", url: "https://guardianscanner.tlid.io", category: "security", loc: "~5K", pages: "3" },
     { id: "signal-chat", name: "Signal Chat", url: "https://signalchat.tlid.io", category: "social", loc: "~4K", pages: "2" },
     { id: "the-void", name: "THE VOID", url: "https://intothevoid.app", category: "health", loc: "23,532", pages: "27" },
@@ -1599,7 +1599,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
         { displayName: "DarkWave Arcade", description: "12 retro arcade games", icon: "AR", isVerified: true },
         { displayName: "Guardian AI", description: "AI agent security scanner", icon: "GA", isVerified: true },
         { displayName: "Signal Chat", description: "Encrypted real-time messaging", icon: "SC", isVerified: true },
-        { displayName: "TrustVault Studio", description: "Cross-app media editor", icon: "TS", isVerified: true },
+        { displayName: "Axiom42 Suite Studio", description: "Cross-app media editor", icon: "TS", isVerified: true },
         { displayName: "Crypto Exchange", description: "Digital asset trading platform", icon: "CE", isVerified: true },
         { displayName: "Signal Chat", description: "Community messaging platform", icon: "CC", isVerified: true },
         { displayName: "DarkWave Academy", description: "Learning & tutorials platform", icon: "DA", isVerified: true },
@@ -2906,7 +2906,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           { name: "Happy Eats", id: "happy-eats", domain: "happyeats.app" },
           { name: "TL Driver Connect", id: "tl-driver-connect", domain: "tldriverconnect.com" },
           { name: "TrustHome", id: "trusthome", domain: "trusthome.tlid.io" },
-          { name: "TrustVault", id: "trustvault", domain: "trustvault.tlid.io" },
+          { name: "Axiom42 Suite", id: "axiom42suite", domain: "axiom42suite.tlid.io" },
         ],
         apiKey: orbitKey,
         apiSecret: orbitSecret,
@@ -3003,7 +3003,7 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
           { name: "Happy Eats", status: "ready" },
           { name: "TL Driver Connect", status: "ready" },
           { name: "TrustHome", status: "ready" },
-          { name: "TrustVault", status: "ready" },
+          { name: "Axiom42 Suite", status: "ready" },
         ],
         allReady: !!(orbitKey && orbitSecret),
       };
@@ -3569,20 +3569,20 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     }
   });
 
-  // ─── TrustVault Integration ───
-  app.get("/api/trustvault/capabilities", async (_req: Request, res: Response) => {
+  // ─── Axiom42 Suite Integration ───
+  app.get("/api/axiom42suite/capabilities", async (_req: Request, res: Response) => {
     const result = await getCapabilities();
     res.json(result.data);
   });
 
-  app.get("/api/trustvault/status", async (req: Request, res: Response) => {
+  app.get("/api/axiom42suite/status", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch("/api/studio/status", token);
     res.status(result.status).json(result.data);
   });
 
-  app.get("/api/trustvault/media", async (req: Request, res: Response) => {
+  app.get("/api/axiom42suite/media", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const { page = "1", limit = "20", category } = req.query;
@@ -3592,68 +3592,68 @@ IMPORTANT: Return ONLY valid JSON, no markdown formatting.`;
     res.status(result.status).json(result.data);
   });
 
-  app.get("/api/trustvault/media/:id", async (req: Request, res: Response) => {
+  app.get("/api/axiom42suite/media/:id", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch(`/api/studio/media/${req.params.id}`, token);
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/media/upload", async (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/media/upload", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch("/api/studio/media/upload", token, { method: "POST", body: req.body });
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/media/confirm", async (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/media/confirm", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch("/api/studio/media/confirm", token, { method: "POST", body: req.body });
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/projects/create", async (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/projects/create", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch("/api/studio/projects/create", token, { method: "POST", body: req.body });
     res.status(result.status).json(result.data);
   });
 
-  app.get("/api/trustvault/projects/:id/status", async (req: Request, res: Response) => {
+  app.get("/api/axiom42suite/projects/:id/status", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/status`, token);
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/projects/:id/export", async (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/projects/:id/export", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
-    const body = { ...req.body, webhookUrl: "https://darkwavestudios.onrender.com/api/trustvault/webhook" };
+    const body = { ...req.body, webhookUrl: "https://darkwavestudios.onrender.com/api/axiom42suite/webhook" };
     const result = await trustVaultFetch(`/api/studio/projects/${req.params.id}/export`, token, { method: "POST", body });
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/editor/embed-token", async (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/editor/embed-token", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const result = await trustVaultFetch("/api/studio/editor/embed-token", token, { method: "POST", body: req.body });
     res.status(result.status).json(result.data);
   });
 
-  app.post("/api/trustvault/webhook", (req: Request, res: Response) => {
+  app.post("/api/axiom42suite/webhook", (req: Request, res: Response) => {
     const validation = validateWebhookPayload(req.body);
     if (!validation.valid) {
       return res.status(400).json({ error: validation.error });
     }
     const { event, projectId, status, downloadUrl, userId, trustLayerId, timestamp } = req.body;
-    console.log(`[TrustVault Webhook] ${event} — project ${projectId} — status: ${status}`);
+    console.log(`[Axiom42 Suite Webhook] ${event} — project ${projectId} — status: ${status}`);
     storeWebhookEvent({ event, projectId, status, downloadUrl, userId, trustLayerId, timestamp });
     res.json({ received: true });
   });
 
-  app.get("/api/trustvault/events", async (req: Request, res: Response) => {
+  app.get("/api/axiom42suite/events", async (req: Request, res: Response) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) return res.status(401).json({ error: "No token provided" });
     const { verifyToken } = await import("./chat-auth");

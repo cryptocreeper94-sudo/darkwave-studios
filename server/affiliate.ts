@@ -26,7 +26,7 @@ const ECOSYSTEM_REGISTRY = [
   { app: "Trust Layer Hub", domain: "trusthub.tlid.io", prefix: "TH" },
   { app: "Trust Layer (L1)", domain: "dwtl.io", prefix: "TL" },
   { app: "TrustHome", domain: "trusthome.tlid.io", prefix: "TR" },
-  { app: "TrustVault", domain: "trustvault.tlid.io", prefix: "TV" },
+  { app: "Axiom42 Suite", domain: "axiom42suite.tlid.io", prefix: "TV" },
   { app: "TLID.io", domain: "tlid.io", prefix: "TI" },
   { app: "THE VOID", domain: "thevoid.tlid.io", prefix: "VO" },
   { app: "Signal Chat", domain: "signalchat.tlid.io", prefix: "SC" },

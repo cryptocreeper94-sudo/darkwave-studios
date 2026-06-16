@@ -369,10 +369,10 @@ const categories: CommandCategory[] = [
     title: "Creative Studio",
     icon: <Eye className="size-4" />,
     gradient: "from-pink-500 to-rose-500",
-    description: "Creative and media tools. Edit images, audio, and video in TrustVault Studio, and access downloadable guides, templates, and educational resources.",
+    description: "Creative and media tools. Edit images, audio, and video in Axiom42 Suite Studio, and access downloadable guides, templates, and educational resources.",
     cards: [
       {
-        label: "TrustVault Studio",
+        label: "Axiom42 Suite Studio",
         description: "Cross-app media editor — images, audio, video, merge",
         href: "/studio",
         icon: <Eye className="size-5" />,

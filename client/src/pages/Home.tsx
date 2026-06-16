@@ -178,12 +178,12 @@ const projects = [
   },
   {
     id: 19,
-    title: "TrustVault",
+    title: "Axiom42 Suite",
     description: "Universal media vault with image/audio/video editors, Spinny AI agent, 14 AI tools, and 156 API endpoints",
     tech: ["Media", "AI", "Editors", "PWA"],
-    image: "/ecosystem/trustvault.png",
+    image: "/ecosystem/axiom42suite.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
-    url: "https://trustvault.tlid.io"
+    url: "https://axiom42suite.tlid.io"
   },
   {
     id: 20,
@@ -356,10 +356,10 @@ const CORE_APPS = [
     tag: "Creative"
   },
   {
-    title: "Trust Vault",
+    title: "Axiom42 Suite",
     desc: "Offline-capable media vault with military-grade AES-256 encryption and decentralized syncing.",
     icon: Lock,
-    url: "https://trustvault.tlid.io",
+    url: "https://axiom42suite.tlid.io",
     tag: "Security"
   },
   {

@@ -50,11 +50,11 @@ const lumeCurriculum = [
 ];
 
 const ecosystemSkills = [
-  { skill: "Trust Layer SSO", apps: ["Trust Hub", "TrustVault", "GarageBot", "Chronicles", "TrustHome"], icon: Lock },
+  { skill: "Trust Layer SSO", apps: ["Trust Hub", "Axiom42 Suite", "GarageBot", "Chronicles", "TrustHome"], icon: Lock },
   { skill: "ChronoChat Integration", apps: ["All Ecosystem Apps", "Custom Widgets", "Community Bots"], icon: MessageSquare },
   { skill: "Blockchain Hallmarks", apps: ["Trust Layer", "Guardian Shield", "DarkWave Studio", "TrustGen"], icon: Blocks },
   { skill: "Widget Development", apps: ["Trust Layer Hub", "PaintPros", "TradeWorks AI", "GarageBot"], icon: Layers },
-  { skill: "AI Agent Building", apps: ["Guardian Scanner", "StrikeAgent", "Pulse", "TrustVault"], icon: Brain },
+  { skill: "AI Agent Building", apps: ["Guardian Scanner", "StrikeAgent", "Pulse", "Axiom42 Suite"], icon: Brain },
   { skill: "Lume Programming", apps: ["Lume Runtime", "TrustGen", "Bomber", "DarkWave Studio", "Academy"], icon: Terminal },
 ];
 

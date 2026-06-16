@@ -22,7 +22,7 @@ const APPS: AppEntry[] = [
   { id:'trust-layer',    v:'core',       n:'Trust Layer',         i:'🌊', u:'https://dwtl.io',                hook:'The Foundation of Trust'         },
   { id:'trust-hub',      v:'core',       n:'Trust Hub',           i:'🛡️', u:'https://trusthub.tlid.io',       hook:'Ecosystem Command Center'        },
   { id:'tlid',           v:'core',       n:'TLID.io',             i:'🆔', u:'https://tlid.io',                hook:'Your Blockchain Identity'        },
-  { id:'trust-vault',    v:'core',       n:'TrustVault',          i:'🔒', u:'https://trustvault.tlid.io',     hook:'Multi-Chain Secure Vault'        },
+  { id:'trust-vault',    v:'core',       n:'Axiom42 Suite',          i:'🔒', u:'https://axiom42suite.tlid.io',     hook:'Multi-Chain Secure Vault'        },
   { id:'trust-home',     v:'core',       n:'TrustHome',           i:'🏠', u:'https://trusthome.tlid.io',      hook:'Real Estate on Trust Layer'      },
   { id:'lume',           v:'language',   n:'Lume',                i:'💡', u:'https://lume-lang.org',          hook:'Deterministic Natural Language'  },
   { id:'happyeats-lume', v:'language',   n:'HappyEats Lume',      i:'🍀', u:'https://happyeats.tlid.io',      hook:'First Lume-Native App'           },

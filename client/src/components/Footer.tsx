@@ -39,7 +39,7 @@ export default function Footer() {
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <a href="https://trustgen.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustGen 3D</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustvault.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Trust Vault</a>
+            <a href="https://axiom42suite.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom42 Suite</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <a href="https://lume-lang.org" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Cortex</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>

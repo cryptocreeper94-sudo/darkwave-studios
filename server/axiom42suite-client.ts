@@ -1,6 +1,6 @@
 import { verifyToken } from "./chat-auth";
 
-const TRUSTVAULT_BASE_URL = "https://trustvault.tlid.io";
+const AXIOM42SUITE_BASE_URL = "https://axiom42suite.tlid.io";
 const RATE_LIMIT_MAP = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 60;
 const RATE_WINDOW = 60_000;
@@ -44,24 +44,24 @@ export async function trustVaultFetch(
       fetchOptions.body = JSON.stringify(options.body);
     }
 
-    const url = `${TRUSTVAULT_BASE_URL}${path}`;
+    const url = `${AXIOM42SUITE_BASE_URL}${path}`;
     const response = await fetch(url, fetchOptions);
     const data = await response.json().catch(() => ({}));
 
     return { ok: response.ok, status: response.status, data };
   } catch (error: any) {
-    console.error("[TrustVault Client]", error.message);
-    return { ok: false, status: 502, data: { error: "Failed to connect to TrustVault" } };
+    console.error("[Axiom42 Suite Client]", error.message);
+    return { ok: false, status: 502, data: { error: "Failed to connect to Axiom42 Suite" } };
   }
 }
 
 export async function getCapabilities() {
   try {
-    const response = await fetch(`${TRUSTVAULT_BASE_URL}/api/studio/capabilities`);
+    const response = await fetch(`${AXIOM42SUITE_BASE_URL}/api/studio/capabilities`);
     const data = await response.json();
     return { ok: true, data };
   } catch (error: any) {
-    return { ok: false, data: { error: "TrustVault unavailable" } };
+    return { ok: false, data: { error: "Axiom42 Suite unavailable" } };
   }
 }
 
