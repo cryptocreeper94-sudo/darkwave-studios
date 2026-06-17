@@ -25,7 +25,7 @@ import chroniclesImg from "@/assets/ecosystem/chronicles.jpg";
 import darkwaveGamesImg from "@/assets/ecosystem/darkwave-games.png";
 import darkwaveStudioImg from "@/assets/ecosystem/darkwave-studio.png";
 import trustHomeImg from "@/assets/ecosystem/trusthome.png";
-import trustVaultImg from "@/assets/ecosystem/axiom42suite.png";
+import trustVaultImg from "@/assets/ecosystem/trustvault.png";
 import guardianScannerImg from "@/assets/ecosystem/guardian-scanner.png";
 import signalChatImg from "@/assets/ecosystem/signal-chat.png";
 import torqueImg from "@/assets/ecosystem/torque.png";

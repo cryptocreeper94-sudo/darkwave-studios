@@ -181,7 +181,7 @@ const projects = [
     title: "Axiom42 Suite",
     description: "Universal media vault with image/audio/video editors, Spinny AI agent, 14 AI tools, and 156 API endpoints",
     tech: ["Media", "AI", "Editors", "PWA"],
-    image: "/ecosystem/axiom42suite.png",
+    image: "/ecosystem/trustvault.png",
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://axiom42suite.tlid.io"
   },

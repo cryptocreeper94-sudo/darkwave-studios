@@ -209,7 +209,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Axiom42 Suite",
     tagline: "Your Universal IP Storage & Creative Platform",
     description: "Professional-grade multi-tenant digital media vault and creative suite for families, creators, and teams. Full image editor (crop, filters, layers, watermark, eyedropper, drawing, stickers, AI auto-enhance, background removal, smart erase, voice-commanded editing), audio editor (trim, EQ, reverb, noise gate), video editor (trim, color grading, text overlays, frame capture, custom thumbnails), and merge/combine studio with 17 transition effects. 14 AI-powered tools including Smart Search, Auto-Tag, Caption Generator, Social Media Kit, Beat-Sync Video Maker, Style DNA, Thumbnail Ranker, Portfolio Generator, and Spinny AI agent (GPT-5.1 + ElevenLabs TTS). 4-tier Stripe subscriptions (Free/Personal $9.99/Pro $19.99/Studio $49.99), ChronoChat, AI Blog platform, and TrustLayer SSO. 46,697 lines of code, 172 files, 29 pages, 30 components, 156 API endpoints, 12 database tables.",
-    image: "/ecosystem/axiom42suite.png",
+    image: "/ecosystem/trustvault.png",
     url: "https://axiom42suite.tlid.io",
     category: "security"
   },
