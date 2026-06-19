@@ -480,7 +480,7 @@ export default function Home() {
           <motion.section variants={staggerContainer} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-20 lg:mb-32">
             <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-4 py-1.5 mb-8">
               <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-              <span className="text-xs font-bold text-cyan-500 uppercase tracking-widest">Patent Pending</span>
+              <span className="text-xs font-bold text-cyan-500 uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
             </motion.div>
             
             <motion.h1 variants={staggerItem} className="text-4xl lg:text-7xl font-black font-display leading-[1.1] tracking-tighter mb-6">

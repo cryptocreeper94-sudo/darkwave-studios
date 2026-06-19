@@ -25,7 +25,7 @@ import chroniclesImg from "@/assets/ecosystem/chronicles.jpg";
 import darkwaveGamesImg from "@/assets/ecosystem/darkwave-games.png";
 import darkwaveStudioImg from "@/assets/ecosystem/darkwave-studio.png";
 import trustHomeImg from "@/assets/ecosystem/trusthome.png";
-import trustVaultImg from "@/assets/ecosystem/trustvault.png";
+import axiom42SuiteImg from "@/assets/ecosystem/trustvault.png";
 import guardianScannerImg from "@/assets/ecosystem/guardian-scanner.png";
 import signalChatImg from "@/assets/ecosystem/signal-chat.png";
 import torqueImg from "@/assets/ecosystem/torque.png";
@@ -227,7 +227,7 @@ const projects = [
     title: "Axiom42 Suite",
     description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors (17 transition effects), 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), layer panel, watermark tool, eyedropper, voice-commanded editing, 4-tier Stripe subscriptions, ChronoChat, AI Blog, and TrustLayer SSO. 46,697 lines of code, 172 files, 156 API endpoints, 12 database tables.",
     tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
-    image: trustVaultImg,
+    image: axiom42SuiteImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://axiom42suite.tlid.io",
     category: "Media"

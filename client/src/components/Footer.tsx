@@ -54,7 +54,7 @@ export default function Footer() {
 
           {/* Company + Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-semibold" style={{ color: 'var(--text-dim)' }}>
-            <span className="text-cyan-500 border border-cyan-500/30 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-cyan-500/10">Patent Pending</span>
+            <span className="text-cyan-500 border border-cyan-500/30 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-cyan-500/10">US Provisional Patent (64/032,339)</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span style={{ color: 'var(--text-muted)' }}>DarkWave Studios, LLC</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
