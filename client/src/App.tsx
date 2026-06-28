@@ -1,4 +1,4 @@
-﻿import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import React, { useEffect } from "react";
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; error: Error | null}> {
@@ -90,6 +90,7 @@ import { FloatingThemeToggle } from "@/components/theme-toggle";
 import { EcosystemAccountHub } from "@/components/EcosystemAccountHub";
 import { EcosystemNavigator } from '@/components/EcosystemNavigator';
 import { EcosystemFooter } from '@/components/EcosystemFooter';
+import { CinematicNoise } from '@/components/cinematic-noise';
 
 function Router() {
   const hostname = window.location.hostname;
@@ -175,6 +176,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <CinematicNoise />
         <Toaster />
         <ScrollToTop />
         <Router />

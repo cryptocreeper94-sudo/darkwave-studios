@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { GlassCard } from "@/components/glass-card";
 import { ChevronLeft, ChevronRight, ArrowRight, Menu, X, Shield, ShieldAlert, Cpu, Lock, Database, Code, Zap } from "lucide-react";
 
 const projects = [
@@ -427,8 +426,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans">
-      <div className="fixed inset-0 bg-background pointer-events-none" />
+    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans">
+      <div className="fixed inset-0 pointer-events-none z-[-1]">
+        <div className="absolute inset-0 bg-[url('/assets/brutalist/hero_1.png')] bg-cover bg-center opacity-40 animate-[kenburns_24s_infinite]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/40 via-[#050505]/80 to-[#050505]" />
+      </div>
 
       <div className="relative z-10">
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/5">
@@ -457,7 +459,9 @@ export default function Home() {
           
           <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-4 items-center justify-between">
             <Link href="/" className="font-display text-xl font-black tracking-tight flex items-center gap-2">
-              <Shield className="w-5 h-5 text-cyan-500" />
+              <div className="w-6 h-6 bg-white flex items-center justify-center rounded-[2px]">
+                <Shield className="w-4 h-4 text-black" />
+              </div>
               DarkWave Systems
             </Link>
             <div className="flex items-center gap-8">
@@ -477,26 +481,26 @@ export default function Home() {
 
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pt-32 lg:pb-24 max-w-7xl">
           
-          <motion.section variants={staggerContainer} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-20 lg:mb-32">
-            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-4 py-1.5 mb-8">
-              <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-              <span className="text-xs font-bold text-cyan-500 uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
+          <motion.section variants={staggerContainer} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-20 lg:mb-32 relative z-10">
+            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-sm px-4 py-1.5 mb-8 backdrop-blur-md">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              <span className="text-xs font-bold text-white uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
             </motion.div>
             
-            <motion.h1 variants={staggerItem} className="text-4xl lg:text-7xl font-black font-display leading-[1.1] tracking-tighter mb-6">
-              Deterministic Infrastructure for the <span className="text-cyan-500">Next Era</span>.
+            <motion.h1 variants={staggerItem} className="text-5xl lg:text-7xl font-black font-display leading-[0.95] tracking-tighter mb-6 uppercase">
+              Deterministic Infrastructure for the <span className="text-white/60">Next Era</span>.
             </motion.h1>
             
-            <motion.p variants={staggerItem} className="text-sm lg:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+            <motion.p variants={staggerItem} className="text-sm lg:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
               The architectural engine powering the 8-platform DarkWave ecosystem. 
               Zero-trust design, unified by the $SIG asset layer.
             </motion.p>
 
             <motion.div variants={staggerItem} className="flex items-center justify-center gap-4">
-               <a href="#core" className="bg-white text-black px-8 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-200 transition-colors">
+               <a href="#core" className="btn-brutal bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all">
                  Explore Platforms
                </a>
-               <a href="https://dwtl.io/presale" target="_blank" className="bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 px-8 py-3.5 rounded-xl font-bold text-sm hover:bg-cyan-500/20 transition-colors flex items-center gap-2">
+               <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-white text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
                  Join Presale <ArrowRight className="w-4 h-4" />
                </a>
             </motion.div>
@@ -511,14 +515,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               {CORE_APPS.map((app, idx) => (
                 <a href={app.url} target="_blank" key={idx} className="block group">
-                  <GlassCard className="p-6 lg:p-8 h-full rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all hover:-translate-y-1 hover:border-cyan-500/30">
-                    <div className="w-12 h-12 rounded-xl bg-black border border-white/10 flex items-center justify-center mb-6 group-hover:border-cyan-500/50 transition-colors">
-                      <app.icon className="w-6 h-6 text-white group-hover:text-cyan-500 transition-colors" />
+                  <div className="glass-card-surface p-6 lg:p-8 h-full rounded-sm border border-white/5 transition-all hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/30">
+                    <div className="w-12 h-12 rounded-sm bg-black border border-white/10 flex items-center justify-center mb-6 group-hover:border-white/50 transition-colors">
+                      <app.icon className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
                     </div>
-                    <div className="text-[10px] font-bold text-cyan-500 uppercase tracking-widest mb-2">{app.tag}</div>
-                    <h3 className="text-xl font-bold mb-3 text-white">{app.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{app.desc}</p>
-                  </GlassCard>
+                    <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">{app.tag}</div>
+                    <h3 className="text-xl font-black mb-3 text-white font-display uppercase tracking-tight">{app.title}</h3>
+                    <p className="text-sm text-gray-400 leading-relaxed font-sans">{app.desc}</p>
+                  </div>
                 </a>
               ))}
             </div>
@@ -543,17 +547,26 @@ export default function Home() {
                   href={project.url}
                   target="_blank"
                   key={`${project.id}-${currentProject}`}
-                  className="group block"
+                  className="group block [perspective:1000px]"
                 >
-                  <GlassCard className="p-6 rounded-2xl border border-white/5 bg-black h-full hover:border-white/20 transition-all">
-                    <h3 className="text-lg font-bold mb-2 text-white">{project.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.slice(0, 3).map((tech) => (
-                        <span key={tech} className="text-[10px] font-semibold bg-white/5 px-2.5 py-1 rounded-md text-gray-400">{tech}</span>
-                      ))}
+                  <div className="glass-card-surface rounded-sm overflow-hidden border border-white/5 h-full transition-all duration-300 group-hover:border-white/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
+                    <div className="w-full h-40 bg-black overflow-hidden border-b border-white/5">
+                      <img 
+                        src={`/assets/brutalist/card_${(index % 4) + 1}.png`} 
+                        className="w-full h-full object-cover grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-500" 
+                        alt="Project visualization" 
+                      />
                     </div>
-                  </GlassCard>
+                    <div className="p-6">
+                      <h3 className="text-lg font-black mb-2 text-white font-display uppercase tracking-tight">{project.title}</h3>
+                      <p className="text-sm text-gray-400 line-clamp-2 mb-4 font-sans">{project.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.slice(0, 3).map((tech) => (
+                          <span key={tech} className="text-[10px] font-bold bg-white/5 border border-white/10 px-2.5 py-1 rounded-sm text-gray-500 uppercase tracking-widest">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </a>
               ))}
             </div>
