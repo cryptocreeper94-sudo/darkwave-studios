@@ -16,7 +16,6 @@ import {
   FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command,
   Code2, Database, Cpu, Rocket, BookOpen
 } from "lucide-react";
-import metricsData from "@/data/metrics.json";
 
 interface LaunchCard {
   label: string;
@@ -141,10 +140,10 @@ const categories: ExploreCategory[] = [
     ],
   },
   {
-    title: "The Trust Layer Ecosystem",
+    title: "Platform & Ecosystem",
     icon: <Globe className="size-4" />,
     gradient: "from-emerald-500 to-teal-500",
-    description: `Explore the full Trust Layer ecosystem — ${metricsData.liveApps} interconnected apps, a portfolio of live projects, and detailed codebase metrics across ${metricsData.linesOfCode} lines of code.`,
+    description: "Explore the full Trust Layer ecosystem — 42 interconnected apps, a portfolio of live projects, and detailed codebase metrics across 29.2M+ lines of code.",
     cards: [
       {
         label: "Ecosystem",
@@ -333,29 +332,29 @@ const categories: ExploreCategory[] = [
 
 function SkeletonLoader() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa]">
-      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/80 border-b border-black/5">
+    <div className="min-h-screen bg-[#050505]">
+      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
-            <div className="w-36 h-6 rounded-lg bg-black/5 animate-pulse" />
+            <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
+            <div className="w-36 h-6 rounded-lg bg-white/5 animate-pulse" />
           </div>
-          <div className="w-28 h-9 rounded-lg bg-black/5 animate-pulse" />
+          <div className="w-28 h-9 rounded-lg bg-white/5 animate-pulse" />
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {[1, 2, 3, 4].map((i) => (
           <div key={i}>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
+              <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
               <div className="space-y-2">
-                <div className="w-32 h-5 rounded bg-black/5 animate-pulse" />
-                <div className="w-72 h-3 rounded bg-black/5 animate-pulse" />
+                <div className="w-32 h-5 rounded bg-white/5 animate-pulse" />
+                <div className="w-72 h-3 rounded bg-white/5 animate-pulse" />
               </div>
             </div>
             <div className="flex gap-4 overflow-hidden">
               {[1, 2, 3, 4].map((j) => (
-                <div key={j} className="min-w-[280px] h-[220px] rounded-2xl bg-black/[0.03] animate-pulse" />
+                <div key={j} className="min-w-[280px] h-[220px] rounded-2xl bg-white/[0.03] animate-pulse" />
               ))}
             </div>
           </div>
@@ -404,19 +403,21 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
         onPointerMove={handlePointerMove}
       >
         <div
-          className="glass-card-surface group relative h-[220px] lg:h-[240px] rounded-sm overflow-hidden cursor-pointer transition-all duration-300 border border-black/5 hover:border-black/30 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] [perspective:1000px] hover:rotate-x-2 hover:-rotate-y-2"
+          className="glass-card-surface group relative h-[220px] lg:h-[240px] rounded-sm overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-white/30 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] [perspective:1000px] hover:rotate-x-2 hover:-rotate-y-2"
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
-          {/* Minimalist Verdara Ultra Background instead of broken dummy images */}
-          <div className="absolute inset-0 bg-[#f8f9fa] group-hover:bg-white transition-colors duration-500" />
-          <div className="absolute right-[-15%] bottom-[-15%] opacity-[0.03] scale-[4] rotate-[-15deg] group-hover:rotate-[0deg] group-hover:scale-[4.2] transition-all duration-700 pointer-events-none text-[#050505]">
-            {card.icon}
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa]/50 to-transparent opacity-90" />
+          <img
+            src={card.image}
+            alt={card.label}
+            className="absolute inset-0 w-full h-full object-cover object-center grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100 group-hover:scale-105"
+            loading="lazy"
+            draggable={false}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-sm bg-black/5 border border-black/10 text-gray-600 uppercase tracking-widest shadow-lg">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-gray-400 uppercase tracking-widest shadow-lg">
                 {card.badge}
               </span>
             </div>
@@ -424,17 +425,17 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
 
           <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
             <div className="flex items-center gap-2 mb-1.5">
-              <div className="w-7 h-7 rounded-sm bg-black/5 flex items-center justify-center border border-black/10">
+              <div className="w-7 h-7 rounded-sm bg-white/5 flex items-center justify-center border border-white/10">
                 {card.icon}
               </div>
-              <h3 className="font-display font-black text-sm text-[#050505] uppercase tracking-tight" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+              <h3 className="font-display font-black text-sm text-white uppercase tracking-tight" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
                 {card.label}
               </h3>
             </div>
-            <p className="text-[11px] text-gray-600 leading-relaxed line-clamp-2 font-sans">
+            <p className="text-[11px] text-gray-400 leading-relaxed line-clamp-2 font-sans">
               {card.description}
             </p>
-            <div className="mt-2 flex items-center gap-1 text-[11px] text-[#050505]/50 font-bold uppercase tracking-widest group-hover:text-[#050505] transition-colors">
+            <div className="mt-2 flex items-center gap-1 text-[11px] text-white/50 font-bold uppercase tracking-widest group-hover:text-white transition-colors">
               <span>Go</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -452,30 +453,31 @@ function HeroSlideshow() {
     if (!api) return;
     const interval = setInterval(() => {
       api.scrollNext();
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [api]);
 
   const images = [
-    "/assets/brutalist/hero_2.png",
-    "/assets/brutalist/card_1.png",
-    "/assets/brutalist/card_2.png",
-    "/assets/brutalist/card_4.png",
+    "/ecosystem/darkwave-studios-new.jpg",
+    "/ecosystem/chronicles-new.jpg",
+    "/ecosystem/trust-layer-new.jpg",
+    "/ecosystem/guardian-scanner-new.jpg",
+    "/ecosystem/orbit-staffing-new.jpg",
   ];
 
   return (
     <Carousel
-      opts={{ align: "start", loop: true, watchDrag: false }}
+      opts={{ align: "start", loop: true, watchDrag: false, duration: 60 }}
       setApi={setApi}
-      className="w-full h-40 lg:h-56"
+      className="w-full h-40 lg:h-56 xl:h-72"
     >
       <CarouselContent className="h-full ml-0">
         {images.map((src, i) => (
-          <CarouselItem key={i} className="pl-0 basis-full h-full relative">
+          <CarouselItem key={i} className="pl-0 basis-full h-full relative overflow-hidden">
             <img
               src={src}
-              alt="Slide"
-              className="w-full h-full object-cover opacity-60"
+              alt="DarkWave Studios Nexus"
+              className="w-full h-full object-cover opacity-70 scale-105 animate-kenburns"
             />
           </CarouselItem>
         ))}
@@ -505,8 +507,8 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
       transition={{ duration: 0.5, delay: catIndex * 0.1 }}
     >
       <div className="mb-4">
-        <h2 className="text-lg lg:text-xl font-display font-black text-[#050505] uppercase tracking-tight">{category.title}</h2>
-        <p className="text-xs text-gray-600 leading-relaxed mt-1 max-w-2xl font-sans">{category.description}</p>
+        <h2 className="text-lg lg:text-xl font-display font-black text-white uppercase tracking-tight">{category.title}</h2>
+        <p className="text-xs text-gray-400 leading-relaxed mt-1 max-w-2xl font-sans">{category.description}</p>
       </div>
 
       <div className="mt-4">
@@ -524,8 +526,8 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
           </CarouselContent>
           {category.cards.length > 1 && (
             <>
-              <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm" />
-              <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm" />
+              <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+              <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
             </>
           )}
         </Carousel>
@@ -538,7 +540,7 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
                 className={`rounded-sm transition-all duration-300 ${
                   i === currentSlide
                     ? "w-6 h-1.5 bg-white shadow-lg"
-                    : "w-2 h-1.5 bg-black/20 hover:bg-[#f8f9fa]/40"
+                    : "w-2 h-1.5 bg-white/20 hover:bg-white/40"
                 }`}
                 data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -583,24 +585,24 @@ export default function Explore() {
   const totalDestinations = categories.reduce((sum, cat) => sum + cat.cards.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#050505] overflow-x-hidden">
-      <div className="fixed inset-0 bg-[#f8f9fa] pointer-events-none z-[-20]" />
-      <div className="fixed inset-0 bg-[#f8f9fa]/80 pointer-events-none z-[-10]" />
+    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <div className="fixed inset-0 bg-background pointer-events-none z-[-20]" />
+      <div className="fixed inset-0 bg-[#050505]/80 pointer-events-none z-[-10]" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/90 border-b border-black/5">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/90 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-black/5 flex items-center justify-center border border-black/10 shadow-[0_0_15px_rgba(0,0,0,0.05)]">
-              <Compass className="w-5 h-5 text-[#050505]" />
+            <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+              <Compass className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-display text-lg lg:text-xl font-bold text-[#050505]">Explore</span>
-              <p className="text-[10px] text-[#050505]/40 -mt-0.5 hidden lg:block">{totalDestinations} destinations &middot; {categories.length} categories</p>
+              <span className="font-display text-lg lg:text-xl font-bold text-white">Explore</span>
+              <p className="text-[10px] text-white/40 -mt-0.5 hidden lg:block">{totalDestinations} destinations &middot; {categories.length} categories</p>
             </div>
           </div>
           <Link
             href="/home"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/5 border border-black/10 hover:bg-black/10 hover:border-black/20 transition-all duration-300 text-sm text-[#050505]/70 hover:text-[#050505]"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-sm text-white/70 hover:text-white"
             data-testid="explore-go-home"
           >
             <Home className="w-4 h-4" />
@@ -614,15 +616,15 @@ export default function Explore() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-sm overflow-hidden mb-10 lg:mb-14 border border-black/5"
+          className="relative rounded-sm overflow-hidden mb-10 lg:mb-14 border border-white/5 shadow-2xl"
         >
           <HeroSlideshow />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa]/60 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-            <h1 className="text-2xl lg:text-4xl font-display font-black mb-1 text-[#050505] uppercase tracking-tighter">
-              Where do you want to <span className="text-[#050505]/40">go?</span>
+            <h1 className="text-2xl lg:text-4xl font-display font-black mb-1 text-white uppercase tracking-tighter">
+              Where do you want to <span className="text-white/40">go?</span>
             </h1>
-            <p className="text-sm text-gray-600 max-w-xl font-sans">
+            <p className="text-sm text-gray-400 max-w-xl font-sans">
               {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer, one click away.
             </p>
           </div>
@@ -635,10 +637,10 @@ export default function Explore() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
         >
           {[
-            { icon: <Rocket className="w-5 h-5" />, value: metricsData.liveApps, label: "Live Apps" },
-            { icon: <Code2 className="w-5 h-5" />, value: metricsData.linesOfCode, label: "Lines of Code" },
-            { icon: <Boxes className="w-5 h-5" />, value: metricsData.widgets, label: "Widgets" },
-            { icon: <Database className="w-5 h-5" />, value: metricsData.endpoints, label: "API Endpoints" },
+            { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
+            { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code" },
+            { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets" },
+            { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -646,15 +648,15 @@ export default function Explore() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
             >
-              <div className="glass-card-surface relative group rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-black/30">
+              <div className="glass-card-surface relative group rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/30">
                 <div className="relative p-4 lg:p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-black/5 border border-black/10 mb-3 shadow-[0_0_10px_rgba(0,0,0,0.05)] group-hover:border-black/30 transition-all">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-white/5 border border-white/10 mb-3 shadow-[0_0_10px_rgba(255,255,255,0.05)] group-hover:border-white/30 transition-all">
                     {stat.icon}
                   </div>
-                  <div className="text-2xl lg:text-3xl font-black font-display text-[#050505] mb-0.5 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
+                  <div className="text-2xl lg:text-3xl font-black font-display text-white mb-0.5 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
                     {stat.value}
                   </div>
-                  <div className="text-[11px] lg:text-xs text-gray-600 font-bold uppercase tracking-widest font-sans">
+                  <div className="text-[11px] lg:text-xs text-gray-500 font-bold uppercase tracking-widest font-sans">
                     {stat.label}
                   </div>
                 </div>
@@ -677,7 +679,7 @@ export default function Explore() {
         <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
           <Link
             href="/home"
-            className="btn-brutal inline-flex items-center gap-2 bg-transparent text-[#050505] border border-black/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-[#f8f9fa] hover:text-[#050505] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all"
+            className="btn-brutal inline-flex items-center gap-2 bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all"
             data-testid="explore-footer-home"
           >
             <Home className="w-4 h-4" />
@@ -688,7 +690,7 @@ export default function Explore() {
             {!showDevLogin ? (
               <button
                 onClick={() => setShowDevLogin(true)}
-                className="inline-flex items-center gap-2 text-[#050505]/30 hover:text-[#050505]/60 transition-all duration-300 text-xs group"
+                className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-all duration-300 text-xs group"
                 data-testid="button-show-dev-login"
               >
                 <Lock className="w-3 h-3" />
@@ -702,8 +704,8 @@ export default function Explore() {
               >
               <GlassCard glow className="p-5 rounded-2xl">
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <Terminal className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-semibold text-[#050505]/80">Developer Login</span>
+                  <Terminal className="w-4 h-4 text-gray-400" />
+                  <span className="text-sm font-semibold text-white/80">Developer Login</span>
                 </div>
                 <form onSubmit={handleDevLogin} className="space-y-3">
                   <input
@@ -711,8 +713,8 @@ export default function Explore() {
                     value={devPassword}
                     onChange={(e) => setDevPassword(e.target.value)}
                     placeholder="Enter access code"
-                    className={`w-full px-4 py-2.5 bg-black/5 border rounded-xl text-sm text-[#050505] placeholder:text-[#050505]/30 focus:outline-none focus:ring-2 transition-all ${
-                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-black/10 focus:ring-cyan-500/30 focus:border-black/10"
+                    className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all ${
+                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-white/10 focus:ring-cyan-500/30 focus:border-white/10"
                     }`}
                     data-testid="input-dev-password"
                     autoFocus
@@ -720,7 +722,7 @@ export default function Explore() {
                   <div className="flex gap-2">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-black/5 border border-black/10 text-[#050505] text-sm font-semibold hover:shadow-lg hover:shadow-[0_10px_30px_rgba(255,255,255,0.05)] transition-all duration-300"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:shadow-lg hover:shadow-[0_10px_30px_rgba(255,255,255,0.05)] transition-all duration-300"
                       data-testid="button-dev-login"
                     >
                       <Unlock className="w-3.5 h-3.5" />
@@ -729,7 +731,7 @@ export default function Explore() {
                     <button
                       type="button"
                       onClick={() => { setShowDevLogin(false); setDevPassword(""); setDevError(false); }}
-                      className="px-3 py-2.5 rounded-xl bg-black/5 border border-black/10 text-[#050505]/50 hover:text-[#050505]/80 text-sm transition-all"
+                      className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white/80 text-sm transition-all"
                       data-testid="button-dev-cancel"
                     >
                       Cancel
@@ -744,14 +746,14 @@ export default function Explore() {
             )}
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] text-[#050505]/30">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/30">
             <span>&copy; 2026 DarkWave Studios</span>
-            <span className="text-[#050505]/10">|</span>
-            <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="hover:text-[#050505]/60 transition-colors" data-testid="explore-footer-trustshield">
+            <span className="text-white/10">|</span>
+            <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustshield">
               Protected by TrustShield.tech
             </a>
-            <span className="text-[#050505]/10">|</span>
-            <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="hover:text-[#050505]/60 transition-colors" data-testid="explore-footer-trustlayer">
+            <span className="text-white/10">|</span>
+            <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustlayer">
               Powered by Trust Layer
             </a>
           </div>
