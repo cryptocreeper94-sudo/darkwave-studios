@@ -166,7 +166,7 @@ export default function Admin() {
       case "contacted": case "reviewed": return "bg-blue-500/20 text-blue-400";
       case "converted": case "confirmed": case "approved": return "bg-green-500/20 text-green-400";
       case "closed": case "cancelled": case "rejected": return "bg-red-500/20 text-red-400";
-      default: return "bg-white/10 text-muted-foreground";
+      default: return "bg-black/10 text-muted-foreground";
     }
   };
 
@@ -179,11 +179,11 @@ export default function Admin() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
       {/* Header */}
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
@@ -193,7 +193,7 @@ export default function Admin() {
           </div>
           <button 
             onClick={fetchData}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/5 hover:bg-black/10 transition-colors text-sm"
             data-testid="button-refresh"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
@@ -217,7 +217,7 @@ export default function Admin() {
               className={`flex items-center gap-2 px-4 py-3 rounded-xl whitespace-nowrap transition-all ${
                 activeTab === tab.id 
                   ? "bg-primary text-primary-foreground" 
-                  : "glass-card hover:bg-white/10"
+                  : "glass-card hover:bg-black/10"
               }`}
               data-testid={`tab-${tab.id}`}
             >
@@ -225,7 +225,7 @@ export default function Admin() {
               <span className="font-medium">{tab.label}</span>
               {tab.count !== undefined && tab.count > 0 && (
                 <span className={`px-2 py-0.5 rounded-full text-xs ${
-                  activeTab === tab.id ? "bg-white/20" : "bg-primary/20 text-primary"
+                  activeTab === tab.id ? "bg-black/20" : "bg-primary/20 text-primary"
                 }`}>
                   {tab.count}
                 </span>
@@ -240,8 +240,8 @@ export default function Admin() {
           <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 lg:gap-6">
             {[...Array(4)].map((_, i) => (
               <GlassCard key={i} className="col-span-3 p-6 animate-pulse">
-                <div className="h-4 bg-white/10 rounded w-1/2 mb-4" />
-                <div className="h-8 bg-white/10 rounded w-3/4" />
+                <div className="h-4 bg-black/10 rounded w-1/2 mb-4" />
+                <div className="h-8 bg-black/10 rounded w-3/4" />
               </GlassCard>
             ))}
           </div>
@@ -320,10 +320,10 @@ export default function Admin() {
                     <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 transition-all cursor-pointer group" data-testid="link-analytics">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/30 to-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <BarChart3 className="w-6 h-6 text-gray-400" />
+                          <BarChart3 className="w-6 h-6 text-gray-600" />
                         </div>
                         <div>
-                          <div className="font-bold text-white">Analytics</div>
+                          <div className="font-bold text-[#050505]">Analytics</div>
                           <div className="text-xs text-muted-foreground">View real-time stats</div>
                         </div>
                       </div>
@@ -337,7 +337,7 @@ export default function Admin() {
                           <PenTool className="w-6 h-6 text-sky-400" />
                         </div>
                         <div>
-                          <div className="font-bold text-white">Blog Manager</div>
+                          <div className="font-bold text-[#050505]">Blog Manager</div>
                           <div className="text-xs text-muted-foreground">AI content creation</div>
                         </div>
                       </div>
@@ -351,7 +351,7 @@ export default function Admin() {
                           <Globe className="w-6 h-6 text-green-400" />
                         </div>
                         <div>
-                          <div className="font-bold text-white">SEO & Analytics</div>
+                          <div className="font-bold text-[#050505]">SEO & Analytics</div>
                           <div className="text-xs text-muted-foreground">Monitor rankings</div>
                         </div>
                       </div>
@@ -365,7 +365,7 @@ export default function Admin() {
                           <FolderOpen className="w-6 h-6 text-orange-400" />
                         </div>
                         <div>
-                          <div className="font-bold text-white">Documents</div>
+                          <div className="font-bold text-[#050505]">Documents</div>
                           <div className="text-xs text-muted-foreground">Business docs & roadmap</div>
                         </div>
                       </div>
@@ -381,7 +381,7 @@ export default function Admin() {
                   </h3>
                   <div className="space-y-3">
                     {leads.slice(0, 5).map((lead) => (
-                      <div key={lead.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                      <div key={lead.id} className="flex items-center justify-between p-3 rounded-xl bg-black/5">
                         <div>
                           <div className="font-medium">{lead.name}</div>
                           <div className="text-xs text-muted-foreground">{lead.email}</div>
@@ -406,7 +406,7 @@ export default function Admin() {
                   </h3>
                   <div className="space-y-3">
                     {quotes.slice(0, 5).map((quote) => (
-                      <div key={quote.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                      <div key={quote.id} className="flex items-center justify-between p-3 rounded-xl bg-black/5">
                         <div>
                           <div className="font-medium">{quote.name}</div>
                           <div className="text-xs text-muted-foreground">{quote.projectType}</div>
@@ -457,7 +457,7 @@ export default function Admin() {
                     </button>
                     
                     {expandedItem === lead.id && (
-                      <div className="px-5 pb-5 border-t border-white/10 pt-4">
+                      <div className="px-5 pb-5 border-t border-black/10 pt-4">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                           {lead.company && (
                             <div>
@@ -486,7 +486,7 @@ export default function Admin() {
                         </div>
                         <div className="mb-4">
                           <div className="text-xs text-muted-foreground mb-1">Message</div>
-                          <div className="p-3 rounded-xl bg-white/5 text-sm">{lead.message}</div>
+                          <div className="p-3 rounded-xl bg-black/5 text-sm">{lead.message}</div>
                         </div>
                         <div className="flex gap-2">
                           <button
@@ -552,7 +552,7 @@ export default function Admin() {
                     </button>
                     
                     {expandedItem === quote.id && (
-                      <div className="px-5 pb-5 border-t border-white/10 pt-4">
+                      <div className="px-5 pb-5 border-t border-black/10 pt-4">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                           <div>
                             <div className="text-xs text-muted-foreground">Email</div>
@@ -643,7 +643,7 @@ export default function Admin() {
                       </div>
                     </div>
                     {booking.notes && (
-                      <div className="mt-4 p-3 rounded-xl bg-white/5 text-sm">{booking.notes}</div>
+                      <div className="mt-4 p-3 rounded-xl bg-black/5 text-sm">{booking.notes}</div>
                     )}
                     <div className="flex gap-2 mt-4">
                       <button
@@ -680,7 +680,7 @@ export default function Admin() {
                 </h3>
                 <div className="space-y-2">
                   {subscribers.map((sub) => (
-                    <div key={sub.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                    <div key={sub.id} className="flex items-center justify-between p-3 rounded-xl bg-black/5">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                           <Mail className="w-5 h-5 text-primary" />
@@ -705,7 +705,7 @@ export default function Admin() {
         )}
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-white/5">
+      <footer className="glass-strong mt-12 border-t border-black/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">

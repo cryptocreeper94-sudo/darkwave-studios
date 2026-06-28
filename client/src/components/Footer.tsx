@@ -54,22 +54,22 @@ export default function Footer() {
 
           {/* Company + Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-semibold" style={{ color: 'var(--text-dim)' }}>
-            <span className="text-white border border-white/10 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-white/5">US Provisional Patent (64/032,339)</span>
+            <span className="text-[#050505] border border-black/10 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-black/5">US Provisional Patent (64/032,339)</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span style={{ color: 'var(--text-muted)' }}>DarkWave Studios, LLC</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span>&copy; 2026</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://dwtl.io/presale" className="text-white hover:text-gray-400 transition-colors">$SIG Presale</a>
+            <a href="https://dwtl.io/presale" className="text-[#050505] hover:text-gray-600 transition-colors">$SIG Presale</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <Link href="/terms" className="hover:text-cyan-600 dark:hover:text-gray-400 transition-colors">Terms</Link>
+            <Link href="/terms" className="hover:text-cyan-600 dark:hover:text-gray-600 transition-colors">Terms</Link>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <Link href="/privacy" className="hover:text-cyan-600 dark:hover:text-gray-400 transition-colors">Privacy</Link>
+            <Link href="/privacy" className="hover:text-cyan-600 dark:hover:text-gray-600 transition-colors">Privacy</Link>
           </div>
 
           {/* Powered by Lume */}
           <div className="text-[10px] mt-1" style={{ color: 'var(--text-dim)' }}>
-            Architected by <span className="text-cyan-600 dark:text-gray-400 font-bold">DarkWave Systems</span>
+            Architected by <span className="text-cyan-600 dark:text-gray-600 font-bold">DarkWave Systems</span>
           </div>
 
           {/* Hidden shield easter egg */}
@@ -91,13 +91,13 @@ export default function Footer() {
       <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-xl flex items-center justify-center"
         onClick={() => setShowPinModal(false)}>
         <div onClick={(e) => e.stopPropagation()}
-          className="w-[280px] p-8 rounded-2xl bg-[#0a0e1a] border border-white/10 flex flex-col items-center gap-5"
+          className="w-[280px] p-8 rounded-2xl bg-[#0a0e1a] border border-black/10 flex flex-col items-center gap-5"
           style={{
             boxShadow: "0 32px 100px rgba(6,182,212,0.1)",
             animation: pinError ? "shake 0.4s ease" : undefined,
           }}>
-          <Shield className={`w-7 h-7 ${pinError ? "text-red-500" : "text-white"}`} />
-          <p className="text-sm font-bold text-white/70 tracking-wider">Enter PIN</p>
+          <Shield className={`w-7 h-7 ${pinError ? "text-red-500" : "text-[#050505]"}`} />
+          <p className="text-sm font-bold text-[#050505]/70 tracking-wider">Enter PIN</p>
           <input
             ref={pinInputRef}
             type="password"
@@ -123,14 +123,14 @@ export default function Footer() {
               }
             }}
             onKeyDown={(e) => { if (e.key === "Escape") setShowPinModal(false); }}
-            className="w-[140px] text-center text-2xl font-black tracking-[12px] p-3 rounded-xl bg-white/[0.03] text-white outline-none"
+            className="w-[140px] text-center text-2xl font-black tracking-[12px] p-3 rounded-xl bg-black/[0.03] text-[#050505] outline-none"
             style={{
               border: `2px solid ${pinError ? "rgba(239,68,68,0.5)" : "rgba(6,182,212,0.2)"}`,
               caretColor: "#06b6d4",
             }}
             placeholder="····"
           />
-          <p className={`text-[10px] ${pinError ? "text-red-500" : "text-white/15"}`}>
+          <p className={`text-[10px] ${pinError ? "text-red-500" : "text-[#050505]/15"}`}>
             {pinError ? "Incorrect PIN" : "4-digit developer access code"}
           </p>
         </div>

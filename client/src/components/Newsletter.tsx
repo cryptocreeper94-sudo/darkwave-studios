@@ -79,7 +79,7 @@ export default function Newsletter() {
             placeholder="Your name (optional)"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none transition-all"
+            className="flex-1 px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-all"
             data-testid="input-newsletter-name"
           />
           <input
@@ -88,7 +88,7 @@ export default function Newsletter() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none transition-all"
+            className="flex-1 px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-all"
             data-testid="input-newsletter-email"
           />
         </div>

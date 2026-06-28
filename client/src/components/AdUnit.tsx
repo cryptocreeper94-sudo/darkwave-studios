@@ -96,11 +96,11 @@ export function AdFreeBanner({ isAdFree = false, loading = false, onUpgrade }: A
     >
       <div className="flex items-center gap-2 text-center sm:text-left">
         <span className="text-sm text-muted-foreground">Enjoying the platform?</span>
-        <span className="text-sm font-semibold text-white">Go Ad-Free for $5/mo</span>
+        <span className="text-sm font-semibold text-[#050505]">Go Ad-Free for $5/mo</span>
       </div>
       <button
         onClick={onUpgrade}
-        className="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-white text-xs font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+        className="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-[#050505] text-xs font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
         data-testid="button-go-ad-free"
       >
         Upgrade

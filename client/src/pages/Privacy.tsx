@@ -20,7 +20,7 @@ export default function Privacy() {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
       <SEOHead
         title="Privacy Policy"
         description="DarkWave Studios Privacy Policy. Learn how we collect, use, and protect your personal information. Your privacy matters to us."
@@ -41,15 +41,15 @@ export default function Privacy() {
       <div className="fixed inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
 
       <div className="relative z-10">
-        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-black/5">
           <div className="lg:hidden container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
             <Link href="/" className="font-display text-base font-semibold gradient-text">DarkWave Studios</Link>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors" data-testid="mobile-menu-toggle">
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-black/10 transition-colors" data-testid="mobile-menu-toggle">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
           {mobileMenuOpen && (
-            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 glass-strong border-t border-white/5 px-4 py-4 pb-20 overflow-y-auto z-50">
+            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 glass-strong border-t border-black/5 px-4 py-4 pb-20 overflow-y-auto z-50">
               <div className="flex flex-col gap-2">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Home</Link>
                 <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Terms of Service</Link>

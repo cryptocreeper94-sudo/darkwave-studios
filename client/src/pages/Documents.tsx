@@ -91,7 +91,7 @@ export default function Documents() {
   }, {} as Record<string, Document[]>) || {};
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-[#f8f9fa] p-6">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ export default function Documents() {
                   <select
                     value={newDoc.category}
                     onChange={(e) => setNewDoc({ ...newDoc, category: e.target.value })}
-                    className="w-full p-2 rounded-md border bg-background"
+                    className="w-full p-2 rounded-md border bg-[#f8f9fa]"
                     data-testid="select-doc-category"
                   >
                     {categories.map((cat) => (
@@ -209,7 +209,7 @@ export default function Documents() {
                 {groupedDocs[cat.value]?.length ? (
                   <div className="grid gap-4">
                     {groupedDocs[cat.value].map((doc) => (
-                      <GlassCard key={doc.id} className="rounded-xl p-4 hover:border-white/20 transition-colors">
+                      <GlassCard key={doc.id} className="rounded-xl p-4 hover:border-black/20 transition-colors">
                         {editingDoc?.id === doc.id ? (
                           <div className="space-y-4">
                             <Input

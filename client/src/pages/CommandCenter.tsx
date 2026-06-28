@@ -395,29 +395,29 @@ const categories: CommandCategory[] = [
 
 function SkeletonLoader() {
   return (
-    <div className="min-h-screen bg-[#050505]">
-      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
+    <div className="min-h-screen bg-[#f8f9fa]">
+      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/80 border-b border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
-            <div className="w-40 h-6 rounded-lg bg-white/5 animate-pulse" />
+            <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
+            <div className="w-40 h-6 rounded-lg bg-black/5 animate-pulse" />
           </div>
-          <div className="w-24 h-8 rounded-lg bg-white/5 animate-pulse" />
+          <div className="w-24 h-8 rounded-lg bg-black/5 animate-pulse" />
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {[1, 2, 3].map((i) => (
           <div key={i}>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
+              <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
               <div className="space-y-2">
-                <div className="w-32 h-5 rounded bg-white/5 animate-pulse" />
-                <div className="w-64 h-3 rounded bg-white/5 animate-pulse" />
+                <div className="w-32 h-5 rounded bg-black/5 animate-pulse" />
+                <div className="w-64 h-3 rounded bg-black/5 animate-pulse" />
               </div>
             </div>
             <div className="flex gap-4 overflow-hidden">
               {[1, 2, 3, 4].map((j) => (
-                <div key={j} className="min-w-[280px] h-[200px] rounded-2xl bg-white/[0.03] animate-pulse" />
+                <div key={j} className="min-w-[280px] h-[200px] rounded-2xl bg-black/[0.03] animate-pulse" />
               ))}
             </div>
           </div>
@@ -442,7 +442,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
     >
       <Link href={card.href} data-testid={`command-${card.href.replace(/\//g, "-").slice(1)}`}>
         <div
-          className={`group relative h-[260px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-white/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
+          className={`group relative h-[260px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-black/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
             card.featured ? "ring-1 ring-white/10" : ""
           }`}
           style={cardStyle}
@@ -462,7 +462,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-lg">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-[#050505] shadow-lg">
                 {card.badge}
               </span>
             </div>
@@ -470,17 +470,17 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
 
           <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
             <div className="flex items-center gap-3 mb-2.5">
-              <div className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+              <div className="w-9 h-9 rounded-lg bg-black/10 backdrop-blur-sm flex items-center justify-center border border-black/10">
                 {card.icon}
               </div>
-              <h3 className="font-display font-bold text-[15px] text-white group-hover:text-white/90 transition-colors" data-testid={`text-label-${card.href.replace(/\//g, "-").slice(1)}`}>
+              <h3 className="font-display font-bold text-[15px] text-[#050505] group-hover:text-[#050505]/90 transition-colors" data-testid={`text-label-${card.href.replace(/\//g, "-").slice(1)}`}>
                 {card.label}
               </h3>
             </div>
-            <p className="text-xs text-white/50 leading-relaxed line-clamp-2">
+            <p className="text-xs text-[#050505]/50 leading-relaxed line-clamp-2">
               {card.description}
             </p>
-            <div className="mt-3 flex items-center gap-1 text-[10px] text-white/30 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="mt-3 flex items-center gap-1 text-[10px] text-[#050505]/30 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <span>Open</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -522,7 +522,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
         <div className="flex items-center justify-center gap-3 mt-4">
           <button
             onClick={() => api?.scrollPrev()}
-            className="h-8 w-8 rounded-full bg-black/60 border border-white/10 hover:bg-black/80 text-white backdrop-blur-sm flex items-center justify-center transition-colors"
+            className="h-8 w-8 rounded-full bg-black/60 border border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
             data-testid={`prev-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
             aria-label="Previous slide"
           >
@@ -536,7 +536,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
                 className={`rounded-full transition-all duration-300 ${
                   i === currentSlide
                     ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]"
-                    : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                    : "w-2 h-2 bg-black/20 hover:bg-[#f8f9fa]/40"
                 }`}
                 data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -545,7 +545,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
           </div>
           <button
             onClick={() => api?.scrollNext()}
-            className="h-8 w-8 rounded-full bg-black/60 border border-white/10 hover:bg-black/80 text-white backdrop-blur-sm flex items-center justify-center transition-colors"
+            className="h-8 w-8 rounded-full bg-black/60 border border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
             data-testid={`next-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
             aria-label="Next slide"
           >
@@ -593,8 +593,8 @@ export default function CommandCenter() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center">
-        <div className="fixed inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505]" />
+      <div className="min-h-screen bg-[#f8f9fa] text-[#050505] flex items-center justify-center">
+        <div className="fixed inset-0 bg-gradient-to-b from-[#f8f9fa] via-[#f8f9fa]/80 to-[#f8f9fa]" />
         <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_50%)]" />
 
         <motion.div
@@ -604,24 +604,24 @@ export default function CommandCenter() {
           className="relative w-full max-w-md mx-4"
         >
           <GlassCard glow className="relative rounded-2xl overflow-hidden p-8 lg:p-10">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
-              <Command className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-black/5 border border-black/10 flex items-center justify-center shadow-2xl shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
+              <Command className="w-8 h-8 text-[#050505]" />
             </div>
-            <h1 className="text-2xl font-display font-bold text-center mb-2 text-white">
+            <h1 className="text-2xl font-display font-bold text-center mb-2 text-[#050505]">
               Command Center
             </h1>
-            <p className="text-sm text-white/40 text-center mb-8">
+            <p className="text-sm text-[#050505]/40 text-center mb-8">
               Enter your access code to continue
             </p>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#050505]/30" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Access code"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-white/10 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.04] border border-black/10 text-[#050505] placeholder:text-[#050505]/30 focus:outline-none focus:border-black/10 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
                   data-testid="input-command-password"
                   autoFocus
                 />
@@ -631,7 +631,7 @@ export default function CommandCenter() {
               )}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-semibold shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-black/5 border border-black/10 text-[#050505] font-semibold shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                 data-testid="button-command-login"
               >
                 <Unlock className="w-4 h-4" />
@@ -647,24 +647,24 @@ export default function CommandCenter() {
   const totalFeatures = categories.reduce((sum, cat) => sum + cat.cards.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
-      <div className="fixed inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] -z-20" />
+    <div className="min-h-screen bg-[#f8f9fa] text-[#050505] overflow-x-hidden">
+      <div className="fixed inset-0 bg-gradient-to-b from-[#f8f9fa] via-[#f8f9fa]/80 to-[#f8f9fa] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.05),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/80 border-b border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all duration-300" data-testid="button-back-home">
-              <ArrowLeft className="w-5 h-5 text-white/70" />
+            <Link href="/" className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-black/10 hover:border-black/20 transition-all duration-300" data-testid="button-back-home">
+              <ArrowLeft className="w-5 h-5 text-[#050505]/70" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
-                <Command className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
+                <Command className="w-5 h-5 text-[#050505]" />
               </div>
               <div>
-                <span className="font-display text-lg lg:text-xl font-bold text-white">Command Center</span>
-                <p className="text-[10px] text-white/40 -mt-0.5 hidden lg:block">{totalFeatures} features &middot; {categories.length} categories</p>
+                <span className="font-display text-lg lg:text-xl font-bold text-[#050505]">Command Center</span>
+                <p className="text-[10px] text-[#050505]/40 -mt-0.5 hidden lg:block">{totalFeatures} features &middot; {categories.length} categories</p>
               </div>
             </div>
           </div>
@@ -675,10 +675,10 @@ export default function CommandCenter() {
             </div>
             <button
               onClick={handleLogout}
-              className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300 group"
+              className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300 group"
               data-testid="button-command-logout"
             >
-              <LogOut className="w-4 h-4 text-white/50 group-hover:text-red-400 transition-colors" />
+              <LogOut className="w-4 h-4 text-[#050505]/50 group-hover:text-red-400 transition-colors" />
             </button>
           </div>
         </div>
@@ -696,12 +696,12 @@ export default function CommandCenter() {
             alt="Command Center"
             className="w-full h-48 lg:h-72 object-cover brightness-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#070b16]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#070b16]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
-            <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-white">
-              Master <span className="bg-gradient-to-r bg-white/5 bg-clip-text text-transparent">Command Center</span>
+            <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-[#050505]">
+              Master <span className="bg-gradient-to-r bg-black/5 bg-clip-text text-transparent">Command Center</span>
             </h1>
-            <p className="text-sm lg:text-base text-white/50 max-w-xl leading-relaxed">
+            <p className="text-sm lg:text-base text-[#050505]/50 max-w-xl leading-relaxed">
               Every tool. Every page. One click away. {totalFeatures} features organized across {categories.length} categories.
             </p>
           </div>
@@ -724,8 +724,8 @@ export default function CommandCenter() {
                   {category.icon}
                 </div>
                 <div>
-                  <h2 className="text-xl lg:text-2xl font-display font-bold text-white">{category.title}</h2>
-                  <p className="text-xs lg:text-sm text-white/40 leading-relaxed mt-1.5 max-w-2xl">{category.description}</p>
+                  <h2 className="text-xl lg:text-2xl font-display font-bold text-[#050505]">{category.title}</h2>
+                  <p className="text-xs lg:text-sm text-[#050505]/40 leading-relaxed mt-1.5 max-w-2xl">{category.description}</p>
                 </div>
               </div>
 
@@ -735,7 +735,7 @@ export default function CommandCenter() {
         </motion.div>
 
         <footer className="mt-20 lg:mt-32 pb-10 text-center">
-          <p className="text-[11px] text-white/20">DarkWave Studios Command Center &middot; Owner Access Only</p>
+          <p className="text-[11px] text-[#050505]/20">DarkWave Studios Command Center &middot; Owner Access Only</p>
         </footer>
       </main>
     </div>

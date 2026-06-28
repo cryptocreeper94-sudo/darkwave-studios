@@ -107,7 +107,7 @@ export default function Quote() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
       <SEOHead
         title="Get a Quote - Instant Web Development Pricing Calculator"
         description="Calculate your web project cost instantly. Custom websites, web apps, e-commerce, and SaaS - all 60% less than traditional agencies. Transparent pricing, no surprises."
@@ -123,7 +123,7 @@ export default function Quote() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -221,7 +221,7 @@ export default function Quote() {
                         className={`relative overflow-hidden rounded-xl border-2 transition-all text-left h-28 lg:h-40 group ${
                           selectedType === type.id 
                             ? "border-primary bg-primary/10" 
-                            : "border-white/10 hover:border-white/20"
+                            : "border-black/10 hover:border-black/20"
                         }`}
                         data-testid={`button-type-${type.id}`}
                       >
@@ -232,12 +232,12 @@ export default function Quote() {
                         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/60" />
                         <div className="relative z-10 h-full flex flex-col justify-end p-3 lg:p-4">
                           <div className="text-xl lg:text-2xl mb-1">{type.icon}</div>
-                          <div className="font-semibold text-xs lg:text-sm text-white leading-tight line-clamp-2">{type.name}</div>
+                          <div className="font-semibold text-xs lg:text-sm text-[#050505] leading-tight line-clamp-2">{type.name}</div>
                           <div className="text-[10px] lg:text-xs text-primary font-medium mt-0.5">From ${type.base.toLocaleString()}</div>
                         </div>
                         {selectedType === type.id && (
                           <div className="absolute top-2 right-2 w-5 h-5 lg:w-6 lg:h-6 rounded-full bg-primary flex items-center justify-center">
-                            <Check className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
+                            <Check className="w-3 h-3 lg:w-4 lg:h-4 text-[#050505]" />
                           </div>
                         )}
                       </button>
@@ -276,14 +276,14 @@ export default function Quote() {
                         className={`p-3 lg:p-4 rounded-xl border-2 transition-all text-left relative min-h-[70px] lg:min-h-[90px] ${
                           selectedFeatures.includes(feature.id) 
                             ? "border-primary bg-primary/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            : "border-black/10 bg-black/5 hover:border-black/20"
                         }`}
                         data-testid={`button-feature-${feature.id}`}
                       >
                         <div className={`absolute top-2 right-2 w-5 h-5 rounded-md border-2 flex items-center justify-center ${
-                          selectedFeatures.includes(feature.id) ? "border-primary bg-primary" : "border-white/30"
+                          selectedFeatures.includes(feature.id) ? "border-primary bg-primary" : "border-black/30"
                         }`}>
-                          {selectedFeatures.includes(feature.id) && <Check className="w-3 h-3 text-white" />}
+                          {selectedFeatures.includes(feature.id) && <Check className="w-3 h-3 text-[#050505]" />}
                         </div>
                         <div className="font-semibold text-xs lg:text-sm pr-6 leading-tight">{feature.name}</div>
                         <div className="text-xs lg:text-sm text-primary font-medium mt-1">
@@ -326,7 +326,7 @@ export default function Quote() {
                         className={`p-2 lg:p-4 rounded-lg lg:rounded-xl border-2 transition-all text-left ${
                           selectedTimeline === timeline.id 
                             ? "border-primary bg-primary/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            : "border-black/10 bg-black/5 hover:border-black/20"
                         }`}
                         data-testid={`button-timeline-${timeline.id}`}
                       >
@@ -371,7 +371,7 @@ export default function Quote() {
                         className={`p-2 lg:p-4 rounded-lg lg:rounded-xl border-2 transition-all text-left ${
                           selectedPlan === plan.id 
                             ? "border-green-400 bg-green-500/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            : "border-black/10 bg-black/5 hover:border-black/20"
                         }`}
                         data-testid={`button-plan-${plan.id}`}
                       >
@@ -402,7 +402,7 @@ export default function Quote() {
                     placeholder="Your Name *"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                     data-testid="input-quote-name"
                   />
                   <input
@@ -410,7 +410,7 @@ export default function Quote() {
                     placeholder="Your Email *"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                     data-testid="input-quote-email"
                   />
                   <input
@@ -418,14 +418,14 @@ export default function Quote() {
                     placeholder="Phone (optional)"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                     data-testid="input-quote-phone"
                   />
                   <textarea
                     placeholder="Project details (optional)"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none resize-none"
                     rows={1}
                     data-testid="textarea-quote-description"
                   />
@@ -440,7 +440,7 @@ export default function Quote() {
                 
                 <div className="space-y-4 mb-6">
                   {selectedType && (
-                    <div className="flex items-center justify-between py-2 border-b border-white/10">
+                    <div className="flex items-center justify-between py-2 border-b border-black/10">
                       <span className="text-sm">{projectTypes.find(t => t.id === selectedType)?.name}</span>
                       <span className="font-semibold">${projectTypes.find(t => t.id === selectedType)?.base.toLocaleString()}</span>
                     </div>
@@ -449,7 +449,7 @@ export default function Quote() {
                   {selectedFeatures.map(id => {
                     const feature = features.find(f => f.id === id);
                     return feature ? (
-                      <div key={id} className="flex items-center justify-between py-2 border-b border-white/10">
+                      <div key={id} className="flex items-center justify-between py-2 border-b border-black/10">
                         <span className="text-sm">{feature.name}</span>
                         <span className="font-semibold">+${feature.price.toLocaleString()}</span>
                       </div>
@@ -457,7 +457,7 @@ export default function Quote() {
                   })}
                   
                   {selectedTimeline !== "standard" && (
-                    <div className="flex items-center justify-between py-2 border-b border-white/10">
+                    <div className="flex items-center justify-between py-2 border-b border-black/10">
                       <span className="text-sm">{timelines.find(t => t.id === selectedTimeline)?.name} Timeline</span>
                       <span className="font-semibold text-accent">+{Math.round((timelines.find(t => t.id === selectedTimeline)?.multiplier || 1 - 1) * 100)}%</span>
                     </div>
@@ -475,7 +475,7 @@ export default function Quote() {
                   <div className="text-xs text-muted-foreground mt-1">{monthlyPlans.find(p => p.id === selectedPlan)?.desc}</div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white/5 mb-6">
+                <div className="p-4 rounded-xl bg-black/5 mb-6">
                   <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Traditional Agency</div>
                   <div className="text-xl font-bold text-red-400 line-through">${traditionalPrice().toLocaleString()}</div>
                   <div className="text-xs text-green-400 mt-1">Save ${(traditionalPrice() - calculateTotal()).toLocaleString()} + get ongoing support!</div>

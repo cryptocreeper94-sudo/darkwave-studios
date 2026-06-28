@@ -274,13 +274,13 @@ export default function SharedComponentsManager() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-[#f8f9fa] text-foreground flex items-center justify-center">
         <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
           <GlassCard glow className="p-8 rounded-2xl w-[380px]">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                <Lock className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center">
+                <Lock className="w-6 h-6 text-[#050505]" />
               </div>
               <div>
                 <h1 className="text-xl font-bold font-display">Component Manager</h1>
@@ -295,7 +295,7 @@ export default function SharedComponentsManager() {
                   value={password}
                   onChange={e => { setPassword(e.target.value); setPasswordError(false); }}
                   onKeyDown={e => e.key === "Enter" && handleLogin()}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
+                  className="w-full bg-black/40 border border-black/10 rounded-lg px-4 py-3 text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
                   placeholder="Enter password"
                   data-testid="input-password"
                   autoFocus
@@ -308,7 +308,7 @@ export default function SharedComponentsManager() {
               </div>
               <button
                 onClick={handleLogin}
-                className="w-full bg-white/5 border border-white/10 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                className="w-full bg-black/5 border border-black/10 text-[#050505] py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
                 data-testid="button-login"
               >
                 Access Manager
@@ -324,11 +324,11 @@ export default function SharedComponentsManager() {
   const formFields = mergedComponent ? extractFormFields(mergedComponent) : [];
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/developers" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-back-developers">
@@ -365,20 +365,20 @@ export default function SharedComponentsManager() {
                       value={newSlug}
                       onChange={e => setNewSlug(e.target.value)}
                       placeholder="slug (e.g. header)"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
+                      className="w-full bg-black/40 border border-black/10 rounded-lg px-3 py-2 text-sm text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none"
                       data-testid="input-new-slug"
                     />
                     <input
                       value={newName}
                       onChange={e => setNewName(e.target.value)}
                       placeholder="Display Name"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
+                      className="w-full bg-black/40 border border-black/10 rounded-lg px-3 py-2 text-sm text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none"
                       data-testid="input-new-name"
                     />
                     <select
                       value={newType}
                       onChange={e => setNewType(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-white/10 focus:outline-none"
+                      className="w-full bg-black/40 border border-black/10 rounded-lg px-3 py-2 text-sm text-[#050505] focus:border-black/10 focus:outline-none"
                       data-testid="select-new-type"
                     >
                       {componentTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -387,14 +387,14 @@ export default function SharedComponentsManager() {
                       <button
                         onClick={handleCreate}
                         disabled={!newSlug || !newName}
-                        className="flex-1 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
+                        className="flex-1 bg-primary text-[#050505] py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
                         data-testid="button-create-component"
                       >
                         Create
                       </button>
                       <button
                         onClick={() => setShowNewForm(false)}
-                        className="px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-white hover:bg-white/10 transition-colors"
+                        className="px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-[#050505] hover:bg-black/10 transition-colors"
                         data-testid="button-cancel-new"
                       >
                         Cancel
@@ -418,7 +418,7 @@ export default function SharedComponentsManager() {
                   className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
                     selectedSlug === comp.slug
                       ? "bg-primary/10 border-primary/30"
-                      : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06]"
+                      : "bg-black/[0.03] border-black/10 hover:border-black/20 hover:bg-[#f8f9fa]/[0.06]"
                   }`}
                   whileHover={{ x: 4 }}
                   data-testid={`button-select-${comp.slug}`}
@@ -428,7 +428,7 @@ export default function SharedComponentsManager() {
                     <span className={`w-2 h-2 rounded-full ${comp.isActive ? "bg-green-400" : "bg-red-400"}`} />
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="px-1.5 py-0.5 rounded bg-white/10">{comp.type}</span>
+                    <span className="px-1.5 py-0.5 rounded bg-black/10">{comp.type}</span>
                     <span>v{comp.version}</span>
                   </div>
                 </motion.button>
@@ -444,7 +444,7 @@ export default function SharedComponentsManager() {
                 <div className="flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center gap-3">
                     <h2 className="text-lg font-bold font-display">{selected.name}</h2>
-                    <span className="text-xs px-2 py-1 rounded-full bg-white/10 text-muted-foreground">{selected.type}</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-black/10 text-muted-foreground">{selected.type}</span>
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
                       <Hash className="w-3 h-3" /> v{selected.version}
                     </span>
@@ -476,7 +476,7 @@ export default function SharedComponentsManager() {
                     <button
                       onClick={handleSave}
                       disabled={saving || Object.keys(editBuffer).length === 0}
-                      className="flex items-center gap-1.5 bg-white/5 border border-white/10 text-white px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
+                      className="flex items-center gap-1.5 bg-black/5 border border-black/10 text-[#050505] px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
                       data-testid="button-save"
                     >
                       {saving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
@@ -497,7 +497,7 @@ export default function SharedComponentsManager() {
               </GlassCard>
 
               {/* Editor Tabs */}
-              <div className="flex gap-1 bg-white/[0.03] rounded-xl p-1 border border-white/10">
+              <div className="flex gap-1 bg-black/[0.03] rounded-xl p-1 border border-black/10">
                 {([
                   { id: "form" as EditorTab, label: "Form Fields", icon: Paintbrush },
                   { id: "html" as EditorTab, label: "HTML", icon: FileCode },
@@ -508,7 +508,7 @@ export default function SharedComponentsManager() {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                      activeTab === tab.id ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-white hover:bg-white/5"
+                      activeTab === tab.id ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-[#050505] hover:bg-black/5"
                     }`}
                     data-testid={`tab-${tab.id}`}
                   >
@@ -521,7 +521,7 @@ export default function SharedComponentsManager() {
               <div className="grid lg:grid-cols-2 gap-4">
                 {/* Editor Panel */}
                 <GlassCard className="rounded-xl overflow-hidden">
-                  <div className="p-4 border-b border-white/10">
+                  <div className="p-4 border-b border-black/10">
                     <h3 className="text-sm font-semibold">
                       {activeTab === "form" ? "Quick Edit" : activeTab.toUpperCase() + " Source"}
                     </h3>
@@ -537,7 +537,7 @@ export default function SharedComponentsManager() {
                                 value={field.value}
                                 onChange={e => updateField(field.key, e.target.value)}
                                 rows={3}
-                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none resize-none"
+                                className="w-full bg-black/40 border border-black/10 rounded-lg px-3 py-2 text-sm text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none resize-none"
                                 data-testid={`field-${field.key}`}
                               />
                             ) : (
@@ -545,7 +545,7 @@ export default function SharedComponentsManager() {
                                 type={field.type}
                                 value={field.value}
                                 onChange={e => updateField(field.key, e.target.value)}
-                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
+                                className="w-full bg-black/40 border border-black/10 rounded-lg px-3 py-2 text-sm text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none"
                                 data-testid={`field-${field.key}`}
                               />
                             )}
@@ -566,7 +566,7 @@ export default function SharedComponentsManager() {
                           activeTab === "html" ? "htmlContent" : activeTab === "css" ? "cssContent" : "jsContent",
                           e.target.value
                         )}
-                        className="w-full h-[520px] bg-black/60 border border-white/10 rounded-lg px-4 py-3 text-sm text-green-300 font-mono placeholder-gray-600 focus:border-white/10 focus:outline-none resize-none leading-relaxed"
+                        className="w-full h-[520px] bg-black/60 border border-black/10 rounded-lg px-4 py-3 text-sm text-green-300 font-mono placeholder-gray-600 focus:border-black/10 focus:outline-none resize-none leading-relaxed"
                         spellCheck={false}
                         data-testid={`editor-${activeTab}`}
                       />
@@ -576,7 +576,7 @@ export default function SharedComponentsManager() {
 
                 {/* Preview Panel */}
                 <GlassCard className="rounded-xl overflow-hidden">
-                  <div className="p-4 border-b border-white/10 flex items-center justify-between">
+                  <div className="p-4 border-b border-black/10 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Eye className="w-4 h-4 text-primary" />
                       <h3 className="text-sm font-semibold">Live Preview</h3>
@@ -584,14 +584,14 @@ export default function SharedComponentsManager() {
                     <div className="flex items-center gap-1 bg-black/40 rounded-lg p-0.5">
                       <button
                         onClick={() => setPreviewTheme("dark")}
-                        className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${previewTheme === "dark" ? "bg-white/10 text-white" : "text-muted-foreground"}`}
+                        className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${previewTheme === "dark" ? "bg-black/10 text-[#050505]" : "text-muted-foreground"}`}
                         data-testid="button-theme-dark"
                       >
                         Dark
                       </button>
                       <button
                         onClick={() => setPreviewTheme("light")}
-                        className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${previewTheme === "light" ? "bg-white/10 text-white" : "text-muted-foreground"}`}
+                        className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${previewTheme === "light" ? "bg-black/10 text-[#050505]" : "text-muted-foreground"}`}
                         data-testid="button-theme-light"
                       >
                         Light
@@ -620,7 +620,7 @@ export default function SharedComponentsManager() {
                   {`<script src="https://dwsc.io/api/ecosystem/shared/loader.js" data-components="${selected.slug}" data-theme="dark"></script>`}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Or fetch directly: <code className="text-gray-400">GET /api/ecosystem/shared/render/{selected.slug}?theme=dark</code>
+                  Or fetch directly: <code className="text-gray-600">GET /api/ecosystem/shared/render/{selected.slug}?theme=dark</code>
                 </p>
               </GlassCard>
             </div>

@@ -113,7 +113,7 @@ const services = [
 export default function Services() {
   const { isAdFree, loading: adLoading, startCheckout } = useAdFreeStatus();
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
       <SEOHead
         title="Web Development Services - Custom Apps, AI Integration & More"
         description="Full-stack web development services including custom websites, AI-powered applications, e-commerce, SaaS platforms, and unlimited support. 60% savings vs traditional agencies."
@@ -129,7 +129,7 @@ export default function Services() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -255,7 +255,7 @@ export default function Services() {
         <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
       </div>
 
-      <footer className="glass-strong mt-12 border-t border-white/5">
+      <footer className="glass-strong mt-12 border-t border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>

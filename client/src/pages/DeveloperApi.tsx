@@ -3,8 +3,10 @@ import { useState } from "react";
 import { 
   Code2, Shield, Zap, Lock, Globe, Bot, ChevronRight, Copy, Check, Activity,
   TrendingUp, BarChart3, Clock, ArrowLeft, ExternalLink, Terminal, Megaphone,
-  Target, Users, Building2, Wrench, Home, Mail, Newspaper, Sparkles, Boxes
+  Target, Users, Building2, Wrench, Home, Mail, Newspaper, Sparkles, Boxes,
+  ArrowRight, FileJson, Key, Layout, Server, Send
 } from "lucide-react";
+import metricsData from "@/data/metrics.json";
 import { SEOHead, BreadcrumbSchema } from "@/components/SEOHead";
 import { GlassCard } from "@/components/glass-card";
 import { motion } from "framer-motion";
@@ -90,7 +92,7 @@ function PulseApiDocs() {
       <GlassCard glow className="rounded-2xl lg:rounded-3xl p-8 lg:p-12 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
-            <Activity className="w-7 h-7 text-white" />
+            <Activity className="w-7 h-7 text-[#050505]" />
           </div>
           <div>
             <h2 className="text-2xl lg:text-3xl font-bold font-display">Pulse API</h2>
@@ -118,17 +120,17 @@ function PulseApiDocs() {
         <div className="grid lg:grid-cols-3 gap-4 mb-8">
           <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <TrendingUp className="w-6 h-6 text-amber-400 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-white">65-70%</div>
+            <div className="text-2xl font-bold text-[#050505]">65-70%</div>
             <div className="text-sm text-muted-foreground">Win Rate</div>
           </GlassCard>
           <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <BarChart3 className="w-6 h-6 text-amber-400 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-white">100K+</div>
+            <div className="text-2xl font-bold text-[#050505]">100K+</div>
             <div className="text-sm text-muted-foreground">Predictions Verified</div>
           </GlassCard>
           <GlassCard variant="stat" className="rounded-xl p-4 text-center">
             <Clock className="w-6 h-6 text-amber-400 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-white">Real-time</div>
+            <div className="text-2xl font-bold text-[#050505]">Real-time</div>
             <div className="text-sm text-muted-foreground">Data Updates</div>
           </GlassCard>
         </div>
@@ -136,16 +138,16 @@ function PulseApiDocs() {
         <h3 className="text-xl font-bold font-display mb-4">Available Endpoints</h3>
         <div className="space-y-4">
           {pulseEndpoints.map((endpoint) => (
-            <div key={endpoint.path} className="bg-black/30 rounded-xl border border-white/10 overflow-hidden" data-testid={`endpoint-${endpoint.path.replace(/\//g, '-')}`}>
-              <div className="p-4 border-b border-white/10">
+            <div key={endpoint.path} className="bg-black/30 rounded-xl border border-black/10 overflow-hidden" data-testid={`endpoint-${endpoint.path.replace(/\//g, '-')}`}>
+              <div className="p-4 border-b border-black/10">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="px-2 py-1 rounded text-xs font-bold bg-green-500/20 text-green-400">{endpoint.method}</span>
-                  <code className="text-sm font-mono text-white">{endpoint.path}</code>
-                  <button onClick={() => copyToClipboard(endpoint.path, endpoint.path)} className="ml-auto text-muted-foreground hover:text-white transition-colors" data-testid={`copy-${endpoint.path.replace(/\//g, '-')}`}>
+                  <code className="text-sm font-mono text-[#050505]">{endpoint.path}</code>
+                  <button onClick={() => copyToClipboard(endpoint.path, endpoint.path)} className="ml-auto text-muted-foreground hover:text-[#050505] transition-colors" data-testid={`copy-${endpoint.path.replace(/\//g, '-')}`}>
                     {copiedEndpoint === endpoint.path ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
-                <h4 className="font-semibold text-white mb-1">{endpoint.title}</h4>
+                <h4 className="font-semibold text-[#050505] mb-1">{endpoint.title}</h4>
                 <p className="text-sm text-muted-foreground">{endpoint.description}</p>
               </div>
               <div className="p-4 bg-black/40">
@@ -175,7 +177,7 @@ function PulseApiDocs() {
 
 export default function DeveloperApi() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
       <SEOHead
         title="API & Developer Tools - DarkWave Studios"
         description="Developer tools, Pulse API documentation, and PR outreach directory for the DarkWave ecosystem."
@@ -192,7 +194,7 @@ export default function DeveloperApi() {
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/developers" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-back-developers">
@@ -203,7 +205,7 @@ export default function DeveloperApi() {
               <span className="font-display text-lg lg:text-xl font-bold">API & Developer Tools</span>
             </div>
           </div>
-          <Link href="/hub" className="btn-glow bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors" data-testid="button-browse-widgets">
+          <Link href="/hub" className="btn-glow bg-primary hover:bg-primary/90 text-[#050505] px-4 py-2 rounded-lg text-sm font-semibold transition-colors" data-testid="button-browse-widgets">
             Browse Widgets
           </Link>
         </div>
@@ -267,29 +269,29 @@ export default function DeveloperApi() {
               {/* Tech & Startup Publications */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-gray-400" />
+                  <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-gray-600" />
                   </div>
                   <h3 className="text-lg font-semibold">Tech & Startup Publications</h3>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: "Full-stack ecosystem with 42 production apps and 29.2M+ lines of code", icon: Zap },
+                    { name: "TechCrunch", url: "https://techcrunch.com/submit-a-tip/", type: "Tip submission form", pitch: `Full-stack ecosystem with ${metricsData.liveApps} production apps and ${metricsData.linesOfCode} lines of code`, icon: Zap },
                     { name: "Product Hunt", url: "https://www.producthunt.com/posts/new", type: "Product launch platform", pitch: "Launch Trust Layer Hub, Guardian AI, or Pulse individually for maximum visibility", icon: Target },
                     { name: "Hacker News (Show HN)", url: "https://news.ycombinator.com/submit", type: "Community submission", pitch: "Technical deep-dive on building a 42-app ecosystem as a solo developer", icon: Terminal },
                     { name: "IndieHackers", url: "https://www.indiehackers.com", type: "Community + interviews", pitch: "Indie builder story — solo dev building enterprise-scale ecosystem", icon: Users },
                     { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
                     { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/10 hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-black/10 hover:bg-black/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <pub.icon className="w-4 h-4 text-gray-400" />
+                          <pub.icon className="w-4 h-4 text-gray-600" />
                           <span className="font-semibold text-sm">{pub.name}</span>
                         </div>
                         <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-gray-400 font-medium">{pub.type}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-black/5 text-gray-600 font-medium">{pub.type}</span>
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
                     </a>
                   ))}
@@ -313,7 +315,7 @@ export default function DeveloperApi() {
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-sky-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-sky-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-sky-400" />
@@ -345,7 +347,7 @@ export default function DeveloperApi() {
                     { name: "QSR Magazine", url: "https://www.qsrmagazine.com", type: "Food service industry", pitch: "TL Driver Connect / Happy Eats — multi-tenant delivery platform with zone ordering", icon: Target },
                     { name: "Venue Management Association", url: "https://www.iavm.org", type: "Venue operations", pitch: "Orby Commander — stadium/arena command center with emergency response + delivery tracking", icon: Building2 },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-amber-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-amber-400" />
@@ -377,7 +379,7 @@ export default function DeveloperApi() {
                     { name: "AlternativeTo", url: "https://alternativeto.net/manage-apps/", type: "Software alternative directory", pitch: "Position against competitors — PaintPros vs Jobber, ORBIT vs Bullhorn", icon: Globe },
                     { name: "StackShare", url: "https://stackshare.io", type: "Tech stack community", pitch: "Showcase the full ecosystem tech stack — great for developer credibility", icon: Boxes },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-emerald-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-emerald-400" />
@@ -428,7 +430,7 @@ export default function DeveloperApi() {
                     ))}
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="mt-4 pt-4 border-t border-black/10">
                   <p className="text-xs text-muted-foreground">
                     Contact for all press inquiries: <span className="text-primary font-semibold">team@dwsc.io</span>
                   </p>
@@ -452,10 +454,10 @@ export default function DeveloperApi() {
               Start integrating Trust Layer widgets into your projects today. Browse our marketplace or contact us for custom solutions.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/hub" className="btn-glow inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity" data-testid="button-cta-widgets">
+              <Link href="/hub" className="btn-glow inline-flex items-center gap-2 bg-primary text-[#050505] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity" data-testid="button-cta-widgets">
                 Browse Widgets <ChevronRight className="w-5 h-5" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors" data-testid="button-cta-contact">
+              <Link href="/contact" className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-black/10 transition-colors" data-testid="button-cta-contact">
                 Contact Us
               </Link>
             </div>
@@ -463,7 +465,7 @@ export default function DeveloperApi() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-white/10 py-8 mt-12">
+      <footer className="border-t border-black/10 py-8 mt-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.

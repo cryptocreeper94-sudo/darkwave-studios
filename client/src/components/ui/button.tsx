@@ -10,14 +10,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-transparent text-white border border-white/20 backdrop-blur-md hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)]",
+          "bg-transparent text-[#050505] border border-black/20 backdrop-blur-md hover:bg-[#f8f9fa] hover:text-[#050505] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]",
         destructive:
-          "bg-transparent text-red-500 border border-red-500/20 backdrop-blur-md hover:bg-red-500 hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(239,68,68,0.1)]",
+          "bg-transparent text-red-500 border border-red-500/20 backdrop-blur-md hover:bg-red-500 hover:text-[#050505] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(239,68,68,0.1)]",
         outline:
-          "bg-transparent text-gray-400 border border-white/10 backdrop-blur-md hover:bg-white/5 hover:text-white hover:-translate-y-[2px]",
+          "bg-transparent text-gray-600 border border-black/10 backdrop-blur-md hover:bg-black/5 hover:text-[#050505] hover:-translate-y-[2px]",
         secondary:
-          "bg-white/5 text-white border border-white/10 backdrop-blur-md hover:bg-white/10 hover:-translate-y-[2px]",
-        ghost: "hover:bg-white/5 hover:text-white",
+          "bg-black/5 text-[#050505] border border-black/10 backdrop-blur-md hover:bg-black/10 hover:-translate-y-[2px]",
+        ghost: "hover:bg-black/5 hover:text-[#050505]",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

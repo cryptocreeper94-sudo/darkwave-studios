@@ -112,7 +112,7 @@ export default function Book() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
       <SEOHead
         title="Book a Call - Free Consultation with a Developer"
         description="Schedule a free consultation with DarkWave Studios. Discuss your project, get expert advice, and see our portfolio. No obligation, no sales pressure."
@@ -128,7 +128,7 @@ export default function Book() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -203,12 +203,12 @@ export default function Book() {
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                       step === s ? "bg-primary text-primary-foreground" : 
                       ["type", "date", "time", "details"].indexOf(step) > i ? "bg-primary/20 text-primary" : 
-                      "bg-white/10 text-muted-foreground"
+                      "bg-black/10 text-muted-foreground"
                     }`}>
                       {i + 1}
                     </div>
                     {i < 3 && <div className={`w-16 lg:w-24 h-1 mx-2 rounded ${
-                      ["type", "date", "time", "details"].indexOf(step) > i ? "bg-primary/50" : "bg-white/10"
+                      ["type", "date", "time", "details"].indexOf(step) > i ? "bg-primary/50" : "bg-black/10"
                     }`} />}
                   </div>
                 ))}
@@ -230,7 +230,7 @@ export default function Book() {
                         className={`w-full rounded-xl border-2 transition-all text-left relative overflow-hidden h-28 lg:h-32 group ${
                           selectedType === type.id 
                             ? "border-primary" 
-                            : "border-white/10 hover:border-white/20"
+                            : "border-black/10 hover:border-black/20"
                         }`}
                         data-testid={`button-meeting-${type.id}`}
                       >
@@ -244,14 +244,14 @@ export default function Book() {
                             <type.icon className="w-6 h-6 text-primary" />
                           </div>
                           <div className="flex-1">
-                            <div className="font-bold text-white">{type.name}</div>
+                            <div className="font-bold text-[#050505]">{type.name}</div>
                             <div className="text-sm text-muted-foreground">{type.desc}</div>
                           </div>
-                          <div className="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-sm text-sm">{type.duration}</div>
+                          <div className="px-3 py-1 rounded-lg bg-black/10 backdrop-blur-sm text-sm">{type.duration}</div>
                         </div>
                         {selectedType === type.id && (
                           <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
+                            <Check className="w-4 h-4 text-[#050505]" />
                           </div>
                         )}
                       </button>
@@ -272,13 +272,13 @@ export default function Book() {
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
-                    <button onClick={prevMonth} className="p-2 rounded-lg hover:bg-white/10">
+                    <button onClick={prevMonth} className="p-2 rounded-lg hover:bg-black/10">
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <h3 className="font-bold">
                       {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                     </h3>
-                    <button onClick={nextMonth} className="p-2 rounded-lg hover:bg-white/10">
+                    <button onClick={nextMonth} className="p-2 rounded-lg hover:bg-black/10">
                       <ChevronRight className="w-5 h-5" />
                     </button>
                   </div>
@@ -297,7 +297,7 @@ export default function Book() {
                               selectedDate?.toDateString() === date.toDateString()
                                 ? "bg-primary text-primary-foreground"
                                 : isDateAvailable(date)
-                                ? "hover:bg-white/10"
+                                ? "hover:bg-black/10"
                                 : "text-muted-foreground/30 cursor-not-allowed"
                             }`}
                           >
@@ -333,7 +333,7 @@ export default function Book() {
                         className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border-2 transition-all ${
                           selectedTime === time 
                             ? "border-primary bg-primary/10" 
-                            : "border-white/10 bg-white/5 hover:border-white/20"
+                            : "border-black/10 bg-black/5 hover:border-black/20"
                         }`}
                         data-testid={`button-time-${time.replace(/[:\s]/g, "-")}`}
                       >
@@ -374,7 +374,7 @@ export default function Book() {
                             type="text"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                             placeholder="Your name"
                             required
                             data-testid="input-booking-name"
@@ -389,7 +389,7 @@ export default function Book() {
                             type="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                             placeholder="your@email.com"
                             required
                             data-testid="input-booking-email"
@@ -406,7 +406,7 @@ export default function Book() {
                           type="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
                           placeholder="(555) 123-4567"
                           data-testid="input-booking-phone"
                         />
@@ -418,7 +418,7 @@ export default function Book() {
                       <textarea
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:outline-none resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none resize-none"
                         rows={3}
                         placeholder="Brief description of your project or questions..."
                         data-testid="textarea-booking-notes"
@@ -483,7 +483,7 @@ export default function Book() {
         )}
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-white/5">
+      <footer className="glass-strong mt-12 border-t border-black/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>

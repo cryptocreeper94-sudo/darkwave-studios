@@ -216,7 +216,7 @@ const stats = [
 
 export default function Lume() {
   return (
-    <div className="min-h-screen bg-[#06060a] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#06060a] text-[#050505] overflow-x-hidden">
       <SEOHead
         title="Lume - The Deterministic Natural-Language Programming Language"
         description="The deterministic natural-language programming language. 93 source modules, 2,358 passing tests, Ed25519 trust certificates, 31-rule inference engine, 42 Zenodo publications across the DAIGS ecosystem. Write English, ship JavaScript. Built by DarkWave Studios."
@@ -232,11 +232,11 @@ export default function Lume() {
       />
 
       <div className="fixed inset-0 bg-[#06060a] -z-20" />
-      <div className="fixed inset-0 bg-[#050505]/80 pointer-events-none z-[-10]" />
+      <div className="fixed inset-0 bg-[#f8f9fa]/80 pointer-events-none z-[-10]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(20,184,166,0.06),transparent_50%)] -z-10" />
 
       <motion.div
-        className="fixed top-20 left-10 w-72 h-72 rounded-full bg-white/5 blur-[100px] -z-10"
+        className="fixed top-20 left-10 w-72 h-72 rounded-full bg-black/5 blur-[100px] -z-10"
         animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -251,18 +251,18 @@ export default function Lume() {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <header className="sticky top-0 z-50 bg-[#06060a]/80 backdrop-blur-xl border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-[#06060a]/80 backdrop-blur-xl border-b border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-gray-400 hover:text-gray-400 transition-colors" data-testid="link-home">
+            <Link href="/" className="text-gray-600 hover:text-gray-600 transition-colors" data-testid="link-home">
               <ChevronRight className="w-5 h-5 rotate-180" />
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                <Code2 className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center">
+                <Code2 className="w-4 h-4 text-[#050505]" />
               </div>
               <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Lume</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-gray-400 font-semibold">v1.1.0</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-black/10 text-gray-600 font-semibold">v1.1.0</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -270,7 +270,7 @@ export default function Lume() {
               href="https://lume-lang.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-medium bg-black/5 hover:bg-black/10 border border-black/10 transition-colors text-gray-300 hover:text-[#050505]"
               data-testid="link-lume-lang"
             >
               <Globe className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Website</span>
@@ -279,7 +279,7 @@ export default function Lume() {
               href="https://github.com/darkwavestudios/lume"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 bg-white/5 border border-white/10 text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="flex items-center gap-1.5 bg-black/5 border border-black/10 text-[#050505] px-2.5 sm:px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
               data-testid="link-github"
             >
               <Code2 className="w-3.5 h-3.5" /> <span className="hidden sm:inline">GitHub</span>
@@ -297,8 +297,8 @@ export default function Lume() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-gray-400 mb-6" data-testid="badge-ecosystem">
-                <Sparkles className="w-4 h-4 text-gray-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 border border-black/10 text-sm text-gray-600 mb-6" data-testid="badge-ecosystem">
+                <Sparkles className="w-4 h-4 text-gray-600" />
                 DarkWave Ecosystem — Developer Tools
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-hero">
@@ -306,27 +306,27 @@ export default function Lume() {
                   The Deterministic Natural-Language
                 </span>
                 <br />
-                <span className="text-white">Programming Language</span>
+                <span className="text-[#050505]">Programming Language</span>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed px-2" data-testid="text-hero-tagline">
-                The first language where artificial intelligence is a <span className="text-gray-400 font-semibold">syntax primitive</span> — not a library import.
-                Write <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-cyan-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>,{" "}
-                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-teal-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>, and{" "}
-                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-sky-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
-                as keywords the same way you write <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>if</code> or{" "}
-                <code className="bg-white/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>.
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed px-2" data-testid="text-hero-tagline">
+                The first language where artificial intelligence is a <span className="text-gray-600 font-semibold">syntax primitive</span> — not a library import.
+                Write <code className="bg-black/10 px-1 sm:px-1.5 py-0.5 rounded text-cyan-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>,{" "}
+                <code className="bg-black/10 px-1 sm:px-1.5 py-0.5 rounded text-teal-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>, and{" "}
+                <code className="bg-black/10 px-1 sm:px-1.5 py-0.5 rounded text-sky-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
+                as keywords the same way you write <code className="bg-black/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>if</code> or{" "}
+                <code className="bg-black/10 px-1 sm:px-1.5 py-0.5 rounded text-gray-300 text-sm sm:text-base" style={{ fontFamily: "JetBrains Mono, monospace" }}>for</code>.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/lume/playground"
-                  className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25"
+                  className="inline-flex items-center gap-2 bg-black/5 border border-black/10 text-[#050505] px-6 py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25"
                   data-testid="cta-playground"
                 >
                   <Terminal className="w-5 h-5" /> Open Playground
               </Link>
               <Link
                 href="/lume/library"
-                className="group relative px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-semibold hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                className="group relative px-5 py-2.5 rounded-xl bg-black/5 border border-black/10 text-[#050505]/70 text-sm font-semibold hover:bg-black/10 transition-all duration-300 hover:scale-105"
               >
                 Widget Library
                 </Link>
@@ -334,7 +334,7 @@ export default function Lume() {
                   href="https://lume-lang.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-black/5 hover:bg-black/10 border border-black/10 text-[#050505] px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
                   data-testid="cta-visit-lume"
                 >
                   Visit lume-lang.org <ExternalLink className="w-5 h-5" />
@@ -343,7 +343,7 @@ export default function Lume() {
                   href="https://github.com/darkwavestudios/lume"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-black/5 hover:bg-black/10 border border-black/10 text-[#050505] px-6 py-3 rounded-xl font-semibold text-lg transition-colors"
                   data-testid="cta-github"
                 >
                   <Code2 className="w-5 h-5" /> View on GitHub
@@ -364,9 +364,9 @@ export default function Lume() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-ai-syntax">
-                <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">AI as Syntax</span>
+                <span className="bg-black/5 border border-black/10 bg-clip-text text-transparent">AI as Syntax</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 90% less code than Python for equivalent AI operations. No SDKs, no API wrappers — just language keywords.
               </p>
             </motion.div>
@@ -380,10 +380,10 @@ export default function Lume() {
               >
                 <GlassCard glow className="p-6 rounded-2xl h-full">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center">
-                      <Zap className="w-3.5 h-3.5 text-white" />
+                    <div className="w-6 h-6 rounded bg-black/5 border border-black/10 flex items-center justify-center">
+                      <Zap className="w-3.5 h-3.5 text-[#050505]" />
                     </div>
-                    <span className="text-sm font-semibold text-gray-400">Lume — 5 lines</span>
+                    <span className="text-sm font-semibold text-gray-600">Lume — 5 lines</span>
                   </div>
                   <pre className="text-sm leading-relaxed overflow-x-auto" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="code-lume">
                     <code className="text-gray-300">{lumeCode}</code>
@@ -399,13 +399,13 @@ export default function Lume() {
               >
                 <GlassCard className="p-6 rounded-2xl h-full opacity-60">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-6 h-6 rounded bg-white/10 flex items-center justify-center">
-                      <Code2 className="w-3.5 h-3.5 text-gray-400" />
+                    <div className="w-6 h-6 rounded bg-black/10 flex items-center justify-center">
+                      <Code2 className="w-3.5 h-3.5 text-gray-600" />
                     </div>
-                    <span className="text-sm font-semibold text-gray-500">Python — 18 lines</span>
+                    <span className="text-sm font-semibold text-gray-600">Python — 18 lines</span>
                   </div>
                   <pre className="text-xs leading-relaxed overflow-x-auto" style={{ fontFamily: "JetBrains Mono, monospace" }} data-testid="code-python">
-                    <code className="text-gray-500">{pythonCode}</code>
+                    <code className="text-gray-600">{pythonCode}</code>
                   </pre>
                 </GlassCard>
               </motion.div>
@@ -426,7 +426,7 @@ export default function Lume() {
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-pipeline">
                 <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Language Pipeline</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 From source to execution — every stage of Lume's compilation pipeline.
               </p>
             </motion.div>
@@ -442,13 +442,13 @@ export default function Lume() {
                   className="relative"
                 >
                   <GlassCard glow className="p-3 sm:p-4 rounded-xl text-center h-full" data-testid={`pipeline-step-${i}`}>
-                    <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 mx-auto mb-1.5 sm:mb-2" />
-                    <div className="text-xs sm:text-sm font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
-                    <div className="text-[10px] sm:text-[11px] text-gray-500 mt-1 hidden sm:block">{step.desc}</div>
+                    <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 mx-auto mb-1.5 sm:mb-2" />
+                    <div className="text-xs sm:text-sm font-semibold text-[#050505]" style={{ fontFamily: "JetBrains Mono, monospace" }}>{step.label}</div>
+                    <div className="text-[10px] sm:text-[11px] text-gray-600 mt-1 hidden sm:block">{step.desc}</div>
                   </GlassCard>
                   {i < pipelineSteps.length - 1 && (
                     <div className="hidden lg:flex absolute top-1/2 -right-2.5 -translate-y-1/2 z-10">
-                      <ArrowRight className="w-4 h-4 text-white/50" />
+                      <ArrowRight className="w-4 h-4 text-[#050505]/50" />
                     </div>
                   )}
                 </motion.div>
@@ -470,7 +470,7 @@ export default function Lume() {
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-runtime">
                 <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Self-Sustaining Runtime</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 Lume programs are alive — they monitor, heal, optimize, and evolve themselves automatically.
               </p>
             </motion.div>
@@ -486,10 +486,10 @@ export default function Lume() {
                 <motion.div key={layer.name} variants={staggerItem}>
                   <GlassCard glow className="p-6 rounded-2xl h-full" data-testid={`runtime-layer-${i}`}>
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${layer.color} flex items-center justify-center mb-4`}>
-                      <layer.icon className="w-6 h-6 text-white" />
+                      <layer.icon className="w-6 h-6 text-[#050505]" />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "Inter, sans-serif" }}>{layer.name}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{layer.desc}</p>
+                    <h3 className="text-lg font-bold text-[#050505] mb-2" style={{ fontFamily: "Inter, sans-serif" }}>{layer.name}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{layer.desc}</p>
                   </GlassCard>
                 </motion.div>
               ))}
@@ -510,7 +510,7 @@ export default function Lume() {
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-toolchain">
                 <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Toolchain</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 9 built-in commands for a complete development workflow.
               </p>
             </motion.div>
@@ -524,16 +524,16 @@ export default function Lume() {
             >
               {toolchainCommands.map((tool) => (
                 <motion.div key={tool.cmd} variants={staggerItem}>
-                  <GlassCard className="p-5 rounded-xl group hover:border-white/10 transition-all" data-testid={`tool-${tool.cmd}`}>
+                  <GlassCard className="p-5 rounded-xl group hover:border-black/10 transition-all" data-testid={`tool-${tool.cmd}`}>
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/5 transition-colors">
-                        <tool.icon className="w-4 h-4 text-gray-400" />
+                      <div className="w-9 h-9 rounded-lg bg-black/5 flex items-center justify-center group-hover:bg-black/5 transition-colors">
+                        <tool.icon className="w-4 h-4 text-gray-600" />
                       </div>
-                      <code className="text-base font-semibold text-white" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                      <code className="text-base font-semibold text-[#050505]" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                         lume {tool.cmd}
                       </code>
                     </div>
-                    <p className="text-sm text-gray-400 pl-12">{tool.desc}</p>
+                    <p className="text-sm text-gray-600 pl-12">{tool.desc}</p>
                   </GlassCard>
                 </motion.div>
               ))}
@@ -554,7 +554,7 @@ export default function Lume() {
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-tests">
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Test Coverage</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 2,358 passing tests across 13 milestones + Expansion Block — 100% pass rate.
               </p>
             </motion.div>
@@ -570,14 +570,14 @@ export default function Lume() {
                 <motion.div key={m.name} variants={staggerItem}>
                   <GlassCard className="p-5 rounded-xl" data-testid={`milestone-${i}`}>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-semibold text-white">{m.name}</span>
-                      <span className="text-xs text-gray-400 font-semibold" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                      <span className="text-sm font-semibold text-[#050505]">{m.name}</span>
+                      <span className="text-xs text-gray-600 font-semibold" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                         {m.tests}/{m.total}
                       </span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-black/5 overflow-hidden">
                       <motion.div
-                        className="h-full rounded-full bg-white/5 border border-white/10"
+                        className="h-full rounded-full bg-black/5 border border-black/10"
                         initial={{ width: 0 }}
                         whileInView={{ width: "100%" }}
                         viewport={{ once: true }}
@@ -602,7 +602,7 @@ export default function Lume() {
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="total-tests">
                 <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span className="text-lg font-bold text-white">2,358/2,358 Tests Passing</span>
+                <span className="text-lg font-bold text-[#050505]">2,358/2,358 Tests Passing</span>
                 <span className="text-sm text-green-400 font-semibold">100%</span>
               </GlassCard>
             </motion.div>
@@ -620,9 +620,9 @@ export default function Lume() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-ecosystem">
-                <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">Ecosystem Integration</span>
+                <span className="bg-black/5 border border-black/10 bg-clip-text text-transparent">Ecosystem Integration</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 Deeply integrated with the Trust Layer ecosystem infrastructure.
               </p>
             </motion.div>
@@ -637,11 +637,11 @@ export default function Lume() {
               {ecosystemIntegrations.map((item) => (
                 <motion.div key={item.name} variants={staggerItem}>
                   <GlassCard glow className="p-5 rounded-xl h-full" data-testid={`integration-${item.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-white/10 flex items-center justify-center mb-3">
-                      <item.icon className="w-5 h-5 text-gray-400" />
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-black/10 flex items-center justify-center mb-3">
+                      <item.icon className="w-5 h-5 text-gray-600" />
                     </div>
-                    <h3 className="text-sm font-bold text-white mb-1.5">{item.name}</h3>
-                    <p className="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-sm font-bold text-[#050505] mb-1.5">{item.name}</h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </motion.div>
               ))}
@@ -662,7 +662,7 @@ export default function Lume() {
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-connected-apps">
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Connected Apps</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 Apps across the ecosystem that integrate with or are built on Lume.
               </p>
             </motion.div>
@@ -677,12 +677,12 @@ export default function Lume() {
               {connectedApps.map((app) => (
                 <motion.div key={app.name} variants={staggerItem}>
                   <a href={app.url} target="_blank" rel="noopener noreferrer">
-                    <GlassCard className="p-5 rounded-xl group hover:border-white/10 transition-all cursor-pointer h-full" data-testid={`app-${app.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <GlassCard className="p-5 rounded-xl group hover:border-black/10 transition-all cursor-pointer h-full" data-testid={`app-${app.name.toLowerCase().replace(/\s+/g, '-')}`}>
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-bold text-white group-hover:text-gray-400 transition-colors">{app.name}</h3>
-                        <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-gray-400 transition-colors" />
+                        <h3 className="text-sm font-bold text-[#050505] group-hover:text-gray-600 transition-colors">{app.name}</h3>
+                        <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-gray-600 transition-colors" />
                       </div>
-                      <p className="text-xs text-gray-400 leading-relaxed">{app.desc}</p>
+                      <p className="text-xs text-gray-600 leading-relaxed">{app.desc}</p>
                     </GlassCard>
                   </a>
                 </motion.div>
@@ -705,10 +705,10 @@ export default function Lume() {
                     className="text-center"
                     data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
                   >
-                    <div className="text-lg sm:text-2xl lg:text-3xl font-bold bg-white/5 border border-white/10 bg-clip-text text-transparent" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                    <div className="text-lg sm:text-2xl lg:text-3xl font-bold bg-black/5 border border-black/10 bg-clip-text text-transparent" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                       {stat.value}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-gray-500 mt-1">{stat.label}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-600 mt-1">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -726,14 +726,14 @@ export default function Lume() {
               transition={{ duration: 0.6 }}
               className="text-center mb-6"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-gray-400 mb-6" data-testid="badge-nl-evolution">
-                <Sparkles className="w-4 h-4 text-gray-400" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 border border-black/10 text-sm text-gray-600 mb-6" data-testid="badge-nl-evolution">
+                <Sparkles className="w-4 h-4 text-gray-600" />
                 Milestones 7-13
               </div>
               <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ fontFamily: "Inter, sans-serif" }} data-testid="heading-nl-roadmap">
                 <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 bg-clip-text text-transparent">Natural Language Evolution</span>
               </h2>
-              <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+              <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
                 The next chapter of Lume — from English Mode to autonomous programming. Write code in plain language, any human language, or even by voice. The compiler understands your intent.
               </p>
             </motion.div>
@@ -746,9 +746,9 @@ export default function Lume() {
               className="text-center mb-12"
             >
               <GlassCard variant="elevated" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl" data-testid="nl-vision-statement">
-                <Sparkles className="w-5 h-5 text-gray-400" />
+                <Sparkles className="w-5 h-5 text-gray-600" />
                 <span className="text-sm sm:text-base text-gray-300">
-                  <span className="text-white font-semibold">Vision:</span> Programming should be as natural as describing what you want in conversation.
+                  <span className="text-[#050505] font-semibold">Vision:</span> Programming should be as natural as describing what you want in conversation.
                 </span>
               </GlassCard>
             </motion.div>
@@ -764,42 +764,42 @@ export default function Lume() {
                 <motion.div key={milestone.id} variants={staggerItem}>
                   <GlassCard
                     glow={milestone.status === "complete" || milestone.status === "active"}
-                    className={`p-5 sm:p-6 rounded-2xl ${milestone.status === "complete" ? "border-green-500/20" : milestone.status === "active" ? "border-white/10" : ""}`}
+                    className={`p-5 sm:p-6 rounded-2xl ${milestone.status === "complete" ? "border-green-500/20" : milestone.status === "active" ? "border-black/10" : ""}`}
                     data-testid={`nl-milestone-${milestone.id.toLowerCase()}`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                       <div className="flex items-center gap-3 sm:min-w-[200px]">
                         <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
                           milestone.status === "active"
-                            ? "bg-white/5 border border-white/10"
-                            : "bg-white/5 border border-white/10"
+                            ? "bg-black/5 border border-black/10"
+                            : "bg-black/5 border border-black/10"
                         }`}>
-                          <milestone.icon className={`w-5 h-5 ${milestone.status === "active" ? "text-white" : "text-gray-500"}`} />
+                          <milestone.icon className={`w-5 h-5 ${milestone.status === "active" ? "text-[#050505]" : "text-gray-600"}`} />
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-gray-400" style={{ fontFamily: "JetBrains Mono, monospace" }}>{milestone.id}</span>
+                            <span className="text-xs font-bold text-gray-600" style={{ fontFamily: "JetBrains Mono, monospace" }}>{milestone.id}</span>
                             {milestone.status === "complete" ? (
                               <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/20 text-green-400" data-testid={`status-${milestone.id.toLowerCase()}`}>
                                 <CheckCircle2 className="w-2.5 h-2.5" /> Complete
                               </span>
                             ) : milestone.status === "active" ? (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-gray-400" data-testid={`status-${milestone.id.toLowerCase()}`}>
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/10 text-gray-600" data-testid={`status-${milestone.id.toLowerCase()}`}>
                                 <CircleDot className="w-2.5 h-2.5" /> Active
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-gray-500" data-testid={`status-${milestone.id.toLowerCase()}`}>
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/5 text-gray-600" data-testid={`status-${milestone.id.toLowerCase()}`}>
                                 <Clock className="w-2.5 h-2.5" /> Planned
                               </span>
                             )}
                           </div>
-                          <h3 className={`text-sm sm:text-base font-bold mt-0.5 ${milestone.status === "active" ? "text-white" : "text-gray-400"}`} style={{ fontFamily: "Inter, sans-serif" }}>
+                          <h3 className={`text-sm sm:text-base font-bold mt-0.5 ${milestone.status === "active" ? "text-[#050505]" : "text-gray-600"}`} style={{ fontFamily: "Inter, sans-serif" }}>
                             {milestone.name}
                           </h3>
                         </div>
                       </div>
                       <div className="flex-1">
-                        <p className={`text-sm leading-relaxed mb-3 ${milestone.status === "active" ? "text-gray-300" : "text-gray-500"}`}>
+                        <p className={`text-sm leading-relaxed mb-3 ${milestone.status === "active" ? "text-gray-300" : "text-gray-600"}`}>
                           {milestone.desc}
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -808,8 +808,8 @@ export default function Lume() {
                               key={cap}
                               className={`text-[10px] sm:text-xs px-2 py-1 rounded-md font-medium ${
                                 milestone.status === "active"
-                                  ? "bg-white/5 text-gray-400 border border-white/10"
-                                  : "bg-white/5 text-gray-500 border border-white/5"
+                                  ? "bg-black/5 text-gray-600 border border-black/10"
+                                  : "bg-black/5 text-gray-600 border border-black/5"
                               }`}
                             >
                               {cap}
@@ -839,7 +839,7 @@ export default function Lume() {
                   Start Building with Lume
                 </span>
               </h2>
-              <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
                 Explore the language, read the docs, or dive into the Academy curriculum.
               </p>
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-3 sm:gap-4">
@@ -847,7 +847,7 @@ export default function Lume() {
                   href="https://lume-lang.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25 col-span-2"
+                  className="inline-flex items-center justify-center gap-2 bg-black/5 border border-black/10 text-[#050505] px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/25 col-span-2"
                   data-testid="cta-bottom-lume"
                 >
                   lume-lang.org <ExternalLink className="w-4 h-4" />
@@ -856,14 +856,14 @@ export default function Lume() {
                   href="https://github.com/darkwavestudios/lume"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-black/5 hover:bg-black/10 border border-black/10 text-[#050505] px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
                   data-testid="cta-bottom-github"
                 >
                   <Code2 className="w-4 h-4" /> GitHub
                 </a>
                 <Link
                   href="/academy"
-                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-black/5 hover:bg-black/10 border border-black/10 text-[#050505] px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors"
                   data-testid="cta-bottom-academy"
                 >
                   <BookOpen className="w-4 h-4" /> Academy
@@ -872,7 +872,7 @@ export default function Lume() {
                   href="https://lume-lang.org/docs"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors col-span-2 sm:col-span-1"
+                  className="inline-flex items-center justify-center gap-2 bg-black/5 hover:bg-black/10 border border-black/10 text-[#050505] px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-colors col-span-2 sm:col-span-1"
                   data-testid="cta-bottom-docs"
                 >
                   <FileCode className="w-4 h-4" /> Docs

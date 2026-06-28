@@ -178,7 +178,7 @@ export default function Payment() {
     : null;
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
       <SEOHead
         title="Plans & Pricing - Web Development Services"
         description="Transparent web development pricing. Monthly retainer plans starting at $497/mo or one-time projects. Stripe and crypto payments accepted."
@@ -192,7 +192,7 @@ export default function Payment() {
           { name: "Plans & Pricing", url: "https://darkwavestudios.com/payment" }
         ]}
       />
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/[0.03] backdrop-blur-xl border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/[0.03] backdrop-blur-xl border-b border-black/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-display font-bold text-xl gradient-text" data-testid="link-home">
             DarkWave Studios
@@ -237,7 +237,7 @@ export default function Payment() {
                 onClick={() => setActiveTab("monthly")}
                 className={`px-6 py-3 rounded-xl font-medium transition-all ${
                   activeTab === "monthly" 
-                    ? "bg-gradient-to-r from-primary to-accent text-white" 
+                    ? "bg-gradient-to-r from-primary to-accent text-[#050505]" 
                     : "text-muted-foreground hover:text-foreground"
                 }`}
                 data-testid="button-tab-monthly"
@@ -248,7 +248,7 @@ export default function Payment() {
                 onClick={() => setActiveTab("onetime")}
                 className={`px-6 py-3 rounded-xl font-medium transition-all ${
                   activeTab === "onetime" 
-                    ? "bg-gradient-to-r from-primary to-accent text-white" 
+                    ? "bg-gradient-to-r from-primary to-accent text-[#050505]" 
                     : "text-muted-foreground hover:text-foreground"
                 }`}
                 data-testid="button-tab-onetime"
@@ -265,15 +265,15 @@ export default function Payment() {
                 <div 
                   key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`flex-1 min-w-0 rounded-2xl overflow-hidden cursor-pointer transition-all relative border border-white/10 bg-white/[0.03] backdrop-blur-xl ${
+                  className={`flex-1 min-w-0 rounded-2xl overflow-hidden cursor-pointer transition-all relative border border-black/10 bg-black/[0.03] backdrop-blur-xl ${
                     selectedPlan === plan.id 
                       ? "ring-2 ring-primary bg-primary/10" 
-                      : "hover:bg-white/5"
+                      : "hover:bg-black/5"
                   } ${plan.popular ? "-mt-2 mb-2" : ""}`}
                   data-testid={`card-plan-${plan.id}`}
                 >
                   {plan.popular && (
-                    <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
+                    <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-accent text-[#050505] text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
                       POPULAR
                     </div>
                   )}
@@ -290,9 +290,9 @@ export default function Payment() {
                         ? "bg-gradient-to-br from-primary to-accent" 
                         : "bg-gradient-to-br from-primary/80 to-accent/80"
                     }`}>
-                      {plan.id === "starter" && <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
-                      {plan.id === "growth" && <Rocket className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
-                      {plan.id === "scale" && <Users className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-white" />}
+                      {plan.id === "starter" && <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#050505]" />}
+                      {plan.id === "growth" && <Rocket className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#050505]" />}
+                      {plan.id === "scale" && <Users className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#050505]" />}
                     </div>
                   </div>
 
@@ -320,8 +320,8 @@ export default function Payment() {
 
                     <div className={`w-full py-2 rounded-lg text-center text-xs lg:text-sm font-medium transition-all ${
                       selectedPlan === plan.id 
-                        ? "bg-gradient-to-r from-primary to-accent text-white" 
-                        : "bg-white/10 text-foreground"
+                        ? "bg-gradient-to-r from-primary to-accent text-[#050505]" 
+                        : "bg-black/10 text-foreground"
                     }`}>
                       {selectedPlan === plan.id ? "Selected" : "Select"}
                     </div>
@@ -336,10 +336,10 @@ export default function Payment() {
             <div 
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`col-span-3 lg:col-span-6 rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer transition-all border border-white/10 bg-white/[0.03] backdrop-blur-xl ${
+              className={`col-span-3 lg:col-span-6 rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer transition-all border border-black/10 bg-black/[0.03] backdrop-blur-xl ${
                 selectedPlan === plan.id 
                   ? "ring-2 ring-primary bg-primary/10" 
-                  : "hover:bg-white/5"
+                  : "hover:bg-black/5"
               }`}
               data-testid={`card-plan-${plan.id}`}
             >
@@ -353,7 +353,7 @@ export default function Payment() {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 hidden sm:block" />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent sm:hidden" />
                   <div className="absolute bottom-2 left-2 sm:bottom-auto sm:top-2 w-8 h-8 rounded-lg bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
+                    <Sparkles className="w-4 h-4 text-[#050505]" />
                   </div>
                 </div>
 
@@ -397,7 +397,7 @@ export default function Payment() {
                       type="text"
                       value={customerInfo.name}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="John Smith"
                       data-testid="input-customer-name"
                     />
@@ -408,7 +408,7 @@ export default function Payment() {
                       type="email"
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="john@company.com"
                       data-testid="input-customer-email"
                     />
@@ -429,7 +429,7 @@ export default function Payment() {
                     className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
                       paymentMethod === "stripe" 
                         ? "border-primary bg-primary/10" 
-                        : "border-white/10 hover:border-white/20"
+                        : "border-black/10 hover:border-black/20"
                     }`}
                     data-testid="button-payment-stripe"
                   >
@@ -446,7 +446,7 @@ export default function Payment() {
                       className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
                         paymentMethod === "coinbase" 
                           ? "border-primary bg-primary/10" 
-                          : "border-white/10 hover:border-white/20"
+                          : "border-black/10 hover:border-black/20"
                       }`}
                       data-testid="button-payment-coinbase"
                     >
@@ -465,7 +465,7 @@ export default function Payment() {
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <Star className="w-8 h-8 text-white" />
+                      <Star className="w-8 h-8 text-[#050505]" />
                     </div>
                     <div>
                       <h3 className="font-display font-bold text-xl">{selectedPlanData?.name}</h3>
@@ -479,12 +479,12 @@ export default function Payment() {
                   <button
                     onClick={handlePayment}
                     disabled={processing || !customerInfo.name || !customerInfo.email}
-                    className="glow-button w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-xl flex items-center justify-center gap-3 hover:shadow-lg hover:shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="glow-button w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-primary to-accent text-[#050505] font-bold rounded-xl flex items-center justify-center gap-3 hover:shadow-lg hover:shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-pay-now"
                   >
                     {processing ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-black/30 border-t-white rounded-full animate-spin" />
                         Processing...
                       </>
                     ) : (

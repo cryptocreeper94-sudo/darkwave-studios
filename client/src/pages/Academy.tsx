@@ -101,7 +101,7 @@ function CarouselControls({ index, itemCount, scroll }: { index: number; itemCou
   return (
     <div className="flex items-center justify-center gap-6 mt-8">
       <button
-        className="w-11 h-11 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center text-slate-500 dark:text-white/50 hover:text-gray-400 hover:border-white/10 hover:bg-white/5 transition-all duration-300"
+        className="w-11 h-11 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm flex items-center justify-center text-slate-500 dark:text-[#050505]/50 hover:text-gray-600 hover:border-black/10 hover:bg-black/5 transition-all duration-300"
         onClick={() => scroll("left")}
         aria-label="Previous"
       >
@@ -116,7 +116,7 @@ function CarouselControls({ index, itemCount, scroll }: { index: number; itemCou
         ))}
       </div>
       <button
-        className="w-11 h-11 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center text-slate-500 dark:text-white/50 hover:text-gray-400 hover:border-white/10 hover:bg-white/5 transition-all duration-300"
+        className="w-11 h-11 rounded-full border border-black/10 bg-black/5 backdrop-blur-sm flex items-center justify-center text-slate-500 dark:text-[#050505]/50 hover:text-gray-600 hover:border-black/10 hover:bg-black/5 transition-all duration-300"
         onClick={() => scroll("right")}
         aria-label="Next"
       >
@@ -134,10 +134,10 @@ function LevelBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
     Beginner: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     Intermediate: "text-sky-400 bg-sky-500/10 border-sky-500/20",
-    Advanced: "text-gray-400 bg-white/5 border-white/10",
+    Advanced: "text-gray-600 bg-black/5 border-black/10",
   };
   return (
-    <span className={`px-2.5 py-1 rounded-full border text-[10px] font-semibold uppercase tracking-wider ${colors[level] || "text-gray-400 bg-white/5 border-white/10"}`}>
+    <span className={`px-2.5 py-1 rounded-full border text-[10px] font-semibold uppercase tracking-wider ${colors[level] || "text-gray-600 bg-black/5 border-black/10"}`}>
       {level}
     </span>
   );
@@ -194,17 +194,17 @@ export default function Academy() {
       <header className="sticky top-0 z-50 backdrop-blur-xl border-b transition-colors duration-300" style={{ background: 'var(--nav-bg, rgba(6,6,10,0.9))', borderColor: 'var(--glass-border, rgba(255,255,255,0.1))' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-gray-400 hover:text-gray-400 transition-colors"><ChevronLeft className="w-5 h-5" /></Link>
+            <Link href="/" className="text-gray-600 hover:text-gray-600 transition-colors"><ChevronLeft className="w-5 h-5" /></Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                <GraduationCap className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center">
+                <GraduationCap className="w-4 h-4 text-[#050505]" />
               </div>
               <span className="font-bold text-lg" style={{ fontFamily: "Inter, sans-serif" }}>Trust Layer Academy</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href="/lume" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-gray-300 hover:text-white">
+            <Link href="/lume" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-black/5 hover:bg-black/10 border border-black/10 transition-colors text-gray-300 hover:text-[#050505]">
               <Terminal className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Lume</span>
             </Link>
           </div>
@@ -229,7 +229,7 @@ export default function Academy() {
         <div className="relative z-10 max-w-5xl mx-auto text-center px-4 pt-20 pb-16">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border backdrop-blur-sm mb-8 transition-colors duration-300" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)' }}>
-              <GraduationCap className="w-4 h-4 text-cyan-600 dark:text-gray-400" />
+              <GraduationCap className="w-4 h-4 text-cyan-600 dark:text-gray-600" />
               <span className="text-sm font-medium text-cyan-700 dark:text-cyan-300/80">academy.tlid.io</span>
             </div>
           </motion.div>
@@ -249,7 +249,7 @@ export default function Academy() {
 
           {/* Hero CTAs */}
           <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
-            <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 dark:from-cyan-500 dark:to-teal-500 text-slate-900 dark:text-white font-semibold hover:from-cyan-500 hover:to-teal-500 transition-all duration-300 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
+            <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-black/5 border border-black/10 dark:from-cyan-500 dark:to-teal-500 text-slate-900 dark:text-[#050505] font-semibold hover:from-cyan-500 hover:to-teal-500 transition-all duration-300 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               <Rocket className="w-4 h-4 relative z-10" />
               <span className="relative z-10">Start Learning</span>
@@ -265,8 +265,8 @@ export default function Academy() {
               <div key={stat.label} className="flex items-center">
                 {i > 0 && <div className="w-px h-8 mx-4 sm:mx-6 hidden sm:block" style={{ background: 'var(--glass-border)' }} />}
                 <div className="flex flex-col items-center px-4">
-                  <stat.icon className="w-4 h-4 text-cyan-600 dark:text-gray-400/60 mb-1" />
-                  <span className="text-xl sm:text-2xl font-bold font-mono bg-white/5 border border-white/10 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent">{stat.value}</span>
+                  <stat.icon className="w-4 h-4 text-cyan-600 dark:text-gray-600/60 mb-1" />
+                  <span className="text-xl sm:text-2xl font-bold font-mono bg-black/5 border border-black/10 dark:from-cyan-400 dark:to-teal-400 bg-clip-text text-transparent">{stat.value}</span>
                   <span className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--text-dim)' }}>{stat.label}</span>
                 </div>
               </div>
@@ -280,9 +280,9 @@ export default function Academy() {
         <div className="max-w-7xl mx-auto px-4 mb-12">
           <motion.div className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">Learning Paths</span>
+              <span className="bg-black/5 border border-black/10 bg-clip-text text-transparent">Learning Paths</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Choose your track and progress from fundamentals to mastery. Each path is designed to unlock real capabilities across the ecosystem.
             </p>
           </motion.div>
@@ -298,7 +298,7 @@ export default function Academy() {
             <div
               key={path.id}
               data-card
-              className="flex-shrink-0 w-[320px] sm:w-[380px] lg:w-[420px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl group cursor-pointer transition-all duration-500 hover:border-white/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.1)]"
+              className="flex-shrink-0 w-[320px] sm:w-[380px] lg:w-[420px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl group cursor-pointer transition-all duration-500 hover:border-black/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.1)]"
               style={{ scrollSnapAlign: "start" }}
             >
               {/* Image */}
@@ -306,8 +306,8 @@ export default function Academy() {
                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${path.image})` }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(12,18,36,0.95)] via-[rgba(12,18,36,0.3)] to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <div className="w-10 h-10 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-                    <path.icon className="w-5 h-5 text-gray-400" />
+                  <div className="w-10 h-10 rounded-xl bg-black/40 backdrop-blur-sm border border-black/10 flex items-center justify-center">
+                    <path.icon className="w-5 h-5 text-gray-600" />
                   </div>
                 </div>
                 <div className="absolute top-4 right-4">
@@ -318,8 +318,8 @@ export default function Academy() {
               {/* Content */}
               <div className="p-6">
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">{path.title}</h3>
-                <p className="text-slate-600 dark:text-white/35 text-sm mb-5 leading-relaxed line-clamp-2">{path.description}</p>
-                <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-white/25">
+                <p className="text-slate-600 dark:text-[#050505]/35 text-sm mb-5 leading-relaxed line-clamp-2">{path.description}</p>
+                <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-[#050505]/25">
                   <span className="flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> {path.courses} courses</span>
                   <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {path.hours}h</span>
                 </div>
@@ -337,7 +337,7 @@ export default function Academy() {
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Featured Courses</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Hands-on, project-based courses designed by ecosystem builders. Learn by building real features for real apps.
             </p>
           </motion.div>
@@ -353,7 +353,7 @@ export default function Academy() {
             <div
               key={course.id}
               data-card
-              className="flex-shrink-0 w-[300px] sm:w-[360px] lg:w-[400px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl group cursor-pointer transition-all duration-500 hover:border-white/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.1)]"
+              className="flex-shrink-0 w-[300px] sm:w-[360px] lg:w-[400px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl group cursor-pointer transition-all duration-500 hover:border-black/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.1)]"
               style={{ scrollSnapAlign: "start" }}
             >
               {/* Image Header */}
@@ -362,10 +362,10 @@ export default function Academy() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(12,18,36,0.95)] via-[rgba(12,18,36,0.2)] to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-lg bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-                      <course.icon className="w-4 h-4 text-gray-400" />
+                    <div className="w-9 h-9 rounded-lg bg-black/40 backdrop-blur-sm border border-black/10 flex items-center justify-center">
+                      <course.icon className="w-4 h-4 text-gray-600" />
                     </div>
-                    <span className="text-[10px] text-gray-400/70 font-medium uppercase tracking-wider">{course.path}</span>
+                    <span className="text-[10px] text-gray-600/70 font-medium uppercase tracking-wider">{course.path}</span>
                   </div>
                   <LevelBadge level={course.level} />
                 </div>
@@ -374,8 +374,8 @@ export default function Academy() {
               {/* Content */}
               <div className="p-5">
                 <h3 className="text-base font-semibold mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">{course.title}</h3>
-                <p className="text-slate-600 dark:text-white/35 text-sm mb-4 leading-relaxed line-clamp-2">{course.description}</p>
-                <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-white/25">
+                <p className="text-slate-600 dark:text-[#050505]/35 text-sm mb-4 leading-relaxed line-clamp-2">{course.description}</p>
+                <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-[#050505]/25">
                   <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {course.duration}</span>
                   <span className="flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> {course.lessons} lessons</span>
                 </div>
@@ -390,14 +390,14 @@ export default function Academy() {
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-              <Terminal className="w-4 h-4 text-gray-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-black/10 mb-6">
+              <Terminal className="w-4 h-4 text-gray-600" />
               <span className="text-sm text-cyan-300 font-medium">Ecosystem Language</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent">Lume Learning Path</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Lume is the native programming language of the DarkWave ecosystem. This dedicated curriculum takes you from first line to production deployment.
             </p>
           </motion.div>
@@ -407,11 +407,11 @@ export default function Academy() {
               <motion.div key={tier.tier} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15 }} className="h-full">
                 <GlassCard glow className="p-6 h-full relative overflow-hidden flex flex-col" style={{ minHeight: '380px' }}>
                   {/* Step Number Watermark */}
-                  <div className="absolute -top-2 -right-2 text-[100px] font-black text-white/[0.02] leading-none select-none pointer-events-none">{tier.step}</div>
+                  <div className="absolute -top-2 -right-2 text-[100px] font-black text-[#050505]/[0.02] leading-none select-none pointer-events-none">{tier.step}</div>
 
                   <div className="relative z-10 flex flex-col flex-1">
                     <div className="flex items-center gap-3 mb-5">
-                      <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center">
                         <span className="text-xs font-bold text-black">{tier.step}</span>
                       </div>
                       <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{tier.tier}</span>
@@ -419,8 +419,8 @@ export default function Academy() {
                     <p className="text-sm mb-6 leading-relaxed min-h-[60px]" style={{ color: 'var(--text-dim)' }}>{tier.description}</p>
                     <ul className="space-y-3">
                       {tier.topics.map((topic) => (
-                        <li key={topic} className="flex items-center gap-3 text-sm text-white/60">
-                          <CheckCircle2 className="w-4 h-4 text-gray-400 shrink-0" />
+                        <li key={topic} className="flex items-center gap-3 text-sm text-[#050505]/60">
+                          <CheckCircle2 className="w-4 h-4 text-gray-600 shrink-0" />
                           <span>{topic}</span>
                         </li>
                       ))}
@@ -433,13 +433,13 @@ export default function Academy() {
 
           {/* Lume Stats Row */}
           <motion.div className="mt-10 text-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-0 px-6 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-              {[{ v: "316", l: "tests", c: "text-gray-400" }, { v: "12,215", l: "LOC", c: "text-teal-400" }, { v: "90%", l: "less code", c: "text-sky-400" }].map((s, i) => (
+            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-0 px-6 py-3 rounded-xl bg-black/5 border border-black/10 backdrop-blur-sm">
+              {[{ v: "316", l: "tests", c: "text-gray-600" }, { v: "12,215", l: "LOC", c: "text-teal-400" }, { v: "90%", l: "less code", c: "text-sky-400" }].map((s, i) => (
                 <div key={s.l} className="flex items-center">
-                  {i > 0 && <div className="w-px h-4 bg-white/10 mx-4 hidden sm:block" />}
+                  {i > 0 && <div className="w-px h-4 bg-black/10 mx-4 hidden sm:block" />}
                   <div className="flex items-center gap-2 text-xs sm:text-sm">
                     <span className={`font-mono ${s.c}`}>{s.v}</span>
-                    <span className="text-slate-600 dark:text-white/35">{s.l}</span>
+                    <span className="text-slate-600 dark:text-[#050505]/35">{s.l}</span>
                   </div>
                 </div>
               ))}
@@ -455,7 +455,7 @@ export default function Academy() {
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Ecosystem Skills</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Every course unlocks real capabilities across the ecosystem. See which skills power which apps.
             </p>
           </motion.div>
@@ -471,18 +471,18 @@ export default function Academy() {
             <div
               key={skill.skill}
               data-card
-              className="flex-shrink-0 w-[280px] sm:w-[320px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl p-6 group transition-all duration-500 hover:border-white/10 hover:shadow-[0_0_40px_rgba(6,182,212,0.08)]"
+              className="flex-shrink-0 w-[280px] sm:w-[320px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl p-6 group transition-all duration-500 hover:border-black/10 hover:shadow-[0_0_40px_rgba(6,182,212,0.08)]"
               style={{ scrollSnapAlign: "start" }}
             >
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                  <skill.icon className="w-5 h-5 text-gray-400" />
+                <div className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center">
+                  <skill.icon className="w-5 h-5 text-gray-600" />
                 </div>
                 <h3 className="text-sm font-semibold group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">{skill.skill}</h3>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {skill.apps.map((app) => (
-                  <span key={app} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/[0.06] text-[11px] text-slate-600 dark:text-white/45 font-medium">
+                  <span key={app} className="px-2.5 py-1 rounded-lg bg-black/5 border border-white/[0.06] text-[11px] text-slate-600 dark:text-[#050505]/45 font-medium">
                     {app}
                   </span>
                 ))}
@@ -500,7 +500,7 @@ export default function Academy() {
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Certification & Badges</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Earn Trust Layer verified certifications with blockchain-hallmarked completion badges. Every credential is permanently recorded on-chain.
             </p>
           </motion.div>
@@ -516,19 +516,19 @@ export default function Academy() {
             <div
               key={cert.title}
               data-card
-              className="flex-shrink-0 w-[240px] sm:w-[260px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl p-6 text-center group transition-all duration-500 hover:border-white/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.12)]"
+              className="flex-shrink-0 w-[240px] sm:w-[260px] rounded-2xl overflow-hidden border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl p-6 text-center group transition-all duration-500 hover:border-black/10 hover:shadow-[0_0_50px_rgba(6,182,212,0.12)]"
               style={{ scrollSnapAlign: "start" }}
             >
               {/* Icon Ring */}
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-white/10 flex items-center justify-center mx-auto mb-4 group-hover:border-white/10 transition-colors">
-                <cert.icon className="w-7 h-7 text-gray-400" />
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-black/10 flex items-center justify-center mx-auto mb-4 group-hover:border-black/10 transition-colors">
+                <cert.icon className="w-7 h-7 text-gray-600" />
               </div>
-              <div className="inline-flex px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/15 to-teal-500/15 border border-white/10 mb-3">
+              <div className="inline-flex px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/15 to-teal-500/15 border border-black/10 mb-3">
                 <span className="text-[10px] font-bold text-cyan-300 uppercase tracking-wider">{cert.tier}</span>
               </div>
               <h3 className="text-sm font-semibold mb-2">{cert.title}</h3>
-              <p className="text-slate-600 dark:text-white/35 text-xs leading-relaxed mb-4">{cert.description}</p>
-              <div className="flex items-center justify-center gap-1.5 text-[10px] text-gray-400/50">
+              <p className="text-slate-600 dark:text-[#050505]/35 text-xs leading-relaxed mb-4">{cert.description}</p>
+              <div className="flex items-center justify-center gap-1.5 text-[10px] text-gray-600/50">
                 <Blocks className="w-3 h-3" />
                 <span>Blockchain Verified</span>
               </div>
@@ -558,15 +558,15 @@ export default function Academy() {
             ].map((item) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <GlassCard glow className="p-6 h-full">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-cyan-600 dark:text-gray-400" />
+                  <div className="w-12 h-12 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center mb-4">
+                    <item.icon className="w-6 h-6 text-cyan-600 dark:text-gray-600" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
                   <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-dim)' }}>{item.desc}</p>
                   <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-dim)' }}>
                     <item.metaIcon className="w-3.5 h-3.5" />
                     {'link' in item ? (
-                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-gray-400 transition-colors">{item.meta}</a>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-600 dark:hover:text-gray-600 transition-colors">{item.meta}</a>
                     ) : (
                       <span>{item.meta}</span>
                     )}
@@ -588,15 +588,15 @@ export default function Academy() {
                 <span className="text-sm text-sky-300 font-medium">Ecosystem Research</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                <span className="text-white">Canonical </span>
+                <span className="text-[#050505]">Canonical </span>
                 <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">Publications</span>
               </h2>
-              <p className="text-white/40 leading-relaxed mb-8">
+              <p className="text-[#050505]/40 leading-relaxed mb-8">
                 Trust Layer natively supports open academic research. Dive into the 93 officially archived papers and 4 published books detailing deterministic governance algorithms, autonomous runtimes, and natural language AST bridging.
               </p>
               <div className="flex items-center gap-4">
-                <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-white/10" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
-                  <Archive className="w-4 h-4 text-cyan-600 dark:text-gray-400" /> View Strata Hub
+                <a href="https://strata.tlid.io" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-black/10" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
+                  <Archive className="w-4 h-4 text-cyan-600 dark:text-gray-600" /> View Strata Hub
                 </a>
                 <a href="https://zenodo.org/record/19430898" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border font-medium transition-all hover:border-sky-500/40" style={{ background: 'var(--badge-bg)', borderColor: 'var(--glass-border)', color: 'var(--text-primary)' }}>
                   <Globe className="w-4 h-4 text-sky-600 dark:text-sky-400" /> Zenodo DOIs
@@ -606,7 +606,7 @@ export default function Academy() {
             <div className="flex-1 w-full relative">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 blur-[80px] rounded-full" />
               <GlassCard className="relative p-8 border-sky-500/20">
-                <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/5">
+                <div className="flex items-center justify-between mb-6 pb-6 border-b border-black/5">
                   <h3 className="text-lg font-bold">Featured Doctrinal Preprints</h3>
                   <BadgeCheck className="w-5 h-5 text-teal-400" />
                 </div>
@@ -616,12 +616,12 @@ export default function Academy() {
                     { doi: "10.lume.0022", title: "Zero-Knowledge State Reversal", author: "Trust Layer Cryptography Team" },
                     { doi: "10.lume.0001", title: "English Mode Intent Resolver", author: "Trust Layer Scientific" }
                   ].map(p => (
-                    <div key={p.doi} className="flex flex-col gap-1 p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/5 transition-colors cursor-pointer">
+                    <div key={p.doi} className="flex flex-col gap-1 p-3 rounded-xl hover:bg-black/5 border border-transparent hover:border-black/5 transition-colors cursor-pointer">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-semibold text-white/90">{p.title}</span>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/30">{p.doi}</span>
+                        <span className="text-sm font-semibold text-[#050505]/90">{p.title}</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-black/5 text-[#050505]/30">{p.doi}</span>
                       </div>
-                      <span className="text-[11px] text-white/30">{p.author}</span>
+                      <span className="text-[11px] text-[#050505]/30">{p.author}</span>
                     </div>
                   ))}
                 </div>
@@ -635,14 +635,14 @@ export default function Academy() {
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-              <Zap className="w-4 h-4 text-gray-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-black/10 mb-6">
+              <Zap className="w-4 h-4 text-gray-600" />
               <span className="text-sm text-cyan-300 font-medium">Ecosystem Access</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-teal-400 to-sky-400 bg-clip-text text-transparent">Invest in Your Skills</span>
             </h2>
-            <p className="text-slate-600 dark:text-white/35 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-[#050505]/35 max-w-2xl mx-auto">
               Get full access to the Trust Academy curriculum, take proctor exams, and become a Certified Developer in the native Trust Layer ecosystem.
             </p>
           </motion.div>
@@ -651,49 +651,49 @@ export default function Academy() {
             {/* Apprentice */}
             <GlassCard className="p-8 text-center flex flex-col h-full">
               <h3 className="text-lg font-semibold mb-2">Lume Apprentice</h3>
-              <p className="text-4xl font-bold mb-1">$0<span className="text-sm text-white/30">/mo</span></p>
-              <p className="text-sm text-white/30 mb-6">Perfect for beginners</p>
+              <p className="text-4xl font-bold mb-1">$0<span className="text-sm text-[#050505]/30">/mo</span></p>
+              <p className="text-sm text-[#050505]/30 mb-6">Perfect for beginners</p>
               <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-white/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-white/50">Access to Web Dev 101</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-white/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-white/50">Lume Syntax Fundamentals</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-white/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-white/50">Read-only Signal Chat access</span></li>
-                <li className="flex items-start gap-3 opacity-40"><XCircle className="w-5 h-5 text-red-400/60 mt-0.5 shrink-0" /> <span className="text-white/30">No Certification Exams</span></li>
-                <li className="flex items-start gap-3 opacity-40"><XCircle className="w-5 h-5 text-red-400/60 mt-0.5 shrink-0" /> <span className="text-white/30">No AI Playground</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#050505]/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-[#050505]/50">Access to Web Dev 101</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#050505]/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-[#050505]/50">Lume Syntax Fundamentals</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#050505]/30 mt-0.5 shrink-0" /> <span className="text-slate-500 dark:text-[#050505]/50">Read-only Signal Chat access</span></li>
+                <li className="flex items-start gap-3 opacity-40"><XCircle className="w-5 h-5 text-red-400/60 mt-0.5 shrink-0" /> <span className="text-[#050505]/30">No Certification Exams</span></li>
+                <li className="flex items-start gap-3 opacity-40"><XCircle className="w-5 h-5 text-red-400/60 mt-0.5 shrink-0" /> <span className="text-[#050505]/30">No AI Playground</span></li>
               </ul>
               <Button variant="outline" className="w-full" onClick={() => window.location.href = "/lume"}>Start Reading</Button>
             </GlassCard>
 
             {/* Pro Builder */}
-            <GlassCard glow className="p-8 text-center flex flex-col h-full relative border-white/10">
+            <GlassCard glow className="p-8 text-center flex flex-col h-full relative border-black/10">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <div className="bg-white/5 border border-white/10 text-black text-xs font-bold uppercase tracking-wider py-1 px-4 rounded-full shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
+                <div className="bg-black/5 border border-black/10 text-black text-xs font-bold uppercase tracking-wider py-1 px-4 rounded-full shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
                   <span className="relative z-10">Most Popular</span>
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_3s_infinite]" />
                 </div>
               </div>
               <h3 className="text-lg font-semibold mb-2 text-cyan-900 dark:text-cyan-50">Pro Builder</h3>
-              <p className="text-4xl font-bold mb-1 text-white">$49<span className="text-sm text-cyan-200/40">/mo</span></p>
+              <p className="text-4xl font-bold mb-1 text-[#050505]">$49<span className="text-sm text-cyan-200/40">/mo</span></p>
               <p className="text-sm text-cyan-700/70 dark:text-cyan-200/50 mb-6">For serious Lume developers</p>
               <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" /> <span className="text-white/80">All 60+ Advanced Courses</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" /> <span className="text-white/80">Trust Layer Architecture Guides</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" /> <span className="text-white/80">AI Content Generator Limits</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" /> <span className="text-white/80">Full Signal Chat Support</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">All 60+ Advanced Courses</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">Trust Layer Architecture Guides</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">AI Content Generator Limits</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">Full Signal Chat Support</span></li>
               </ul>
-              <Button className="w-full bg-white/5 border border-white/10 text-black hover:opacity-90 font-semibold" onClick={() => handleSubscribe("pro-builder")}>Subscribe Now</Button>
+              <Button className="w-full bg-black/5 border border-black/10 text-black hover:opacity-90 font-semibold" onClick={() => handleSubscribe("pro-builder")}>Subscribe Now</Button>
             </GlassCard>
 
             {/* Partner */}
             <GlassCard className="p-8 text-center flex flex-col h-full">
               <h3 className="text-lg font-semibold mb-2">Certified Partner</h3>
-              <p className="text-4xl font-bold mb-1">$199<span className="text-sm text-white/30">/mo</span></p>
-              <p className="text-sm text-white/30 mb-6">Agencies & Guardian Specialists</p>
+              <p className="text-4xl font-bold mb-1">$199<span className="text-sm text-[#050505]/30">/mo</span></p>
+              <p className="text-sm text-[#050505]/30 mb-6">Agencies & Guardian Specialists</p>
               <ul className="text-sm text-left space-y-4 mb-8 flex-grow">
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white/80">Everything in Pro</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white/80">Unlimited Proctor Exams</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white/80">On-chain Hallmarked Certifications</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white/80">1-on-1 Mentorship</span></li>
-                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-white/80">VIP Direct Line Support</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">Everything in Pro</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">Unlimited Proctor Exams</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">On-chain Hallmarked Certifications</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">1-on-1 Mentorship</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" /> <span className="text-[#050505]/80">VIP Direct Line Support</span></li>
               </ul>
               <Button variant="outline" className="w-full border-teal-500/30 hover:bg-teal-500/10" onClick={() => handleSubscribe("certified-partner")}>Become a Partner</Button>
             </GlassCard>
@@ -709,28 +709,28 @@ export default function Academy() {
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-teal-500/5 pointer-events-none" />
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative z-10">
-              <GraduationCap className="w-12 h-12 text-gray-400 mx-auto mb-6" />
+              <GraduationCap className="w-12 h-12 text-gray-600 mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Start Your <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">Learning Journey</span>
+                Start Your <span className="bg-black/5 border border-black/10 bg-clip-text text-transparent">Learning Journey</span>
               </h2>
               <p className="max-w-xl mx-auto mb-8" style={{ color: 'var(--text-dim)' }}>
                 Join Trust Layer Academy and gain the skills to build, deploy, and scale across the entire Trust Layer ecosystem.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-black font-semibold hover:from-cyan-400 hover:to-teal-400 transition-all duration-300 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
+                <a href="#paths" className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-black/5 border border-black/10 text-black font-semibold hover:from-cyan-400 hover:to-teal-400 transition-all duration-300 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] relative overflow-hidden">
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                   <Rocket className="w-4 h-4 relative z-10" />
                   <span className="relative z-10">Enroll Now</span>
                 </a>
-                <Link href="/lume" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white font-medium hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                <Link href="/lume" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-black/10 bg-black/5 backdrop-blur-sm text-slate-900 dark:text-[#050505] font-medium hover:bg-black/10 hover:border-black/20 transition-all duration-300">
                   <Terminal className="w-4 h-4" /> Explore Lume
                 </Link>
               </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 dark:text-white/25">
-                <a href="https://academy.tlid.io" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-gray-400 transition-colors">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 dark:text-[#050505]/25">
+                <a href="https://academy.tlid.io" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-gray-600 transition-colors">
                   <ExternalLink className="w-3 h-3" /> academy.tlid.io
                 </a>
-                <Link href="/explore" className="flex items-center gap-1 hover:text-gray-400 transition-colors">
+                <Link href="/explore" className="flex items-center gap-1 hover:text-gray-600 transition-colors">
                   <ArrowRight className="w-3 h-3" /> Browse Ecosystem
                 </Link>
               </div>
@@ -741,17 +741,17 @@ export default function Academy() {
 
       {/* Subscription Dialog */}
       <Dialog open={showSubscribe} onOpenChange={setShowSubscribe}>
-        <DialogContent className="glass-card border-white/10">
+        <DialogContent className="glass-card border-black/10">
           <DialogHeader>
             <DialogTitle>Enroll in {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-slate-500 dark:text-white/40 mb-2 block">Email</label>
+              <label className="text-sm text-slate-500 dark:text-[#050505]/40 mb-2 block">Email</label>
               <Input type="email" value={subscribeEmail} onChange={(e) => setSubscribeEmail(e.target.value)} placeholder="developer@ecosystem.io" />
             </div>
             <div>
-              <label className="text-sm text-slate-500 dark:text-white/40 mb-2 block">Company / Agency (Optional)</label>
+              <label className="text-sm text-slate-500 dark:text-[#050505]/40 mb-2 block">Company / Agency (Optional)</label>
               <Input value={subscribeCompany} onChange={(e) => setSubscribeCompany(e.target.value)} placeholder="DarkWave Partner" />
             </div>
           </div>

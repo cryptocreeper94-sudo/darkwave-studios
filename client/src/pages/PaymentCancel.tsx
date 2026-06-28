@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function PaymentCancel() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ export default function PaymentCancel() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 
             href="/payment"
-            className="glow-button px-6 py-3 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-xl flex items-center justify-center gap-2"
+            className="glow-button px-6 py-3 bg-gradient-to-r from-primary to-accent text-[#050505] font-bold rounded-xl flex items-center justify-center gap-2"
             data-testid="link-try-again"
           >
             <RefreshCw className="w-5 h-5" />
@@ -47,7 +47,7 @@ export default function PaymentCancel() {
           </Link>
           <Link 
             href="/contact"
-            className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]"
+            className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-black/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]"
             data-testid="link-contact"
           >
             <MessageCircle className="w-5 h-5" />

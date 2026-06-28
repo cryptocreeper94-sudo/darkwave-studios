@@ -387,7 +387,7 @@ function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => vo
       <GlassCard glow className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl shadow-primary/10">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-all"
+          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-xl bg-black/10 border border-black/10 flex items-center justify-center hover:bg-black/20 transition-all"
           data-testid="modal-close"
         >
           <X className="w-5 h-5" />
@@ -411,7 +411,7 @@ function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => vo
             <p className="text-sm text-primary/80 italic font-medium mt-1">"{app.tagline}"</p>
           </div>
 
-          <p className="text-sm text-white/70 leading-relaxed" data-testid="modal-app-description">
+          <p className="text-sm text-[#050505]/70 leading-relaxed" data-testid="modal-app-description">
             {app.description}
           </p>
 
@@ -419,7 +419,7 @@ function AppDetailModal({ app, onClose }: { app: EcosystemApp; onClose: () => vo
             href={app.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-300"
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-300"
             data-testid="modal-visit-app"
           >
             <span>Visit {app.name}</span>
@@ -458,14 +458,14 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
           <div className="flex gap-2">
             <button 
               onClick={prev}
-              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
+              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-black/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
               data-testid={`carousel-prev-${categoryName.toLowerCase().replace(/\s+/g, '-')}`}
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button 
               onClick={next}
-              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
+              className="w-12 h-12 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-black/10 flex items-center justify-center hover:from-white/20 hover:to-white/10 hover:border-primary/50 transition-all duration-300 shadow-lg"
               data-testid={`carousel-next-${categoryName.toLowerCase().replace(/\s+/g, '-')}`}
             >
               <ChevronRight className="w-5 h-5" />
@@ -524,7 +524,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? 'w-8 bg-gradient-to-r from-primary to-accent' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+              className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? 'w-8 bg-gradient-to-r from-primary to-accent' : 'w-2 bg-black/20 hover:bg-[#f8f9fa]/40'}`}
               data-testid={`carousel-dot-${index}`}
             />
           ))}
@@ -536,7 +536,7 @@ function AppCarousel({ apps, categoryName }: { apps: EcosystemApp[], categoryNam
 
 export default function Ecosystem() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem - DarkWave Studios"
         description={`Explore the complete Trust Layer ecosystem. ${ecosystemApps.length} connected applications spanning trading, business operations, trade services, gaming, food delivery, education, and more. Over 13.7 million lines of code.`}
@@ -549,20 +549,20 @@ export default function Ecosystem() {
         ]}
       />
 
-      <div className="fixed inset-0 bg-background -z-20" />
+      <div className="fixed inset-0 bg-[#f8f9fa] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.1),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.5))] -z-10" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
+      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-[#f8f9fa]/60 border-b border-black/5">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-5 flex items-center justify-between overflow-hidden">
           <div className="flex items-center gap-4">
-            <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all duration-300">
+            <Link href="/" className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-black/10 hover:border-primary/50 transition-all duration-300">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/25">
-                <Sparkles className="w-5 h-5 text-white" />
+                <Sparkles className="w-5 h-5 text-[#050505]" />
               </div>
               <span className="font-display text-xl lg:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Ecosystem</span>
             </div>
@@ -570,14 +570,14 @@ export default function Ecosystem() {
           <div className="flex items-center gap-2 lg:gap-3 flex-shrink-0">
             <Link 
               href="/metrics"
-              className="px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs lg:text-sm font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 whitespace-nowrap"
+              className="px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-black/5 border border-black/10 text-xs lg:text-sm font-semibold hover:bg-black/10 hover:border-primary/50 transition-all duration-300 whitespace-nowrap"
               data-testid="button-ecosystem-metrics"
             >
               Metrics
             </Link>
             <Link 
               href="/developers"
-              className="group relative px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white text-xs lg:text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 whitespace-nowrap"
+              className="group relative px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] text-xs lg:text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 whitespace-nowrap"
               data-testid="button-developer-tools"
             >
               <span className="relative z-10 hidden sm:inline">Developer Tools</span>
@@ -606,14 +606,14 @@ export default function Ecosystem() {
             A complete suite of interconnected applications spanning trading, business operations, 
             trade services, and enterprise solutions. All powered by Trust Layer blockchain verification.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-muted-foreground mt-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-black/10 text-xs text-muted-foreground mt-4">
             <Smartphone className="w-3.5 h-3.5 text-primary" />
             All apps are installable PWAs — download and add to your home screen on any device
           </div>
           <div className="flex justify-center gap-3 mt-8">
             <div className="flex -space-x-2">
               {["/ecosystem/pulse.png", "/ecosystem/orbit-staffing.png", "/ecosystem/strikeagent.png", "/ecosystem/trust-layer-icon.png"].map((img, i) => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-white/10">
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-black/10">
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </div>
               ))}
@@ -653,7 +653,7 @@ export default function Ecosystem() {
         >
           <GlassCard glow className="relative rounded-3xl overflow-hidden p-10 lg:p-16">
               <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
-                <Sparkles className="w-8 h-8 text-white" />
+                <Sparkles className="w-8 h-8 text-[#050505]" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-display font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
                 Build With the Ecosystem
@@ -665,7 +665,7 @@ export default function Ecosystem() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/developers"
-                  className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+                  className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
                   data-testid="button-explore-dev-tools"
                 >
                   <span className="relative z-10 flex items-center gap-2">
@@ -677,7 +677,7 @@ export default function Ecosystem() {
                   href="https://dwtl.io/guardian-ai"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="px-8 py-4 rounded-xl bg-black/5 border border-black/10 font-semibold hover:bg-black/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
                   data-testid="button-certify-agent"
                 >
                   Certify Your AI Agent
@@ -688,7 +688,7 @@ export default function Ecosystem() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-white/5 py-10 backdrop-blur-xl bg-background/30">
+      <footer className="border-t border-black/5 py-10 backdrop-blur-xl bg-[#f8f9fa]/30">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
           <p className="text-sm text-muted-foreground">DarkWave Studios, LLC. All ecosystem applications are connected via Trust Layer.</p>
         </div>
