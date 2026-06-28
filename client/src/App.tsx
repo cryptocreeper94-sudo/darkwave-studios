@@ -179,10 +179,7 @@ function App() {
         <Toaster />
         <ScrollToTop />
         <Router />
-        <SignalChatSidebar />
         <EcosystemAccountHub />
-        <EcosystemNavigator />
-        <EcosystemFooter appId="darkwavestudios" />
       </TooltipProvider>
     </QueryClientProvider>
   );

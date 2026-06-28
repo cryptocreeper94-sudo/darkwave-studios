@@ -334,7 +334,7 @@ const projects = [
     title: "Axiom Studio",
     description: "Multi-agent AI development environment with auto-routing engine, snippet dock, and artifact viewer. 5-tier SaaS billing.",
     tech: ["AI", "IDE", "Agents", "Stripe"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/cc_developer_tools.jpg",
     gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://axiomstudio.dev"
   }
@@ -343,9 +343,9 @@ const projects = [
 const CORE_APPS = [
   {
     title: "Axiom 42",
-    desc: "The Apex Predator IDE. A multi-agent AI coding environment with Claude Opus, Sonnet, and GPT-4o.",
+    desc: "The DLA reference implementation — a fully deterministic grounded AI agent with 181K+ topics and 212 domain packs.",
     icon: Code,
-    url: "https://axiomstudio.dev",
+    url: "https://axiom42.com",
     tag: "Enterprise"
   },
   {
@@ -357,10 +357,10 @@ const CORE_APPS = [
   },
   {
     title: "Axiom42 Suite",
-    desc: "Offline-capable media vault with military-grade AES-256 encryption and decentralized syncing.",
+    desc: "Professional-grade media vault and apex media editor with military-grade AES-256 encryption and decentralized syncing.",
     icon: Lock,
     url: "https://axiom42suite.tlid.io",
-    tag: "Security"
+    tag: "Creative"
   },
   {
     title: "Lume Cortex",
@@ -500,7 +500,7 @@ export default function Home() {
               <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
             </motion.div>
             
-            <motion.h1 variants={staggerItem} className="text-5xl lg:text-7xl font-black font-display leading-[0.95] tracking-tighter mb-6 uppercase">
+            <motion.h1 variants={staggerItem} className="text-3xl sm:text-5xl lg:text-7xl font-black font-display leading-[0.95] tracking-tighter mb-6 uppercase">
               The Architectural<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 filter drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">Nexus</span>
             </motion.h1>

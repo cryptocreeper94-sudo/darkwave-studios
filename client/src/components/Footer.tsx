@@ -35,21 +35,21 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-3 text-center">
           {/* Ecosystem Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-2 mb-2 text-[10px] sm:text-xs">
-            <a href="https://axiomstudio.dev" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom 42</a>
+            <a href="https://axiom42.com" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom 42</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustgen.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustGen 3D</a>
+            <a href="https://axiomstudio.dev" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom Studio</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://axiom42suite.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom42 Suite</a>
+            <a href="https://trustgen.design" target="_blank" className="hover:text-cyan-600 transition-colors">TrustGen 3D</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://lume-lang.org" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Cortex</a>
+            <a href="https://axiom42suite.com" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom42 Suite</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://lumescan.com" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Scan</a>
+            <a href="https://lume-lang.com" target="_blank" className="hover:text-cyan-600 transition-colors">Lume</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustbook.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustBook</a>
+            <a href="https://lumescan.tech" target="_blank" className="hover:text-cyan-600 transition-colors">LumeScan</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <a href="https://trustshield.tech" target="_blank" className="hover:text-cyan-600 transition-colors">TrustShield</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://chronoverse.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Chronoverse</a>
+            <a href="https://dwtl.io" target="_blank" className="hover:text-cyan-600 transition-colors">Trust Layer</a>
           </div>
 
           {/* Company + Links */}

@@ -569,54 +569,87 @@ function ExploreCard({ card, index, globalIndex }: { card: LaunchCard; index: nu
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className="h-full"
     >
-      <Link
-        href={card.href}
-        data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
-        className="block h-full"
-      >
-        <div
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col h-full transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
-          style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)', transformStyle: 'preserve-3d' }}
-          data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+      {card.href.startsWith('http') ? (
+        <a
+          href={card.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+          className="block h-full"
         >
-          {/* Card Image — grayscale base + per-card color accent */}
-          <div className="relative w-full h-[200px] lg:h-[220px] overflow-hidden border-b border-white/[0.08] flex-shrink-0" style={{ pointerEvents: 'none' }}>
-            <img
-              src={card.image}
-              alt={card.label}
-              className="w-full h-full object-cover grayscale contrast-[1.1] group-hover:grayscale-0 transition-[filter] duration-500"
-              loading="lazy"
-              draggable={false}
-            />
-            {/* Color accent overlay */}
-            <div className="absolute inset-0" style={{ backgroundColor: accent, mixBlendMode: 'color' }} />
-          </div>
-
-          {/* Card Content */}
-          <div className="p-6 flex flex-col flex-grow" style={{ pointerEvents: 'none' }}>
-            <div className="flex-grow">
-              {card.badge && (
-                <span className="inline-block text-[10px] font-bold px-2.5 py-1 mb-3 rounded-[2px] bg-white/5 border border-white/10 text-gray-500 uppercase tracking-widest">
-                  {card.badge}
-                </span>
-              )}
-              <h3 className="font-display font-[800] text-lg text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
-                {card.label}
-              </h3>
-              <p className="text-sm text-[#888] leading-relaxed line-clamp-3 font-sans">
-                {card.description}
-              </p>
+          <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col h-full transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
+            style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)', transformStyle: 'preserve-3d' }}
+            data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+          >
+            <div className="relative w-full h-[200px] lg:h-[220px] overflow-hidden border-b border-white/[0.08] flex-shrink-0" style={{ pointerEvents: 'none' }}>
+              <img src={card.image} alt={card.label} className="w-full h-full object-cover grayscale contrast-[1.1] group-hover:grayscale-0 transition-[filter] duration-500" loading="lazy" draggable={false} />
+              <div className="absolute inset-0" style={{ backgroundColor: accent, mixBlendMode: 'color' }} />
             </div>
-            <div className="mt-4 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
-              <span>Explore</span>
-              <span>→</span>
+            <div className="p-6 flex flex-col flex-grow" style={{ pointerEvents: 'none' }}>
+              <div className="flex-grow">
+                {card.badge && (
+                  <span className="inline-block text-[10px] font-bold px-2.5 py-1 mb-3 rounded-[2px] bg-white/5 border border-white/10 text-gray-500 uppercase tracking-widest">
+                    {card.badge}
+                  </span>
+                )}
+                <h3 className="font-display font-[800] text-lg text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+                  {card.label}
+                </h3>
+                <p className="text-sm text-[#888] leading-relaxed line-clamp-3 font-sans">
+                  {card.description}
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+                <span>Explore</span>
+                <span>→</span>
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </a>
+      ) : (
+        <Link
+          href={card.href}
+          data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+          className="block h-full"
+        >
+          <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col h-full transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
+            style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)', transformStyle: 'preserve-3d' }}
+            data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+          >
+            <div className="relative w-full h-[200px] lg:h-[220px] overflow-hidden border-b border-white/[0.08] flex-shrink-0" style={{ pointerEvents: 'none' }}>
+              <img src={card.image} alt={card.label} className="w-full h-full object-cover grayscale contrast-[1.1] group-hover:grayscale-0 transition-[filter] duration-500" loading="lazy" draggable={false} />
+              <div className="absolute inset-0" style={{ backgroundColor: accent, mixBlendMode: 'color' }} />
+            </div>
+            <div className="p-6 flex flex-col flex-grow" style={{ pointerEvents: 'none' }}>
+              <div className="flex-grow">
+                {card.badge && (
+                  <span className="inline-block text-[10px] font-bold px-2.5 py-1 mb-3 rounded-[2px] bg-white/5 border border-white/10 text-gray-500 uppercase tracking-widest">
+                    {card.badge}
+                  </span>
+                )}
+                <h3 className="font-display font-[800] text-lg text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+                  {card.label}
+                </h3>
+                <p className="text-sm text-[#888] leading-relaxed line-clamp-3 font-sans">
+                  {card.description}
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+                <span>Explore</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      )}
     </motion.div>
   );
 }

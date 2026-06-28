@@ -38,7 +38,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Trust Layer",
     tagline: "The Coordinated Trust Layer",
     description: "Full Layer 1 Proof-of-Authority blockchain ecosystem with DeFi, identity verification, and transparent audit trails. Native Signal (SIG) asset with 400ms block finality and 200K+ TPS. Wallet, DEX/swap, cross-chain bridge (5 chains), staking, NFT marketplace, presale, explorer, DAO governance, and business tenant portals. 243,958 lines across 555 files, 12 PWA manifests, 7 host-based domains, 749 API endpoints, 544 schema exports, 233 pages, 158 components.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/trust-layer-new.jpg",
     url: "https://dwtl.io",
     category: "core"
   },
@@ -164,7 +164,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "TLID.io",
     tagline: "Automated Marketing That Works While You Work",
     description: "Self-service automated advertising for any business type. 5-step onboarding, organic posting, and ad campaigns. 11 pages with dedicated PWA manifest. 7,133 lines of production code.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/tlid-new.jpg",
     url: "https://tlid.io",
     category: "business"
   },
@@ -224,10 +224,10 @@ const ecosystemApps: EcosystemApp[] = [
   },
   {
     id: "signal-chat",
-    name: "ChronoChat",
-    tagline: "Connect Across Timelines",
+    name: "Signal Chat",
+    tagline: "Blockchain-Verified Messaging",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all ecosystem apps.",
-    image: "/ecosystem/signal-chat.png",
+    image: "/ecosystem/signal-chat-new.jpg",
     url: "https://signalchat.tlid.io",
     category: "social"
   },
@@ -254,7 +254,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "DarkWave Academy",
     tagline: "Learn. Build. Certify.",
     description: "Education and certification platform for the Trust Layer ecosystem. 6 course tracks covering blockchain development, smart contract security, DeFi protocols, AI integration, full-stack development, and Trust Layer architecture. 3 certification tiers with Stripe-powered subscriptions. Installable PWA at academy.tlid.io.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-academy-new.jpg",
     url: "https://academy.tlid.io",
     category: "core"
   },
@@ -290,7 +290,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Verdara",
     tagline: "The Ultimate Outdoor Recreation Super-App",
     description: "Comprehensive outdoor recreation platform featuring AI-powered species identification, trail mapping, trip planner, campground booking, marketplace, 125+ locations across 41 states, 18 activity categories, and 138+ features. Companion app Arbora provides standalone arborist CRM. 35,500 lines of code, 41 pages.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/verdara-new.jpg",
     url: "https://verdara.tlid.io",
     category: "outdoor"
   },
@@ -299,7 +299,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Arbora",
     tagline: "Professional Arborist Management Platform",
     description: "Standalone arborist PWA built within the Verdara ecosystem. Full CRM with customer management, estimates, job scheduling, invoicing, crew management, and inventory tracking. Mobile-optimized field tools for on-site assessments. ~8,000 lines of code, 10 pages.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/arbora-new.jpg",
     url: "https://arbora.tlid.io",
     category: "trades"
   },
@@ -308,7 +308,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Bomber 3D",
     tagline: "The Long Drive Championship",
     description: "3D long-drive golf game built with React 19, Three.js, and a custom physics engine. Deterministic ball flight with drag, wind, altitude, and weather systems. 5 procedurally generated venues (Desert Canyon, Ocean Links, Mountain Peak, Urban Rooftop, Forest Meadow), 20+ equipment tiers from Starter Wood to Quantum Driver, 3 AI opponents with distinct playstyles, and a full Shells-based economy with loot chest system. Physics tuner, asset generator, and balance checker CLI scripts. Hallmark prefix BO (BO-00000001). Express backend on port 3001 + Vite frontend.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/the-arcade-new.jpg",
     url: "https://bomber.tlid.io",
     category: "gaming"
   },
@@ -317,7 +317,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "TrustGen",
     tagline: "AI-Powered 3D Creation with Blockchain Provenance",
     description: "Premium browser-based 3D creation and code studio combining a full-featured 3D editor, AI model generation (Meshy.ai text-to-3D), integrated Studio IDE with Monaco editor and 9 project templates, auto-rigging engine, skeletal animation player, GPU particle system, post-processing pipeline (bloom, SSAO, DOF, chromatic aberration, film grain, color grading, vignette), animation timeline with keyframe easing, AI code assistant (GPT-4o), deploy to .trustgen.app, and blockchain-verified provenance. Stripe subscriptions (Free/Pro/Enterprise). 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/cc_developer_tools.jpg",
     url: "https://trustgen.tlid.io",
     category: "creative"
   },
@@ -326,7 +326,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Lume",
     tagline: "The Deterministic Natural-Language Programming Language",
     description: "The world's first deterministic natural-language programming language — write in English, compile with voice, ship with confidence. Every line is security-certified at birth via the 3-layer Guardian model. 7-layer Tolerance Chain resolves natural language to deterministic JavaScript. English Mode with 102 patterns, voice-to-code pipeline, interactive playground with sandboxed execution, Lume as a Service (LaaS) cloud deployment. Self-sustaining runtime: self-monitoring, self-healing, self-optimizing, self-evolving. CI-verified build pipeline. CHI 2027 paper submitted. ~18,000+ LOC across 10 completed milestones.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-chain.jpg",
     url: "https://lume-lang.com",
     category: "devtools"
   },
@@ -335,7 +335,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "LumeLine",
     tagline: "See the Line. Read the Game.",
     description: "Odds intelligence platform tracking 47+ bookmakers in real-time. Scores source accuracy, detects line manipulation (sync moves, reverse steam, house divergence, late flips), and generates ML-powered consensus predictions with confidence scoring and house lean bias. 14 API endpoints, Twilio SMS alerts, and full anomaly detection pipeline. Built entirely in Lume.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-pulse-new.jpg",
     url: "https://lumeline.bet",
     category: "sports-odds"
   },
@@ -344,7 +344,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "SignalCast",
     tagline: "One Signal. Every Platform.",
     description: "AI-powered social media automation engine for the Trust Layer ecosystem. 9 platform connectors (X/Twitter, Facebook, Instagram, Discord, Telegram, Nextdoor, LinkedIn, Reddit, Pinterest). Unified scheduler posts hourly 6am–10pm CST rotating across 15 ecosystem tenants. Embeddable widget drops into any app via a single script tag. TrustGen integration for AI-generated marketing assets and Axiom42 Suite for secure credential storage. 4-tier subscriptions (Starter $29/Pro $59/Pro+TrustGen $89/Ultimate $99). Full dashboard with post composer, deploy feed, and per-platform analytics. Express API with 12 endpoints, Drizzle ORM with 8 database tables.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/signalcast.jpg",
     url: "https://signalcast.ad",
     category: "marketing"
   }

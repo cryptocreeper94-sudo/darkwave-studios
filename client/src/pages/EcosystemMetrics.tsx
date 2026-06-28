@@ -793,7 +793,7 @@ export default function EcosystemMetrics() {
             Pure, hand-crafted source code powering the entire Trust Layer ecosystem.
           </p>
           <p className="text-xs text-muted-foreground/50 mt-4">
-            Last updated: March 20, 2026 &middot; Excludes node_modules, build artifacts, and lock files
+            Last updated: June 28, 2026 &middot; Excludes node_modules, build artifacts, and lock files
           </p>
         </motion.section>
 
@@ -815,7 +815,7 @@ export default function EcosystemMetrics() {
                 <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-4`}>
                   <stat.icon className={`w-7 h-7 ${stat.color}`} />
                 </div>
-                <div className={`text-3xl lg:text-4xl font-bold font-display ${stat.color} mb-1`}>
+                <div className={`text-xl sm:text-3xl lg:text-4xl font-bold font-display ${stat.color} mb-1`}>
                   <AnimatedCounter target={stat.value} duration={2000} suffix={stat.value > 1000 ? "+" : ""} />
                 </div>
                 <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
@@ -865,8 +865,8 @@ export default function EcosystemMetrics() {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-3 mb-1">
-                            <h3 className="font-display font-bold text-lg lg:text-xl truncate">{app.name}</h3>
+                          <div className="flex flex-wrap items-center gap-2 lg:gap-3 mb-1">
+                            <h3 className="font-display font-bold text-base lg:text-xl">{app.name}</h3>
                             <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold uppercase tracking-wider">{app.status}</span>
                             {app.version && (
                               <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-[#050505]/50 font-mono">{app.version}</span>
