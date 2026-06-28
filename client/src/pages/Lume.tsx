@@ -133,7 +133,7 @@ const milestones = [
 
 const ecosystemIntegrations = [
   { name: "Trust Layer SSO", icon: Lock, desc: "Single sign-on authentication across the entire Trust Layer ecosystem" },
-  { name: "ChronoChat", icon: MessageSquare, desc: "Real-time developer community chat with #lume-dev channel" },
+  { name: "Signal Chat", icon: MessageSquare, desc: "Real-time developer community chat with #lume-dev channel" },
   { name: "Blockchain Hallmarks", icon: Award, desc: "Immutable provenance records for Lume packages and deployments" },
   { name: "Signal Rewards", icon: Coins, desc: "Earn SIG tokens for contributions to the Lume ecosystem" },
 ];

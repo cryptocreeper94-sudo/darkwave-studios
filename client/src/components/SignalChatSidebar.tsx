@@ -366,7 +366,7 @@ export default function SignalChatSidebar() {
       >
         <div className="relative bg-white/5 border border-white/[0.08] text-[#050505] px-2 py-4 rounded-l-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-shadow cursor-pointer flex items-center gap-3">
           <Radio className="w-4 h-4 rotate-90" />
-          <span className="text-xs font-bold tracking-wider">ChronoChat</span>
+          <span className="text-xs font-bold tracking-wider">Signal Chat</span>
           {unreadCount > 0 && (
             <span className="absolute -left-1 -top-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold text-[#050505] shadow-[0_10px_30px_rgba(0,0,0,0.5)] animate-pulse rotate-90">
               {unreadCount > 9 ? "9+" : unreadCount}
@@ -400,7 +400,7 @@ export default function SignalChatSidebar() {
               <Radio className="w-4 h-4 text-[#050505]" />
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-bold text-[#050505]" data-testid="sidebar-chat-title">ChronoChat</h2>
+              <h2 className="text-sm font-bold text-[#050505]" data-testid="sidebar-chat-title">Signal Chat</h2>
               <div className="flex items-center gap-2 text-[10px]">
                 {currentUser ? (
                   <>

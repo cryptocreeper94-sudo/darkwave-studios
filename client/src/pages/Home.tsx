@@ -10,7 +10,7 @@ const projects = [
     title: "Strata",
     description: "Sovereign research registry for deterministic systems. Mint your researcher ID and publish to the ecosystem.",
     tech: ["Research", "Registry", "Academic"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-studios-new.jpg",
     gradient: "from-cyan-500/20 to-teal-500/20",
     url: "https://strata.tlid.io"
   },
@@ -19,7 +19,7 @@ const projects = [
     title: "Lume",
     description: "The deterministic natural-language programming language — ask/think/generate as syntax keywords, 4-layer self-sustaining runtime, voice-to-code pipeline, and 2,000+ tests",
     tech: ["AI", "Language", "Runtime", "Toolchain"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-chain.jpg",
     gradient: "from-cyan-500/20 to-teal-600/20",
     url: "https://lume-lang.org"
   },
@@ -28,7 +28,7 @@ const projects = [
     title: "Trust Layer",
     description: "Layer 1 blockchain providing verified identity and AI agent certification",
     tech: ["Blockchain", "Identity", "AI"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/trust-layer-new.jpg",
     gradient: "from-sky-500/20 to-pink-600/20",
     url: "https://dwtl.io"
   },
@@ -199,7 +199,7 @@ const projects = [
     title: "TLID.io",
     description: "Decentralized identity provider with passkey authentication and cross-app SSO",
     tech: ["Identity", "Auth", "Blockchain"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/tlid-new.jpg",
     gradient: "from-indigo-500/20 to-sky-600/20",
     url: "https://tlid.io"
   },
@@ -208,16 +208,16 @@ const projects = [
     title: "Guardian Scanner",
     description: "AI agent security scanner with trust scores and certification registry",
     tech: ["Security", "AI", "Scanning"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/guardian-scanner-new.jpg",
     gradient: "from-green-500/20 to-emerald-600/20",
     url: "https://guardianscanner.tlid.io"
   },
   {
     id: 25,
-    title: "ChronoChat",
-    description: "Real-time community chat with WebSocket channels and AI bot integration",
-    tech: ["Chat", "WebSocket", "AI"],
-    image: "/ecosystem/trust-layer-icon.png",
+    title: "Signal Chat",
+    description: "Blockchain-verified messaging platform with real-time WebSocket channels and AI bot integration",
+    tech: ["Chat", "WebSocket", "Blockchain"],
+    image: "/ecosystem/signal-chat-new.jpg",
     gradient: "from-cyan-500/20 to-sky-600/20",
     url: "https://signalchat.tlid.io"
   },
@@ -226,7 +226,7 @@ const projects = [
     title: "THE VOID",
     description: "Immersive entertainment and digital experience platform",
     tech: ["Entertainment", "AI", "Immersive"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/the-void-new.jpg",
     gradient: "from-[#0a0a0a]0/20 to-slate-600/20",
     url: "https://intothevoid.app"
   },
@@ -244,7 +244,7 @@ const projects = [
     title: "DarkWave Academy",
     description: "Education and certification platform for the Trust Layer ecosystem",
     tech: ["Education", "Certification", "Stripe"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-academy-new.jpg",
     gradient: "from-yellow-500/20 to-amber-600/20",
     url: "https://academy.tlid.io"
   },
@@ -280,7 +280,7 @@ const projects = [
     title: "Verdara",
     description: "Ultimate outdoor recreation super-app with species ID, trails, and campground booking",
     tech: ["Outdoor", "AI", "PWA"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/verdara-new.jpg",
     gradient: "from-lime-500/20 to-emerald-600/20",
     url: "https://verdara.tlid.io"
   },
@@ -289,7 +289,7 @@ const projects = [
     title: "Arbora",
     description: "Professional arborist CRM with estimates, jobs, invoicing, and crew management",
     tech: ["Arborist", "CRM", "PWA"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/arbora-new.jpg",
     gradient: "from-green-500/20 to-teal-600/20",
     url: "https://arbora.tlid.io"
   },
@@ -298,7 +298,7 @@ const projects = [
     title: "Bomber",
     description: "3D long-drive golf game with Three.js physics, procedural venues, Mixamo avatars, and 299K+ lines of code",
     tech: ["Three.js", "3D Physics", "Vite", "React"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/the-arcade-new.jpg",
     gradient: "from-red-500/20 to-yellow-600/20",
     url: "https://bomber.tlid.io"
   },
@@ -307,7 +307,7 @@ const projects = [
     title: "Trust Layer Hub",
     description: "Unified mobile command center — DeFi wallet, 5 staking pools, encrypted chat, AI agent, multi-sig vaults. 21,026 LOC, 66 endpoints, 24 screens",
     tech: ["React Native", "Expo SDK 54", "DeFi", "PWA"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/hub_home_overview.jpg",
     gradient: "from-cyan-500/20 to-blue-600/20",
     url: "https://trusthub.tlid.io"
   },
@@ -316,7 +316,7 @@ const projects = [
     title: "TrustGen",
     description: "AI-powered 3D creation and code studio — Three.js editor, Meshy.ai text-to-3D, Studio IDE with Monaco editor, auto-rigging, GPU particles, and blockchain provenance",
     tech: ["Three.js", "AI", "3D", "Blockchain"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/cc_developer_tools.jpg",
     gradient: "from-sky-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io"
   },
@@ -325,7 +325,7 @@ const projects = [
     title: "LumeLine",
     description: "Odds intelligence platform — tracks 47+ bookmakers, detects line manipulation, ML consensus with confidence scoring. Built in Lume",
     tech: ["ML", "Analytics", "Lume", "Sports"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-pulse-new.jpg",
     gradient: "from-emerald-500/20 to-cyan-600/20",
     url: "https://lumeline.bet"
   },

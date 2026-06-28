@@ -165,7 +165,7 @@ const projects = [
   {
     id: 15,
     title: "TL Driver Connect",
-    description: "All-in-one driver services platform with GPS mileage tracking, expense management with receipt OCR, fuel finder (diesel/gas/EV), CDL program directory, driver concierge, weather dashboard, and office business suite. Delivery network integration with Happy Eats. Trucker Talk + ChronoChat community. Shared codebase with Happy Eats: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 tables.",
+    description: "All-in-one driver services platform with GPS mileage tracking, expense management with receipt OCR, fuel finder (diesel/gas/EV), CDL program directory, driver concierge, weather dashboard, and office business suite. Delivery network integration with Happy Eats. Trucker Talk + Signal Chat community. Shared codebase with Happy Eats: 110,745 LOC, 611 files, 63 pages, 212 API endpoints, 48 tables.",
     tech: ["React 19", "Stripe Live", "GPS", "WebSocket"],
     image: happyEatsImg,
     gradient: "from-cyan-500/20 to-blue-500/20",
@@ -215,7 +215,7 @@ const projects = [
   {
     id: 18,
     title: "TrustHome",
-    description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. 20 app screens and 21 reusable components. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), and ChronoChat. 26,653 lines of code across 109 files with 103 API endpoints and 6 database tables. Woman-owned (WOSB eligible).",
+    description: "White-label real estate platform built with Expo React Native for iOS, Android, and Web. 20 app screens and 21 reusable components. Voice AI assistant (GPT-5.2 + ElevenLabs), blockchain document vault, CRM with AI lead scoring, marketing hub, business suite with OCR expense tracking, MLS integration (10+ providers), and Signal Chat. 26,653 lines of code across 109 files with 103 API endpoints and 6 database tables. Woman-owned (WOSB eligible).",
     tech: ["Real Estate", "Voice AI", "Expo", "Blockchain"],
     image: trustHomeImg,
     gradient: "from-sky-500/20 to-indigo-600/20",
@@ -225,7 +225,7 @@ const projects = [
   {
     id: 19,
     title: "Axiom42 Suite",
-    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors (17 transition effects), 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), layer panel, watermark tool, eyedropper, voice-commanded editing, 4-tier Stripe subscriptions, ChronoChat, AI Blog, and TrustLayer SSO. 46,697 lines of code, 172 files, 156 API endpoints, 12 database tables.",
+    description: "Professional-grade multi-tenant digital media vault and creative suite with full image/audio/video/merge editors (17 transition effects), 14 AI-powered creative tools (Smart Search, Auto-Tag, Style DNA, Beat-Sync Video Maker, Portfolio Generator, Spinny AI agent with GPT-5.1 + ElevenLabs TTS), layer panel, watermark tool, eyedropper, voice-commanded editing, 4-tier Stripe subscriptions, Signal Chat, AI Blog, and TrustLayer SSO. 46,697 lines of code, 172 files, 156 API endpoints, 12 database tables.",
     tech: ["14 AI Tools", "Media Editors", "Stripe", "PWA"],
     image: axiom42SuiteImg,
     gradient: "from-emerald-500/20 to-cyan-600/20",
@@ -244,7 +244,7 @@ const projects = [
   },
   {
     id: 21,
-    title: "ChronoChat",
+    title: "Signal Chat",
     description: "Cross-app community messaging platform for the Trust Layer ecosystem. Real-time WebSocket chat, JWT SSO authentication, channel-based conversations, invite system, and user presence. The social backbone connecting all 42 ecosystem apps.",
     tech: ["WebSocket", "JWT SSO", "Real-time", "Community"],
     image: signalChatImg,
@@ -255,7 +255,7 @@ const projects = [
   {
     id: 25,
     title: "THE VOID",
-    description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, ChronoChat, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
+    description: "The world's first voice-first venting app with 5 AI personalities (GPT-5.2), Emotional Voice Fingerprint analysis, Living Mood Portrait (generative AI art), Void Echo time capsules, 20+ wellness tools including Zen Zone, Sleep Sounds, Virtual Rage Room, and crisis toolkit. Stripe subscriptions, blockchain Void IDs, Signal Chat, and Capacitor-ready for native iOS/Android. 23,532 lines of code, 27 pages, 72 API endpoints, 20+ database tables.",
     tech: ["GPT-5.2", "Voice AI", "Stripe", "PWA"],
     image: "/projects/the-void.png",
     gradient: "from-cyan-500/20 to-sky-600/20",
@@ -305,9 +305,9 @@ const projects = [
   {
     id: 34,
     title: "TrustGen",
-    description: "Premium browser-based 3D creation and code studio. Full 3D editor with OrbitControls, scene hierarchy, PBR material editor, transform gizmos, and 5 light types with shadow mapping. AI model generation via Meshy.ai (800 char prompts). Studio IDE with Monaco editor, 9 project templates, AI code assistant (GPT-4o), command palette, file tree, multi-tab editing, hot apply to viewport, and deploy to .trustgen.app. Auto-rigging engine with skeleton generation, skeletal animation player, GPU particle system, post-processing pipeline (7 FX), and keyframe animation timeline with easing curves. Blockchain hallmarks, Stripe subscriptions, ChronoChat, Twilio SMS. 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
+    description: "Premium browser-based 3D creation and code studio. Full 3D editor with OrbitControls, scene hierarchy, PBR material editor, transform gizmos, and 5 light types with shadow mapping. AI model generation via Meshy.ai (800 char prompts). Studio IDE with Monaco editor, 9 project templates, AI code assistant (GPT-4o), command palette, file tree, multi-tab editing, hot apply to viewport, and deploy to .trustgen.app. Auto-rigging engine with skeleton generation, skeletal animation player, GPU particle system, post-processing pipeline (7 FX), and keyframe animation timeline with easing curves. Blockchain hallmarks, Stripe subscriptions, Signal Chat, Twilio SMS. 18,700 LOC, 62 files, 7 pages, 17 components, 20+ database tables, 50+ API endpoints.",
     tech: ["Three.js", "Meshy.ai", "Monaco Editor", "React 18", "Stripe"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/cc_developer_tools.jpg",
     gradient: "from-sky-500/20 to-cyan-600/20",
     url: "https://trustgen.tlid.io",
     category: "Creative Tools"
@@ -317,7 +317,7 @@ const projects = [
     title: "Lume",
     description: "The deterministic natural-language programming language where artificial intelligence is a syntax primitive. 'ask', 'think', and 'generate' are keywords — not library calls. 13 milestones complete plus v1.1.0 Expansion Block: Deterministic Inference Rulebook (31 rules, 4 tiers), Ed25519 Trust Certificates, Synthetic Organism Runtime (7-state cell lifecycle, signal bus, homeostasis), Multi-Agent Protocol with human-in-the-loop gates. 4-layer self-sustaining runtime. 10 human languages supported. Voice-to-code with normalization bridge. 5 compile targets (Linux, macOS, Windows, browser, WASM). 2,358 passing tests, 93 source modules, 63 test files, 100% pass rate. Zenodo DOI: 10.5281/zenodo.19430898.",
     tech: ["Node.js", "AI Syntax", "Self-Sustaining Runtime", "Vite + React 19"],
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/darkwave-chain.jpg",
     gradient: "from-cyan-500/20 to-teal-600/20",
     url: "https://lume-lang.org",
     category: "Developer Tools"

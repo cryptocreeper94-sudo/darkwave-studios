@@ -324,7 +324,7 @@ const widgetsList = [
     ]
   },
   { 
-    id: "signal-chat", name: "ChronoChat", icon: Radio, containerId: "demo-signal-chat", color: "#06b6d4", 
+    id: "signal-chat", name: "Signal Chat", icon: Radio, containerId: "demo-signal-chat", color: "#06b6d4", 
     description: "Cross-ecosystem community chat with SSO, bots & subscription billing", price: 349, priceId: "price_widget_signal_chat",
     fullDescription: "The unified communication layer for your entire ecosystem. Embed <ChatContainer channelId=\"app-support\" /> into any app — users authenticate once through Trust Layer SSO and gain cross-app identity everywhere. Dedicated support channels per app, ecosystem-wide channels (#general, #announcements), real-time WebSocket messaging, threaded conversations, DMs, polls, file sharing, and an extensible bot framework. Built-in subscription billing (free tier → paid tiers) turns chat into recurring revenue. Package and resell through DarkWave Studios for $499–$4,999.",
     features: ["Cross-ecosystem SSO — one login works across all apps", "Cross-app identity — same verified user everywhere, no re-registration", "Embed via <ChatContainer channelId /> — one component, any app", "Ecosystem-wide channels (#general, #announcements)", "Per-app support channels (#darkwavestudios-support, #garagebot-support)", "Unified support inbox — see messages from every app in one place", "Subscription billing — free basic chat, paid DMs/files/bots/polls", "Real-time WebSocket messaging with auto-reconnect", "Communities & channels (text, voice, announcements)", "Threaded conversations & replies", "Direct messages with read receipts", "Reactions & custom emoji support", "File uploads with drag & drop", "Polls with multi-vote", "Scheduled messages", "Role-based permissions (owner, admin, mod, member)", "Extensible bot framework with slash commands", "Typing indicators & presence (online/idle/DND)", "Message pinning, search, & forwarding", "Invite system with expiry & max uses", "Notification settings (all, mentions, muted)", "PWA-installable"],
@@ -1344,7 +1344,7 @@ const WIDGET_MAP: Record<string, string> = {
   "Crew Tracker / GPS Clock-In": "tl-crew-tracker",
   "CRM Pipeline Manager": "tl-crm",
   "Weather-Based Scheduling": "tl-weather",
-  "ChronoChat Widget": "tl-signal-chat",
+  "Signal Chat Widget": "tl-signal-chat",
   "Effects Kit": "tl-effects-kit",
 };
 

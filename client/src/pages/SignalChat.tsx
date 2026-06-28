@@ -394,7 +394,7 @@ export default function SignalChat() {
                 <Radio className="w-6 h-6 text-[#050505]" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-[#050505]" data-testid="text-chat-title">ChronoChat</h1>
+                <h1 className="text-xl font-bold text-[#050505]" data-testid="text-chat-title">Signal Chat</h1>
                 <p className="text-xs text-[#888]/70">Trust Layer Ecosystem</p>
               </div>
             </div>
@@ -639,9 +639,9 @@ export default function SignalChat() {
   return (
     <div className="h-screen bg-[#0a0a1a] flex flex-col">
       <SEOHead
-        title="ChronoChat - Real-Time Ecosystem Communication"
-        description="Join ChronoChat, the real-time communication platform for the Trust Layer ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
-        keywords="ChronoChat, real-time chat, ecosystem communication, Trust Layer SSO, WebSocket messaging, cross-app identity"
+        title="Signal Chat - Real-Time Ecosystem Communication"
+        description="Join Signal Chat, the real-time communication platform for the Trust Layer ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
+        keywords="Signal Chat, real-time chat, ecosystem communication, Trust Layer SSO, WebSocket messaging, cross-app identity"
       />
       <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/[0.08]">
         <button
@@ -655,7 +655,7 @@ export default function SignalChat() {
           <Radio className="w-5 h-5 text-[#050505]" />
         </div>
         <div className="flex-1">
-          <h1 className="text-sm font-bold text-[#050505]" data-testid="text-header-title">ChronoChat</h1>
+          <h1 className="text-sm font-bold text-[#050505]" data-testid="text-header-title">Signal Chat</h1>
           <div className="flex items-center gap-2 text-[11px]">
             <span className="text-[#888]/70">Trust Layer SSO</span>
             <span className="text-[#888]">|</span>

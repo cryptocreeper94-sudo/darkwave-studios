@@ -29,7 +29,7 @@ const ecosystemApps: EcosystemApp[] = [
     name: "Trust Layer Hub",
     tagline: "Your Blockchain Ecosystem Command Center",
     description: "The unified mobile command center for the Trust Layer protocol ecosystem — the single point of entry to 35 interconnected decentralized applications. Full-featured DeFi wallet supporting SIG ($0.01), Shells ($0.001), and stSIG with 5 staking pools (12%–38% APY). Liquid staking, DEX swaps, Plaid bank linking, Stripe business dashboard, encrypted WebSocket chat, multi-sig vaults, AI agent with voice synthesis, 3-tier news engine, and 5-tier affiliate program. Built with React Native + Expo SDK 54 for iOS, Android, and Web (PWA). 21,026 LOC, 93 files, 66 endpoints, 15 tables, 24 screens, 13 components, 17 hooks. Genesis application (TH-00000001). Free forever — dark-only cyber-glassmorphism design. 200K+ TPS, 400ms block finality.",
-    image: "/ecosystem/trust-layer-icon.png",
+    image: "/ecosystem/hub_home_overview.jpg",
     url: "https://trusthub.tlid.io",
     category: "core"
   },
@@ -612,7 +612,7 @@ export default function Ecosystem() {
           </div>
           <div className="flex justify-center gap-3 mt-8">
             <div className="flex -space-x-2">
-              {["/ecosystem/pulse.png", "/ecosystem/orbit-staffing.png", "/ecosystem/strikeagent.png", "/ecosystem/trust-layer-icon.png"].map((img, i) => (
+              {["/ecosystem/pulse.png", "/ecosystem/orbit-staffing.png", "/ecosystem/strikeagent.png", "/ecosystem/garagebot.png"].map((img, i) => (
                 <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-white/10">
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </div>

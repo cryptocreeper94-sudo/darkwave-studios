@@ -101,15 +101,15 @@ const faqCategories = [
       },
       {
         q: "How do I report a bug or issue?",
-        a: "You can report issues through our contact form, email us at team@dwsc.io, or reach out via ChronoChat on our platform. We aim to acknowledge all support requests within 24 hours."
+        a: "You can report issues through our contact form, email us at team@dwsc.io, or reach out via Signal Chat on our platform. We aim to acknowledge all support requests within 24 hours."
       },
       {
         q: "Do you offer ongoing maintenance?",
         a: "Yes, we offer monthly maintenance plans that include security updates, bug fixes, performance monitoring, content updates, and priority support. Plans are customized based on your needs."
       },
       {
-        q: "What is ChronoChat?",
-        a: "ChronoChat is our built-in real-time messaging platform available on DarkWave Studios. It allows you to communicate directly with our team and other community members through secure, encrypted channels."
+        q: "What is Signal Chat?",
+        a: "Signal Chat is our built-in real-time messaging platform available on DarkWave Studios. It allows you to communicate directly with our team and other community members through secure, encrypted channels."
       }
     ]
   }
