@@ -409,7 +409,7 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
           <img
             src={card.image}
             alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 opacity-60 group-hover:opacity-100 group-hover:scale-105"
             loading="lazy"
             draggable={false}
           />
@@ -477,8 +477,10 @@ function HeroSlideshow() {
             <img
               src={src}
               alt="DarkWave Studios Nexus"
-              className="w-full h-full object-cover opacity-70 scale-105 animate-kenburns"
+              className="w-full h-full object-cover scale-105 animate-kenburns"
             />
+            {/* Ambient vibrant overlay */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-transparent to-purple-900/30 mix-blend-overlay pointer-events-none" />
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -616,16 +618,16 @@ export default function Explore() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-sm overflow-hidden mb-10 lg:mb-14 border border-white/5 shadow-2xl"
+          className="relative rounded-xl overflow-hidden mb-10 lg:mb-14 border border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)]"
         >
           <HeroSlideshow />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-            <h1 className="text-2xl lg:text-4xl font-display font-black mb-1 text-white uppercase tracking-tighter">
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+            <h1 className="text-3xl lg:text-5xl font-display font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 uppercase tracking-tighter drop-shadow-lg">
               Where do you want to <span className="text-white/40">go?</span>
             </h1>
-            <p className="text-sm text-gray-400 max-w-xl font-sans">
-              {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer, one click away.
+            <p className="text-base text-gray-300 max-w-2xl font-sans drop-shadow-md">
+              {totalDestinations} destinations across {categories.length} categories. The architectural nexus of the ecosystem. Everything DarkWave Studios has to offer, one click away.
             </p>
           </div>
         </motion.div>

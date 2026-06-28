@@ -399,7 +399,44 @@ const CORE_APPS = [
 ];
 
 const staggerContainer = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
-const staggerItem = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
+function BackgroundSlideshow() {
+  const [index, setIndex] = useState(0);
+  const images = [
+    "/ecosystem/darkwave-studios-new.jpg",
+    "/ecosystem/chronicles-new.jpg",
+    "/ecosystem/trust-layer-new.jpg",
+    "/ecosystem/guardian-scanner-new.jpg",
+    "/ecosystem/orbit-staffing-new.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <>
+      {images.map((src, i) => (
+        <div
+          key={src}
+          className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${i === index ? 'opacity-60' : 'opacity-0'}`}
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center animate-kenburns origin-center"
+            style={{ backgroundImage: `url(${src})` }}
+          />
+        </div>
+      ))}
+    </>
+  );
+}
 
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
@@ -426,33 +463,34 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#050505] overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans relative">
       <div className="fixed inset-0 pointer-events-none z-[-1]">
-        <div className="absolute inset-0 bg-[url('/assets/brutalist/hero_1.png')] bg-cover bg-center opacity-40 animate-[kenburns_24s_infinite]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f8f9fa]/40 via-[#f8f9fa]/80 to-[#f8f9fa]" />
+        <BackgroundSlideshow />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/30 via-[#050505]/80 to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/10 via-transparent to-purple-900/10 mix-blend-overlay" />
       </div>
 
       <div className="relative z-10">
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#f8f9fa]/80 backdrop-blur-xl border-b border-black/5">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/5">
           <div className="lg:hidden max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="font-display text-base font-bold tracking-tight">
               DarkWave Systems
             </div>
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-black/10 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
           
           {mobileMenuOpen && (
-            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 bg-[#f8f9fa]/95 backdrop-blur-xl border-t border-black/5 overflow-y-auto z-50">
+            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 bg-background/95 backdrop-blur-xl border-t border-white/5 overflow-y-auto z-50">
               <div className="max-w-7xl mx-auto px-4 py-4 pb-20 flex flex-col gap-1">
-                <a href="#core" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-black/5">Core Ecosystem</a>
-                <a href="#extended" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-black/5">Extended Network</a>
-                <a href="https://dwtl.io" target="_blank" className="text-sm font-semibold py-3 border-b border-black/5">Trust Layer</a>
-                <a href="https://dwtl.io/presale" target="_blank" className="text-sm font-semibold py-3 text-[#050505]">$SIG Presale</a>
+                <a href="#core" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-white/5">Core Ecosystem</a>
+                <a href="#extended" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-white/5">Extended Network</a>
+                <a href="https://dwtl.io" target="_blank" className="text-sm font-semibold py-3 border-b border-white/5">Trust Layer</a>
+                <a href="https://dwtl.io/presale" target="_blank" className="text-sm font-semibold py-3 text-white">$SIG Presale</a>
               </div>
             </div>
           )}
@@ -471,7 +509,7 @@ export default function Home() {
               <a 
                 href="https://dwtl.io/presale" 
                 target="_blank"
-                className="btn-glow bg-black/5 border border-black/10 text-[#050505] px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-black/10 transition-all"
+                className="btn-glow bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
               >
                 $SIG Presale
               </a>
@@ -482,22 +520,22 @@ export default function Home() {
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pt-32 lg:pb-24 max-w-7xl">
           
           <motion.section variants={staggerContainer} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-20 lg:mb-32 relative z-10">
-            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-black/5 border border-black/10 rounded-sm px-4 py-1.5 mb-8 backdrop-blur-md">
-              <span className="w-2 h-2 bg-white rounded-full animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-              <span className="text-xs font-bold text-[#050505] uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
+            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-white/5 border border-cyan-500/30 rounded-sm px-4 py-1.5 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+              <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+              <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
             </motion.div>
             
             <motion.h1 variants={staggerItem} className="text-5xl lg:text-7xl font-black font-display leading-[0.95] tracking-tighter mb-6 uppercase">
-              Deterministic Infrastructure for the <span className="text-[#050505]/60">Next Era</span>.
+              The Architectural<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 filter drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">Nexus</span>
             </motion.h1>
             
-            <motion.p variants={staggerItem} className="text-sm lg:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
-              The architectural engine powering the 8-platform DarkWave ecosystem. 
-              Zero-trust design, unified by the $SIG asset layer.
+            <motion.p variants={staggerItem} className="text-lg lg:text-xl text-gray-300 font-sans font-light max-w-2xl mx-auto leading-relaxed mb-10 drop-shadow-md">
+              The deterministic mother site of the DarkWave ecosystem. We build, scale, and secure sovereign intelligence networks.
             </motion.p>
 
             <motion.div variants={staggerItem} className="flex items-center justify-center gap-4">
-               <a href="#core" className="btn-brutal bg-transparent text-[#050505] border border-black/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-[#f8f9fa] hover:text-[#050505] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all">
+               <a href="#core" className="btn-brutal bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all">
                  Explore Platforms
                </a>
                <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-white text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
@@ -507,7 +545,7 @@ export default function Home() {
           </motion.section>
 
           <section id="core" className="mb-20 lg:mb-32 scroll-mt-32">
-            <div className="flex flex-col lg:flex-row items-baseline justify-between mb-8 lg:mb-12 border-b border-black/5 pb-4">
+            <div className="flex flex-col lg:flex-row items-baseline justify-between mb-8 lg:mb-12 border-b border-white/5 pb-4">
               <h2 className="text-2xl lg:text-4xl font-black font-display tracking-tight">The Apex Predator Ecosystem</h2>
               <p className="text-muted-foreground text-sm lg:text-base font-medium mt-2 lg:mt-0">8 Core Platforms. 1 Unified Trust Layer.</p>
             </div>
@@ -515,13 +553,13 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               {CORE_APPS.map((app, idx) => (
                 <a href={app.url} target="_blank" key={idx} className="block group">
-                  <div className="glass-card-surface p-6 lg:p-8 h-full rounded-sm border border-black/5 transition-all hover:-translate-y-1 hover:bg-[#f8f9fa]/[0.05] hover:border-black/30">
-                    <div className="w-12 h-12 rounded-sm bg-black border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/50 transition-colors">
-                      <app.icon className="w-6 h-6 text-gray-600 group-hover:text-[#050505] transition-colors" />
+                  <div className="glass-card-surface p-6 lg:p-8 h-full rounded-sm border border-white/5 transition-all hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/30">
+                    <div className="w-12 h-12 rounded-sm bg-black border border-white/10 flex items-center justify-center mb-6 group-hover:border-white/50 transition-colors">
+                      <app.icon className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
                     </div>
-                    <div className="text-[10px] font-bold text-gray-600 uppercase tracking-widest mb-2">{app.tag}</div>
-                    <h3 className="text-xl font-black mb-3 text-[#050505] font-display uppercase tracking-tight">{app.title}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed font-sans">{app.desc}</p>
+                    <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">{app.tag}</div>
+                    <h3 className="text-xl font-black mb-3 text-white font-display uppercase tracking-tight">{app.title}</h3>
+                    <p className="text-sm text-gray-400 leading-relaxed font-sans">{app.desc}</p>
                   </div>
                 </a>
               ))}
@@ -532,10 +570,10 @@ export default function Home() {
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl lg:text-3xl font-black font-display tracking-tight">Extended Network</h2>
               <div className="flex items-center gap-2">
-                <button onClick={prevProject} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black/5 transition-colors">
+                <button onClick={prevProject} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <button onClick={nextProject} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black/5 transition-colors">
+                <button onClick={nextProject} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
@@ -549,8 +587,8 @@ export default function Home() {
                   key={`${project.id}-${currentProject}`}
                   className="group block [perspective:1000px]"
                 >
-                  <div className="glass-card-surface rounded-sm overflow-hidden border border-black/5 h-full transition-all duration-300 group-hover:border-black/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
-                    <div className="w-full h-40 bg-black overflow-hidden border-b border-black/5">
+                  <div className="glass-card-surface rounded-sm overflow-hidden border border-white/5 h-full transition-all duration-300 group-hover:border-white/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
+                    <div className="w-full h-40 bg-black overflow-hidden border-b border-white/5">
                       <img 
                         src={`/assets/brutalist/card_${(index % 4) + 1}.png`} 
                         className="w-full h-full object-cover grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-500" 
@@ -558,11 +596,11 @@ export default function Home() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-lg font-black mb-2 text-[#050505] font-display uppercase tracking-tight">{project.title}</h3>
-                      <p className="text-sm text-gray-600 line-clamp-2 mb-4 font-sans">{project.description}</p>
+                      <h3 className="text-lg font-black mb-2 text-white font-display uppercase tracking-tight">{project.title}</h3>
+                      <p className="text-sm text-gray-400 line-clamp-2 mb-4 font-sans">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {project.tech.slice(0, 3).map((tech) => (
-                          <span key={tech} className="text-[10px] font-bold bg-black/5 border border-black/10 px-2.5 py-1 rounded-sm text-gray-600 uppercase tracking-widest">{tech}</span>
+                          <span key={tech} className="text-[10px] font-bold bg-white/5 border border-white/10 px-2.5 py-1 rounded-sm text-gray-500 uppercase tracking-widest">{tech}</span>
                         ))}
                       </div>
                     </div>
