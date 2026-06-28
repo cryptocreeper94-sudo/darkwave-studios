@@ -410,11 +410,11 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
           <img
             src={`/assets/brutalist/card_${(index % 4) + 1}.png`}
             alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-500"
+            className="absolute inset-0 w-full h-full object-cover object-center contrast-[1.05] group-hover:scale-[1.02] transition-transform duration-700"
             loading="lazy"
             draggable={false}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa]/95 via-[#f8f9fa]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
