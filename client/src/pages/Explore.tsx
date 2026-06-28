@@ -792,7 +792,7 @@ export default function Explore() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
-              { icon: <Code2 className="w-5 h-5" />, value: "10.6M+", label: "Lines of Code" },
+              { icon: <Code2 className="w-5 h-5" />, value: "29.6M+", label: "Lines of Code" },
               { icon: <Database className="w-5 h-5" />, value: "12,370+", label: "API Endpoints" },
               { icon: <Boxes className="w-5 h-5" />, value: "124", label: "Widgets" },
             ].map((stat, i) => (
