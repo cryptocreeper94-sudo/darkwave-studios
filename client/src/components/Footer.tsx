@@ -33,24 +33,7 @@ export default function Footer() {
     <footer className="relative z-10 border-t transition-colors duration-300" style={{ borderColor: 'var(--glass-border)', background: 'var(--nav-bg)' }} data-testid="footer">
       <div className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex flex-col items-center gap-3 text-center">
-          {/* Ecosystem Links */}
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-2 mb-2 text-[10px] sm:text-xs">
-            <a href="https://axiomstudio.dev" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom 42</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustgen.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustGen 3D</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://axiom42suite.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Axiom42 Suite</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://lume-lang.org" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Cortex</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://lumescan.com" target="_blank" className="hover:text-cyan-600 transition-colors">Lume Scan</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustbook.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">TrustBook</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://trustshield.tech" target="_blank" className="hover:text-cyan-600 transition-colors">TrustShield</a>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://chronoverse.tlid.io" target="_blank" className="hover:text-cyan-600 transition-colors">Chronoverse</a>
-          </div>
+          {/* Ecosystem links removed in favor of EcosystemFooter */}
 
           {/* Company + Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-semibold" style={{ color: 'var(--text-dim)' }}>

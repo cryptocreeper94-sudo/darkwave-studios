@@ -92,8 +92,8 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
 
   return (
     <footer style={{
-      width:'100%', borderTop:'1px solid rgba(255,255,255,0.04)',
-      background:'linear-gradient(180deg,transparent 0%,rgba(3,5,12,0.98) 40%)',
+      width:'100%', borderTop:'1px solid rgba(0,0,0,0.05)',
+      background:'linear-gradient(180deg,transparent 0%,rgba(248,249,250,0.98) 40%)',
       padding:'20px 0 14px', position:'relative', overflow:'hidden',
       fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,sans-serif",
     }}>
@@ -107,7 +107,7 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
         {/* Header */}
         <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:14 }}>
           <span style={{ fontSize:9, fontWeight:800, letterSpacing:'0.14em',
-            textTransform:'uppercase', color:'rgba(255,255,255,0.18)' }}>
+            textTransform:'uppercase', color:'rgba(5,5,5,0.4)' }}>
             {label ?? 'Also on Trust Layer'}
           </span>
           {vert && (
@@ -135,17 +135,17 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
                 style={{
                   display:'flex', alignItems:'center', gap:8, padding:'8px 14px',
                   borderRadius:11, textDecoration:'none', flexShrink:0,
-                  background: on ? `${c}0e` : 'rgba(255,255,255,0.02)',
-                  border:`1px solid ${on ? `${c}28` : 'rgba(255,255,255,0.05)'}`,
+                  background: on ? `${c}1a` : 'rgba(0,0,0,0.03)',
+                  border:`1px solid ${on ? `${c}40` : 'rgba(0,0,0,0.05)'}`,
                   transform: on ? 'translateY(-2px)' : 'none',
                   transition:'all 0.18s ease',
                 }}>
                 <span style={{ fontSize:20, lineHeight:1, flexShrink:0 }}>{app.i}</span>
                 <div style={{ display:'flex', flexDirection:'column', gap:1 }}>
                   <span style={{ fontSize:11, fontWeight:700, whiteSpace:'nowrap',
-                    color: on ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.55)',
+                    color: on ? 'rgba(5,5,5,0.9)' : 'rgba(5,5,5,0.55)',
                     transition:'color 0.18s' }}>{app.n}</span>
-                  <span style={{ fontSize:9, color:'rgba(255,255,255,0.22)',
+                  <span style={{ fontSize:9, color:'rgba(5,5,5,0.4)',
                     whiteSpace:'nowrap' }}>{app.hook}</span>
                 </div>
               </a>
@@ -153,7 +153,7 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
           })}
 
           {/* divider */}
-          <div style={{ width:1, height:34, background:'rgba(255,255,255,0.06)', flexShrink:0 }} />
+          <div style={{ width:1, height:34, background:'rgba(0,0,0,0.06)', flexShrink:0 }} />
 
           {/* Trust Hub anchor — always present */}
           <a href="https://trusthub.tlid.io" target="_blank" rel="noopener noreferrer"
@@ -162,14 +162,14 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
             style={{
               display:'flex', alignItems:'center', gap:6, padding:'8px 16px',
               borderRadius:11, textDecoration:'none', flexShrink:0,
-              background: hubHov ? 'rgba(6,182,212,0.09)' : 'rgba(6,182,212,0.04)',
-              border:`1px solid ${hubHov ? 'rgba(6,182,212,0.28)' : 'rgba(6,182,212,0.12)'}`,
+              background: hubHov ? 'rgba(6,182,212,0.1)' : 'rgba(6,182,212,0.05)',
+              border:`1px solid ${hubHov ? 'rgba(6,182,212,0.3)' : 'rgba(6,182,212,0.15)'}`,
               transform: hubHov ? 'translateY(-2px)' : 'none',
               transition:'all 0.18s ease',
             }}>
             <span style={{ fontSize:14 }}>◈</span>
             <span style={{ fontSize:11, fontWeight:800, whiteSpace:'nowrap',
-              color: hubHov ? '#67e8f9' : 'rgba(6,182,212,0.55)',
+              color: hubHov ? '#0891b2' : 'rgba(6,182,212,0.8)',
               transition:'color 0.18s', letterSpacing:'0.02em' }}>Trust Hub</span>
           </a>
         </div>
@@ -177,13 +177,13 @@ export function EcosystemFooter({ appId, label, showLegal = true }: Props) {
         {/* Legal bar */}
         {showLegal && (
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between',
-            marginTop:14, paddingTop:12, borderTop:'1px solid rgba(255,255,255,0.03)',
+            marginTop:14, paddingTop:12, borderTop:'1px solid rgba(0,0,0,0.05)',
             flexWrap:'wrap', gap:6 }}>
-            <span style={{ fontSize:9, color:'rgba(255,255,255,0.11)', letterSpacing:'0.03em' }}>
+            <span style={{ fontSize:9, color:'rgba(5,5,5,0.4)', letterSpacing:'0.03em' }}>
               © {new Date().getFullYear()} DarkWave Studios LLC · 42 apps · 71 papers · 3 books · Lume-V governed
             </span>
             <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer"
-              style={{ fontSize:9, color:'rgba(6,182,212,0.3)', textDecoration:'none',
+              style={{ fontSize:9, color:'rgba(6,182,212,0.6)', textDecoration:'none',
                 fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase' }}>
               Trust Layer ◈
             </a>

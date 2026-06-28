@@ -445,6 +445,45 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
   );
 }
 
+function HeroSlideshow() {
+  const [api, setApi] = useState<any>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [api]);
+
+  const images = [
+    "/assets/brutalist/hero_2.png",
+    "/assets/brutalist/card_1.png",
+    "/assets/brutalist/card_2.png",
+    "/assets/brutalist/card_4.png",
+  ];
+
+  return (
+    <Carousel
+      opts={{ align: "start", loop: true, watchDrag: false }}
+      setApi={setApi}
+      className="w-full h-40 lg:h-56"
+    >
+      <CarouselContent className="h-full ml-0">
+        {images.map((src, i) => (
+          <CarouselItem key={i} className="pl-0 basis-full h-full relative">
+            <img
+              src={src}
+              alt="Slide"
+              className="w-full h-full object-cover opacity-60"
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+}
+
 function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; catIndex: number }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [api, setApi] = useState<any>(null);
@@ -577,12 +616,8 @@ export default function Explore() {
           transition={{ duration: 0.5 }}
           className="relative rounded-sm overflow-hidden mb-10 lg:mb-14 border border-black/5"
         >
-          <img
-            src="/assets/brutalist/hero_2.png"
-            alt="Explore DarkWave Studios"
-            className="w-full h-40 lg:h-56 object-cover opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa]/60 to-transparent" />
+          <HeroSlideshow />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa]/60 to-transparent pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
             <h1 className="text-2xl lg:text-4xl font-display font-black mb-1 text-[#050505] uppercase tracking-tighter">
               Where do you want to <span className="text-[#050505]/40">go?</span>
