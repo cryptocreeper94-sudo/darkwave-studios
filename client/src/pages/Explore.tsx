@@ -403,14 +403,13 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
         onPointerMove={handlePointerMove}
       >
         <div
-          className="group relative h-[220px] lg:h-[240px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01] border border-white/10 hover:border-cyan-500/30"
-          style={{ boxShadow: glow }}
+          className="glass-card-surface group relative h-[220px] lg:h-[240px] rounded-sm overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-white/30 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] [perspective:1000px] hover:rotate-x-2 hover:-rotate-y-2"
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
           <img
-            src={card.image}
+            src={`/assets/brutalist/card_${(index % 4) + 1}.png`}
             alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center brightness-110"
+            className="absolute inset-0 w-full h-full object-cover object-center grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-500"
             loading="lazy"
             draggable={false}
           />
@@ -418,7 +417,7 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-sky-600 text-white shadow-lg">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-gray-400 uppercase tracking-widest shadow-lg">
                 {card.badge}
               </span>
             </div>
@@ -426,17 +425,17 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
 
           <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
             <div className="flex items-center gap-2 mb-1.5">
-              <div className="w-7 h-7 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+              <div className="w-7 h-7 rounded-sm bg-white/5 flex items-center justify-center border border-white/10">
                 {card.icon}
               </div>
-              <h3 className="font-display font-bold text-sm text-white" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+              <h3 className="font-display font-black text-sm text-white uppercase tracking-tight" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
                 {card.label}
               </h3>
             </div>
-            <p className="text-[11px] text-white/50 leading-relaxed line-clamp-2">
+            <p className="text-[11px] text-gray-400 leading-relaxed line-clamp-2 font-sans">
               {card.description}
             </p>
-            <div className="mt-2 flex items-center gap-1 text-[11px] text-cyan-400 font-medium">
+            <div className="mt-2 flex items-center gap-1 text-[11px] text-white/50 font-bold uppercase tracking-widest group-hover:text-white transition-colors">
               <span>Go</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -468,8 +467,8 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
       transition={{ duration: 0.5, delay: catIndex * 0.1 }}
     >
       <div className="mb-4">
-        <h2 className="text-lg lg:text-xl font-display font-bold text-white">{category.title}</h2>
-        <p className="text-xs text-white/40 leading-relaxed mt-1 max-w-2xl">{category.description}</p>
+        <h2 className="text-lg lg:text-xl font-display font-black text-white uppercase tracking-tight">{category.title}</h2>
+        <p className="text-xs text-gray-400 leading-relaxed mt-1 max-w-2xl font-sans">{category.description}</p>
       </div>
 
       <div className="mt-4">
@@ -498,10 +497,10 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
               <button
                 key={i}
                 onClick={() => api?.scrollTo(i)}
-                className={`rounded-full transition-all duration-300 ${
+                className={`rounded-sm transition-all duration-300 ${
                   i === currentSlide
-                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
-                    : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                    ? "w-6 h-1.5 bg-white shadow-lg"
+                    : "w-2 h-1.5 bg-white/20 hover:bg-white/40"
                 }`}
                 data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -546,15 +545,14 @@ export default function Explore() {
   const totalDestinations = categories.reduce((sum, cat) => sum + cat.cards.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#070b16] text-white overflow-x-hidden">
-      <div className="fixed inset-0 bg-gradient-to-b from-[#070b16] via-[#0c1222] to-[#070b16] -z-20" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
+    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <div className="fixed inset-0 bg-background pointer-events-none z-[-20]" />
+      <div className="fixed inset-0 bg-[#050505]/80 pointer-events-none z-[-10]" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/90 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
               <Compass className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -578,19 +576,19 @@ export default function Explore() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-2xl overflow-hidden mb-10 lg:mb-14"
+          className="relative rounded-sm overflow-hidden mb-10 lg:mb-14 border border-white/5"
         >
           <img
-            src="/command/explore-hero.png"
+            src="/assets/brutalist/hero_2.png"
             alt="Explore DarkWave Studios"
-            className="w-full h-40 lg:h-56 object-cover brightness-110"
+            className="w-full h-40 lg:h-56 object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070b16] via-[#070b16]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-            <h1 className="text-2xl lg:text-4xl font-display font-bold mb-1 text-white">
-              Where do you want to <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-pink-400 bg-clip-text text-transparent">go?</span>
+            <h1 className="text-2xl lg:text-4xl font-display font-black mb-1 text-white uppercase tracking-tighter">
+              Where do you want to <span className="text-white/40">go?</span>
             </h1>
-            <p className="text-sm text-white/50 max-w-xl">
+            <p className="text-sm text-gray-400 max-w-xl font-sans">
               {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer, one click away.
             </p>
           </div>
@@ -603,10 +601,10 @@ export default function Explore() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
         >
           {[
-            { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps", gradient: "from-cyan-500 to-blue-500" },
-            { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code", gradient: "from-sky-500 to-pink-500" },
-            { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets", gradient: "from-amber-500 to-orange-500" },
-            { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints", gradient: "from-emerald-500 to-teal-500" },
+            { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
+            { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code" },
+            { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets" },
+            { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -614,16 +612,15 @@ export default function Explore() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
             >
-              <div className="relative group rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-[1.02]">
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-[0.08] group-hover:opacity-[0.15] transition-opacity`} />
+              <div className="glass-card-surface relative group rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/30">
                 <div className="relative p-4 lg:p-6 text-center">
-                  <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br ${stat.gradient} mb-3 shadow-lg`}>
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-white/5 border border-white/10 mb-3 shadow-[0_0_10px_rgba(255,255,255,0.05)] group-hover:border-white/30 transition-all">
                     {stat.icon}
                   </div>
-                  <div className="text-2xl lg:text-3xl font-bold font-display text-white mb-0.5" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
+                  <div className="text-2xl lg:text-3xl font-black font-display text-white mb-0.5 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
                     {stat.value}
                   </div>
-                  <div className="text-[11px] lg:text-xs text-white/40 font-medium uppercase tracking-wider">
+                  <div className="text-[11px] lg:text-xs text-gray-500 font-bold uppercase tracking-widest font-sans">
                     {stat.label}
                   </div>
                 </div>
@@ -646,7 +643,7 @@ export default function Explore() {
         <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
           <Link
             href="/home"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02]"
+            className="btn-brutal inline-flex items-center gap-2 bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all"
             data-testid="explore-footer-home"
           >
             <Home className="w-4 h-4" />
