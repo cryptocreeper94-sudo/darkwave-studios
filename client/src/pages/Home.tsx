@@ -440,7 +440,7 @@ export default function Home() {
             "/ecosystem/guardian-scanner-new.jpg",
             "/ecosystem/orbit-staffing-new.jpg",
           ]} 
-          overlayOpacity={0.6} 
+          overlayOpacity={0.15} 
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/10 via-transparent to-purple-900/10 mix-blend-overlay pointer-events-none" />
       </div>
@@ -563,10 +563,10 @@ export default function Home() {
                   className="group block [perspective:1000px]"
                 >
                   <div className="glass-card-surface rounded-sm overflow-hidden border border-white/5 h-full transition-all duration-300 group-hover:border-white/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
-                    <div className="w-full h-40 bg-black overflow-hidden border-b border-white/5">
+                    <div className="w-full h-40 bg-[#050505] overflow-hidden border-b border-white/5">
                       <img 
-                        src={`/assets/brutalist/card_${(index % 4) + 1}.png`} 
-                        className="w-full h-full object-cover grayscale-[100%] contrast-110 group-hover:grayscale-0 transition-all duration-500" 
+                        src={project.image} 
+                        className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
                         alt="Project visualization" 
                       />
                     </div>

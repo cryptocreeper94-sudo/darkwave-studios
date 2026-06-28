@@ -587,7 +587,7 @@ export default function Explore() {
               "/ecosystem/guardian-scanner-new.jpg",
               "/ecosystem/orbit-staffing-new.jpg",
             ]} 
-            overlayOpacity={0.4} 
+            overlayOpacity={0.15} 
           />
           <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/20 via-transparent to-purple-900/20 mix-blend-overlay pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 z-10">
