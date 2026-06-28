@@ -176,7 +176,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <CinematicNoise />
         <Toaster />
         <ScrollToTop />
         <Router />
