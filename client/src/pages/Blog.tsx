@@ -38,7 +38,7 @@ export default function Blog() {
   const recentPosts = posts.slice(1, 7);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Blog - Web Development Insights & Resources"
         description="Expert insights on web development, AI integration, React development, and digital transformation. Stay updated with the latest trends and best practices from DarkWave Studios."
@@ -53,7 +53,7 @@ export default function Blog() {
         ]}
       />
       
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-black/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/">
             <span className="text-2xl font-bold font-display text-foreground cursor-pointer" data-testid="link-logo">
@@ -167,7 +167,7 @@ export default function Blog() {
                   <input 
                     type="email" 
                     placeholder="your@email.com"
-                    className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-2 text-foreground placeholder:text-muted-foreground mb-3"
+                    className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-2 text-foreground placeholder:text-muted-foreground mb-3"
                     data-testid="input-subscribe-email"
                   />
                   <Button 
@@ -184,7 +184,7 @@ export default function Blog() {
                     {['Web Development', 'AI & Automation', 'E-Commerce', 'SEO & Marketing', 'Case Studies'].map((cat) => (
                       <button 
                         key={cat}
-                        className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-black/5 rounded-lg transition-colors text-sm"
+                        className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-lg transition-colors text-sm"
                         data-testid={`button-category-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                       >
                         {cat}
@@ -262,7 +262,7 @@ export default function Blog() {
         <AdFreeBanner isAdFree={isAdFree} loading={adLoading} onUpgrade={startCheckout} />
       </div>
 
-      <footer className="relative z-10 border-t border-black/10 py-8">
+      <footer className="relative z-10 border-t border-white/[0.08] py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.

@@ -139,7 +139,7 @@ export default function Compare() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + testimonialSlides.length) % testimonialSlides.length);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Compare - DarkWave Studios vs Traditional Agencies"
         description="See how DarkWave Studios compares to traditional web development agencies. Same quality, 60%+ savings, direct developer access, and unlimited support."
@@ -155,7 +155,7 @@ export default function Compare() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -296,7 +296,7 @@ export default function Compare() {
                     <span className="font-mono">${item.cost.toLocaleString()}</span>
                   </div>
                 ))}
-                <div className="border-t border-black/10 pt-3 flex justify-between items-center">
+                <div className="border-t border-white/[0.08] pt-3 flex justify-between items-center">
                   <span className="font-bold text-lg">Traditional Agency Total</span>
                   <span className="font-mono text-xl lg:text-2xl text-red-400">${hortonTotal.toLocaleString()}</span>
                 </div>
@@ -362,7 +362,7 @@ export default function Compare() {
                 { feature: "File Ownership", competitor: "They own until paid", darkwave: "You own everything" },
                 { feature: "SEO Work After Cancel", competitor: "Deleted in 30 days", darkwave: "Yours forever" },
               ].map((row, i) => (
-                <div key={i} className="grid grid-cols-3 gap-4 py-3 border-t border-black/5 items-center">
+                <div key={i} className="grid grid-cols-3 gap-4 py-3 border-t border-white/[0.05] items-center">
                   <div className="text-sm lg:text-base">{row.feature}</div>
                   <div className="text-center">
                     <span className="inline-flex items-center gap-1 text-xs lg:text-sm text-red-400">
@@ -398,7 +398,7 @@ export default function Compare() {
                 <AccordionItem 
                   key={index} 
                   value={`fee-${index}`}
-                  className="border border-black/10 rounded-xl overflow-hidden bg-black/[0.03] backdrop-blur-xl border-0"
+                  className="border border-white/[0.08] rounded-xl overflow-hidden bg-white/[0.03] backdrop-blur-xl border-0"
                   data-testid={`hidden-fee-${index}`}
                 >
                   <AccordionTrigger className="px-4 lg:px-6 py-3 lg:py-4 text-left font-display font-semibold text-sm lg:text-base hover:no-underline hover:text-primary transition-colors">
@@ -449,7 +449,7 @@ export default function Compare() {
             <div className="flex justify-center items-center gap-4 mt-6">
               <button 
                 onClick={prevSlide}
-                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors bg-black/5 backdrop-blur-xl border border-black/10"
+                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors bg-white/5 backdrop-blur-xl border border-white/[0.08]"
                 data-testid="carousel-prev"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -468,7 +468,7 @@ export default function Compare() {
               </div>
               <button 
                 onClick={nextSlide}
-                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors bg-black/5 backdrop-blur-xl border border-black/10"
+                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors bg-white/5 backdrop-blur-xl border border-white/[0.08]"
                 data-testid="carousel-next"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -503,7 +503,7 @@ export default function Compare() {
                 </Link>
                 <Link 
                   href="/projects"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-black/10 transition-colors bg-black/5 backdrop-blur-xl border border-black/10"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition-colors bg-white/5 backdrop-blur-xl border border-white/[0.08]"
                 >
                   See Our Work
                 </Link>
@@ -513,7 +513,7 @@ export default function Compare() {
         </motion.section>
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-black/5">
+      <footer className="glass-strong mt-12 border-t border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>

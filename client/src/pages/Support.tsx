@@ -140,7 +140,7 @@ export default function Support() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Support & FAQ"
         description="Get help with DarkWave Studios services. Browse frequently asked questions about web development, pricing, timelines, and technical support."
@@ -196,7 +196,7 @@ export default function Support() {
               placeholder="Search frequently asked questions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-black/5 border border-black/10 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/[0.08] rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
               data-testid="input-faq-search"
             />
           </motion.div>
@@ -205,7 +205,7 @@ export default function Support() {
             <button
               onClick={() => setActiveCategory(null)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                !activeCategory ? 'bg-primary text-primary-foreground' : 'bg-black/5 text-muted-foreground hover:bg-black/10'
+                !activeCategory ? 'bg-primary text-primary-foreground' : 'bg-white/5 text-muted-foreground hover:bg-white/10'
               }`}
               data-testid="button-category-all"
             >
@@ -216,7 +216,7 @@ export default function Support() {
                 key={cat.name}
                 onClick={() => setActiveCategory(activeCategory === cat.name ? null : cat.name)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  activeCategory === cat.name ? 'bg-primary text-primary-foreground' : 'bg-black/5 text-muted-foreground hover:bg-black/10'
+                  activeCategory === cat.name ? 'bg-primary text-primary-foreground' : 'bg-white/5 text-muted-foreground hover:bg-white/10'
                 }`}
                 data-testid={`button-category-${cat.name.toLowerCase()}`}
               >
@@ -243,14 +243,14 @@ export default function Support() {
                       <GlassCard key={key} className="rounded-xl overflow-hidden">
                         <button
                           onClick={() => toggleItem(key)}
-                          className="w-full flex items-center justify-between p-4 text-left hover:bg-black/5 transition-colors"
+                          className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
                           data-testid={`button-faq-${cat.name.toLowerCase()}-${idx}`}
                         >
                           <span className="font-medium text-base lg:text-lg pr-4">{item.q}</span>
                           {isExpanded ? <ChevronUp className="w-5 h-5 text-muted-foreground flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />}
                         </button>
                         {isExpanded && (
-                          <div className="px-4 pb-4 border-t border-black/5">
+                          <div className="px-4 pb-4 border-t border-white/[0.05]">
                             <p className="text-muted-foreground text-sm lg:text-base pt-3 leading-relaxed">{item.a}</p>
                           </div>
                         )}
@@ -276,17 +276,17 @@ export default function Support() {
             <GlassCard glow className="rounded-2xl p-6 lg:p-10">
               <h2 className="text-2xl font-bold font-display mb-6" data-testid="text-still-need-help">Still Need Help?</h2>
               <div className="grid sm:grid-cols-3 gap-6">
-                <Link href="/contact" className="flex flex-col items-center text-center p-4 rounded-xl bg-black/5 hover:bg-black/10 transition-colors" data-testid="link-contact-support">
+                <Link href="/contact" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-contact-support">
                   <MessageSquare className="w-8 h-8 text-primary mb-3" />
                   <span className="font-medium mb-1">Contact Us</span>
                   <span className="text-muted-foreground text-sm">Send us a message</span>
                 </Link>
-                <a href="mailto:team@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-black/5 hover:bg-black/10 transition-colors" data-testid="link-email-support">
+                <a href="mailto:team@dwsc.io" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-email-support">
                   <Mail className="w-8 h-8 text-primary mb-3" />
                   <span className="font-medium mb-1">Email Us</span>
                   <span className="text-muted-foreground text-sm">team@dwsc.io</span>
                 </a>
-                <Link href="/book" className="flex flex-col items-center text-center p-4 rounded-xl bg-black/5 hover:bg-black/10 transition-colors" data-testid="link-book-support">
+                <Link href="/book" className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors" data-testid="link-book-support">
                   <Clock className="w-8 h-8 text-primary mb-3" />
                   <span className="font-medium mb-1">Book a Call</span>
                   <span className="text-muted-foreground text-sm">Mon-Fri, 9am-6pm CT</span>

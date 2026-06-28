@@ -336,7 +336,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Portfolio - 37 Web Applications & Ecosystem"
         description="Explore 37 Web Applications built by DarkWave Studios. From AI trading platforms to staffing systems, venue operations to blockchain infrastructure - see our work in action."
@@ -352,7 +352,7 @@ export default function Projects() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text" data-testid="link-home">
             DarkWave Studios
@@ -413,7 +413,7 @@ export default function Projects() {
               <div className={`w-full h-24 md:h-36 rounded-lg md:rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-2 md:mb-4 relative overflow-hidden`}>
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover" data-testid={`img-project-${project.id}`} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-[#050505] drop-shadow-lg" aria-hidden="true" />
+                  <ExternalLink className="w-6 h-6 md:w-8 md:h-8 text-[#050505] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]" aria-hidden="true" />
                 </div>
               </div>
               

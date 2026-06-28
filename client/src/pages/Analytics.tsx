@@ -69,7 +69,7 @@ export default function Analytics() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold bg-black/5 border border-black/10 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-white/5 border border-white/[0.08] bg-clip-text text-transparent">
                 Analytics Command Center
               </h1>
               <p className="text-[#050505]/60">Real-time insights that Google would envy</p>
@@ -79,7 +79,7 @@ export default function Analytics() {
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black/10"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/[0.08]"></div>
           </div>
         ) : (
           <div className="grid grid-cols-3 md:grid-cols-12 gap-4">
@@ -90,10 +90,10 @@ export default function Analytics() {
               transition={{ duration: 0.5, delay: 0 }}
               className="col-span-3 md:col-span-3"
             >
-              <GlassCard variant="stat" className="hover:border-black/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)]" data-testid="stat-total-views">
+              <GlassCard variant="stat" className="hover:border-white/[0.08] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)]" data-testid="stat-total-views">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-[#050505]/70">Total Page Views</CardTitle>
-                  <Eye className="h-5 w-5 text-gray-600" />
+                  <Eye className="h-5 w-5 text-[#888]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold text-[#050505]">{stats.totalViews.toLocaleString()}</div>
@@ -160,7 +160,7 @@ export default function Analytics() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold text-[#050505]">{bounceRate}%</div>
-                  <p className="text-xs text-gray-600 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-[#888] flex items-center gap-1 mt-1">
                     <TrendingUp className="h-3 w-3" /> Lower is better
                   </p>
                 </CardContent>
@@ -177,7 +177,7 @@ export default function Analytics() {
               <GlassCard variant="stat" data-testid="card-top-pages">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-[#050505] flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-gray-600" />
+                    <BarChart3 className="h-5 w-5 text-[#888]" />
                     Top Pages
                   </CardTitle>
                 </CardHeader>
@@ -187,13 +187,13 @@ export default function Analytics() {
                       {stats.topPages.map((page, index) => (
                         <div key={page.path} className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-gray-600 w-6">#{index + 1}</span>
+                            <span className="text-xs font-bold text-[#888] w-6">#{index + 1}</span>
                             <span className="text-[#050505]/80 text-sm truncate max-w-[200px]">{page.path}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <div className="w-20 h-2 bg-black/10 rounded-full overflow-hidden">
+                            <div className="w-20 h-2 bg-white/10 rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-black/5 border border-black/10 rounded-full"
+                                className="h-full bg-white/5 border border-white/[0.08] rounded-full"
                                 style={{ width: `${(page.views / (stats.topPages[0]?.views || 1)) * 100}%` }}
                               />
                             </div>
@@ -229,7 +229,7 @@ export default function Analytics() {
                       {Object.entries(stats.eventBreakdown).slice(0, 6).map(([event, count]) => (
                         <div key={event} className="flex items-center justify-between">
                           <span className="text-[#050505]/80 text-sm capitalize">{event.replace(/_/g, ' ')}</span>
-                          <span className="text-gray-600 font-semibold">{count}</span>
+                          <span className="text-[#888] font-semibold">{count}</span>
                         </div>
                       ))}
                     </div>
@@ -259,7 +259,7 @@ export default function Analytics() {
                     <div className="overflow-x-auto">
                       <table className="w-full">
                         <thead>
-                          <tr className="text-[#050505]/50 text-xs border-b border-black/10">
+                          <tr className="text-[#050505]/50 text-xs border-b border-white/[0.08]">
                             <th className="text-left py-3 px-2">Keyword</th>
                             <th className="text-center py-3 px-2">Position</th>
                             <th className="text-center py-3 px-2">Volume</th>
@@ -270,19 +270,19 @@ export default function Analytics() {
                         </thead>
                         <tbody>
                           {keywords.map((kw: any) => (
-                            <tr key={kw.id} className="border-b border-black/5 hover:bg-black/5">
+                            <tr key={kw.id} className="border-b border-white/[0.05] hover:bg-white/5">
                               <td className="py-3 px-2 text-[#050505]">{kw.keyword}</td>
                               <td className="py-3 px-2 text-center">
                                 <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                                   (kw.position || 0) <= 3 ? 'bg-green-500/20 text-green-400' :
-                                  (kw.position || 0) <= 10 ? 'bg-black/10 text-gray-600' :
+                                  (kw.position || 0) <= 10 ? 'bg-white/10 text-[#888]' :
                                   'bg-orange-500/20 text-orange-400'
                                 }`}>
                                   #{kw.position || '-'}
                                 </span>
                               </td>
                               <td className="py-3 px-2 text-center text-[#050505]/70">{kw.volume?.toLocaleString() || '-'}</td>
-                              <td className="py-3 px-2 text-center text-gray-600">{kw.clicks || 0}</td>
+                              <td className="py-3 px-2 text-center text-[#888]">{kw.clicks || 0}</td>
                               <td className="py-3 px-2 text-center text-[#050505]/70">{kw.impressions?.toLocaleString() || '-'}</td>
                               <td className="py-3 px-2 text-center text-sky-400">{kw.ctr || 0}%</td>
                             </tr>
@@ -294,7 +294,7 @@ export default function Analytics() {
                     <div className="text-center py-8">
                       <p className="text-[#050505]/40 mb-4">No keywords tracked yet</p>
                       <Link href="/admin">
-                        <Button className="bg-black/5 border border-black/10 hover:from-cyan-400 hover:to-sky-500" data-testid="button-add-keywords">
+                        <Button className="bg-white/5 border border-white/[0.08] hover:from-cyan-400 hover:to-sky-500" data-testid="button-add-keywords">
                           Add Keywords to Track
                         </Button>
                       </Link>
@@ -311,7 +311,7 @@ export default function Analytics() {
               transition={{ duration: 0.5 }}
               className="col-span-3 md:col-span-4"
             >
-              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border-black/10" data-testid="card-realtime">
+              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border-white/[0.08]" data-testid="card-realtime">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-[#050505] flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -322,7 +322,7 @@ export default function Analytics() {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-[#050505]/70">Active Sessions</span>
-                      <span className="text-2xl font-bold text-gray-600">{Math.floor(Math.random() * 5) + 1}</span>
+                      <span className="text-2xl font-bold text-[#888]">{Math.floor(Math.random() * 5) + 1}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-[#050505]/70">Pages/Session</span>
@@ -355,16 +355,16 @@ export default function Analytics() {
                         <span className="text-[#050505]/70">Form Submissions</span>
                         <span className="text-green-400">{stats.eventBreakdown?.form_submit || 0}</span>
                       </div>
-                      <div className="w-full h-2 bg-black/10 rounded-full">
+                      <div className="w-full h-2 bg-white/10 rounded-full">
                         <div className="h-full bg-green-400 rounded-full" style={{ width: '65%' }} />
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-[#050505]/70">CTA Clicks</span>
-                        <span className="text-gray-600">{stats.eventBreakdown?.cta_click || 0}</span>
+                        <span className="text-[#888]">{stats.eventBreakdown?.cta_click || 0}</span>
                       </div>
-                      <div className="w-full h-2 bg-black/10 rounded-full">
+                      <div className="w-full h-2 bg-white/10 rounded-full">
                         <div className="h-full bg-cyan-400 rounded-full" style={{ width: '78%' }} />
                       </div>
                     </div>
@@ -373,7 +373,7 @@ export default function Analytics() {
                         <span className="text-[#050505]/70">Conversions</span>
                         <span className="text-sky-400">{stats.eventBreakdown?.conversion || 0}</span>
                       </div>
-                      <div className="w-full h-2 bg-black/10 rounded-full">
+                      <div className="w-full h-2 bg-white/10 rounded-full">
                         <div className="h-full bg-sky-400 rounded-full" style={{ width: '42%' }} />
                       </div>
                     </div>

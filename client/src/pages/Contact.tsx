@@ -56,7 +56,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Contact Us - Start Your Web Development Project"
         description="Get in touch with DarkWave Studios. Free consultation for your web development project. Direct developer access, fast response, and honest pricing."
@@ -72,7 +72,7 @@ export default function Contact() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -157,7 +157,7 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       placeholder="Your name"
                       data-testid="input-name"
                     />
@@ -171,7 +171,7 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       placeholder="your@email.com"
                       data-testid="input-email"
                     />
@@ -186,7 +186,7 @@ export default function Contact() {
                       id="company"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       placeholder="Your company"
                       data-testid="input-company"
                     />
@@ -199,7 +199,7 @@ export default function Contact() {
                       id="phone"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       placeholder="(555) 123-4567"
                       data-testid="input-phone"
                     />
@@ -213,7 +213,7 @@ export default function Contact() {
                       id="projectType"
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       data-testid="select-project-type"
                     >
                       <option value="">Select type</option>
@@ -229,7 +229,7 @@ export default function Contact() {
                       id="budget"
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
                       data-testid="select-budget"
                     >
                       <option value="">Select range</option>
@@ -249,7 +249,7 @@ export default function Contact() {
                     rows={5}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all resize-none"
                     placeholder="Tell us about your project, goals, and timeline..."
                     data-testid="textarea-message"
                   />
@@ -288,7 +288,7 @@ export default function Contact() {
                   { icon: CheckCircle2, title: "Unlimited Support", text: "Included with every project, forever" },
                   { icon: Zap, title: "AI-Driven Applications", text: "Real functionality, not glorified brochures" }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-3 rounded-xl bg-black/5 hover:bg-black/10 transition-all group">
+                  <div key={i} className="flex items-start gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all group">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       <item.icon className="w-5 h-5 text-primary" />
                     </div>
@@ -306,7 +306,7 @@ export default function Contact() {
               <div className="space-y-3">
                 <a 
                   href="mailto:contact@darkwavestudios.com" 
-                  className="flex items-center gap-4 p-3 rounded-xl bg-black/5 hover:bg-black/10 transition-all group"
+                  className="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
                   data-testid="link-email"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -319,7 +319,7 @@ export default function Contact() {
                 </a>
                 <a 
                   href="tel:+16155551234" 
-                  className="flex items-center gap-4 p-3 rounded-xl bg-black/5 hover:bg-black/10 transition-all group"
+                  className="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all group"
                   data-testid="link-phone"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -346,7 +346,7 @@ export default function Contact() {
               </div>
               <Link 
                 href="/compare"
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-black/5 hover:bg-black/10 text-sm font-semibold transition-all"
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-semibold transition-all"
                 data-testid="link-compare"
               >
                 See the Comparison
@@ -358,7 +358,7 @@ export default function Contact() {
         </motion.div>
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-black/5">
+      <footer className="glass-strong mt-12 border-t border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>

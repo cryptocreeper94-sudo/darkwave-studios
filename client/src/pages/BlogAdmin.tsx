@@ -134,7 +134,7 @@ export default function BlogAdmin() {
   });
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <div className="relative z-10 container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -173,7 +173,7 @@ export default function BlogAdmin() {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="e.g., Why AI-Powered Websites Convert Better"
-                  className="bg-black/5 border-black/10 text-foreground placeholder:text-muted-foreground"
+                  className="bg-white/5 border-white/[0.08] text-foreground placeholder:text-muted-foreground"
                   data-testid="input-topic"
                 />
               </div>
@@ -184,7 +184,7 @@ export default function BlogAdmin() {
                   value={keywords}
                   onChange={(e) => setKeywords(e.target.value)}
                   placeholder="e.g., web development, AI, agency"
-                  className="bg-black/5 border-black/10 text-foreground placeholder:text-muted-foreground"
+                  className="bg-white/5 border-white/[0.08] text-foreground placeholder:text-muted-foreground"
                   data-testid="input-keywords"
                 />
               </div>
@@ -194,7 +194,7 @@ export default function BlogAdmin() {
                 <select
                   value={tone}
                   onChange={(e) => setTone(e.target.value)}
-                  className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-2 text-foreground"
+                  className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-2 text-foreground"
                   data-testid="select-tone"
                 >
                   <option value="professional">Professional</option>
@@ -238,7 +238,7 @@ export default function BlogAdmin() {
                       variant="outline"
                       onClick={() => saveBlog.mutate(false)}
                       disabled={saveBlog.isPending}
-                      className="border-black/20 text-foreground hover:bg-black/10"
+                      className="border-white/[0.1] text-foreground hover:bg-white/10"
                       data-testid="button-save-draft"
                     >
                       <Save className="mr-2 h-4 w-4" />
@@ -264,13 +264,13 @@ export default function BlogAdmin() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {generatedBlog.tags?.map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-black/10 rounded-full text-xs text-muted-foreground">
+                    <span key={tag} className="px-2 py-1 bg-white/10 rounded-full text-xs text-muted-foreground">
                       #{tag}
                     </span>
                   ))}
                 </div>
                 <div className="prose prose-invert max-w-none">
-                  <div className="bg-black/5 rounded-lg p-4 max-h-96 overflow-y-auto text-muted-foreground whitespace-pre-wrap text-sm">
+                  <div className="bg-white/5 rounded-lg p-4 max-h-96 overflow-y-auto text-muted-foreground whitespace-pre-wrap text-sm">
                     {generatedBlog.content}
                   </div>
                 </div>
@@ -309,7 +309,7 @@ export default function BlogAdmin() {
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
-                        <tr className="text-muted-foreground text-xs border-b border-black/10">
+                        <tr className="text-muted-foreground text-xs border-b border-white/[0.08]">
                           <th className="text-left py-3 px-2">Title</th>
                           <th className="text-center py-3 px-2">Category</th>
                           <th className="text-center py-3 px-2">Status</th>
@@ -319,7 +319,7 @@ export default function BlogAdmin() {
                       </thead>
                       <tbody>
                         {posts.map((post) => (
-                          <tr key={post.id} className="border-b border-black/5 hover:bg-black/5">
+                          <tr key={post.id} className="border-b border-white/[0.05] hover:bg-white/5">
                             <td className="py-3 px-2">
                               <div className="font-medium text-foreground">{post.title}</div>
                               <div className="text-xs text-muted-foreground">/{post.slug}</div>

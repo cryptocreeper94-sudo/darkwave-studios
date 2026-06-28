@@ -280,7 +280,7 @@ export default function GuardianAI() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Guardian AI - AI Agent Security Scanner & Certification"
         description="Scan and verify AI agents on the blockchain. Guardian AI detects scams, honeypots, and fraudulent bots. Get your legitimate AI agent certified with Guardian AI Trust Shield."
@@ -296,7 +296,7 @@ export default function GuardianAI() {
       <div className="fixed inset-0 bg-gradient-to-br from-red-500/5 via-background to-sky-500/5 -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(239,68,68,0.1),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/10">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-back">
@@ -371,7 +371,7 @@ export default function GuardianAI() {
             </a>
             <Link 
               href="/guardian-ai-registry"
-              className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold text-lg hover:bg-black/10 transition-colors"
+              className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors"
               data-testid="link-hero-registry"
             >
               <Search className="w-5 h-5" /> Certified Registry
@@ -412,12 +412,12 @@ export default function GuardianAI() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-black/10 text-gray-600 text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/[0.08] text-[#888] text-sm font-semibold mb-4">
               <Scan className="w-4 h-4" aria-hidden="true" />
               Free AI Agent Scanner
             </div>
             <h2 className="font-display font-bold text-3xl lg:text-5xl mb-4" data-testid="text-scanner-heading">
-              Guardian AI <span className="bg-black/5 border border-black/10 bg-clip-text text-transparent">Security Scan</span>
+              Guardian AI <span className="bg-white/5 border border-white/[0.08] bg-clip-text text-transparent">Security Scan</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
               Paste any AI agent's URL or contract address. Our AI analyzes it for scam indicators, 
@@ -451,7 +451,7 @@ export default function GuardianAI() {
                         required
                         value={scanData.agentName}
                         onChange={e => setScanData(prev => ({ ...prev, agentName: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-black/10 focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-white/[0.08] focus:outline-none transition-colors"
                         placeholder="e.g., AutoTrader Pro, YieldBot X"
                         disabled={scanning}
                         data-testid="input-scan-name"
@@ -464,7 +464,7 @@ export default function GuardianAI() {
                         required
                         value={scanData.agentUrl}
                         onChange={e => setScanData(prev => ({ ...prev, agentUrl: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-black/10 focus:outline-none transition-colors font-mono text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-white/[0.08] focus:outline-none transition-colors font-mono text-sm"
                         placeholder="https://... or 0x..."
                         disabled={scanning}
                         data-testid="input-scan-url"
@@ -477,7 +477,7 @@ export default function GuardianAI() {
                       type="email"
                       value={scanData.contactEmail}
                       onChange={e => setScanData(prev => ({ ...prev, contactEmail: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-black/10 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-white/[0.08] focus:outline-none transition-colors"
                       placeholder="your@email.com"
                       disabled={scanning}
                       data-testid="input-scan-email"
@@ -486,7 +486,7 @@ export default function GuardianAI() {
                   <button
                     type="submit"
                     disabled={scanning}
-                    className="w-full btn-glow bg-black/5 border border-black/10 text-[#050505] py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-3"
+                    className="w-full btn-glow bg-white/5 border border-white/[0.08] text-[#050505] py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-3"
                     data-testid="button-run-scan"
                   >
                     {scanning ? (
@@ -504,18 +504,18 @@ export default function GuardianAI() {
                 </form>
 
                 {scanning && scanPhase && (
-                  <div className="mt-6 p-4 rounded-xl bg-black/5 border border-black/10" data-testid="scan-progress">
+                  <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/[0.08]" data-testid="scan-progress">
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <Shield className="w-8 h-8 text-gray-600" />
+                        <Shield className="w-8 h-8 text-[#888]" />
                         <div className="absolute inset-0 animate-ping">
-                          <Shield className="w-8 h-8 text-gray-600 opacity-30" />
+                          <Shield className="w-8 h-8 text-[#888] opacity-30" />
                         </div>
                       </div>
                       <div>
-                        <p className="text-gray-600 font-mono text-sm">{scanPhase}</p>
-                        <div className="w-48 h-1 bg-black/10 rounded-full mt-2 overflow-hidden">
-                          <div className="h-full bg-black/5 border border-black/10 rounded-full animate-pulse" style={{ width: '60%' }} />
+                        <p className="text-[#888] font-mono text-sm">{scanPhase}</p>
+                        <div className="w-48 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
+                          <div className="h-full bg-white/5 border border-white/[0.08] rounded-full animate-pulse" style={{ width: '60%' }} />
                         </div>
                       </div>
                     </div>
@@ -546,7 +546,7 @@ export default function GuardianAI() {
                   </div>
 
                   {/* Overall Score */}
-                  <div className="text-center mb-6 p-4 rounded-xl bg-black/5">
+                  <div className="text-center mb-6 p-4 rounded-xl bg-white/5">
                     <div className={`text-5xl font-bold font-display ${getScoreColor(scanResult.overallScore)}`} data-testid="text-overall-score">
                       {scanResult.overallScore}
                     </div>
@@ -563,11 +563,11 @@ export default function GuardianAI() {
                     ].map((metric, i) => {
                       const Icon = metric.icon;
                       return (
-                        <div key={i} className="text-center p-4 rounded-xl bg-black/5" data-testid={`score-${metric.label.toLowerCase()}`}>
+                        <div key={i} className="text-center p-4 rounded-xl bg-white/5" data-testid={`score-${metric.label.toLowerCase()}`}>
                           <Icon className={`w-6 h-6 mx-auto mb-2 ${metric.color}`} aria-hidden="true" />
                           <div className={`text-2xl font-bold ${getScoreColor(metric.score)}`}>{metric.score}</div>
                           <div className="text-xs text-muted-foreground mt-1">{metric.label}</div>
-                          <div className="w-full h-1.5 bg-black/10 rounded-full mt-2">
+                          <div className="w-full h-1.5 bg-white/10 rounded-full mt-2">
                             <div 
                               className={`h-full rounded-full transition-all duration-1000 ${metric.score >= 80 ? 'bg-green-400' : metric.score >= 60 ? 'bg-yellow-400' : metric.score >= 40 ? 'bg-orange-400' : 'bg-red-400'}`}
                               style={{ width: `${metric.score}%` }}
@@ -580,9 +580,9 @@ export default function GuardianAI() {
 
                   {/* Summary */}
                   {scanResult.summary && (
-                    <div className="p-4 rounded-xl bg-black/5 mb-6" data-testid="text-summary">
+                    <div className="p-4 rounded-xl bg-white/5 mb-6" data-testid="text-summary">
                       <h4 className="font-bold text-sm mb-2 flex items-center gap-2">
-                        <FileCheck className="w-4 h-4 text-gray-600" aria-hidden="true" /> Executive Summary
+                        <FileCheck className="w-4 h-4 text-[#888]" aria-hidden="true" /> Executive Summary
                       </h4>
                       <p className="text-sm text-muted-foreground">{scanResult.summary}</p>
                     </div>
@@ -590,9 +590,9 @@ export default function GuardianAI() {
 
                   {/* Findings */}
                   <div className="grid lg:grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-black/5">
+                    <div className="p-4 rounded-xl bg-white/5">
                       <h4 className="font-bold text-sm mb-3 flex items-center gap-2">
-                        <Search className="w-4 h-4 text-gray-600" aria-hidden="true" /> Security Findings
+                        <Search className="w-4 h-4 text-[#888]" aria-hidden="true" /> Security Findings
                       </h4>
                       <ul className="space-y-2">
                         {(scanResult.findings || []).map((finding, i) => (
@@ -608,7 +608,7 @@ export default function GuardianAI() {
                       </ul>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-black/5">
+                    <div className="p-4 rounded-xl bg-white/5">
                       <h4 className="font-bold text-sm mb-3 flex items-center gap-2">
                         <ShieldCheck className="w-4 h-4 text-green-400" aria-hidden="true" /> Recommendations
                       </h4>
@@ -646,7 +646,7 @@ export default function GuardianAI() {
 
                 <button
                   onClick={() => { setScanResult(null); setScanData({ agentName: "", agentUrl: "", contactEmail: "" }); }}
-                  className="w-full glass py-3 rounded-xl font-medium hover:bg-black/10 transition-colors text-sm"
+                  className="w-full glass py-3 rounded-xl font-medium hover:bg-white/10 transition-colors text-sm"
                   data-testid="button-new-scan"
                 >
                   Run Another Scan
@@ -825,7 +825,7 @@ export default function GuardianAI() {
                   className={`w-full py-3 rounded-xl font-semibold transition-all ${
                     formData.tier === tier.name
                       ? `bg-gradient-to-r ${tier.color} text-[#050505]`
-                      : 'glass hover:bg-black/10'
+                      : 'glass hover:bg-white/10'
                   }`}
                   data-testid={`button-select-tier-${tier.name.toLowerCase()}`}
                 >
@@ -849,7 +849,7 @@ export default function GuardianAI() {
                     required
                     value={formData.agentName}
                     onChange={e => setFormData(prev => ({ ...prev, agentName: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                     placeholder="e.g., TradingBot Pro"
                     data-testid="input-cert-name"
                   />
@@ -861,7 +861,7 @@ export default function GuardianAI() {
                     required
                     value={formData.agentUrl}
                     onChange={e => setFormData(prev => ({ ...prev, agentUrl: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                     placeholder="https://... or 0x..."
                     data-testid="input-cert-url"
                   />
@@ -874,7 +874,7 @@ export default function GuardianAI() {
                   required
                   value={formData.contactEmail}
                   onChange={e => setFormData(prev => ({ ...prev, contactEmail: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                   placeholder="your@email.com"
                   data-testid="input-cert-email"
                 />
@@ -890,7 +890,7 @@ export default function GuardianAI() {
                       className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                         formData.tier === tier.name
                           ? `bg-gradient-to-r ${tier.color} text-[#050505]`
-                          : 'glass hover:bg-black/10'
+                          : 'glass hover:bg-white/10'
                       }`}
                       data-testid={`button-tier-${tier.name.toLowerCase()}`}
                     >
@@ -905,7 +905,7 @@ export default function GuardianAI() {
                   value={formData.description}
                   onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={4}
-                  className="w-full px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors resize-none"
                   placeholder="Tell us about your AI agent, what it does, which blockchain it's on..."
                   data-testid="textarea-cert-description"
                 />
@@ -943,14 +943,14 @@ export default function GuardianAI() {
               <div className="flex flex-wrap justify-center gap-4">
                 <a 
                   href="#scan"
-                  className="btn-glow inline-flex items-center gap-2 bg-black/5 border border-black/10 text-[#050505] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+                  className="btn-glow inline-flex items-center gap-2 bg-white/5 border border-white/[0.08] text-[#050505] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
                   data-testid="button-cta-scan"
                 >
                   <Scan className="w-5 h-5" /> Scan an Agent
                 </a>
                 <Link 
                   href="/guardian-ai-registry"
-                  className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-black/10 transition-colors"
+                  className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors"
                   data-testid="link-cta-registry"
                 >
                   <Search className="w-5 h-5" /> Browse Registry

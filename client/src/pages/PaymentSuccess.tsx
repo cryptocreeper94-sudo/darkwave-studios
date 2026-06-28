@@ -77,7 +77,7 @@ export default function PaymentSuccess() {
 
   if (!token && !sessionId) {
     return (
-      <div className="min-h-screen bg-[#f8f9fa] text-foreground flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#050505] text-foreground flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ export default function PaymentSuccess() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl py-12 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -152,7 +152,7 @@ export default function PaymentSuccess() {
             <p className="text-red-400 mb-4">We couldn't find this purchase. Please check your confirmation email.</p>
             <button 
               onClick={() => { setRetryCount(c => c + 1); refetch(); }}
-              className="px-4 py-2 rounded-lg bg-black/10 hover:bg-black/20 transition-all flex items-center gap-2 mx-auto"
+              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-black/20 transition-all flex items-center gap-2 mx-auto"
               data-testid="button-retry"
             >
               <RefreshCw className="w-4 h-4" />
@@ -186,7 +186,7 @@ export default function PaymentSuccess() {
 
               <div className="space-y-3 mb-5">
                 {purchase.items.map((item: PurchaseItem, i: number) => (
-                  <div key={i} className="flex items-center justify-between py-3 px-4 rounded-xl bg-black/5" data-testid={`row-item-${i}`}>
+                  <div key={i} className="flex items-center justify-between py-3 px-4 rounded-xl bg-white/5" data-testid={`row-item-${i}`}>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500/30 to-blue-500/30 flex items-center justify-center text-sm font-bold">
                         {item.type === "widget" ? "W" : "S"}
@@ -210,7 +210,7 @@ export default function PaymentSuccess() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-black/10">
+              <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                 <span className="text-sm text-muted-foreground">Total</span>
                 <span className="text-lg font-bold font-display" data-testid="text-total">
                   ${(purchase.totalAmount / 100).toFixed(2)}
@@ -235,7 +235,7 @@ export default function PaymentSuccess() {
                   </div>
                   <button 
                     onClick={handleCopyToken}
-                    className="px-3 py-2.5 rounded-lg bg-black/10 hover:bg-black/20 transition-all"
+                    className="px-3 py-2.5 rounded-lg bg-white/10 hover:bg-black/20 transition-all"
                     title="Copy download token"
                     data-testid="button-copy-token"
                   >
@@ -286,7 +286,7 @@ export default function PaymentSuccess() {
             </GlassCard>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/hub" className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-black/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]" data-testid="link-hub">
+              <Link href="/hub" className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition-all bg-[rgba(12,18,36,0.65)] backdrop-blur-2xl border border-white/[0.08]" data-testid="link-hub">
                 <ExternalLink className="w-5 h-5" />
                 Back to Hub
               </Link>

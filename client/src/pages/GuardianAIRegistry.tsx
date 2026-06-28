@@ -176,7 +176,7 @@ export default function GuardianAIRegistry() {
     });
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Guardian AI Registry - Verified AI Agents in Crypto"
         description="Browse the public registry of Guardian AI certified agents. View trust scores, security ratings, and verification status for autonomous AI agents."
@@ -194,7 +194,7 @@ export default function GuardianAIRegistry() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.1),transparent_50%)] -z-10" />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/10">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/guardian-ai" className="text-muted-foreground hover:text-primary transition-colors">
@@ -248,7 +248,7 @@ export default function GuardianAIRegistry() {
                 placeholder="Search certified agents..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                 data-testid="input-search-agents"
               />
             </div>
@@ -256,7 +256,7 @@ export default function GuardianAIRegistry() {
               <select
                 value={selectedCategory}
                 onChange={e => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                className="px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                 data-testid="select-category"
               >
                 {categories.map(cat => (
@@ -266,7 +266,7 @@ export default function GuardianAIRegistry() {
               <select
                 value={selectedTier}
                 onChange={e => setSelectedTier(e.target.value)}
-                className="px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                className="px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                 data-testid="select-tier"
               >
                 {tiers.map(tier => (
@@ -276,7 +276,7 @@ export default function GuardianAIRegistry() {
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as any)}
-                className="px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none transition-colors"
+                className="px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none transition-colors"
                 data-testid="select-sort"
               >
                 <option value="trustScore">Highest Trust Score</option>
@@ -353,29 +353,29 @@ export default function GuardianAIRegistry() {
 
               {/* Score Breakdown */}
               <div className="grid grid-cols-4 gap-2 mb-4">
-                <div className="text-center p-2 rounded-lg bg-black/5">
+                <div className="text-center p-2 rounded-lg bg-white/5">
                   <Lock className="w-4 h-4 mx-auto mb-1 text-red-400" />
                   <div className={`text-sm font-bold ${getScoreColor(agent.securityScore)}`}>{agent.securityScore}</div>
                   <div className="text-[10px] text-muted-foreground">Security</div>
                 </div>
-                <div className="text-center p-2 rounded-lg bg-black/5">
+                <div className="text-center p-2 rounded-lg bg-white/5">
                   <Eye className="w-4 h-4 mx-auto mb-1 text-blue-400" />
                   <div className={`text-sm font-bold ${getScoreColor(agent.transparencyScore)}`}>{agent.transparencyScore}</div>
                   <div className="text-[10px] text-muted-foreground">Transparency</div>
                 </div>
-                <div className="text-center p-2 rounded-lg bg-black/5">
+                <div className="text-center p-2 rounded-lg bg-white/5">
                   <Activity className="w-4 h-4 mx-auto mb-1 text-green-400" />
                   <div className={`text-sm font-bold ${getScoreColor(agent.reliabilityScore)}`}>{agent.reliabilityScore}</div>
                   <div className="text-[10px] text-muted-foreground">Reliability</div>
                 </div>
-                <div className="text-center p-2 rounded-lg bg-black/5">
+                <div className="text-center p-2 rounded-lg bg-white/5">
                   <FileCheck className="w-4 h-4 mx-auto mb-1 text-sky-400" />
                   <div className={`text-sm font-bold ${getScoreColor(agent.complianceScore)}`}>{agent.complianceScore}</div>
                   <div className="text-[10px] text-muted-foreground">Compliance</div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-black/5">
+              <div className="flex items-center justify-between pt-4 border-t border-white/[0.05]">
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
@@ -439,7 +439,7 @@ export default function GuardianAIRegistry() {
         </motion.section>
       </main>
 
-      <footer className="glass-strong mt-12 border-t border-black/5">
+      <footer className="glass-strong mt-12 border-t border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-green-400" />

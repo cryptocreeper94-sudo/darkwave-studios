@@ -41,7 +41,7 @@ export default function Mission() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Our Mission - Democratizing Premium Web Development"
         description="Learn about DarkWave Studios' mission to deliver agency-quality web solutions at accessible prices. Our vision, values, and commitment to client success."
@@ -62,15 +62,15 @@ export default function Mission() {
       <div className="fixed inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
 
       <div className="relative z-10">
-        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-black/5">
+        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.05]">
           <div className="lg:hidden container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
             <Link href="/" className="font-display text-base font-semibold gradient-text">DarkWave Studios</Link>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-black/10 transition-colors" data-testid="mobile-menu-toggle">
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-lg glass hover:bg-white/10 transition-colors" data-testid="mobile-menu-toggle">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
           {mobileMenuOpen && (
-            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 glass-strong border-t border-black/5 px-4 py-4 pb-20 overflow-y-auto z-50">
+            <div className="lg:hidden fixed inset-x-0 top-[57px] bottom-0 glass-strong border-t border-white/[0.05] px-4 py-4 pb-20 overflow-y-auto z-50">
               <div className="flex flex-col gap-2">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Home</Link>
                 <Link href="/investors" onClick={() => setMobileMenuOpen(false)} className="text-sm py-2">Investors</Link>
@@ -125,7 +125,7 @@ export default function Mission() {
             >
               <GlassCard variant="feature" className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <Sparkles className="w-6 h-6 text-gray-600" />
+                  <Sparkles className="w-6 h-6 text-[#888]" />
                   <h2 className="text-xl font-bold">Vision</h2>
                 </div>
                 <p className="text-muted-foreground leading-relaxed" data-testid="vision-text">
@@ -191,7 +191,7 @@ export default function Mission() {
                 <h2 className="text-xl font-bold mb-4">Strategic Goals</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {defaultContent.goals.map((goal, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-black/5">
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
                       <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-sm font-bold text-primary">{i + 1}</div>
                       <span className="text-sm">{goal}</span>
                     </div>

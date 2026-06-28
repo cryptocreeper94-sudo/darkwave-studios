@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function AffiliateDisclosure() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Affiliate Disclosure - FTC Compliance"
         description="DarkWave Studios FTC-compliant Affiliate Disclosure. Learn how we use affiliate links and earn commissions while maintaining editorial independence."

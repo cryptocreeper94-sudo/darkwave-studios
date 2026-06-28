@@ -12,11 +12,11 @@ import { GlassCard } from "@/components/glass-card";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TIERS = [
-  { name: "Base", minReferrals: 0, rate: "10%", rateNum: 10, color: "text-gray-600", accent: "#9ca3af", bg: "from-gray-600/20 to-gray-700/20", ring: "ring-gray-500/30", icon: Medal },
+  { name: "Base", minReferrals: 0, rate: "10%", rateNum: 10, color: "text-[#888]", accent: "#9ca3af", bg: "from-gray-600/20 to-gray-700/20", ring: "ring-gray-500/30", icon: Medal },
   { name: "Silver", minReferrals: 5, rate: "12.5%", rateNum: 12.5, color: "text-slate-300", accent: "#cbd5e1", bg: "from-slate-500/20 to-slate-600/20", ring: "ring-slate-400/30", icon: Star },
   { name: "Gold", minReferrals: 15, rate: "15%", rateNum: 15, color: "text-amber-400", accent: "#fbbf24", bg: "from-amber-500/20 to-orange-600/20", ring: "ring-amber-500/30", icon: Crown },
   { name: "Platinum", minReferrals: 30, rate: "17.5%", rateNum: 17.5, color: "text-sky-400", accent: "#38bdf8", bg: "from-sky-500/20 to-teal-600/20", ring: "ring-sky-500/30", icon: Gem },
-  { name: "Diamond", minReferrals: 50, rate: "20%", rateNum: 20, color: "text-gray-600", accent: "#22d3ee", bg: "from-cyan-500/20 to-blue-600/20", ring: "ring-cyan-500/30", icon: Diamond },
+  { name: "Diamond", minReferrals: 50, rate: "20%", rateNum: 20, color: "text-[#888]", accent: "#22d3ee", bg: "from-cyan-500/20 to-blue-600/20", ring: "ring-cyan-500/30", icon: Diamond },
 ];
 
 const ECOSYSTEM_APPS = [
@@ -162,7 +162,7 @@ function AffiliateDashboard() {
           animate={{ rotate: 360 }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         >
-          <Loader2 className="w-8 h-8 text-gray-600" />
+          <Loader2 className="w-8 h-8 text-[#888]" />
         </motion.div>
       </div>
     );
@@ -171,7 +171,7 @@ function AffiliateDashboard() {
   return (
     <div className="min-h-screen bg-black text-[#050505] overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-black/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-white/[0.03] rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-sky-500/[0.03] rounded-full blur-[120px]" />
       </div>
 
@@ -183,13 +183,13 @@ function AffiliateDashboard() {
           className="flex items-center gap-3 mb-6"
         >
           <Link href="/">
-            <button className="w-10 h-10 rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] flex items-center justify-center hover:bg-[#f8f9fa]/[0.1] active:scale-95 transition-all" data-testid="button-affiliate-back">
+            <button className="w-10 h-10 rounded-xl bg-[#0a0a0a]/[0.06] backdrop-blur-sm border border-white/[0.08] flex items-center justify-center hover:bg-[#050505]/[0.1] active:scale-95 transition-all" data-testid="button-affiliate-back">
               <ArrowLeft className="w-4 h-4" />
             </button>
           </Link>
           <div className="flex-1">
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight" data-testid="text-affiliate-title">Share & Earn</h1>
-            <p className="text-xs sm:text-sm text-gray-600">Earn SIG across all 37 Trust Layer apps</p>
+            <p className="text-xs sm:text-sm text-[#888]">Earn SIG across all 37 Trust Layer apps</p>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -210,35 +210,35 @@ function AffiliateDashboard() {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3.5">
                   <div className="relative">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${tierInfo.current.bg} border border-white/[0.1] flex items-center justify-center shadow-lg`}>
+                    <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${tierInfo.current.bg} border border-white/[0.1] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]`}>
                       <TierIcon className={`w-7 h-7 sm:w-8 sm:h-8 ${tierInfo.current.color}`} />
                     </div>
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-black border-2 border-black/10 flex items-center justify-center">
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-black border-2 border-white/[0.08] flex items-center justify-center">
                       <Sparkles className="w-2.5 h-2.5 text-amber-400" />
                     </div>
                   </div>
                   <div>
-                    <p className="text-[10px] sm:text-xs text-gray-600 uppercase tracking-widest font-medium mb-0.5">Current Tier</p>
+                    <p className="text-[10px] sm:text-xs text-[#888] uppercase tracking-widest font-medium mb-0.5">Current Tier</p>
                     <p className={`text-2xl sm:text-3xl font-black tracking-tight ${tierInfo.current.color}`} data-testid="text-current-tier">{tierInfo.current.name}</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className={`text-3xl sm:text-4xl font-black ${tierInfo.current.color}`}>{tierInfo.current.rate}</p>
-                  <p className="text-[10px] text-gray-600 mt-0.5">commission</p>
+                  <p className="text-[10px] text-[#888] mt-0.5">commission</p>
                 </div>
               </div>
 
               {tierInfo.next && (
                 <div className="mt-3">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[10px] sm:text-xs text-gray-600">
+                    <span className="text-[10px] sm:text-xs text-[#888]">
                       {stats.convertedCount || 0} / {tierInfo.next.minReferrals} conversions
                     </span>
                     <span className="text-[10px] sm:text-xs font-medium" style={{ color: tierInfo.current.accent }}>
                       {tierInfo.next.name} ({tierInfo.next.rate})
                     </span>
                   </div>
-                  <div className="relative w-full h-2.5 bg-white/[0.06] rounded-full overflow-hidden" data-testid="progress-tier">
+                  <div className="relative w-full h-2.5 bg-[#0a0a0a]/[0.06] rounded-full overflow-hidden" data-testid="progress-tier">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${tierInfo.progress}%` }}
@@ -250,7 +250,7 @@ function AffiliateDashboard() {
                       }}
                     />
                   </div>
-                  <p className="text-[10px] text-gray-600 mt-1.5 text-center">
+                  <p className="text-[10px] text-[#888] mt-1.5 text-center">
                     {tierInfo.next.minReferrals - (stats.convertedCount || 0)} more to unlock {tierInfo.next.name}
                   </p>
                 </div>
@@ -281,7 +281,7 @@ function AffiliateDashboard() {
                 className="relative rounded-2xl border border-white/[0.06] overflow-hidden"
                 data-testid={`card-stat-${stat.label.toLowerCase()}`}
               >
-                <div className="absolute inset-0 bg-black/[0.02] backdrop-blur-sm" />
+                <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
                 <div className="relative p-4 sm:p-5">
                   <div className={`w-9 h-9 rounded-xl ${stat.glow} flex items-center justify-center mb-3`}>
                     <stat.icon className={`w-4 h-4 ${stat.color}`} />
@@ -289,7 +289,7 @@ function AffiliateDashboard() {
                   <p className="text-lg sm:text-xl font-bold tracking-tight" data-testid={`text-stat-${stat.label.toLowerCase()}`}>
                     {stat.value}
                   </p>
-                  <p className="text-[10px] sm:text-xs text-gray-600 mt-0.5">{stat.label}</p>
+                  <p className="text-[10px] sm:text-xs text-[#888] mt-0.5">{stat.label}</p>
                 </div>
               </div>
             </motion.div>
@@ -302,12 +302,12 @@ function AffiliateDashboard() {
           transition={{ delay: 0.2 }}
           className="mb-5"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-black/10" data-testid="card-referral-link">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.08]" data-testid="card-referral-link">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.06] to-sky-500/[0.06]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3">
-                <Link2 className="w-4 h-4 text-gray-600" />
+                <Link2 className="w-4 h-4 text-[#888]" />
                 <h2 className="text-sm font-semibold">Your Referral Link</h2>
               </div>
               <div className="bg-black/40 border border-white/[0.08] rounded-xl px-3.5 py-3 mb-3 overflow-hidden">
@@ -321,7 +321,7 @@ function AffiliateDashboard() {
                   className={`flex-1 h-11 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.97] ${
                     copied
                       ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                      : "bg-black/10 text-gray-600 border border-black/10 hover:bg-[#f8f9fa]/30"
+                      : "bg-white/10 text-[#888] border border-white/[0.08] hover:bg-[#050505]/30"
                   }`}
                   data-testid="button-copy-link"
                 >
@@ -330,7 +330,7 @@ function AffiliateDashboard() {
                 </button>
                 <button
                   onClick={shareLink}
-                  className="h-11 px-5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-[#050505] font-medium text-sm flex items-center gap-2 transition-all active:scale-[0.97] shadow-lg shadow-sky-500/10"
+                  className="h-11 px-5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-[#050505] font-medium text-sm flex items-center gap-2 transition-all active:scale-[0.97] shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-sky-500/10"
                   data-testid="button-share-link"
                 >
                   <Share2 className="w-4 h-4" />
@@ -357,7 +357,7 @@ function AffiliateDashboard() {
                 <Award className="w-4 h-4 text-amber-400" />
                 Commission Tiers
               </h2>
-              <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${showTiers ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-[#888] transition-transform duration-300 ${showTiers ? "rotate-180" : ""}`} />
             </div>
           </button>
 
@@ -389,7 +389,7 @@ function AffiliateDashboard() {
                           data-testid={`row-tier-${tier.name.toLowerCase()}`}
                         >
                           {isActive && <div className={`absolute inset-0 bg-gradient-to-r ${tier.bg} opacity-40`} />}
-                          <div className="absolute inset-0 bg-black/[0.02] backdrop-blur-sm" />
+                          <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
                           <div className="relative flex items-center gap-3 p-3.5 sm:p-4">
                             <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tier.bg} flex items-center justify-center shrink-0`}>
                               <Icon className={`w-5 h-5 ${tier.color}`} />
@@ -401,12 +401,12 @@ function AffiliateDashboard() {
                                   <span className="px-1.5 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[9px] font-bold uppercase tracking-wider">Active</span>
                                 )}
                               </div>
-                              <p className="text-[10px] text-gray-600">{tier.minReferrals}+ conversions</p>
+                              <p className="text-[10px] text-[#888]">{tier.minReferrals}+ conversions</p>
                             </div>
                             <div className="text-right shrink-0">
-                              <p className={`text-lg font-bold ${isUnlocked ? tier.color : "text-gray-600"}`}>{tier.rate}</p>
+                              <p className={`text-lg font-bold ${isUnlocked ? tier.color : "text-[#888]"}`}>{tier.rate}</p>
                               {!isUnlocked && (
-                                <p className="text-[9px] text-gray-600">🔒 Locked</p>
+                                <p className="text-[9px] text-[#888]">🔒 Locked</p>
                               )}
                             </div>
                           </div>
@@ -430,12 +430,12 @@ function AffiliateDashboard() {
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border shrink-0 text-xs ${
                       isActive
                         ? `border-white/[0.15] bg-gradient-to-r ${tier.bg}`
-                        : "border-white/[0.06] bg-black/[0.02]"
+                        : "border-white/[0.06] bg-white/[0.02]"
                     }`}
                   >
                     <Icon className={`w-3 h-3 ${tier.color}`} />
-                    <span className={`font-medium ${isActive ? tier.color : "text-gray-600"}`}>{tier.name}</span>
-                    <span className={`${isActive ? "text-[#050505]/60" : "text-gray-600"}`}>{tier.rate}</span>
+                    <span className={`font-medium ${isActive ? tier.color : "text-[#888]"}`}>{tier.name}</span>
+                    <span className={`${isActive ? "text-[#050505]/60" : "text-[#888]"}`}>{tier.rate}</span>
                   </div>
                 );
               })}
@@ -450,7 +450,7 @@ function AffiliateDashboard() {
           className="mb-5"
         >
           <div className="relative rounded-2xl overflow-hidden border border-white/[0.06]" data-testid="card-payout">
-            <div className="absolute inset-0 bg-black/[0.02] backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
             <div className="relative p-5 sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -458,11 +458,11 @@ function AffiliateDashboard() {
                     <Coins className="w-4 h-4 text-amber-400" />
                     Payout
                   </h2>
-                  <p className="text-[10px] text-gray-600 mt-0.5">Min. 10 SIG required</p>
+                  <p className="text-[10px] text-[#888] mt-0.5">Min. 10 SIG required</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-bold text-amber-400">{stats.pendingEarnings}</p>
-                  <p className="text-[10px] text-gray-600">SIG available</p>
+                  <p className="text-[10px] text-[#888]">SIG available</p>
                 </div>
               </div>
               <button
@@ -470,8 +470,8 @@ function AffiliateDashboard() {
                 disabled={!canPayout || payoutMutation.isPending}
                 className={`w-full h-12 rounded-xl font-semibold text-sm transition-all active:scale-[0.97] flex items-center justify-center gap-2 ${
                   canPayout
-                    ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black shadow-lg shadow-amber-500/20"
-                    : "bg-white/[0.04] text-gray-600 border border-white/[0.06] cursor-not-allowed"
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-amber-500/20"
+                    : "bg-[#0a0a0a]/[0.04] text-[#888] border border-white/[0.06] cursor-not-allowed"
                 }`}
                 data-testid="button-request-payout"
               >
@@ -516,7 +516,7 @@ function AffiliateDashboard() {
                 {stats.recentReferrals.slice(0, 5).map((ref: any, i: number) => (
                   <div
                     key={ref.id || i}
-                    className="flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-black/[0.02] backdrop-blur-sm"
+                    className="flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
                     data-testid={`referral-item-${i}`}
                   >
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
@@ -528,7 +528,7 @@ function AffiliateDashboard() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium truncate">{ref.platform || "darkwave-studio"}</p>
-                      <p className="text-[10px] text-gray-600">{new Date(ref.createdAt).toLocaleDateString()}</p>
+                      <p className="text-[10px] text-[#888]">{new Date(ref.createdAt).toLocaleDateString()}</p>
                     </div>
                     <span className={`px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
                       ref.status === "converted" ? "bg-green-500/15 text-green-400" :
@@ -541,12 +541,12 @@ function AffiliateDashboard() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-white/[0.06] bg-black/[0.02] backdrop-blur-sm p-8 text-center">
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-8 text-center">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-3">
                   <Users className="w-5 h-5 text-blue-500/40" />
                 </div>
-                <p className="text-xs text-gray-600">No referrals yet</p>
-                <p className="text-[10px] text-gray-600 mt-1">Share your link to start earning</p>
+                <p className="text-xs text-[#888]">No referrals yet</p>
+                <p className="text-[10px] text-[#888] mt-1">Share your link to start earning</p>
               </div>
             )}
           </div>
@@ -561,7 +561,7 @@ function AffiliateDashboard() {
                 {stats.recentCommissions.slice(0, 5).map((comm: any, i: number) => (
                   <div
                     key={comm.id || i}
-                    className="flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-black/[0.02] backdrop-blur-sm"
+                    className="flex items-center gap-3 p-3.5 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
                     data-testid={`commission-item-${i}`}
                   >
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
@@ -571,22 +571,22 @@ function AffiliateDashboard() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium capitalize">{comm.tier || "base"}</p>
-                      <p className="text-[10px] text-gray-600">{new Date(comm.createdAt).toLocaleDateString()}</p>
+                      <p className="text-[10px] text-[#888]">{new Date(comm.createdAt).toLocaleDateString()}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-sm font-bold text-amber-400">{comm.amount}</p>
-                      <p className="text-[9px] text-gray-600">{comm.currency || "SIG"}</p>
+                      <p className="text-[9px] text-[#888]">{comm.currency || "SIG"}</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-white/[0.06] bg-black/[0.02] backdrop-blur-sm p-8 text-center">
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-8 text-center">
                 <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-3">
                   <Coins className="w-5 h-5 text-amber-500/40" />
                 </div>
-                <p className="text-xs text-gray-600">No commissions yet</p>
-                <p className="text-[10px] text-gray-600 mt-1">Convert referrals to earn SIG</p>
+                <p className="text-xs text-[#888]">No commissions yet</p>
+                <p className="text-[10px] text-[#888] mt-1">Convert referrals to earn SIG</p>
               </div>
             )}
           </div>
@@ -599,7 +599,7 @@ function AffiliateDashboard() {
           className="mb-5"
         >
           <h2 className="text-sm font-semibold flex items-center gap-2 px-1 mb-3">
-            <Globe className="w-4 h-4 text-gray-600" />
+            <Globe className="w-4 h-4 text-[#888]" />
             Ecosystem Links
           </h2>
           <div className="grid grid-cols-2 gap-2" data-testid="list-cross-app-links">
@@ -609,20 +609,20 @@ function AffiliateDashboard() {
                 <button
                   key={app.app}
                   onClick={() => copyCrossLink(referralUrl, i)}
-                  className="group relative rounded-xl border border-white/[0.06] bg-black/[0.02] backdrop-blur-sm p-3 text-left hover:border-white/[0.12] hover:bg-[#f8f9fa]/[0.04] active:scale-[0.97] transition-all"
+                  className="group relative rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-3 text-left hover:border-white/[0.12] hover:bg-[#050505]/[0.04] active:scale-[0.97] transition-all"
                   data-testid={`cross-link-${i}`}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="text-base">{app.icon}</span>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium truncate">{app.app}</p>
-                      <p className="text-[9px] text-gray-600 truncate">{app.domain}</p>
+                      <p className="text-[9px] text-[#888] truncate">{app.domain}</p>
                     </div>
                     <div className="shrink-0">
                       {copiedCross === i ? (
                         <Check className="w-3.5 h-3.5 text-green-400" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5 text-gray-600 group-hover:text-gray-600 transition" />
+                        <Copy className="w-3.5 h-3.5 text-[#888] group-hover:text-[#888] transition" />
                       )}
                     </div>
                   </div>
@@ -637,7 +637,7 @@ function AffiliateDashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
         >
-          <div className="relative rounded-2xl overflow-hidden border border-black/10" data-testid="card-genesis-hallmark">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.08]" data-testid="card-genesis-hallmark">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-sky-500/[0.04]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
@@ -647,21 +647,21 @@ function AffiliateDashboard() {
                 data-testid="button-toggle-genesis"
               >
                 <div className="relative shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-black/10 flex items-center justify-center">
-                    <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-gray-600" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-white/[0.08] flex items-center justify-center">
+                    <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-[#888]" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-black flex items-center justify-center">
                     <Check className="w-2 h-2 text-black" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium">Genesis Hallmark</p>
-                  <p className="text-lg sm:text-xl font-bold text-gray-600 font-mono tracking-wide" data-testid="text-genesis-id">
+                  <p className="text-[10px] text-[#888] uppercase tracking-widest font-medium">Genesis Hallmark</p>
+                  <p className="text-lg sm:text-xl font-bold text-[#888] font-mono tracking-wide" data-testid="text-genesis-id">
                     {genesis?.thId || "DS-00000001"}
                   </p>
-                  <p className="text-[10px] text-gray-600">{genesis?.productName || "Genesis Block"} · Verified</p>
+                  <p className="text-[10px] text-[#888]">{genesis?.productName || "Genesis Block"} · Verified</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-600 shrink-0 transition-transform duration-300 ${showGenesis ? "rotate-90" : ""}`} />
+                <ChevronRight className={`w-5 h-5 text-[#888] shrink-0 transition-transform duration-300 ${showGenesis ? "rotate-90" : ""}`} />
               </button>
 
               <AnimatePresence>
@@ -676,7 +676,7 @@ function AffiliateDashboard() {
                   >
                     <div className="mt-4 pt-4 border-t border-white/[0.06] space-y-4">
                       <div>
-                        <p className="text-[9px] text-gray-600 uppercase tracking-widest font-medium mb-2">Application</p>
+                        <p className="text-[9px] text-[#888] uppercase tracking-widest font-medium mb-2">Application</p>
                         <div className="space-y-1.5">
                           {[
                             ["App ID", genesis.appId],
@@ -684,15 +684,15 @@ function AffiliateDashboard() {
                             ["Release", genesis.releaseType],
                             ["Sequence", `#${genesis.hallmarkId}`],
                           ].map(([label, value]) => (
-                            <div key={label} className="flex items-center justify-between py-1.5 px-3 rounded-lg bg-black/[0.03]">
-                              <span className="text-[10px] text-gray-600">{label}</span>
+                            <div key={label} className="flex items-center justify-between py-1.5 px-3 rounded-lg bg-white/[0.03]">
+                              <span className="text-[10px] text-[#888]">{label}</span>
                               <span className="text-xs text-gray-300 font-medium">{value}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <p className="text-[9px] text-gray-600 uppercase tracking-widest font-medium mb-2">Blockchain</p>
+                        <p className="text-[9px] text-[#888] uppercase tracking-widest font-medium mb-2">Blockchain</p>
                         <div className="space-y-1.5">
                           {[
                             ["Data Hash", genesis.dataHash],
@@ -700,9 +700,9 @@ function AffiliateDashboard() {
                             ["Block", genesis.blockHeight],
                             ["Created", new Date(genesis.createdAt).toLocaleString()],
                           ].map(([label, value]) => (
-                            <div key={label} className="flex items-center justify-between py-1.5 px-3 rounded-lg bg-black/[0.03]">
-                              <span className="text-[10px] text-gray-600">{label}</span>
-                              <span className="text-[10px] text-gray-600 font-mono truncate max-w-[55%] text-right">{value}</span>
+                            <div key={label} className="flex items-center justify-between py-1.5 px-3 rounded-lg bg-white/[0.03]">
+                              <span className="text-[10px] text-[#888]">{label}</span>
+                              <span className="text-[10px] text-[#888] font-mono truncate max-w-[55%] text-right">{value}</span>
                             </div>
                           ))}
                         </div>
@@ -712,11 +712,11 @@ function AffiliateDashboard() {
                           const meta = typeof genesis.metadata === "string" ? JSON.parse(genesis.metadata) : genesis.metadata;
                           return (
                             <div>
-                              <p className="text-[9px] text-gray-600 uppercase tracking-widest font-medium mb-2">Ecosystem</p>
+                              <p className="text-[9px] text-[#888] uppercase tracking-widest font-medium mb-2">Ecosystem</p>
                               <div className="grid grid-cols-2 gap-1.5">
                                 {Object.entries(meta).map(([key, value]) => (
-                                  <div key={key} className="py-1.5 px-3 rounded-lg bg-black/[0.03]">
-                                    <p className="text-[9px] text-gray-600 capitalize mb-0.5">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                                  <div key={key} className="py-1.5 px-3 rounded-lg bg-white/[0.03]">
+                                    <p className="text-[9px] text-[#888] capitalize mb-0.5">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
                                     <p className="text-[10px] text-gray-300 font-medium truncate">{String(value)}</p>
                                   </div>
                                 ))}
@@ -728,9 +728,9 @@ function AffiliateDashboard() {
                         }
                       })()}
                       <div className="pt-2">
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.06] border border-black/10">
-                          <Zap className="w-3 h-3 text-gray-600 shrink-0" />
-                          <p className="text-[10px] text-gray-600/70">
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#0a0a0a]/[0.06] border border-white/[0.08]">
+                          <Zap className="w-3 h-3 text-[#888] shrink-0" />
+                          <p className="text-[10px] text-[#888]/70">
                             Parent Genesis: TH-00000001 · Trust Layer Hub
                           </p>
                         </div>

@@ -621,7 +621,7 @@ export default function Resources() {
   const categories = Array.from(new Set(resources.map(r => r.category)));
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Free Resources & Templates"
         description="Download free website checklists, SEO guides, project templates, and more. Expert resources to help you build better websites."
@@ -630,7 +630,7 @@ export default function Resources() {
 
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
 
-      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -687,7 +687,7 @@ export default function Resources() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {resources.filter(r => r.category === category).map(resource => (
-                <GlassCard key={resource.id} variant="feature" className="rounded-xl p-6 hover:bg-black/5 transition-colors">
+                <GlassCard key={resource.id} variant="feature" className="rounded-xl p-6 hover:bg-white/5 transition-colors">
                   <resource.icon className="w-10 h-10 text-primary mb-4" />
                   <h3 className="font-bold mb-2">{resource.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{resource.description}</p>
@@ -724,7 +724,7 @@ export default function Resources() {
               Get a Free Quote
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link href="/audit" className="px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 bg-black/5 backdrop-blur-xl border border-black/10 hover:bg-black/10 transition-colors">
+            <Link href="/audit" className="px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur-xl border border-white/[0.08] hover:bg-white/10 transition-colors">
               <Shield className="w-5 h-5" />
               Free Website Audit
             </Link>
@@ -753,7 +753,7 @@ export default function Resources() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
+                      className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none"
                       required
                       data-testid="input-modal-email"
                     />
@@ -762,7 +762,7 @@ export default function Resources() {
                     <button
                       type="button"
                       onClick={() => setShowEmailModal(false)}
-                      className="flex-1 py-3 rounded-xl border border-black/10 hover:bg-black/5 transition-colors"
+                      className="flex-1 py-3 rounded-xl border border-white/[0.08] hover:bg-white/5 transition-colors"
                     >
                       Cancel
                     </button>

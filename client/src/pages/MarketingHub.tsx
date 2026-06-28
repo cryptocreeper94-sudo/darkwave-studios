@@ -378,8 +378,8 @@ export default function MarketingHub() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-black/10">
+    <div className="min-h-screen bg-[#050505] text-foreground">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" data-testid="link-back-home">
@@ -574,13 +574,13 @@ export default function MarketingHub() {
             <p className="text-xs text-muted-foreground">Shares</p>
           </GlassCard>
           <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-clicks">
-            <MousePointer className="w-6 h-6 mx-auto text-gray-600 mb-2" />
+            <MousePointer className="w-6 h-6 mx-auto text-[#888] mb-2" />
             <p className="text-2xl font-bold">{analytics.clicks.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Clicks</p>
           </GlassCard>
         </motion.div>
 
-        <div className="flex gap-2 mb-6 border-b border-black/10 pb-4">
+        <div className="flex gap-2 mb-6 border-b border-white/[0.08] pb-4">
           <Button 
             variant={activeTab === "library" ? "default" : "ghost"}
             onClick={() => setActiveTab("library")}
@@ -654,7 +654,7 @@ export default function MarketingHub() {
             <div className="grid grid-cols-7 gap-2">
               {getWeekDays().map((day, i) => (
                 <div key={i} className="min-h-[200px]">
-                  <div className={`text-center py-2 mb-2 rounded-t-lg ${day.toDateString() === new Date().toDateString() ? 'bg-primary/20 border border-primary/50' : 'bg-black/5'}`}>
+                  <div className={`text-center py-2 mb-2 rounded-t-lg ${day.toDateString() === new Date().toDateString() ? 'bg-primary/20 border border-primary/50' : 'bg-white/5'}`}>
                     <p className="text-xs text-muted-foreground">{day.toLocaleDateString('en-US', { weekday: 'short' })}</p>
                     <p className="text-lg font-bold">{day.getDate()}</p>
                   </div>
@@ -665,7 +665,7 @@ export default function MarketingHub() {
                         className={`p-2 rounded text-xs ${
                           post.status === 'posted' ? 'bg-green-500/20 border-l-2 border-green-500' :
                           post.status === 'failed' ? 'bg-red-500/20 border-l-2 border-red-500' :
-                          'bg-black/5 border-l-2 border-primary'
+                          'bg-white/5 border-l-2 border-primary'
                         }`}
                         data-testid={`scheduled-post-${post.id}`}
                       >
@@ -807,7 +807,7 @@ export default function MarketingHub() {
                 <p className="text-sm text-muted-foreground">Total Shares</p>
               </GlassCard>
               <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-clicks">
-                <MousePointer className="w-8 h-8 mx-auto text-gray-600 mb-2" />
+                <MousePointer className="w-8 h-8 mx-auto text-[#888] mb-2" />
                 <p className="text-3xl font-bold">{analytics.clicks.toLocaleString()}</p>
                 <p className="text-sm text-muted-foreground">Total Clicks</p>
               </GlassCard>
@@ -993,7 +993,7 @@ export default function MarketingHub() {
       </main>
 
       <Dialog open={showNewPost} onOpenChange={setShowNewPost}>
-        <DialogContent className="glass-card border-black/10">
+        <DialogContent className="glass-card border-white/[0.08]">
           <DialogHeader>
             <DialogTitle>Add Marketing Content</DialogTitle>
           </DialogHeader>
@@ -1046,7 +1046,7 @@ export default function MarketingHub() {
       </Dialog>
 
       <Dialog open={showAIGenerator} onOpenChange={setShowAIGenerator}>
-        <DialogContent className="glass-card border-black/10 max-w-2xl">
+        <DialogContent className="glass-card border-white/[0.08] max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary" />
@@ -1120,7 +1120,7 @@ export default function MarketingHub() {
       </Dialog>
 
       <Dialog open={showSubscribe} onOpenChange={setShowSubscribe}>
-        <DialogContent className="glass-card border-black/10">
+        <DialogContent className="glass-card border-white/[0.08]">
           <DialogHeader>
             <DialogTitle>Subscribe to TLId.io {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}</DialogTitle>
           </DialogHeader>
@@ -1159,7 +1159,7 @@ export default function MarketingHub() {
       </Dialog>
 
       <Dialog open={showUploadImage} onOpenChange={setShowUploadImage}>
-        <DialogContent className="glass-card border-black/10">
+        <DialogContent className="glass-card border-white/[0.08]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-primary" />

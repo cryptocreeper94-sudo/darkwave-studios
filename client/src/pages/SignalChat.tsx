@@ -379,7 +379,7 @@ export default function SignalChat() {
     return (
       <div className="min-h-screen bg-[#0a0a1a] flex items-center justify-center p-4">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-black/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-sky-500/5 rounded-full blur-3xl" />
         </div>
         <motion.div
@@ -388,30 +388,30 @@ export default function SignalChat() {
           transition={{ duration: 0.5 }}
           className="relative w-full max-w-md"
         >
-          <GlassCard className="rounded-2xl p-8 shadow-2xl">
+          <GlassCard className="rounded-2xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-cyan-500/30">
                 <Radio className="w-6 h-6 text-[#050505]" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-[#050505]" data-testid="text-chat-title">ChronoChat</h1>
-                <p className="text-xs text-gray-600/70">Trust Layer Ecosystem</p>
+                <p className="text-xs text-[#888]/70">Trust Layer Ecosystem</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 mb-6 px-1">
               <Shield className="w-3.5 h-3.5 text-[#050505]" />
-              <span className="text-[11px] text-gray-600/80">Secured by Trust Layer SSO</span>
+              <span className="text-[11px] text-[#888]/80">Secured by Trust Layer SSO</span>
             </div>
 
-            <div className="flex bg-black/5 rounded-lg p-1 mb-6">
+            <div className="flex bg-white/5 rounded-lg p-1 mb-6">
               <button
                 data-testid="button-auth-login"
                 onClick={() => { setAuthMode("login"); setAuthError(""); }}
                 className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   authMode === "login"
-                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-black/10"
-                    : "text-gray-600 hover:text-gray-300"
+                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-white/[0.08]"
+                    : "text-[#888] hover:text-gray-300"
                 }`}
               >
                 Sign In
@@ -421,8 +421,8 @@ export default function SignalChat() {
                 onClick={() => { setAuthMode("register"); setAuthError(""); }}
                 className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   authMode === "register"
-                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-black/10"
-                    : "text-gray-600 hover:text-gray-300"
+                    ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-white/[0.08]"
+                    : "text-[#888] hover:text-gray-300"
                 }`}
               >
                 Create Account
@@ -433,7 +433,7 @@ export default function SignalChat() {
                 className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${
                   authMode === "ecosystem"
                     ? "bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-300 border border-emerald-500/30"
-                    : "text-gray-600 hover:text-gray-300"
+                    : "text-[#888] hover:text-gray-300"
                 }`}
               >
                 Ecosystem
@@ -449,19 +449,19 @@ export default function SignalChat() {
             {authMode === "ecosystem" ? (
               <div className="space-y-4">
                 <div className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5">
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-[#888]">
                     Sign in with your Trust Layer ID or the email from any DarkWave ecosystem app
                     (Happy Eats, TrustHome, Verdara, Axiom42 Suite, etc.)
                   </p>
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block">Trust Layer ID or Email</label>
+                  <label className="text-xs text-[#888] mb-1 block">Trust Layer ID or Email</label>
                   <div className="relative">
-                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                     <input
                       data-testid="input-ecosystem-identifier"
-                      className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
                       placeholder="tl-xxxx-xxxx or you@example.com"
                       autoComplete="username"
                       autoCapitalize="off"
@@ -473,13 +473,13 @@ export default function SignalChat() {
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block">Password or Ecosystem PIN</label>
+                  <label className="text-xs text-[#888] mb-1 block">Password or Ecosystem PIN</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                     <input
                       data-testid="input-ecosystem-credential"
                       type={showPassword ? "text" : "password"}
-                      className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-12 py-3 text-[#050505] placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-12 py-3 text-[#050505] placeholder-gray-500 focus:border-emerald-500/50 focus:outline-none transition-colors"
                       placeholder="Password or PIN"
                       autoComplete="current-password"
                       value={ecosystemCredential}
@@ -489,12 +489,12 @@ export default function SignalChat() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-300 transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888] hover:text-gray-300 transition-colors"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                  <p className="text-[11px] text-gray-600 mt-1">
+                  <p className="text-[11px] text-[#888] mt-1">
                     Use your full password or your ecosystem PIN if you've been whitelisted
                   </p>
                 </div>
@@ -503,10 +503,10 @@ export default function SignalChat() {
                   data-testid="button-ecosystem-login"
                   onClick={handleAuthSubmit}
                   disabled={authLoading || !ecosystemIdentifier.trim() || !ecosystemCredential.trim()}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-[#050505] font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-[#050505] font-semibold py-3 rounded-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-emerald-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {authLoading ? (
-                    <div className="w-5 h-5 border-2 border-black/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-white/[0.15] border-t-white rounded-full animate-spin" />
                   ) : (
                     <>
                       <Shield className="w-4 h-4" />
@@ -518,12 +518,12 @@ export default function SignalChat() {
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block">Username</label>
+                  <label className="text-xs text-[#888] mb-1 block">Username</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                     <input
                       data-testid="input-chat-username"
-                      className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-white/[0.08] focus:outline-none transition-colors"
                       placeholder="e.g. sarah-k"
                       value={usernameInput}
                       onChange={(e) => setUsernameInput(e.target.value)}
@@ -535,13 +535,13 @@ export default function SignalChat() {
                 {authMode === "register" && (
                   <>
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Email</label>
+                      <label className="text-xs text-[#888] mb-1 block">Email</label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                         <input
                           data-testid="input-chat-email"
                           type="email"
-                          className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-white/[0.08] focus:outline-none transition-colors"
                           placeholder="e.g. sarah@example.com"
                           value={emailInput}
                           onChange={(e) => setEmailInput(e.target.value)}
@@ -550,12 +550,12 @@ export default function SignalChat() {
                       </div>
                     </div>
                     <div>
-                      <label className="text-xs text-gray-600 mb-1 block">Display Name</label>
+                      <label className="text-xs text-[#888] mb-1 block">Display Name</label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                         <input
                           data-testid="input-chat-displayname"
-                          className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-4 py-3 text-[#050505] placeholder-gray-500 focus:border-white/[0.08] focus:outline-none transition-colors"
                           placeholder="e.g. Sarah K."
                           value={displayNameInput}
                           onChange={(e) => setDisplayNameInput(e.target.value)}
@@ -567,13 +567,13 @@ export default function SignalChat() {
                 )}
 
                 <div>
-                  <label className="text-xs text-gray-600 mb-1 block">Password</label>
+                  <label className="text-xs text-[#888] mb-1 block">Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
                     <input
                       data-testid="input-chat-password"
                       type={showPassword ? "text" : "password"}
-                      className="w-full bg-black/5 border border-black/10 rounded-lg pl-10 pr-12 py-3 text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/[0.08] rounded-lg pl-10 pr-12 py-3 text-[#050505] placeholder-gray-500 focus:border-white/[0.08] focus:outline-none transition-colors"
                       placeholder="Enter your password"
                       value={passwordInput}
                       onChange={(e) => setPasswordInput(e.target.value)}
@@ -583,7 +583,7 @@ export default function SignalChat() {
                       data-testid="button-toggle-password"
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-300 transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888] hover:text-gray-300 transition-colors"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -600,10 +600,10 @@ export default function SignalChat() {
                     !passwordInput ||
                     (authMode === "register" && (!emailInput.trim() || !displayNameInput.trim() || !isPasswordValid()))
                   }
-                  className="w-full bg-black/5 border border-black/10 text-[#050505] font-semibold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-white/5 border border-white/[0.08] text-[#050505] font-semibold py-3 rounded-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {authLoading ? (
-                    <div className="w-5 h-5 border-2 border-black/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-white/[0.15] border-t-white rounded-full animate-spin" />
                   ) : (
                     <>
                       <Shield className="w-4 h-4" />
@@ -614,19 +614,19 @@ export default function SignalChat() {
               </div>
             )}
 
-            <div className="mt-6 pt-4 border-t border-black/5">
+            <div className="mt-6 pt-4 border-t border-white/[0.05]">
               <div className="flex items-center justify-center gap-3">
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-[10px] text-gray-600">Cross-App SSO</span>
+                  <span className="text-[10px] text-[#888]">Cross-App SSO</span>
                 </div>
-                <span className="text-gray-700">|</span>
-                <span className="text-[10px] text-gray-600">One identity, all apps</span>
+                <span className="text-white/80">|</span>
+                <span className="text-[10px] text-[#888]">One identity, all apps</span>
               </div>
             </div>
 
             <div className="mt-4 text-center">
-              <Link href="/" className="text-xs text-gray-600 hover:text-gray-600 transition-colors" data-testid="link-back-home">
+              <Link href="/" className="text-xs text-[#888] hover:text-[#888] transition-colors" data-testid="link-back-home">
                 Back to DarkWave Studios
               </Link>
             </div>
@@ -643,22 +643,22 @@ export default function SignalChat() {
         description="Join ChronoChat, the real-time communication platform for the Trust Layer ecosystem. Trust Layer SSO authentication, cross-app identity, and secure WebSocket messaging."
         keywords="ChronoChat, real-time chat, ecosystem communication, Trust Layer SSO, WebSocket messaging, cross-app identity"
       />
-      <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-black/10">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/[0.08]">
         <button
           data-testid="button-toggle-sidebar"
-          className="lg:hidden w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center text-gray-600 hover:text-gray-600 transition-colors"
+          className="lg:hidden w-8 h-8 rounded-lg bg-white/5 border border-white/[0.08] flex items-center justify-center text-[#888] hover:text-[#888] transition-colors"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           <ChevronLeft className={`w-4 h-4 transition-transform ${sidebarOpen ? "" : "rotate-180"}`} />
         </button>
-        <div className="w-9 h-9 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+        <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-cyan-500/30">
           <Radio className="w-5 h-5 text-[#050505]" />
         </div>
         <div className="flex-1">
           <h1 className="text-sm font-bold text-[#050505]" data-testid="text-header-title">ChronoChat</h1>
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-gray-600/70">Trust Layer SSO</span>
-            <span className="text-gray-600">|</span>
+            <span className="text-[#888]/70">Trust Layer SSO</span>
+            <span className="text-[#888]">|</span>
             <span className="flex items-center gap-1">
               {connected ? (
                 <><Wifi className="w-3 h-3 text-green-400" /><span className="text-green-400" data-testid="text-connection-status">Connected</span></>
@@ -669,11 +669,11 @@ export default function SignalChat() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/5 border border-black/10">
-            <Users className="w-3.5 h-3.5 text-gray-600" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/[0.08]">
+            <Users className="w-3.5 h-3.5 text-[#888]" />
             <span className="text-xs text-cyan-300" data-testid="text-online-count">{onlineCount} online</span>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/5 border border-black/10">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/[0.08]">
             <div className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] text-[#050505] font-bold" style={{ background: currentUser.avatarColor }}>
               {getInitials(currentUser.displayName)}
             </div>
@@ -682,7 +682,7 @@ export default function SignalChat() {
           <button
             data-testid="button-logout"
             onClick={handleLogout}
-            className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center text-gray-600 hover:text-red-400 hover:border-red-500/30 transition-colors"
+            className="w-8 h-8 rounded-lg bg-white/5 border border-white/[0.08] flex items-center justify-center text-[#888] hover:text-red-400 hover:border-red-500/30 transition-colors"
             title="Sign Out"
           >
             <LogOut className="w-3.5 h-3.5" />
@@ -691,11 +691,11 @@ export default function SignalChat() {
       </div>
 
       <div className="flex flex-1 min-h-0">
-        <div className={`${sidebarOpen ? "w-56" : "w-0 overflow-hidden"} lg:w-56 flex-shrink-0 transition-all duration-300 bg-[#0d0d24] border-r border-black/10 flex flex-col`}>
+        <div className={`${sidebarOpen ? "w-56" : "w-0 overflow-hidden"} lg:w-56 flex-shrink-0 transition-all duration-300 bg-[#0d0d24] border-r border-white/[0.08] flex flex-col`}>
           <div className="flex-1 overflow-y-auto p-3 space-y-1">
             {ecosystemChannels.length > 0 && (
               <>
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-600/60 px-2 pt-2 pb-1" data-testid="text-section-ecosystem">Ecosystem</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[#888]/60 px-2 pt-2 pb-1" data-testid="text-section-ecosystem">Ecosystem</div>
                 {ecosystemChannels.map(ch => (
                   <button
                     key={ch.id}
@@ -703,8 +703,8 @@ export default function SignalChat() {
                     onClick={() => switchChannel(ch)}
                     className={`w-full text-left flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm transition-all ${
                       activeChannel?.id === ch.id
-                        ? "bg-white/15 text-cyan-300 border border-black/10"
-                        : "text-gray-600 hover:text-cyan-300 hover:bg-black/5"
+                        ? "bg-[#0a0a0a]/15 text-cyan-300 border border-white/[0.08]"
+                        : "text-[#888] hover:text-cyan-300 hover:bg-white/5"
                     }`}
                   >
                     <Hash className="w-3.5 h-3.5 flex-shrink-0" />
@@ -723,8 +723,8 @@ export default function SignalChat() {
                     onClick={() => switchChannel(ch)}
                     className={`w-full text-left flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm transition-all ${
                       activeChannel?.id === ch.id
-                        ? "bg-white/15 text-cyan-300 border border-black/10"
-                        : "text-gray-600 hover:text-cyan-300 hover:bg-black/5"
+                        ? "bg-[#0a0a0a]/15 text-cyan-300 border border-white/[0.08]"
+                        : "text-[#888] hover:text-cyan-300 hover:bg-white/5"
                     }`}
                   >
                     <Hash className="w-3.5 h-3.5 flex-shrink-0" />
@@ -734,14 +734,14 @@ export default function SignalChat() {
               </>
             )}
           </div>
-          <div className="p-3 border-t border-black/10 space-y-2">
+          <div className="p-3 border-t border-white/[0.08] space-y-2">
             {currentUser.trustLayerId && (
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-black/5 border border-black/10">
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-white/5 border border-white/[0.08]">
                 <Shield className="w-3 h-3 text-[#050505]" />
-                <span className="text-[10px] text-gray-600/70 truncate" data-testid="text-trust-layer-id">TL: {currentUser.trustLayerId}</span>
+                <span className="text-[10px] text-[#888]/70 truncate" data-testid="text-trust-layer-id">TL: {currentUser.trustLayerId}</span>
               </div>
             )}
-            <Link href="/" className="flex items-center gap-2 text-xs text-gray-600 hover:text-gray-600 transition-colors" data-testid="link-back-home-sidebar">
+            <Link href="/" className="flex items-center gap-2 text-xs text-[#888] hover:text-[#888] transition-colors" data-testid="link-back-home-sidebar">
               <ChevronLeft className="w-3 h-3" />
               Back to DarkWave Studios
             </Link>
@@ -750,13 +750,13 @@ export default function SignalChat() {
 
         <div className="flex-1 flex flex-col min-w-0">
           {activeChannel && (
-            <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0f0f2a]/50 border-b border-black/10">
-              <Hash className="w-4 h-4 text-gray-600" />
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0f0f2a]/50 border-b border-white/[0.08]">
+              <Hash className="w-4 h-4 text-[#888]" />
               <span className="text-sm font-semibold text-[#050505]" data-testid="text-active-channel">{activeChannel.name}</span>
               {activeChannel.description && (
                 <>
-                  <span className="text-gray-600">|</span>
-                  <span className="text-xs text-gray-600">{activeChannel.description}</span>
+                  <span className="text-[#888]">|</span>
+                  <span className="text-xs text-[#888]">{activeChannel.description}</span>
                 </>
               )}
             </div>
@@ -765,16 +765,16 @@ export default function SignalChat() {
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-1" data-testid="container-messages">
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <MessageSquare className="w-12 h-12 text-gray-700 mb-3" />
-                <p className="text-gray-600 text-sm">No messages yet</p>
-                <p className="text-gray-600 text-xs mt-1">Be the first to say something in #{activeChannel?.name}</p>
+                <MessageSquare className="w-12 h-12 text-white/80 mb-3" />
+                <p className="text-[#888] text-sm">No messages yet</p>
+                <p className="text-[#888] text-xs mt-1">Be the first to say something in #{activeChannel?.name}</p>
               </div>
             )}
             {messages.map((msg, i) => {
               const showHeader = i === 0 || messages[i - 1].userId !== msg.userId ||
                 new Date(msg.createdAt).getTime() - new Date(messages[i - 1].createdAt).getTime() > 300000;
               return (
-                <div key={msg.id} className={`group hover:bg-black/[0.02] rounded-lg px-2 ${showHeader ? "pt-3" : "pt-0.5"}`} data-testid={`message-${msg.id}`}>
+                <div key={msg.id} className={`group hover:bg-white/[0.02] rounded-lg px-2 ${showHeader ? "pt-3" : "pt-0.5"}`} data-testid={`message-${msg.id}`}>
                   {showHeader ? (
                     <div className="flex gap-3">
                       <div
@@ -790,9 +790,9 @@ export default function SignalChat() {
                             <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 font-medium">BOT</span>
                           )}
                           {msg.role === "admin" && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-black/10 text-gray-600 font-medium">ADMIN</span>
+                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-[#888] font-medium">ADMIN</span>
                           )}
-                          <span className="text-[11px] text-gray-600">{formatTime(msg.createdAt)}</span>
+                          <span className="text-[11px] text-[#888]">{formatTime(msg.createdAt)}</span>
                         </div>
                         <p className="text-sm text-gray-300 mt-0.5 break-words">{msg.content}</p>
                       </div>
@@ -800,7 +800,7 @@ export default function SignalChat() {
                   ) : (
                     <div className="flex gap-3">
                       <div className="w-9 flex-shrink-0 flex items-center justify-center">
-                        <span className="text-[10px] text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-[10px] text-[#888] opacity-0 group-hover:opacity-100 transition-opacity">
                           {formatTime(msg.createdAt)}
                         </span>
                       </div>
@@ -812,7 +812,7 @@ export default function SignalChat() {
             })}
             {typingUsers.length > 0 && (
               <div className="px-2 pt-1">
-                <span className="text-xs text-gray-600/60 animate-pulse" data-testid="text-typing-indicator">
+                <span className="text-xs text-[#888]/60 animate-pulse" data-testid="text-typing-indicator">
                   {typingUsers.join(", ")} {typingUsers.length === 1 ? "is" : "are"} typing...
                 </span>
               </div>
@@ -820,11 +820,11 @@ export default function SignalChat() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="px-4 py-3 border-t border-black/10 bg-[#0d0d24]/50">
+          <div className="px-4 py-3 border-t border-white/[0.08] bg-[#0d0d24]/50">
             <div className="flex gap-2">
               <input
                 data-testid="input-chat-message"
-                className="flex-1 bg-black/5 border border-black/10 rounded-xl px-4 py-3 text-sm text-[#050505] placeholder-gray-500 focus:border-black/10 focus:outline-none transition-colors"
+                className="flex-1 bg-white/5 border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-[#050505] placeholder-gray-500 focus:border-white/[0.08] focus:outline-none transition-colors"
                 placeholder={`Message #${activeChannel?.name || "general"}...`}
                 value={messageInput}
                 onChange={(e) => {
@@ -842,7 +842,7 @@ export default function SignalChat() {
                 data-testid="button-send-message"
                 onClick={sendMessage}
                 disabled={!messageInput.trim() || !connected}
-                className="w-11 h-11 rounded-xl bg-black/5 border border-black/10 text-[#050505] flex items-center justify-center hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-11 h-11 rounded-xl bg-white/5 border border-white/[0.08] text-[#050505] flex items-center justify-center hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-cyan-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
               </button>

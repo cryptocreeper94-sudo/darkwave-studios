@@ -150,7 +150,7 @@ function Studio() {
               <Monitor className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold mb-2">Axiom42 Suite Studio</h1>
-            <p className="text-gray-600">Sign in with your Trust Layer account to access the media editor</p>
+            <p className="text-[#888]">Sign in with your Trust Layer account to access the media editor</p>
           </motion.div>
 
           <motion.div
@@ -161,23 +161,23 @@ function Studio() {
             <GlassCard className="p-6 rounded-xl">
               <form onSubmit={handleLogin} className="space-y-4" data-testid="studio-login-form">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Username</label>
+                  <label className="block text-sm text-[#888] mb-1">Username</label>
                   <input
                     type="text"
                     value={loginForm.username}
                     onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
-                    className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-3 text-[#050505] focus:border-sky-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-3 text-[#050505] focus:border-sky-500 focus:outline-none"
                     placeholder="Your Trust Layer username"
                     data-testid="input-studio-username"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Password</label>
+                  <label className="block text-sm text-[#888] mb-1">Password</label>
                   <input
                     type="password"
                     value={loginForm.password}
                     onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                    className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-3 text-[#050505] focus:border-sky-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-3 text-[#050505] focus:border-sky-500 focus:outline-none"
                     placeholder="Your password"
                     data-testid="input-studio-password"
                   />
@@ -192,7 +192,7 @@ function Studio() {
                   {loginMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
                   Sign In
                 </button>
-                <p className="text-xs text-gray-600 text-center mt-3">
+                <p className="text-xs text-[#888] text-center mt-3">
                   Uses Trust Layer SSO — same account as Signal Chat
                 </p>
               </form>
@@ -215,21 +215,21 @@ function Studio() {
         >
           <div className="flex items-center gap-4">
             <Link href="/">
-              <button className="p-2 rounded-lg bg-black/5 hover:bg-black/10 transition" data-testid="button-studio-back">
+              <button className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition" data-testid="button-studio-back">
                 <ArrowLeft className="w-5 h-5" />
               </button>
             </Link>
             <div>
               <h1 className="text-3xl font-bold">Axiom42 Suite Studio</h1>
-              <p className="text-gray-600 text-sm">Media editor powered by Axiom42 Suite</p>
+              <p className="text-[#888] text-sm">Media editor powered by Axiom42 Suite</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 text-sm">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 text-sm">
               <Shield className="w-4 h-4 text-green-400" />
               <span className="text-gray-300">Connected via Trust Layer SSO</span>
             </div>
-            <button onClick={handleLogout} className="px-4 py-2 rounded-lg bg-black/5 hover:bg-black/10 text-sm transition" data-testid="button-studio-logout">
+            <button onClick={handleLogout} className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition" data-testid="button-studio-logout">
               Sign Out
             </button>
           </div>
@@ -238,7 +238,7 @@ function Studio() {
         {checkingConnection && (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-sky-400" />
-            <span className="ml-3 text-gray-600">Connecting to Axiom42 Suite...</span>
+            <span className="ml-3 text-[#888]">Connecting to Axiom42 Suite...</span>
           </div>
         )}
 
@@ -251,21 +251,21 @@ function Studio() {
             <GlassCard className="p-8 rounded-xl text-center">
               <AlertCircle className="w-12 h-12 text-amber-400 mx-auto mb-4" />
               <h2 className="text-xl font-bold mb-2">Connection Issue</h2>
-              <p className="text-gray-600 mb-4">{connectionStatus.error}</p>
-              <p className="text-sm text-gray-600">Axiom42 Suite may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
+              <p className="text-[#888] mb-4">{connectionStatus.error}</p>
+              <p className="text-sm text-[#888]">Axiom42 Suite may be temporarily unavailable. Your Trust Layer SSO token is valid — try again in a moment.</p>
             </GlassCard>
           </motion.div>
         )}
 
         {!checkingConnection && !connectionStatus?.error && (
           <>
-            <div className="flex gap-1 mb-6 bg-black/5 rounded-xl p-1">
+            <div className="flex gap-1 mb-6 bg-white/5 rounded-xl p-1">
               {(["media", "projects", "editor", "events"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium capitalize transition ${
-                    activeTab === tab ? "bg-gradient-to-r from-sky-600 to-cyan-600 text-[#050505]" : "text-gray-600 hover:text-[#050505]"
+                    activeTab === tab ? "bg-gradient-to-r from-sky-600 to-cyan-600 text-[#050505]" : "text-[#888] hover:text-[#050505]"
                   }`}
                   data-testid={`tab-studio-${tab}`}
                 >
@@ -288,7 +288,7 @@ function Studio() {
                         key={cat}
                         onClick={() => setMediaCategory(cat)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition ${
-                          mediaCategory === cat ? "bg-sky-600 text-[#050505]" : "bg-black/5 text-gray-600 hover:text-[#050505]"
+                          mediaCategory === cat ? "bg-sky-600 text-[#050505]" : "bg-white/5 text-[#888] hover:text-[#050505]"
                         }`}
                         data-testid={`filter-media-${cat}`}
                       >
@@ -299,13 +299,13 @@ function Studio() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="relative">
-                      <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-600" />
+                      <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#888]" />
                       <input
                         type="text"
                         placeholder="Search media..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 pr-4 py-2 bg-black/5 border border-black/10 rounded-lg text-sm text-[#050505] focus:border-sky-500 focus:outline-none w-48"
+                        className="pl-9 pr-4 py-2 bg-white/5 border border-white/[0.08] rounded-lg text-sm text-[#050505] focus:border-sky-500 focus:outline-none w-48"
                         data-testid="input-media-search"
                       />
                     </div>
@@ -323,35 +323,35 @@ function Studio() {
                 {loadingMedia ? (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[...Array(8)].map((_, i) => (
-                      <div key={i} className="aspect-video bg-black/5 rounded-xl shimmer-skeleton" />
+                      <div key={i} className="aspect-video bg-white/5 rounded-xl shimmer-skeleton" />
                     ))}
                   </div>
                 ) : mediaData?.items?.length > 0 ? (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {mediaData.items.map((item: any) => (
                       <GlassCard key={item.id} className="rounded-xl overflow-hidden group cursor-pointer hover:border-sky-500/50 transition" data-testid={`media-item-${item.id}`}>
-                        <div className="aspect-video bg-black/5 flex items-center justify-center relative">
+                        <div className="aspect-video bg-white/5 flex items-center justify-center relative">
                           {item.thumbnailUrl ? (
                             <img src={item.thumbnailUrl} alt={item.filename} className="w-full h-full object-cover" />
                           ) : (
-                            <Film className="w-8 h-8 text-gray-600" />
+                            <Film className="w-8 h-8 text-[#888]" />
                           )}
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                          <div className="absolute inset-0 bg-white/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                             <Play className="w-8 h-8 text-[#050505]" />
                           </div>
                         </div>
                         <div className="p-3">
                           <p className="text-sm font-medium truncate">{item.filename || item.name}</p>
-                          <p className="text-xs text-gray-600">{item.category || "video"}</p>
+                          <p className="text-xs text-[#888]">{item.category || "video"}</p>
                         </div>
                       </GlassCard>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-20">
-                    <Film className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                    <Film className="w-12 h-12 text-[#888] mx-auto mb-4" />
                     <h3 className="text-lg font-semibold mb-2">No media yet</h3>
-                    <p className="text-gray-600 text-sm mb-4">Upload your first file to get started with Axiom42 Suite Studio</p>
+                    <p className="text-[#888] text-sm mb-4">Upload your first file to get started with Axiom42 Suite Studio</p>
                     <button
                       onClick={() => uploadMutation.mutate({ filename: "new-upload", contentType: "video/mp4", size: 0 })}
                       className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 text-sm font-medium"
@@ -384,9 +384,9 @@ function Studio() {
                 </div>
 
                 <div className="text-center py-20">
-                  <FolderPlus className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                  <FolderPlus className="w-12 h-12 text-[#888] mx-auto mb-4" />
                   <h3 className="text-lg font-semibold mb-2">Create your first project</h3>
-                  <p className="text-gray-600 text-sm">Projects let you organize media, edit timelines, and export renders</p>
+                  <p className="text-[#888] text-sm">Projects let you organize media, edit timelines, and export renders</p>
                 </div>
               </motion.div>
             )}
@@ -400,7 +400,7 @@ function Studio() {
               >
                 <div className="mb-6">
                   <h2 className="text-xl font-bold mb-2">Embedded Editor</h2>
-                  <p className="text-gray-600 text-sm">Open Axiom42 Suite's full media editor directly in DarkWave Studios</p>
+                  <p className="text-[#888] text-sm">Open Axiom42 Suite's full media editor directly in DarkWave Studios</p>
                 </div>
 
                 <GlassCard className="rounded-xl overflow-hidden">
@@ -408,7 +408,7 @@ function Studio() {
                     <div className="text-center">
                       <Monitor className="w-16 h-16 text-sky-400 mx-auto mb-4" />
                       <h3 className="text-xl font-bold mb-2">Axiom42 Suite Editor</h3>
-                      <p className="text-gray-600 text-sm mb-6 max-w-md mx-auto">
+                      <p className="text-[#888] text-sm mb-6 max-w-md mx-auto">
                         Select a project first, then launch the embedded editor to start editing your media
                       </p>
                       <button
@@ -446,7 +446,7 @@ function Studio() {
                   <h2 className="text-xl font-bold">Render Events</h2>
                   <button
                     onClick={() => queryClient.invalidateQueries({ queryKey: ["axiom42suite-events"] })}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/5 hover:bg-black/10 text-sm transition"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition"
                     data-testid="button-refresh-events"
                   >
                     <RefreshCw className="w-4 h-4" />
@@ -468,7 +468,7 @@ function Studio() {
                           )}
                           <div>
                             <p className="font-medium">{evt.event}</p>
-                            <p className="text-xs text-gray-600">Project: {evt.projectId}</p>
+                            <p className="text-xs text-[#888]">Project: {evt.projectId}</p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -479,7 +479,7 @@ function Studio() {
                             </a>
                           )}
                           {evt.timestamp && (
-                            <p className="text-xs text-gray-600">{new Date(evt.timestamp).toLocaleString()}</p>
+                            <p className="text-xs text-[#888]">{new Date(evt.timestamp).toLocaleString()}</p>
                           )}
                         </div>
                       </GlassCard>
@@ -487,9 +487,9 @@ function Studio() {
                   </div>
                 ) : (
                   <div className="text-center py-20">
-                    <Clock className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+                    <Clock className="w-12 h-12 text-[#888] mx-auto mb-4" />
                     <h3 className="text-lg font-semibold mb-2">No render events yet</h3>
-                    <p className="text-gray-600 text-sm">When you export a project, render status updates will appear here via webhook</p>
+                    <p className="text-[#888] text-sm">When you export a project, render status updates will appear here via webhook</p>
                   </div>
                 )}
               </motion.div>

@@ -122,7 +122,7 @@ export default function WebsiteAudit() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="Free Website Audit Tool"
         description="Get an instant free analysis of your website's performance, SEO, mobile-friendliness, and security. See exactly what's holding your site back."
@@ -131,7 +131,7 @@ export default function WebsiteAudit() {
 
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
 
-      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -182,7 +182,7 @@ export default function WebsiteAudit() {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Enter your website URL (e.g., https://example.com)"
-                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none text-foreground placeholder:text-muted-foreground"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none text-foreground placeholder:text-muted-foreground"
                   required
                   data-testid="input-url"
                 />
@@ -255,11 +255,11 @@ export default function WebsiteAudit() {
                     Quick Stats
                   </h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between py-2 border-b border-black/5">
+                    <div className="flex justify-between py-2 border-b border-white/[0.05]">
                       <span className="text-muted-foreground">Load Time</span>
                       <span className="font-medium">{result.loadTime}</span>
                     </div>
-                    <div className="flex justify-between py-2 border-b border-black/5">
+                    <div className="flex justify-between py-2 border-b border-white/[0.05]">
                       <span className="text-muted-foreground">Page Size</span>
                       <span className="font-medium">{result.pageSize}</span>
                     </div>
@@ -338,7 +338,7 @@ export default function WebsiteAudit() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="flex-1 px-4 py-3 rounded-xl bg-black/5 border border-black/10 focus:border-primary focus:outline-none"
+                      className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/[0.08] focus:border-primary focus:outline-none"
                       required
                       data-testid="input-email"
                     />
@@ -372,7 +372,7 @@ export default function WebsiteAudit() {
                   Get a Free Quote
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link href="/book" className="glass px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-black/10 transition-colors">
+                <Link href="/book" className="glass px-8 py-4 rounded-xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
                   Book a Call
                 </Link>
               </div>

@@ -100,7 +100,7 @@ export function AdFreeBanner({ isAdFree = false, loading = false, onUpgrade }: A
       </div>
       <button
         onClick={onUpgrade}
-        className="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-[#050505] text-xs font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+        className="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-accent text-[#050505] text-xs font-semibold hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-primary/25 transition-all duration-300"
         data-testid="button-go-ad-free"
       >
         Upgrade

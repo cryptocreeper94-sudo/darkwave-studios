@@ -47,7 +47,7 @@ const stats = [
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground">
+    <div className="min-h-screen bg-[#050505] text-foreground">
       <SEOHead
         title="About Us - Nashville's Premier Boutique Web Agency"
         description="Meet DarkWave Studios - a boutique web development agency offering direct developer access, unlimited support, and agency-quality results at 60% less cost. Based in Nashville, serving clients worldwide."
@@ -63,7 +63,7 @@ export default function About() {
       />
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
       
-      <header className="sticky top-0 z-50 glass-strong border-b border-black/5">
+      <header className="sticky top-0 z-50 glass-strong border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl lg:text-2xl font-bold gradient-text">
             DarkWave Studios
@@ -230,7 +230,7 @@ export default function About() {
         <SignalPresaleBanner variant="compact" />
       </div>
 
-      <footer className="glass-strong mt-12 border-t border-black/5">
+      <footer className="glass-strong mt-12 border-t border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-display text-xl font-bold gradient-text">DarkWave Studios</div>
           <div className="text-muted-foreground text-sm">© 2026. Built with passion, priced with honesty.</div>

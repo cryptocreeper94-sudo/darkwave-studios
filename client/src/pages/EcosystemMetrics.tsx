@@ -681,7 +681,7 @@ function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: num
 
 function LanguageBar({ breakdown, totalLines }: { breakdown: AppMetric["breakdown"]; totalLines: number }) {
   const colors = [
-    "bg-black/5 border border-black/10",
+    "bg-white/5 border border-white/[0.08]",
     "bg-gradient-to-r from-sky-400 to-pink-500",
     "bg-gradient-to-r from-amber-400 to-orange-500",
     "bg-gradient-to-r from-emerald-400 to-green-500",
@@ -691,7 +691,7 @@ function LanguageBar({ breakdown, totalLines }: { breakdown: AppMetric["breakdow
 
   return (
     <div>
-      <div className="flex h-2 rounded-full overflow-hidden bg-black/5 mb-3">
+      <div className="flex h-2 rounded-full overflow-hidden bg-white/5 mb-3">
         {breakdown.map((item, i) => {
           const pct = (item.lines / totalLines) * 100;
           if (pct < 1) return null;
@@ -729,7 +729,7 @@ export default function EcosystemMetrics() {
   const sortedApps = [...ecosystemMetrics].sort((a, b) => b.totalLines - a.totalLines);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Ecosystem Metrics - DarkWave Studios"
         description={`${totalLines.toLocaleString()}+ lines of hand-written code across ${totalApps} production applications. Explore the full Trust Layer ecosystem codebase.`}
@@ -743,19 +743,19 @@ export default function EcosystemMetrics() {
         ]}
       />
 
-      <div className="fixed inset-0 bg-[#f8f9fa] -z-20" />
+      <div className="fixed inset-0 bg-[#050505] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(14,165,233,0.08),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(6,182,212,0.06),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-[#f8f9fa]/60 border-b border-black/5">
+      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-[#050505]/60 border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/ecosystem" className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-black/10 hover:border-primary/50 transition-all duration-300" data-testid="back-ecosystem">
+            <Link href="/ecosystem" className="w-10 h-10 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center hover:bg-white/10 hover:border-primary/50 transition-all duration-300" data-testid="back-ecosystem">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/25">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/25">
                 <BarChart3 className="w-5 h-5 text-[#050505]" />
               </div>
               <span className="font-display text-xl lg:text-2xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Ecosystem Metrics</span>
@@ -763,7 +763,7 @@ export default function EcosystemMetrics() {
           </div>
           <Link 
             href="/ecosystem"
-            className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+            className="group relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] text-sm font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
             data-testid="button-view-apps"
           >
             <span className="relative z-10">View Apps</span>
@@ -778,7 +778,7 @@ export default function EcosystemMetrics() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16 lg:mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-lg shadow-primary/10">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/30 text-sm font-semibold text-primary mb-8 shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/10">
             <Terminal className="w-4 h-4" />
             Living Codebase Metrics
           </div>
@@ -804,7 +804,7 @@ export default function EcosystemMetrics() {
           className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-16 lg:mb-24"
         >
           {[
-            { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-gray-600" },
+            { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-[#888]" },
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-sky-500/20 to-pink-500/20", color: "text-sky-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
@@ -852,14 +852,14 @@ export default function EcosystemMetrics() {
                   data-testid={`app-metric-${app.id}`}
                 >
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${app.gradient} opacity-0 ${isExpanded ? 'opacity-[0.08]' : 'group-hover:opacity-[0.05]'} transition-opacity duration-500`} />
-                  <GlassCard variant="feature" className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${isExpanded ? 'border-primary/30 shadow-xl shadow-primary/5' : ''}`}>
+                  <GlassCard variant="feature" className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${isExpanded ? 'border-primary/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/5' : ''}`}>
                     <div className="p-5 lg:p-6">
                       <div className="flex items-center gap-4 lg:gap-6">
                         <div className="flex items-center gap-3 lg:gap-4 shrink-0">
                           <div className="text-lg font-mono text-[#050505]/20 w-8 text-right">
                             {String(index + 1).padStart(2, '0')}
                           </div>
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-lg`}>
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]`}>
                             <app.icon className="w-6 h-6 text-[#050505]" />
                           </div>
                         </div>
@@ -869,7 +869,7 @@ export default function EcosystemMetrics() {
                             <h3 className="font-display font-bold text-lg lg:text-xl truncate">{app.name}</h3>
                             <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold uppercase tracking-wider">{app.status}</span>
                             {app.version && (
-                              <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-black/10 text-[#050505]/50 font-mono">{app.version}</span>
+                              <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-[#050505]/50 font-mono">{app.version}</span>
                             )}
                           </div>
                           <div className="hidden lg:flex items-center gap-4 text-sm text-muted-foreground">
@@ -912,7 +912,7 @@ export default function EcosystemMetrics() {
                       </div>
 
                       <div className="mt-4">
-                        <div className="h-1.5 rounded-full overflow-hidden bg-black/5">
+                        <div className="h-1.5 rounded-full overflow-hidden bg-white/5">
                           <div
                             className={`h-full rounded-full bg-gradient-to-r ${app.gradient} transition-all duration-1000`}
                             style={{ width: `${(app.totalLines / sortedApps[0].totalLines) * 100}%` }}
@@ -922,7 +922,7 @@ export default function EcosystemMetrics() {
                     </div>
 
                     <div className={`overflow-hidden transition-all duration-500 ease-out ${isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                      <div className="px-5 lg:px-6 pb-6 pt-2 border-t border-black/5">
+                      <div className="px-5 lg:px-6 pb-6 pt-2 border-t border-white/[0.05]">
                         <div className="grid lg:grid-cols-2 gap-6 mt-4">
                           <div>
                             <h4 className="text-sm font-semibold text-[#050505]/80 mb-3 flex items-center gap-2">
@@ -939,7 +939,7 @@ export default function EcosystemMetrics() {
                             </h4>
                             <div className="flex flex-wrap gap-1.5">
                               {app.stack.map((tech, i) => (
-                                <span key={i} className="text-[11px] px-2.5 py-1 rounded-lg bg-black/5 border border-black/10 text-muted-foreground hover:border-primary/30 hover:text-primary transition-colors">
+                                <span key={i} className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/[0.08] text-muted-foreground hover:border-primary/30 hover:text-primary transition-colors">
                                   {tech}
                                 </span>
                               ))}
@@ -968,7 +968,7 @@ export default function EcosystemMetrics() {
                             href={app.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold hover:shadow-lg hover:shadow-primary/20 transition-all"
+                            className="text-xs px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-primary/20 transition-all"
                             onClick={(e) => e.stopPropagation()}
                             data-testid={`visit-${app.id}`}
                           >
@@ -992,7 +992,7 @@ export default function EcosystemMetrics() {
           className="mb-16 lg:mb-24"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-6 bg-black/5 border border-black/10 rounded-full" />
+            <div className="w-1 h-6 bg-white/5 border border-white/[0.08] rounded-full" />
             <h2 className="text-2xl lg:text-3xl font-display font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
               Technology Footprint
             </h2>
@@ -1000,7 +1000,7 @@ export default function EcosystemMetrics() {
 
           <GlassCard glow className="rounded-2xl p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <Database className="w-5 h-5 text-gray-600" />
+              <Database className="w-5 h-5 text-[#888]" />
               <h3 className="text-lg font-semibold">{uniqueStack.length} Technologies</h3>
               <span className="text-xs text-muted-foreground">across the ecosystem</span>
             </div>
@@ -1008,7 +1008,7 @@ export default function EcosystemMetrics() {
               {uniqueStack.sort().map((tech, i) => (
                 <span
                   key={i}
-                  className="text-sm px-4 py-2 rounded-xl bg-black/5 border border-black/10 text-muted-foreground hover:border-primary/40 hover:text-[#050505] hover:bg-black/10 transition-all duration-300 cursor-default"
+                  className="text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/[0.08] text-muted-foreground hover:border-primary/40 hover:text-[#050505] hover:bg-white/10 transition-all duration-300 cursor-default"
                   data-testid={`tech-${tech.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {tech}
@@ -1025,7 +1025,7 @@ export default function EcosystemMetrics() {
           transition={{ duration: 0.5 }}
         >
           <GlassCard glow className="rounded-3xl p-10 lg:p-16 text-center">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl shadow-primary/30">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/30">
               <TrendingUp className="w-8 h-8 text-[#050505]" />
             </div>
             <h2 className="text-2xl lg:text-3xl font-display font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
@@ -1041,7 +1041,7 @@ export default function EcosystemMetrics() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/ecosystem"
-                className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
+                className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-accent text-[#050505] font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-primary/25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-primary/30 transition-all duration-300 hover:scale-105"
                 data-testid="button-explore-ecosystem"
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -1051,7 +1051,7 @@ export default function EcosystemMetrics() {
               </Link>
               <Link
                 href="/investors"
-                className="px-8 py-4 rounded-xl bg-black/5 border border-black/10 font-semibold hover:bg-black/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
+                className="px-8 py-4 rounded-xl bg-white/5 border border-white/[0.08] font-semibold hover:bg-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center gap-2"
                 data-testid="button-investor-info"
               >
                 Investor Information
@@ -1061,7 +1061,7 @@ export default function EcosystemMetrics() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-black/5 py-10 backdrop-blur-xl bg-[#f8f9fa]/30">
+      <footer className="border-t border-white/[0.05] py-10 backdrop-blur-xl bg-[#050505]/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-muted-foreground">DarkWave Studios, LLC &middot; All metrics represent hand-written source code only</p>
         </div>

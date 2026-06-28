@@ -227,7 +227,7 @@ const projects = [
     description: "Immersive entertainment and digital experience platform",
     tech: ["Entertainment", "AI", "Immersive"],
     image: "/ecosystem/trust-layer-icon.png",
-    gradient: "from-gray-500/20 to-slate-600/20",
+    gradient: "from-[#0a0a0a]0/20 to-slate-600/20",
     url: "https://intothevoid.app"
   },
   {
@@ -472,7 +472,7 @@ export default function Home() {
           
           <div className="hidden lg:flex max-w-7xl mx-auto px-6 py-4 items-center justify-between">
             <Link href="/" className="font-display text-xl font-black tracking-tight flex items-center gap-2">
-              <div className="w-6 h-6 bg-white flex items-center justify-center rounded-[2px]">
+              <div className="w-6 h-6 bg-[#0a0a0a] flex items-center justify-center rounded-[2px]">
                 <Shield className="w-4 h-4 text-black" />
               </div>
               DarkWave Systems
@@ -484,7 +484,7 @@ export default function Home() {
               <a 
                 href="https://dwtl.io/presale" 
                 target="_blank"
-                className="btn-glow bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
+                className="btn-glow bg-[#0a0a0a]/5 border border-white/10 text-white px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
               >
                 $SIG Presale
               </a>
@@ -495,7 +495,7 @@ export default function Home() {
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pt-32 lg:pb-24 max-w-7xl">
           
           <motion.section variants={staggerContainer} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-20 lg:mb-32 relative z-10">
-            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-white/5 border border-cyan-500/30 rounded-sm px-4 py-1.5 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+            <motion.div variants={staggerItem} className="inline-flex items-center gap-2 bg-[#0a0a0a]/5 border border-cyan-500/30 rounded-sm px-4 py-1.5 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)]">
               <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
               <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">US Provisional Patent (64/032,339)</span>
             </motion.div>
@@ -513,7 +513,7 @@ export default function Home() {
                <a href="#core" className="btn-brutal bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all">
                  Explore Platforms
                </a>
-               <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-white text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
+               <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-[#0a0a0a] text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
                  Join Presale <ArrowRight className="w-4 h-4" />
                </a>
             </motion.div>
@@ -528,13 +528,13 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
               {CORE_APPS.map((app, idx) => (
                 <a href={app.url} target="_blank" key={idx} className="block group">
-                  <div className="glass-card-surface p-6 lg:p-8 h-full rounded-sm border border-white/5 transition-all hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/30">
+                  <div className="bg-[#0a0a0a] border border-white/[0.08] p-6 lg:p-8 h-full rounded-sm border border-white/5 transition-all hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/30">
                     <div className="w-12 h-12 rounded-sm bg-black border border-white/10 flex items-center justify-center mb-6 group-hover:border-white/50 transition-colors">
-                      <app.icon className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+                      <app.icon className="w-6 h-6 text-[#555] group-hover:text-white transition-colors" />
                     </div>
-                    <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">{app.tag}</div>
+                    <div className="text-[10px] font-bold text-[#666] uppercase tracking-widest mb-2">{app.tag}</div>
                     <h3 className="text-xl font-black mb-3 text-white font-display uppercase tracking-tight">{app.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed font-sans">{app.desc}</p>
+                    <p className="text-sm text-[#555] leading-relaxed font-sans">{app.desc}</p>
                   </div>
                 </a>
               ))}
@@ -562,7 +562,7 @@ export default function Home() {
                   key={`${project.id}-${currentProject}`}
                   className="group block [perspective:1000px]"
                 >
-                  <div className="glass-card-surface rounded-sm overflow-hidden border border-white/5 h-full transition-all duration-300 group-hover:border-white/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
+                  <div className="bg-[#0a0a0a] border border-white/[0.08] rounded-sm overflow-hidden border border-white/5 h-full transition-all duration-300 group-hover:border-white/30 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:-translate-y-1 group-hover:rotate-x-2 group-hover:-rotate-y-2 relative">
                     <div className="w-full h-40 bg-[#050505] overflow-hidden border-b border-white/5">
                       <img 
                         src={project.image} 
@@ -572,10 +572,10 @@ export default function Home() {
                     </div>
                     <div className="p-6">
                       <h3 className="text-lg font-black mb-2 text-white font-display uppercase tracking-tight">{project.title}</h3>
-                      <p className="text-sm text-gray-400 line-clamp-2 mb-4 font-sans">{project.description}</p>
+                      <p className="text-sm text-[#555] line-clamp-2 mb-4 font-sans">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {project.tech.slice(0, 3).map((tech) => (
-                          <span key={tech} className="text-[10px] font-bold bg-white/5 border border-white/10 px-2.5 py-1 rounded-sm text-gray-500 uppercase tracking-widest">{tech}</span>
+                          <span key={tech} className="text-[10px] font-bold bg-[#0a0a0a]/5 border border-white/10 px-2.5 py-1 rounded-sm text-[#666] uppercase tracking-widest">{tech}</span>
                         ))}
                       </div>
                     </div>

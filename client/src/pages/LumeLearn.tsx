@@ -188,25 +188,25 @@ export default function LumeLearn() {
     /* ─── PIN GATE ─── */
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen bg-[#f8f9fa] flex items-center justify-center font-sans px-4">
+            <div className="min-h-screen bg-[#050505] flex items-center justify-center font-sans px-4">
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="p-6 sm:p-8 border border-[#1e293b] bg-[#0f172a]/50 backdrop-blur-md rounded-2xl w-full max-w-sm text-center shadow-2xl"
+                    className="p-6 sm:p-8 border border-[#1e293b] bg-[#0f172a]/50 backdrop-blur-md rounded-2xl w-full max-w-sm text-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
                 >
                     <Lock className="w-10 h-10 sm:w-12 sm:h-12 text-[#050505] mx-auto mb-4 sm:mb-6" />
                     <h2 className="text-xl sm:text-2xl font-black text-[#050505] tracking-widest mb-2">RESTRICTED</h2>
-                    <p className="text-slate-400 text-xs sm:text-sm mb-4 sm:mb-6">Enter Director PIN to access LumeLearn Portal</p>
+                    <p className="text-[#555] text-xs sm:text-sm mb-4 sm:mb-6">Enter Director PIN to access LumeLearn Portal</p>
                     <form onSubmit={handlePinSubmit}>
                         <Input 
                             type="password" 
-                            className={`bg-black/50 border-${error ? 'red-500' : 'cyan-900'} text-center tracking-[1em] text-lg mb-4 text-gray-600`}
+                            className={`bg-white/50 border-${error ? 'red-500' : 'cyan-900'} text-center tracking-[1em] text-lg mb-4 text-[#888]`}
                             value={pinEntry}
                             onChange={(e) => setPinEntry(e.target.value)}
                             maxLength={4}
                             autoFocus
                         />
-                        <Button type="submit" variant="outline" className="w-full border-black/10 text-gray-600 hover:bg-cyan-950/50">
+                        <Button type="submit" variant="outline" className="w-full border-white/[0.08] text-[#888] hover:bg-cyan-950/50">
                             VERIFY
                         </Button>
                     </form>
@@ -232,7 +232,7 @@ export default function LumeLearn() {
                         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                             <button
                                 onClick={() => setTocOpen(!tocOpen)}
-                                className="p-2 rounded-lg text-slate-400 hover:text-[#050505] hover:bg-slate-800 transition-colors"
+                                className="p-2 rounded-lg text-[#555] hover:text-[#050505] hover:bg-slate-800 transition-colors"
                                 title="Table of Contents"
                             >
                                 <List className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -249,13 +249,13 @@ export default function LumeLearn() {
                         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
                             <button
                                 onClick={() => setReaderFullscreen(!readerFullscreen)}
-                                className="hidden sm:flex p-2 rounded-lg text-slate-400 hover:text-[#050505] hover:bg-slate-800 transition-colors"
+                                className="hidden sm:flex p-2 rounded-lg text-[#555] hover:text-[#050505] hover:bg-slate-800 transition-colors"
                             >
                                 {readerFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
                             </button>
                             <button
                                 onClick={() => { setReaderOpen(false); setTocOpen(false); }}
-                                className="p-2 rounded-lg text-slate-400 hover:text-[#050505] hover:bg-red-900/50 transition-colors"
+                                className="p-2 rounded-lg text-[#555] hover:text-[#050505] hover:bg-red-900/50 transition-colors"
                             >
                                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
                             </button>
@@ -283,7 +283,7 @@ export default function LumeLearn() {
                                             <h3 className="text-xs font-bold text-teal-400 tracking-widest mb-4">TABLE OF CONTENTS</h3>
                                             {EREADER_CHAPTERS.map((section) => (
                                                 <div key={section.section} className="mb-4">
-                                                    <p className="text-[10px] font-mono text-slate-500 tracking-wider mb-2 uppercase">{section.section}</p>
+                                                    <p className="text-[10px] font-mono text-[#666] tracking-wider mb-2 uppercase">{section.section}</p>
                                                     {section.chapters.map((ch) => {
                                                         const globalIdx = ALL_CHAPTERS.findIndex(c => c.id === ch.id);
                                                         const isCurrent = globalIdx === readerChapterIdx;
@@ -294,10 +294,10 @@ export default function LumeLearn() {
                                                                 className={`w-full text-left px-3 py-2 rounded-lg text-xs mb-1 transition-all ${
                                                                     isCurrent 
                                                                         ? 'bg-teal-500/15 text-teal-300 border border-teal-500/30' 
-                                                                        : 'text-slate-400 hover:text-[#050505] hover:bg-black/5'
+                                                                        : 'text-[#555] hover:text-[#050505] hover:bg-white/5'
                                                                 }`}
                                                             >
-                                                                <span className="text-[10px] font-mono text-slate-600 mr-2">#{ch.id}</span>
+                                                                <span className="text-[10px] font-mono text-[#888] mr-2">#{ch.id}</span>
                                                                 {ch.title}
                                                             </button>
                                                         );
@@ -327,7 +327,7 @@ export default function LumeLearn() {
                                     <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 border border-teal-500/30 text-teal-400 font-mono font-bold text-sm sm:text-base">
                                         {currentChapter?.id}
                                     </span>
-                                    <div className="text-[10px] sm:text-xs text-slate-500 font-mono">
+                                    <div className="text-[10px] sm:text-xs text-[#666] font-mono">
                                         {currentSection?.section}
                                     </div>
                                 </div>
@@ -338,7 +338,7 @@ export default function LumeLearn() {
                                 </h1>
 
                                 {/* Meta */}
-                                <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-8 sm:mb-10 text-[10px] sm:text-xs text-slate-500 font-mono">
+                                <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-8 sm:mb-10 text-[10px] sm:text-xs text-[#666] font-mono">
                                     <span>DarkWave Studios LLC</span>
                                     <span className="hidden sm:inline">·</span>
                                     <span>Lume Ecosystem Canon</span>
@@ -373,9 +373,9 @@ export default function LumeLearn() {
                                     <h2 className="text-xs font-bold text-teal-400 tracking-widest mb-4">KEY CONCEPTS</h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {['Deterministic Execution', 'Cryptographic Verification', 'Governance by Construction', 'Autonomous Self-Healing'].map(concept => (
-                                            <div key={concept} className="flex items-center gap-3 p-3 rounded-lg bg-black/[0.02] border border-white/[0.05]">
+                                            <div key={concept} className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/[0.05]">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0" />
-                                                <span className="text-xs sm:text-sm text-slate-400">{concept}</span>
+                                                <span className="text-xs sm:text-sm text-[#555]">{concept}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -383,17 +383,17 @@ export default function LumeLearn() {
 
                                 {/* Zenodo Link */}
                                 {currentChapter?.doi && (
-                                    <div className="p-4 sm:p-6 rounded-xl bg-[#0b1628] border border-black/10 mb-10">
+                                    <div className="p-4 sm:p-6 rounded-xl bg-[#0b1628] border border-white/[0.08] mb-10">
                                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                                             <div>
-                                                <p className="text-xs text-slate-500 mb-1">Full preprint available on Zenodo</p>
-                                                <p className="text-xs sm:text-sm font-mono text-gray-600 break-all">{currentChapter.doi}</p>
+                                                <p className="text-xs text-[#666] mb-1">Full preprint available on Zenodo</p>
+                                                <p className="text-xs sm:text-sm font-mono text-[#888] break-all">{currentChapter.doi}</p>
                                             </div>
                                             <a
                                                 href={`https://doi.org/${currentChapter.doi}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="shrink-0 px-4 py-2 rounded-lg bg-black/5 border border-black/10 text-gray-600 text-xs font-semibold hover:bg-black/10 transition-colors"
+                                                className="shrink-0 px-4 py-2 rounded-lg bg-white/5 border border-white/[0.08] text-[#888] text-xs font-semibold hover:bg-white/10 transition-colors"
                                             >
                                                 View on Zenodo →
                                             </a>
@@ -409,7 +409,7 @@ export default function LumeLearn() {
                         <button
                             onClick={prevChapter}
                             disabled={readerChapterIdx === 0}
-                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-[#050505] hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-[#555] hover:text-[#050505] hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                         >
                             <ChevronLeft className="w-4 h-4" />
                             <span className="hidden sm:inline">Previous</span>
@@ -418,7 +418,7 @@ export default function LumeLearn() {
                         {/* Progress bar */}
                         <div className="flex-1 max-w-xs sm:max-w-md mx-3 sm:mx-6">
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <span className="text-[10px] sm:text-xs text-slate-500 font-mono shrink-0">{readerChapterIdx + 1}/{ALL_CHAPTERS.length}</span>
+                                <span className="text-[10px] sm:text-xs text-[#666] font-mono shrink-0">{readerChapterIdx + 1}/{ALL_CHAPTERS.length}</span>
                                 <div className="flex-1 h-1 bg-slate-800 rounded-full overflow-hidden">
                                     <motion.div 
                                         className="h-full bg-gradient-to-r from-teal-500 to-cyan-400 rounded-full"
@@ -433,7 +433,7 @@ export default function LumeLearn() {
                         <button
                             onClick={nextChapter}
                             disabled={readerChapterIdx === ALL_CHAPTERS.length - 1}
-                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-[#050505] hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-[#555] hover:text-[#050505] hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                         >
                             <span className="hidden sm:inline">Next</span>
                             <ChevronRight className="w-4 h-4" />
@@ -446,7 +446,7 @@ export default function LumeLearn() {
 
     /* ─── MAIN PAGE ─── */
     return (
-        <div className="min-h-screen bg-[#f8f9fa] text-[#e2e8f0] font-sans selection:bg-teal-500/30 overflow-x-hidden pt-16 sm:pt-24 pb-12 sm:pb-16">
+        <div className="min-h-screen bg-[#050505] text-[#e2e8f0] font-sans selection:bg-teal-500/30 overflow-x-hidden pt-16 sm:pt-24 pb-12 sm:pb-16">
             <ReaderModal />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -464,7 +464,7 @@ export default function LumeLearn() {
                     <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#050505] tracking-tight mb-4 sm:mb-6 drop-shadow-md">
                         Lume<span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400">Learn</span>
                     </h1>
-                    <p className="text-sm sm:text-lg lg:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-light px-2">
+                    <p className="text-sm sm:text-lg lg:text-xl text-[#555] max-w-3xl mx-auto leading-relaxed font-light px-2">
                         The definitive auditory extraction of the 42-Paper Lume Architecture. Synthesized for passive integration by ElevenLabs/OpenAI intelligence.
                     </p>
                 </motion.div>
@@ -476,8 +476,8 @@ export default function LumeLearn() {
                             onClick={() => setActiveTab('listen')}
                             className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                                 activeTab === 'listen' 
-                                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] shadow-lg shadow-teal-500/25' 
-                                    : 'text-slate-400 hover:text-[#050505]'
+                                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-teal-500/25' 
+                                    : 'text-[#555] hover:text-[#050505]'
                             }`}
                         >
                             <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -487,8 +487,8 @@ export default function LumeLearn() {
                             onClick={() => setActiveTab('read')}
                             className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                                 activeTab === 'read' 
-                                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] shadow-lg shadow-teal-500/25' 
-                                    : 'text-slate-400 hover:text-[#050505]'
+                                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-teal-500/25' 
+                                    : 'text-[#555] hover:text-[#050505]'
                             }`}
                         >
                             <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -565,25 +565,25 @@ export default function LumeLearn() {
                                             transition={{ delay: idx * 0.08 }}
                                             className={`
                                                 bg-[#0b0c10] border rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative group overflow-hidden transition-all duration-500
-                                                ${isPlaying ? 'border-teal-400 shadow-[0_0_30px_rgba(20,184,166,0.15)]' : 'border-slate-800/60 hover:border-black/10 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]'}
+                                                ${isPlaying ? 'border-teal-400 shadow-[0_0_30px_rgba(20,184,166,0.15)]' : 'border-slate-800/60 hover:border-white/[0.08] hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]'}
                                             `}
                                         >
-                                            <div className={`absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 blur-[50px] rounded-full transition-all duration-1000 ${isPlaying ? 'bg-teal-500/20' : 'bg-black/5 group-hover:bg-cyan-400/20'}`} />
+                                            <div className={`absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 blur-[50px] rounded-full transition-all duration-1000 ${isPlaying ? 'bg-teal-500/20' : 'bg-white/5 group-hover:bg-cyan-400/20'}`} />
                                             
                                             <div className="flex justify-between items-start mb-3 sm:mb-4">
                                                 <h3 className="text-base sm:text-xl font-bold text-[#050505] leading-tight pr-3">{module.title}</h3>
-                                                <div className="text-[10px] sm:text-xs font-mono text-[#050505] bg-cyan-950/30 px-2 py-1 rounded border border-black/10 shrink-0">
+                                                <div className="text-[10px] sm:text-xs font-mono text-[#050505] bg-cyan-950/30 px-2 py-1 rounded border border-white/[0.08] shrink-0">
                                                     {module.duration}
                                                 </div>
                                             </div>
-                                            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8 line-clamp-4 sm:h-20 sm:overflow-hidden">
+                                            <p className="text-[#555] text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8 line-clamp-4 sm:h-20 sm:overflow-hidden">
                                                 {module.desc}
                                             </p>
                                             
                                             <div className="flex items-center gap-2 sm:gap-3 relative z-10 w-full">
                                                 <Button 
                                                     onClick={() => togglePlayback(module.id)}
-                                                    className={`flex-1 text-xs sm:text-sm ${isPlaying ? 'bg-teal-600 hover:bg-teal-500' : 'bg-cyan-600 hover:bg-[#f8f9fa]'} text-[#050505] transition-colors`}
+                                                    className={`flex-1 text-xs sm:text-sm ${isPlaying ? 'bg-teal-600 hover:bg-teal-500' : 'bg-cyan-600 hover:bg-[#050505]'} text-[#050505] transition-colors`}
                                                 >
                                                     {isPlaying ? <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" /> : <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />}
                                                     {isPlaying ? 'PAUSE' : 'LISTEN'}
@@ -614,12 +614,12 @@ export default function LumeLearn() {
                             <div className="text-center mb-8 sm:mb-10">
                                 <button
                                     onClick={() => openReader(0)}
-                                    className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] font-bold text-sm sm:text-base shadow-xl shadow-teal-500/20 hover:shadow-2xl hover:shadow-teal-500/30 hover:scale-[1.02] transition-all"
+                                    className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl bg-gradient-to-r from-teal-600 to-cyan-600 text-[#050505] font-bold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-teal-500/20 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-teal-500/30 hover:scale-[1.02] transition-all"
                                 >
                                     <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                                     Open Immersive Reader
                                 </button>
-                                <p className="text-[10px] sm:text-xs text-slate-500 mt-3">Keyboard: ← → to navigate, ESC to close</p>
+                                <p className="text-[10px] sm:text-xs text-[#666] mt-3">Keyboard: ← → to navigate, ESC to close</p>
                             </div>
 
                             {/* Chapter Listing by Section */}
@@ -654,7 +654,7 @@ export default function LumeLearn() {
                                                                 {ch.title}
                                                             </h3>
                                                         </div>
-                                                        <p className="text-[10px] sm:text-xs text-slate-500 leading-relaxed line-clamp-2 sm:line-clamp-3 pl-10 sm:pl-11">
+                                                        <p className="text-[10px] sm:text-xs text-[#666] leading-relaxed line-clamp-2 sm:line-clamp-3 pl-10 sm:pl-11">
                                                             {ch.abstract}
                                                         </p>
                                                         {ch.doi && (

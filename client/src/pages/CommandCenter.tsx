@@ -311,7 +311,7 @@ const categories: CommandCategory[] = [
   {
     title: "Documents & Legal",
     icon: <FolderOpen className="size-4" />,
-    gradient: "from-slate-400 to-gray-500",
+    gradient: "from-slate-400 to-[#0a0a0a]0",
     description: "All business documents, policies, and public-facing pages. Access the business plan, investor materials, legal policies, and compliance disclosures from one place.",
     cards: [
       {
@@ -395,29 +395,29 @@ const categories: CommandCategory[] = [
 
 function SkeletonLoader() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa]">
-      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/80 border-b border-black/5">
+    <div className="min-h-screen bg-[#050505]">
+      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
-            <div className="w-40 h-6 rounded-lg bg-black/5 animate-pulse" />
+            <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
+            <div className="w-40 h-6 rounded-lg bg-white/5 animate-pulse" />
           </div>
-          <div className="w-24 h-8 rounded-lg bg-black/5 animate-pulse" />
+          <div className="w-24 h-8 rounded-lg bg-white/5 animate-pulse" />
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         {[1, 2, 3].map((i) => (
           <div key={i}>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-black/5 animate-pulse" />
+              <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
               <div className="space-y-2">
-                <div className="w-32 h-5 rounded bg-black/5 animate-pulse" />
-                <div className="w-64 h-3 rounded bg-black/5 animate-pulse" />
+                <div className="w-32 h-5 rounded bg-white/5 animate-pulse" />
+                <div className="w-64 h-3 rounded bg-white/5 animate-pulse" />
               </div>
             </div>
             <div className="flex gap-4 overflow-hidden">
               {[1, 2, 3, 4].map((j) => (
-                <div key={j} className="min-w-[280px] h-[200px] rounded-2xl bg-black/[0.03] animate-pulse" />
+                <div key={j} className="min-w-[280px] h-[200px] rounded-2xl bg-white/[0.03] animate-pulse" />
               ))}
             </div>
           </div>
@@ -442,7 +442,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
     >
       <Link href={card.href} data-testid={`command-${card.href.replace(/\//g, "-").slice(1)}`}>
         <div
-          className={`group relative h-[260px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-black/5 hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
+          className={`group relative h-[260px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] border border-white/[0.05] hover:border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 ${
             card.featured ? "ring-1 ring-white/10" : ""
           }`}
           style={cardStyle}
@@ -462,7 +462,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-[#050505] shadow-lg">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-[#050505] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 {card.badge}
               </span>
             </div>
@@ -470,7 +470,7 @@ function LaunchCardComponent({ card, index }: { card: LaunchCard; index: number 
 
           <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
             <div className="flex items-center gap-3 mb-2.5">
-              <div className="w-9 h-9 rounded-lg bg-black/10 backdrop-blur-sm flex items-center justify-center border border-black/10">
+              <div className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/[0.08]">
                 {card.icon}
               </div>
               <h3 className="font-display font-bold text-[15px] text-[#050505] group-hover:text-[#050505]/90 transition-colors" data-testid={`text-label-${card.href.replace(/\//g, "-").slice(1)}`}>
@@ -522,7 +522,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
         <div className="flex items-center justify-center gap-3 mt-4">
           <button
             onClick={() => api?.scrollPrev()}
-            className="h-8 w-8 rounded-full bg-black/60 border border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
+            className="h-8 w-8 rounded-full bg-black/60 border border-white/[0.08] hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
             data-testid={`prev-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
             aria-label="Previous slide"
           >
@@ -535,8 +535,8 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
                 onClick={() => api?.scrollTo(i)}
                 className={`rounded-full transition-all duration-300 ${
                   i === currentSlide
-                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]"
-                    : "w-2 h-2 bg-black/20 hover:bg-[#f8f9fa]/40"
+                    ? "w-6 h-2 bg-cyan-400 shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_10px_30px_rgba(255,255,255,0.05)]"
+                    : "w-2 h-2 bg-black/20 hover:bg-[#050505]/40"
                 }`}
                 data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -545,7 +545,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
           </div>
           <button
             onClick={() => api?.scrollNext()}
-            className="h-8 w-8 rounded-full bg-black/60 border border-black/10 hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
+            className="h-8 w-8 rounded-full bg-black/60 border border-white/[0.08] hover:bg-black/80 text-[#050505] backdrop-blur-sm flex items-center justify-center transition-colors"
             data-testid={`next-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}`}
             aria-label="Next slide"
           >
@@ -593,7 +593,7 @@ export default function CommandCenter() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#f8f9fa] text-[#050505] flex items-center justify-center">
+      <div className="min-h-screen bg-[#050505] text-[#050505] flex items-center justify-center">
         <div className="fixed inset-0 bg-gradient-to-b from-[#f8f9fa] via-[#f8f9fa]/80 to-[#f8f9fa]" />
         <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_50%)]" />
 
@@ -604,7 +604,7 @@ export default function CommandCenter() {
           className="relative w-full max-w-md mx-4"
         >
           <GlassCard glow className="relative rounded-2xl overflow-hidden p-8 lg:p-10">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-black/5 border border-black/10 flex items-center justify-center shadow-2xl shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/[0.08] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
               <Command className="w-8 h-8 text-[#050505]" />
             </div>
             <h1 className="text-2xl font-display font-bold text-center mb-2 text-[#050505]">
@@ -621,7 +621,7 @@ export default function CommandCenter() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Access code"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.04] border border-black/10 text-[#050505] placeholder:text-[#050505]/30 focus:outline-none focus:border-black/10 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#0a0a0a]/[0.04] border border-white/[0.08] text-[#050505] placeholder:text-[#050505]/30 focus:outline-none focus:border-white/[0.08] focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
                   data-testid="input-command-password"
                   autoFocus
                 />
@@ -631,7 +631,7 @@ export default function CommandCenter() {
               )}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-black/5 border border-black/10 text-[#050505] font-semibold shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-white/5 border border-white/[0.08] text-[#050505] font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                 data-testid="button-command-login"
               >
                 <Unlock className="w-4 h-4" />
@@ -647,19 +647,19 @@ export default function CommandCenter() {
   const totalFeatures = categories.reduce((sum, cat) => sum + cat.cards.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#050505] overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-[#050505] overflow-x-hidden">
       <div className="fixed inset-0 bg-gradient-to-b from-[#f8f9fa] via-[#f8f9fa]/80 to-[#f8f9fa] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.05),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#f8f9fa]/80 border-b border-black/5">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/[0.05]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-black/10 hover:border-black/20 transition-all duration-300" data-testid="button-back-home">
+            <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center hover:bg-white/10 hover:border-white/[0.1] transition-all duration-300" data-testid="button-back-home">
               <ArrowLeft className="w-5 h-5 text-[#050505]/70" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
                 <Command className="w-5 h-5 text-[#050505]" />
               </div>
               <div>
@@ -675,7 +675,7 @@ export default function CommandCenter() {
             </div>
             <button
               onClick={handleLogout}
-              className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300 group"
+              className="w-10 h-10 rounded-xl bg-white/5 border border-white/[0.08] flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/20 transition-all duration-300 group"
               data-testid="button-command-logout"
             >
               <LogOut className="w-4 h-4 text-[#050505]/50 group-hover:text-red-400 transition-colors" />
@@ -699,7 +699,7 @@ export default function CommandCenter() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#070b16]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
             <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-[#050505]">
-              Master <span className="bg-gradient-to-r bg-black/5 bg-clip-text text-transparent">Command Center</span>
+              Master <span className="bg-gradient-to-r bg-white/5 bg-clip-text text-transparent">Command Center</span>
             </h1>
             <p className="text-sm lg:text-base text-[#050505]/50 max-w-xl leading-relaxed">
               Every tool. Every page. One click away. {totalFeatures} features organized across {categories.length} categories.
@@ -720,7 +720,7 @@ export default function CommandCenter() {
               transition={{ duration: 0.4, delay: catIndex * 0.08 }}
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5`}>
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex-shrink-0 mt-0.5`}>
                   {category.icon}
                 </div>
                 <div>

@@ -133,7 +133,7 @@ function Credits() {
               <Coins className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold mb-2">AI Credits</h1>
-            <p className="text-gray-600">Sign in to manage your AI credits and usage</p>
+            <p className="text-[#888]">Sign in to manage your AI credits and usage</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -143,15 +143,15 @@ function Credits() {
             <GlassCard className="p-6 rounded-xl">
               <form onSubmit={handleLogin} className="space-y-4" data-testid="credits-login-form">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Username</label>
+                  <label className="block text-sm text-[#888] mb-1">Username</label>
                   <input type="text" value={loginForm.username} onChange={(e) => setLoginForm(f => ({ ...f, username: e.target.value }))}
-                    className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-3 text-[#050505] focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-3 text-[#050505] focus:border-amber-500 focus:outline-none"
                     placeholder="Your Trust Layer username" data-testid="input-credits-username" />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Password</label>
+                  <label className="block text-sm text-[#888] mb-1">Password</label>
                   <input type="password" value={loginForm.password} onChange={(e) => setLoginForm(f => ({ ...f, password: e.target.value }))}
-                    className="w-full bg-black/5 border border-black/10 rounded-lg px-4 py-3 text-[#050505] focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-white/5 border border-white/[0.08] rounded-lg px-4 py-3 text-[#050505] focus:border-amber-500 focus:outline-none"
                     placeholder="Your password" data-testid="input-credits-password" />
                 </div>
                 {loginError && <p className="text-red-400 text-sm">{loginError}</p>}
@@ -180,13 +180,13 @@ function Credits() {
           className="flex items-center gap-4 mb-8"
         >
           <Link href="/">
-            <button className="p-2 rounded-lg bg-black/5 hover:bg-black/10 transition" data-testid="button-credits-back">
+            <button className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition" data-testid="button-credits-back">
               <ArrowLeft className="w-5 h-5" />
             </button>
           </Link>
           <div>
             <h1 className="text-3xl font-bold">AI Credits</h1>
-            <p className="text-gray-600 text-sm">Track your usage and purchase credits</p>
+            <p className="text-[#888] text-sm">Track your usage and purchase credits</p>
           </div>
         </motion.div>
 
@@ -195,7 +195,7 @@ function Credits() {
             <Check className="w-6 h-6 text-green-400 shrink-0" />
             <div>
               <p className="font-semibold text-green-400">Credits Added Successfully!</p>
-              <p className="text-sm text-gray-600">{verifyMutation.data?.creditsAdded} credits have been added to your account.</p>
+              <p className="text-sm text-[#888]">{verifyMutation.data?.creditsAdded} credits have been added to your account.</p>
             </div>
           </GlassCard>
         )}
@@ -219,7 +219,7 @@ function Credits() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
                 <Coins className="w-5 h-5" />
               </div>
-              <span className="text-gray-600 text-sm">Available Credits</span>
+              <span className="text-[#888] text-sm">Available Credits</span>
             </div>
             {loadingBalance ? (
               <div className="h-10 shimmer-skeleton rounded-lg" />
@@ -232,7 +232,7 @@ function Credits() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <span className="text-gray-600 text-sm">Total Purchased</span>
+              <span className="text-[#888] text-sm">Total Purchased</span>
             </div>
             {loadingBalance ? (
               <div className="h-10 shimmer-skeleton rounded-lg" />
@@ -245,7 +245,7 @@ function Credits() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500 to-cyan-600 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
-              <span className="text-gray-600 text-sm">Total Used</span>
+              <span className="text-[#888] text-sm">Total Used</span>
             </div>
             {loadingBalance ? (
               <div className="h-10 shimmer-skeleton rounded-lg" />
@@ -271,7 +271,7 @@ function Credits() {
               const Icon = categoryIcons[key] || Zap;
               return (
                 <GlassCard key={key} className="p-4 rounded-xl flex items-center gap-3" data-testid={`cost-${key}`}>
-                  <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
                     <Icon className="w-4 h-4 text-amber-400" />
                   </div>
                   <div>
@@ -309,8 +309,8 @@ function Credits() {
                 )}
                 <h3 className="text-lg font-bold mb-1">{pkg.label}</h3>
                 <p className="text-3xl font-bold mb-1">${(pkg.price / 100).toFixed(2)}</p>
-                <p className="text-sm text-gray-600 mb-4">{pkg.description}</p>
-                <p className="text-xs text-gray-600 mb-4">
+                <p className="text-sm text-[#888] mb-4">{pkg.description}</p>
+                <p className="text-xs text-[#888] mb-4">
                   ${(pkg.price / pkg.credits / 100).toFixed(3)} per credit
                 </p>
                 <button
@@ -356,7 +356,7 @@ function Credits() {
                       </div>
                       <div>
                         <p className="text-sm font-medium">{tx.description}</p>
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-[#888]">
                           {tx.category && <span className="capitalize">{tx.category.replace("-", " ")} · </span>}
                           {new Date(tx.createdAt).toLocaleString()}
                         </p>
@@ -366,7 +366,7 @@ function Credits() {
                       <p className={`font-bold ${isPositive ? "text-green-400" : "text-sky-400"}`}>
                         {isPositive ? "+" : ""}{tx.amount}
                       </p>
-                      <p className="text-xs text-gray-600">Bal: {tx.balanceAfter}</p>
+                      <p className="text-xs text-[#888]">Bal: {tx.balanceAfter}</p>
                     </div>
                   </GlassCard>
                 );
@@ -374,9 +374,9 @@ function Credits() {
             </div>
           ) : (
             <GlassCard className="text-center py-16 rounded-xl">
-              <History className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+              <History className="w-12 h-12 text-[#888] mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No transactions yet</h3>
-              <p className="text-gray-600 text-sm">Purchase credits above to get started with AI features</p>
+              <p className="text-[#888] text-sm">Purchase credits above to get started with AI features</p>
             </GlassCard>
           )}
         </motion.div>

@@ -254,8 +254,8 @@ function PulseApiDocs() {
         
         <div className="space-y-4">
           {pulseEndpoints.map((endpoint) => (
-            <div key={endpoint.path} className="bg-black/30 rounded-xl border border-black/10 overflow-hidden" data-testid={`endpoint-${endpoint.path.replace(/\//g, '-')}`}>
-              <div className="p-4 border-b border-black/10">
+            <div key={endpoint.path} className="bg-black/30 rounded-xl border border-white/[0.08] overflow-hidden" data-testid={`endpoint-${endpoint.path.replace(/\//g, '-')}`}>
+              <div className="p-4 border-b border-white/[0.08]">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="px-2 py-1 rounded text-xs font-bold bg-green-500/20 text-green-400">{endpoint.method}</span>
                   <code className="text-sm font-mono text-[#050505]">{endpoint.path}</code>
@@ -297,7 +297,7 @@ function PulseApiDocs() {
 
 export default function Developers() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-foreground overflow-x-hidden">
       <SEOHead
         title="Developers - DarkWave Studios"
         description="Developer tools and APIs for building with DarkWave Studios. Access Trust Layer widgets, Guardian AI certification, and Studio IDE."
@@ -314,7 +314,7 @@ export default function Developers() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)] -z-10" />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-black border-b border-black/10">
+      <header className="sticky top-0 z-50 bg-black border-b border-white/[0.08]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
             <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
@@ -474,8 +474,8 @@ export default function Developers() {
               {/* Tech & Startup Publications */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-gray-600" />
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-[#888]" />
                   </div>
                   <h3 className="text-lg font-semibold">Tech & Startup Publications</h3>
                 </div>
@@ -488,15 +488,15 @@ export default function Developers() {
                     { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
                     { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-black/10 hover:bg-black/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/[0.08] hover:border-white/[0.08] hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <pub.icon className="w-4 h-4 text-gray-600" />
+                          <pub.icon className="w-4 h-4 text-[#888]" />
                           <span className="font-semibold text-sm">{pub.name}</span>
                         </div>
                         <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-black/5 text-gray-600 font-medium">{pub.type}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-[#888] font-medium">{pub.type}</span>
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
                     </a>
                   ))}
@@ -520,7 +520,7 @@ export default function Developers() {
                     { name: "Blockchain News", url: "https://www.the-blockchain.com/submit-press-release/", type: "Press release submission", pitch: "Trust Layer ecosystem — wallet, DEX, bridge, staking, explorer", icon: Zap },
                     { name: "NFT Now", url: "https://nftnow.com", type: "NFT/digital asset coverage", pitch: "Signal asset presale, blockchain-verified widget marketplace", icon: Sparkles },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-sky-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/[0.08] hover:border-sky-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-crypto-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-sky-400" />
@@ -552,7 +552,7 @@ export default function Developers() {
                     { name: "QSR Magazine", url: "https://www.qsrmagazine.com", type: "Food service industry", pitch: "TL Driver Connect / Happy Eats — multi-tenant delivery platform with zone ordering", icon: Target, color: "amber" },
                     { name: "Venue Management Association", url: "https://www.iavm.org", type: "Venue operations", pitch: "Orby Commander — stadium/arena command center with emergency response + delivery tracking", icon: Building2, color: "amber" },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-amber-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/[0.08] hover:border-amber-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-industry-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-amber-400" />
@@ -584,7 +584,7 @@ export default function Developers() {
                     { name: "AlternativeTo", url: "https://alternativeto.net/manage-apps/", type: "Software alternative directory", pitch: "Position against competitors — PaintPros vs Jobber, ORBIT vs Bullhorn", icon: Globe },
                     { name: "StackShare", url: "https://stackshare.io", type: "Tech stack community", pitch: "Showcase the full ecosystem tech stack — great for developer credibility", icon: Boxes },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-black/5 border border-black/10 hover:border-emerald-500/30 hover:bg-black/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/[0.08] hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-saas-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <pub.icon className="w-4 h-4 text-emerald-400" />
@@ -647,7 +647,7 @@ export default function Developers() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-black/10">
+                <div className="mt-4 pt-4 border-t border-white/[0.08]">
                   <p className="text-xs text-muted-foreground">
                     Contact for all press inquiries: <span className="text-primary font-semibold">team@dwsc.io</span>
                   </p>
@@ -680,7 +680,7 @@ export default function Developers() {
               </Link>
               <Link 
                 href="/contact"
-                className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-black/10 transition-colors"
+                className="inline-flex items-center gap-2 glass px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors"
                 data-testid="button-cta-contact"
               >
                 Contact Us
@@ -691,7 +691,7 @@ export default function Developers() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-black/10 py-8 mt-12">
+      <footer className="border-t border-white/[0.08] py-8 mt-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground text-sm">
             &copy; {new Date().getFullYear()} DarkWave Studios. All rights reserved.
