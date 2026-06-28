@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
-import { KenBurnsBackground } from "@/components/ken-burns-background";
 import {
   Carousel,
   CarouselContent,
@@ -37,23 +36,17 @@ interface ExploreCategory {
   cards: LaunchCard[];
 }
 
-const glowMap: Record<string, string> = {
-  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(6,182,212,0.2)",
-  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
-  "shadow-amber-500/20": "0 10px 40px rgba(245,158,11,0.2)",
-  "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
-  "shadow-rose-500/20": "0 10px 40px rgba(244,63,94,0.2)",
-  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
-  "shadow-indigo-500/20": "0 10px 40px rgba(99,102,241,0.2)",
-  "shadow-green-500/20": "0 10px 40px rgba(34,197,94,0.2)",
-  "shadow-red-500/20": "0 10px 40px rgba(239,68,68,0.2)",
-  "shadow-blue-500/20": "0 10px 40px rgba(59,130,246,0.2)",
-  "shadow-yellow-500/20": "0 10px 40px rgba(234,179,8,0.2)",
-  "shadow-pink-500/20": "0 10px 40px rgba(236,72,153,0.2)",
-  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
-  "shadow-slate-500/20": "0 10px 40px rgba(100,116,139,0.2)",
-  "shadow-gray-500/20": "0 10px 40px rgba(107,114,128,0.2)",
-};
+// Rotating color accents for card image overlays — breaks the strict grayscale monotony
+const ACCENT_COLORS = [
+  "rgba(6,182,212,0.12)",    // cyan
+  "rgba(168,85,247,0.12)",   // purple
+  "rgba(245,158,11,0.12)",   // amber
+  "rgba(16,185,129,0.12)",   // emerald
+  "rgba(244,63,94,0.12)",    // rose
+  "rgba(59,130,246,0.12)",   // blue
+  "rgba(234,179,8,0.12)",    // yellow
+  "rgba(99,102,241,0.12)",   // indigo
+];
 
 const categories: ExploreCategory[] = [
   {
@@ -365,30 +358,28 @@ function SkeletonLoader() {
   );
 }
 
-function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
-  const glow = glowMap[card.glowColor] || "none";
-  const isDragging = useRef(false);
-  const startPos = useRef({ x: 0, y: 0 });
+function ExploreCard({ card, index, globalIndex }: { card: LaunchCard; index: number; globalIndex: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const accent = ACCENT_COLORS[globalIndex % ACCENT_COLORS.length];
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    startPos.current = { x: e.clientX, y: e.clientY };
-    isDragging.current = false;
-  };
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -4;
+    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 4;
+    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    el.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2 + 10}px 30px rgba(255,255,255,0.05)`;
+  }, []);
 
-  const handlePointerMove = (e: React.PointerEvent) => {
-    const dx = Math.abs(e.clientX - startPos.current.x);
-    const dy = Math.abs(e.clientY - startPos.current.y);
-    if (dx > 5 || dy > 5) {
-      isDragging.current = true;
-    }
-  };
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (isDragging.current) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+  const handleMouseLeave = useCallback(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    el.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+  }, []);
 
   return (
     <motion.div
@@ -399,46 +390,46 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
       <Link
         href={card.href}
         data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
-        onClick={handleClick}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
       >
         <div
-          className="glass-card-surface group relative h-[220px] lg:h-[240px] rounded-sm overflow-hidden cursor-pointer transition-all duration-300 border border-white/5 hover:border-white/30 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] [perspective:1000px] hover:rotate-x-2 hover:-rotate-y-2"
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
+          style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)', transformStyle: 'preserve-3d' }}
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
-          <img
-            src={card.image}
-            alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 opacity-60 group-hover:opacity-100 group-hover:scale-105"
-            loading="lazy"
-            draggable={false}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+          {/* Card Image — grayscale base + per-card color accent */}
+          <div className="relative w-full h-[200px] lg:h-[250px] overflow-hidden border-b border-white/[0.08]" style={{ pointerEvents: 'none' }}>
+            <img
+              src={card.image}
+              alt={card.label}
+              className="w-full h-full object-cover grayscale contrast-[1.1] group-hover:grayscale-0 transition-[filter] duration-500"
+              loading="lazy"
+              draggable={false}
+            />
+            {/* Color accent overlay */}
+            <div className="absolute inset-0" style={{ backgroundColor: accent, mixBlendMode: 'color' }} />
+          </div>
 
-          {card.badge && (
-            <div className="absolute top-3 right-3 z-10">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-gray-400 uppercase tracking-widest shadow-lg">
-                {card.badge}
-              </span>
-            </div>
-          )}
-
-          <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-            <div className="flex items-center gap-2 mb-1.5">
-              <div className="w-7 h-7 rounded-sm bg-white/5 flex items-center justify-center border border-white/10">
-                {card.icon}
-              </div>
-              <h3 className="font-display font-black text-sm text-white uppercase tracking-tight" data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+          {/* Card Content */}
+          <div className="p-6 lg:p-8 flex flex-col flex-grow justify-between" style={{ pointerEvents: 'none', background: 'linear-gradient(to bottom, rgba(10,10,10,0) 0%, rgba(10,10,10,1) 100%)' }}>
+            <div>
+              {card.badge && (
+                <span className="inline-block text-[10px] font-bold px-2.5 py-1 mb-3 rounded-[2px] bg-white/5 border border-white/10 text-gray-500 uppercase tracking-widest">
+                  {card.badge}
+                </span>
+              )}
+              <h3 className="font-display font-[800] text-xl lg:text-2xl text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
                 {card.label}
               </h3>
+              <p className="text-sm lg:text-base text-[#888] leading-relaxed line-clamp-3 font-sans">
+                {card.description}
+              </p>
             </div>
-            <p className="text-[11px] text-gray-400 leading-relaxed line-clamp-2 font-sans">
-              {card.description}
-            </p>
-            <div className="mt-2 flex items-center gap-1 text-[11px] text-white/50 font-bold uppercase tracking-widest group-hover:text-white transition-colors">
-              <span>Go</span>
-              <ChevronRight className="w-3 h-3" />
+            <div className="mt-6 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+              <span>Explore</span>
+              <span>→</span>
             </div>
           </div>
         </div>
@@ -447,9 +438,17 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
   );
 }
 
+// Track cumulative card index for unique accent colors
+let globalCardCounter = 0;
+
 function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; catIndex: number }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [api, setApi] = useState<any>(null);
+  const baseIndex = useRef(globalCardCounter);
+
+  useEffect(() => {
+    globalCardCounter += category.cards.length;
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -460,48 +459,44 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
   }, [api]);
 
   return (
-    <motion.section
-      key={category.title}
-      variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
-      initial="hidden"
-      animate="show"
-      transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+    <section
+      className="py-16 lg:py-24 border-b border-white/[0.08] last:border-b-0"
     >
-      <div className="mb-4">
-        <h2 className="text-lg lg:text-xl font-display font-black text-white uppercase tracking-tight">{category.title}</h2>
-        <p className="text-xs text-gray-400 leading-relaxed mt-1 max-w-2xl font-sans">{category.description}</p>
+      <div className="mb-6 lg:mb-8 text-center">
+        <h2 className="text-sm font-display font-[800] text-[#888] uppercase tracking-[0.2em] mb-3">{category.title}</h2>
+        <h3 className="text-2xl lg:text-4xl font-display font-[900] text-white uppercase tracking-[-0.03em] leading-[1.1]">{category.description}</h3>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-8">
         <Carousel
           opts={{ align: "start", loop: true, dragFree: false, skipSnaps: false }}
           setApi={setApi}
           className="w-full touch-pan-y"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="-ml-6">
             {category.cards.map((card, cardIndex) => (
-              <CarouselItem key={card.href} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                <ExploreCard card={card} index={cardIndex} />
+              <CarouselItem key={card.href} className="pl-6 basis-[85%] md:basis-1/2 lg:basis-1/3">
+                <ExploreCard card={card} index={cardIndex} globalIndex={baseIndex.current + cardIndex} />
               </CarouselItem>
             ))}
           </CarouselContent>
           {category.cards.length > 1 && (
             <>
-              <CarouselPrevious className="-left-1 lg:-left-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
-              <CarouselNext className="-right-1 lg:-right-4 top-1/2 bg-black/60 border-white/10 hover:bg-black/80 text-white backdrop-blur-sm" />
+              <CarouselPrevious className="-left-2 lg:-left-5 top-1/2 w-12 h-12 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all" />
+              <CarouselNext className="-right-2 lg:-right-5 top-1/2 w-12 h-12 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all" />
             </>
           )}
         </Carousel>
         {category.cards.length > 1 && (
-          <div className="flex md:hidden items-center justify-center gap-2 mt-4">
+          <div className="flex items-center justify-center gap-3 mt-6">
             {category.cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => api?.scrollTo(i)}
-                className={`rounded-sm transition-all duration-300 ${
+                className={`rounded-full transition-all duration-300 ${
                   i === currentSlide
-                    ? "w-6 h-1.5 bg-white shadow-lg"
-                    : "w-2 h-1.5 bg-white/20 hover:bg-white/40"
+                    ? "w-3 h-3 bg-white scale-150"
+                    : "w-2 h-2 bg-white/10 hover:bg-white/30"
                 }`}
                 data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -510,7 +505,7 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
           </div>
         )}
       </div>
-    </motion.section>
+    </section>
   );
 }
 
@@ -572,160 +567,98 @@ export default function Explore() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative h-[45vh] lg:h-[60vh] rounded-xl overflow-hidden mb-10 lg:mb-14 border border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)] flex flex-col justify-end"
-        >
-          <KenBurnsBackground 
-            images={[
-              "/ecosystem/darkwave-studios-new.jpg",
-              "/ecosystem/chronicles-new.jpg",
-              "/ecosystem/trust-layer-new.jpg",
-              "/ecosystem/guardian-scanner-new.jpg",
-              "/ecosystem/orbit-staffing-new.jpg",
-            ]} 
-            overlayOpacity={0.15} 
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/20 via-transparent to-purple-900/20 mix-blend-overlay pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 z-10">
-            <h1 className="text-3xl lg:text-5xl font-display font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 uppercase tracking-tighter drop-shadow-lg">
-              Where do you want to <span className="text-white/40">go?</span>
-            </h1>
-            <p className="text-base text-gray-300 max-w-2xl font-sans drop-shadow-md">
-              {totalDestinations} destinations across {categories.length} categories. The architectural nexus of the ecosystem. Everything DarkWave Studios has to offer, one click away.
-            </p>
-          </div>
-        </motion.div>
+      {/* Film Grain Noise */}
+      <div className="fixed inset-0 pointer-events-none z-[9999] opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 mb-12 lg:mb-16"
-        >
-          {[
-            { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
-            { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code" },
-            { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets" },
-            { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints" },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-            >
-              <div className="glass-card-surface relative group rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/30">
-                <div className="relative p-4 lg:p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-white/5 border border-white/10 mb-3 shadow-[0_0_10px_rgba(255,255,255,0.05)] group-hover:border-white/30 transition-all">
-                    {stat.icon}
-                  </div>
-                  <div className="text-2xl lg:text-3xl font-black font-display text-white mb-0.5 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-[11px] lg:text-xs text-gray-500 font-bold uppercase tracking-widest font-sans">
-                    {stat.label}
-                  </div>
+      {/* Hero Section — CSS Ken Burns */}
+      <section className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center opacity-0 animate-[kenburns_24s_infinite]" style={{ backgroundImage: "url('/assets/brutalist/hero_bg_1.png')" }} />
+        <div className="absolute inset-0 bg-cover bg-center opacity-0 animate-[kenburns_24s_infinite_8s]" style={{ backgroundImage: "url('/assets/brutalist/hero_bg_2.png')", animationDelay: '8s' }} />
+        <div className="absolute inset-0 bg-cover bg-center opacity-0 animate-[kenburns_24s_infinite_16s]" style={{ backgroundImage: "url('/assets/brutalist/hero_bg_3.png')", animationDelay: '16s' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/30 to-[#050505] z-[2]" />
+
+        <div className="container mx-auto px-6 lg:px-8 max-w-[1400px] relative z-10 text-center">
+          <h1 className="font-display font-[900] uppercase tracking-[-0.03em] leading-[0.95] mb-6" style={{ fontSize: 'clamp(1.5rem, 5vw, 5rem)', textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}>
+            The Architectural<br />
+            <span className="text-[#888]">Nexus.</span>
+          </h1>
+          <p className="text-lg lg:text-xl text-[#888] font-sans max-w-[800px] mx-auto mb-12">
+            {totalDestinations} destinations across {categories.length} categories. Everything DarkWave Studios has to offer — one click away.
+          </p>
+          <div className="flex items-center justify-center gap-6 flex-wrap">
+            <Link href="/home" className="inline-block bg-transparent text-white border border-white/20 backdrop-blur-md px-12 py-4 font-display text-lg font-[800] uppercase tracking-[0.05em] rounded-[2px] hover:bg-white hover:text-[#050505] hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all duration-300">
+              Enter The Core
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <main className="max-w-[1400px] mx-auto px-6 lg:px-8">
+
+        {/* Metrics Bar */}
+        <div className="py-16 lg:py-24 border-b border-white/[0.08]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
+              { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code" },
+              { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets" },
+              { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints" },
+            ].map((stat, i) => (
+              <div key={stat.label} className="bg-[#0a0a0a] border border-white/[0.08] rounded-[4px] p-6 lg:p-8 text-center">
+                <div className="text-3xl lg:text-4xl font-[900] font-display text-white mb-1 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
+                  {stat.value}
+                </div>
+                <div className="text-xs text-[#888] font-display font-[800] uppercase tracking-[0.15em]">
+                  {stat.label}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </div>
+        </div>
 
-        <motion.div
-          className="space-y-12 lg:space-y-16"
-          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }}
-          initial="hidden"
-          animate="show"
-        >
+        <div>
           {categories.map((category, catIndex) => (
             <CategoryCarousel key={category.title} category={category} catIndex={catIndex} />
           ))}
-        </motion.div>
+        </div>
 
-        <footer className="mt-16 lg:mt-24 pb-8 text-center space-y-6">
-          <Link
-            href="/home"
-            className="btn-brutal inline-flex items-center gap-2 bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all"
-            data-testid="explore-footer-home"
-          >
-            <Home className="w-4 h-4" />
-            Go to Homepage
-          </Link>
-
-          <div className="max-w-sm mx-auto">
-            {!showDevLogin ? (
-              <button
-                onClick={() => setShowDevLogin(true)}
-                className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-all duration-300 text-xs group"
-                data-testid="button-show-dev-login"
-              >
-                <Lock className="w-3 h-3" />
-                <span>Developer Access</span>
-                <Command className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </button>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-              <GlassCard glow className="p-5 rounded-2xl">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <Terminal className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm font-semibold text-white/80">Developer Login</span>
-                </div>
-                <form onSubmit={handleDevLogin} className="space-y-3">
+        {/* Footer — Invariant standard */}
+        <footer className="py-16 border-t border-white/[0.08] mt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="font-display font-[900] text-2xl tracking-[0.1em] text-[#888] uppercase">
+              DarkWave.
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              {!showDevLogin ? (
+                <button
+                  onClick={() => setShowDevLogin(true)}
+                  className="inline-flex items-center gap-2 text-white/20 hover:text-white/50 transition-all duration-300 text-xs"
+                  data-testid="button-show-dev-login"
+                >
+                  <Lock className="w-3 h-3" />
+                  <span>Dev</span>
+                </button>
+              ) : (
+                <form onSubmit={handleDevLogin} className="flex items-center gap-2">
                   <input
                     type="password"
                     value={devPassword}
                     onChange={(e) => setDevPassword(e.target.value)}
-                    placeholder="Enter access code"
-                    className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all ${
-                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-white/10 focus:ring-cyan-500/30 focus:border-white/10"
+                    placeholder="Code"
+                    className={`w-24 px-3 py-1.5 bg-white/5 border rounded-[2px] text-xs text-white placeholder:text-white/20 focus:outline-none ${
+                      devError ? "border-red-500/50" : "border-white/10"
                     }`}
                     data-testid="input-dev-password"
                     autoFocus
                   />
-                  <div className="flex gap-2">
-                    <button
-                      type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:shadow-lg hover:shadow-[0_10px_30px_rgba(255,255,255,0.05)] transition-all duration-300"
-                      data-testid="button-dev-login"
-                    >
-                      <Unlock className="w-3.5 h-3.5" />
-                      Access Command Center
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { setShowDevLogin(false); setDevPassword(""); setDevError(false); }}
-                      className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white/80 text-sm transition-all"
-                      data-testid="button-dev-cancel"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                  {devError && (
-                    <p className="text-red-400 text-xs">Invalid access code</p>
-                  )}
+                  <button type="submit" className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-[2px] text-xs text-white hover:bg-white/10" data-testid="button-dev-login">
+                    <Unlock className="w-3 h-3" />
+                  </button>
+                  <button type="button" onClick={() => { setShowDevLogin(false); setDevPassword(""); setDevError(false); }} className="text-white/30 hover:text-white/60 text-xs" data-testid="button-dev-cancel">✕</button>
                 </form>
-              </GlassCard>
-              </motion.div>
-            )}
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/30">
-            <span>&copy; 2026 DarkWave Studios</span>
-            <span className="text-white/10">|</span>
-            <a href="https://trustshield.tech" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustshield">
-              Protected by TrustShield.tech
-            </a>
-            <span className="text-white/10">|</span>
-            <a href="https://dwtl.io" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors" data-testid="explore-footer-trustlayer">
-              Powered by Trust Layer
-            </a>
+              )}
+              <span className="text-white/15 font-sans text-sm">© 2026 The Architectural Nexus. All Rights Reserved.</span>
+            </div>
           </div>
         </footer>
       </main>
