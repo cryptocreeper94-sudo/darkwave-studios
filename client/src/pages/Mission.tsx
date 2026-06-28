@@ -125,7 +125,7 @@ export default function Mission() {
             >
               <GlassCard variant="feature" className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <Sparkles className="w-6 h-6 text-cyan-400" />
+                  <Sparkles className="w-6 h-6 text-gray-400" />
                   <h2 className="text-xl font-bold">Vision</h2>
                 </div>
                 <p className="text-muted-foreground leading-relaxed" data-testid="vision-text">

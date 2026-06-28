@@ -37,19 +37,19 @@ interface ExploreCategory {
 }
 
 const glowMap: Record<string, string> = {
-  "shadow-cyan-500/20": "0 10px 40px rgba(6,182,212,0.2)",
-  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(6,182,212,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-amber-500/20": "0 10px 40px rgba(245,158,11,0.2)",
   "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
   "shadow-rose-500/20": "0 10px 40px rgba(244,63,94,0.2)",
-  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-indigo-500/20": "0 10px 40px rgba(99,102,241,0.2)",
   "shadow-green-500/20": "0 10px 40px rgba(34,197,94,0.2)",
   "shadow-red-500/20": "0 10px 40px rgba(239,68,68,0.2)",
   "shadow-blue-500/20": "0 10px 40px rgba(59,130,246,0.2)",
   "shadow-yellow-500/20": "0 10px 40px rgba(234,179,8,0.2)",
   "shadow-pink-500/20": "0 10px 40px rgba(236,72,153,0.2)",
-  "shadow-cyan-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-slate-500/20": "0 10px 40px rgba(100,116,139,0.2)",
   "shadow-gray-500/20": "0 10px 40px rgba(107,114,128,0.2)",
 };
@@ -67,7 +67,7 @@ const categories: ExploreCategory[] = [
         href: "/home",
         icon: <Home className="size-5" />,
         image: "/command/homepage.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Start Here",
         featured: true,
       },
@@ -109,7 +109,7 @@ const categories: ExploreCategory[] = [
         href: "/services",
         icon: <Store className="size-5" />,
         image: "/command/services.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         featured: true,
       },
       {
@@ -118,7 +118,7 @@ const categories: ExploreCategory[] = [
         href: "/compare",
         icon: <Layers className="size-5" />,
         image: "/command/compare.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Get a Quote",
@@ -161,7 +161,7 @@ const categories: ExploreCategory[] = [
         href: "/projects",
         icon: <FolderOpen className="size-5" />,
         image: "/command/projects.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Ecosystem Metrics",
@@ -169,7 +169,7 @@ const categories: ExploreCategory[] = [
         href: "/metrics",
         icon: <BarChart3 className="size-5" />,
         image: "/command/metrics.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Stats",
       },
     ],
@@ -230,7 +230,7 @@ const categories: ExploreCategory[] = [
         href: "/lume",
         icon: <Code2 className="size-5" />,
         image: "/command/developers.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "New",
         featured: true,
       },
@@ -257,7 +257,7 @@ const categories: ExploreCategory[] = [
         href: "/chat",
         icon: <Radio className="size-5" />,
         image: "/command/signal-chat.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Live",
         featured: true,
       },
@@ -267,7 +267,7 @@ const categories: ExploreCategory[] = [
         href: "/blog",
         icon: <Newspaper className="size-5" />,
         image: "/command/blog-public.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Support Center",
@@ -275,7 +275,7 @@ const categories: ExploreCategory[] = [
         href: "/support",
         icon: <MessageSquare className="size-5" />,
         image: "/command/support.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Resources",
@@ -283,7 +283,7 @@ const categories: ExploreCategory[] = [
         href: "/resources",
         icon: <FolderOpen className="size-5" />,
         image: "/command/resources.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Axiom42 Suite Studio",
@@ -332,8 +332,8 @@ const categories: ExploreCategory[] = [
 
 function SkeletonLoader() {
   return (
-    <div className="min-h-screen bg-[#070b16]">
-      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
+    <div className="min-h-screen bg-[#050505]">
+      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
@@ -668,7 +668,7 @@ export default function Explore() {
               >
               <GlassCard glow className="p-5 rounded-2xl">
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <Terminal className="w-4 h-4 text-gray-400" />
                   <span className="text-sm font-semibold text-white/80">Developer Login</span>
                 </div>
                 <form onSubmit={handleDevLogin} className="space-y-3">
@@ -678,7 +678,7 @@ export default function Explore() {
                     onChange={(e) => setDevPassword(e.target.value)}
                     placeholder="Enter access code"
                     className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all ${
-                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-white/10 focus:ring-cyan-500/30 focus:border-cyan-500/30"
+                      devError ? "border-red-500/50 focus:ring-red-500/30" : "border-white/10 focus:ring-cyan-500/30 focus:border-white/10"
                     }`}
                     data-testid="input-dev-password"
                     autoFocus
@@ -686,7 +686,7 @@ export default function Explore() {
                   <div className="flex gap-2">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:shadow-lg hover:shadow-[0_10px_30px_rgba(255,255,255,0.05)] transition-all duration-300"
                       data-testid="button-dev-login"
                     >
                       <Unlock className="w-3.5 h-3.5" />

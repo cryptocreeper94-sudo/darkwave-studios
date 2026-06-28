@@ -69,7 +69,7 @@ export default function Analytics() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-white/5 border border-white/10 bg-clip-text text-transparent">
                 Analytics Command Center
               </h1>
               <p className="text-white/60">Real-time insights that Google would envy</p>
@@ -79,7 +79,7 @@ export default function Analytics() {
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/10"></div>
           </div>
         ) : (
           <div className="grid grid-cols-3 md:grid-cols-12 gap-4">
@@ -90,10 +90,10 @@ export default function Analytics() {
               transition={{ duration: 0.5, delay: 0 }}
               className="col-span-3 md:col-span-3"
             >
-              <GlassCard variant="stat" className="hover:border-cyan-400/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)]" data-testid="stat-total-views">
+              <GlassCard variant="stat" className="hover:border-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)]" data-testid="stat-total-views">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-white/70">Total Page Views</CardTitle>
-                  <Eye className="h-5 w-5 text-cyan-400" />
+                  <Eye className="h-5 w-5 text-gray-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold text-white">{stats.totalViews.toLocaleString()}</div>
@@ -160,7 +160,7 @@ export default function Analytics() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold text-white">{bounceRate}%</div>
-                  <p className="text-xs text-cyan-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-gray-400 flex items-center gap-1 mt-1">
                     <TrendingUp className="h-3 w-3" /> Lower is better
                   </p>
                 </CardContent>
@@ -177,7 +177,7 @@ export default function Analytics() {
               <GlassCard variant="stat" data-testid="card-top-pages">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-cyan-400" />
+                    <BarChart3 className="h-5 w-5 text-gray-400" />
                     Top Pages
                   </CardTitle>
                 </CardHeader>
@@ -187,13 +187,13 @@ export default function Analytics() {
                       {stats.topPages.map((page, index) => (
                         <div key={page.path} className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-cyan-400 w-6">#{index + 1}</span>
+                            <span className="text-xs font-bold text-gray-400 w-6">#{index + 1}</span>
                             <span className="text-white/80 text-sm truncate max-w-[200px]">{page.path}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <div className="w-20 h-2 bg-white/10 rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-gradient-to-r from-cyan-400 to-sky-500 rounded-full"
+                                className="h-full bg-white/5 border border-white/10 rounded-full"
                                 style={{ width: `${(page.views / (stats.topPages[0]?.views || 1)) * 100}%` }}
                               />
                             </div>
@@ -229,7 +229,7 @@ export default function Analytics() {
                       {Object.entries(stats.eventBreakdown).slice(0, 6).map(([event, count]) => (
                         <div key={event} className="flex items-center justify-between">
                           <span className="text-white/80 text-sm capitalize">{event.replace(/_/g, ' ')}</span>
-                          <span className="text-cyan-400 font-semibold">{count}</span>
+                          <span className="text-gray-400 font-semibold">{count}</span>
                         </div>
                       ))}
                     </div>
@@ -275,14 +275,14 @@ export default function Analytics() {
                               <td className="py-3 px-2 text-center">
                                 <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                                   (kw.position || 0) <= 3 ? 'bg-green-500/20 text-green-400' :
-                                  (kw.position || 0) <= 10 ? 'bg-cyan-500/20 text-cyan-400' :
+                                  (kw.position || 0) <= 10 ? 'bg-white/10 text-gray-400' :
                                   'bg-orange-500/20 text-orange-400'
                                 }`}>
                                   #{kw.position || '-'}
                                 </span>
                               </td>
                               <td className="py-3 px-2 text-center text-white/70">{kw.volume?.toLocaleString() || '-'}</td>
-                              <td className="py-3 px-2 text-center text-cyan-400">{kw.clicks || 0}</td>
+                              <td className="py-3 px-2 text-center text-gray-400">{kw.clicks || 0}</td>
                               <td className="py-3 px-2 text-center text-white/70">{kw.impressions?.toLocaleString() || '-'}</td>
                               <td className="py-3 px-2 text-center text-sky-400">{kw.ctr || 0}%</td>
                             </tr>
@@ -294,7 +294,7 @@ export default function Analytics() {
                     <div className="text-center py-8">
                       <p className="text-white/40 mb-4">No keywords tracked yet</p>
                       <Link href="/admin">
-                        <Button className="bg-gradient-to-r from-cyan-500 to-sky-600 hover:from-cyan-400 hover:to-sky-500" data-testid="button-add-keywords">
+                        <Button className="bg-white/5 border border-white/10 hover:from-cyan-400 hover:to-sky-500" data-testid="button-add-keywords">
                           Add Keywords to Track
                         </Button>
                       </Link>
@@ -311,7 +311,7 @@ export default function Analytics() {
               transition={{ duration: 0.5 }}
               className="col-span-3 md:col-span-4"
             >
-              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border-cyan-400/30" data-testid="card-realtime">
+              <GlassCard variant="feature" className="bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border-white/10" data-testid="card-realtime">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -322,7 +322,7 @@ export default function Analytics() {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-white/70">Active Sessions</span>
-                      <span className="text-2xl font-bold text-cyan-400">{Math.floor(Math.random() * 5) + 1}</span>
+                      <span className="text-2xl font-bold text-gray-400">{Math.floor(Math.random() * 5) + 1}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-white/70">Pages/Session</span>
@@ -362,7 +362,7 @@ export default function Analytics() {
                     <div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-white/70">CTA Clicks</span>
-                        <span className="text-cyan-400">{stats.eventBreakdown?.cta_click || 0}</span>
+                        <span className="text-gray-400">{stats.eventBreakdown?.cta_click || 0}</span>
                       </div>
                       <div className="w-full h-2 bg-white/10 rounded-full">
                         <div className="h-full bg-cyan-400 rounded-full" style={{ width: '78%' }} />

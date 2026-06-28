@@ -195,7 +195,7 @@ export default function Investors() {
             >
               <GlassCard className="rounded-xl p-6 h-full">
                 <div className="flex items-center gap-3 mb-4">
-                  <Target className="w-6 h-6 text-cyan-400" />
+                  <Target className="w-6 h-6 text-gray-400" />
                   <h2 className="text-xl font-bold">Investment Highlights</h2>
                 </div>
                 <div className="space-y-3">

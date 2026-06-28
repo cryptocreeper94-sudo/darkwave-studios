@@ -364,7 +364,7 @@ export default function SignalChatSidebar() {
         }`}
         style={{ writingMode: "vertical-rl" }}
       >
-        <div className="relative bg-gradient-to-b from-cyan-600 to-blue-600 text-white px-2 py-4 rounded-l-lg shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-shadow cursor-pointer flex items-center gap-3">
+        <div className="relative bg-white/5 border border-white/10 text-white px-2 py-4 rounded-l-lg shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-shadow cursor-pointer flex items-center gap-3">
           <Radio className="w-4 h-4 rotate-90" />
           <span className="text-xs font-bold tracking-wider">ChronoChat</span>
           {unreadCount > 0 && (
@@ -393,10 +393,10 @@ export default function SignalChatSidebar() {
         }`}
         style={{ width: "min(420px, 100vw)" }}
       >
-        <div className="h-full bg-[#0a0a1a] border-l border-cyan-500/20 shadow-2xl shadow-cyan-500/10 flex flex-col">
+        <div className="h-full bg-[#0a0a1a] border-l border-white/10 shadow-2xl shadow-cyan-500/10 flex flex-col">
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-[#0f0f2a] border-b border-white/10 flex-shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-cyan-500/30">
               <Radio className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1 min-w-0">
@@ -412,12 +412,12 @@ export default function SignalChatSidebar() {
                       )}
                     </span>
                     <span className="text-gray-600">·</span>
-                    <span className="text-cyan-400/70 flex items-center gap-1">
+                    <span className="text-gray-400/70 flex items-center gap-1">
                       <Users className="w-2.5 h-2.5" /> {onlineCount}
                     </span>
                   </>
                 ) : (
-                  <span className="text-cyan-400/70">Trust Layer SSO</span>
+                  <span className="text-gray-400/70">Trust Layer SSO</span>
                 )}
               </div>
             </div>
@@ -427,7 +427,7 @@ export default function SignalChatSidebar() {
                   <button
                     data-testid="sidebar-button-channels"
                     onClick={() => setShowChannels(!showChannels)}
-                    className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-colors"
+                    className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-gray-400 transition-colors"
                     title="Channels"
                   >
                     <Hash className="w-3.5 h-3.5" />
@@ -457,8 +457,8 @@ export default function SignalChatSidebar() {
           {!currentUser ? (
             <div className="flex-1 overflow-y-auto p-4">
               <div className="flex items-center gap-2 mb-4">
-                <Shield className="w-3.5 h-3.5 text-cyan-500" />
-                <span className="text-[11px] text-cyan-400/80">Secured by Trust Layer SSO</span>
+                <Shield className="w-3.5 h-3.5 text-white" />
+                <span className="text-[11px] text-gray-400/80">Secured by Trust Layer SSO</span>
               </div>
 
               <div className="flex bg-white/5 rounded-lg p-1 mb-4">
@@ -467,7 +467,7 @@ export default function SignalChatSidebar() {
                   onClick={() => { setAuthMode("login"); setAuthError(""); }}
                   className={`flex-1 py-1.5 rounded-md text-xs font-medium transition-all ${
                     authMode === "login"
-                      ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                      ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-white/10"
                       : "text-gray-500 hover:text-gray-300"
                   }`}
                 >
@@ -478,7 +478,7 @@ export default function SignalChatSidebar() {
                   onClick={() => { setAuthMode("register"); setAuthError(""); }}
                   className={`flex-1 py-1.5 rounded-md text-xs font-medium transition-all ${
                     authMode === "register"
-                      ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/30"
+                      ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-white/10"
                       : "text-gray-500 hover:text-gray-300"
                   }`}
                 >
@@ -499,7 +499,7 @@ export default function SignalChatSidebar() {
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
                     <input
                       data-testid="sidebar-input-username"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                       placeholder="e.g. sarah-k"
                       value={usernameInput}
                       onChange={(e) => setUsernameInput(e.target.value)}
@@ -517,7 +517,7 @@ export default function SignalChatSidebar() {
                         <input
                           data-testid="sidebar-input-email"
                           type="email"
-                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                           placeholder="e.g. sarah@example.com"
                           value={emailInput}
                           onChange={(e) => setEmailInput(e.target.value)}
@@ -531,7 +531,7 @@ export default function SignalChatSidebar() {
                         <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
                         <input
                           data-testid="sidebar-input-displayname"
-                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                           placeholder="e.g. Sarah K."
                           value={displayNameInput}
                           onChange={(e) => setDisplayNameInput(e.target.value)}
@@ -549,7 +549,7 @@ export default function SignalChatSidebar() {
                     <input
                       data-testid="sidebar-input-password"
                       type={showPassword ? "text" : "password"}
-                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-10 py-2.5 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-10 py-2.5 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                       placeholder="Enter your password"
                       value={passwordInput}
                       onChange={(e) => setPasswordInput(e.target.value)}
@@ -575,7 +575,7 @@ export default function SignalChatSidebar() {
                     !passwordInput ||
                     (authMode === "register" && (!emailInput.trim() || !displayNameInput.trim() || !isPasswordValid()))
                   }
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
+                  className="w-full bg-white/5 border border-white/10 text-white font-semibold py-2.5 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
                 >
                   {authLoading ? (
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -603,7 +603,7 @@ export default function SignalChatSidebar() {
                   <div className="p-2 space-y-0.5">
                     {ecosystemChannels.length > 0 && (
                       <>
-                        <div className="text-[9px] font-semibold uppercase tracking-wider text-cyan-400/60 px-2 pt-1 pb-0.5">Ecosystem</div>
+                        <div className="text-[9px] font-semibold uppercase tracking-wider text-gray-400/60 px-2 pt-1 pb-0.5">Ecosystem</div>
                         {ecosystemChannels.map(ch => (
                           <button
                             key={ch.id}
@@ -611,7 +611,7 @@ export default function SignalChatSidebar() {
                             onClick={() => switchChannel(ch)}
                             className={`w-full text-left flex items-center gap-2 px-2 py-1.5 rounded-md text-xs transition-all ${
                               activeChannel?.id === ch.id
-                                ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
+                                ? "bg-white/15 text-cyan-300 border border-white/10"
                                 : "text-gray-400 hover:text-cyan-300 hover:bg-white/5"
                             }`}
                           >
@@ -631,7 +631,7 @@ export default function SignalChatSidebar() {
                             onClick={() => switchChannel(ch)}
                             className={`w-full text-left flex items-center gap-2 px-2 py-1.5 rounded-md text-xs transition-all ${
                               activeChannel?.id === ch.id
-                                ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
+                                ? "bg-white/15 text-cyan-300 border border-white/10"
                                 : "text-gray-400 hover:text-cyan-300 hover:bg-white/5"
                             }`}
                           >
@@ -648,7 +648,7 @@ export default function SignalChatSidebar() {
               {/* Active Channel Bar */}
               {activeChannel && (
                 <div className="flex items-center gap-2 px-4 py-2 bg-[#0f0f2a]/50 border-b border-white/10 flex-shrink-0">
-                  <Hash className="w-3.5 h-3.5 text-cyan-400" />
+                  <Hash className="w-3.5 h-3.5 text-gray-400" />
                   <span className="text-xs font-semibold text-white">{activeChannel.name}</span>
                   {activeChannel.description && (
                     <>
@@ -669,7 +669,7 @@ export default function SignalChatSidebar() {
                 </div>
                 <span className="text-[10px] text-gray-300 truncate">{currentUser.displayName}</span>
                 {currentUser.trustLayerId && (
-                  <span className="text-[8px] text-cyan-500/50 truncate ml-auto">TL: {currentUser.trustLayerId.slice(0, 12)}...</span>
+                  <span className="text-[8px] text-white/50 truncate ml-auto">TL: {currentUser.trustLayerId.slice(0, 12)}...</span>
                 )}
               </div>
 
@@ -702,7 +702,7 @@ export default function SignalChatSidebar() {
                                 <span className="text-[8px] px-1 py-0.5 rounded bg-green-500/20 text-green-400 font-medium">BOT</span>
                               )}
                               {msg.role === "admin" && (
-                                <span className="text-[8px] px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-medium">ADMIN</span>
+                                <span className="text-[8px] px-1 py-0.5 rounded bg-white/10 text-gray-400 font-medium">ADMIN</span>
                               )}
                               <span className="text-[10px] text-gray-500">{formatTime(msg.createdAt)}</span>
                             </div>
@@ -724,7 +724,7 @@ export default function SignalChatSidebar() {
                 })}
                 {typingUsers.length > 0 && (
                   <div className="px-1.5 pt-1">
-                    <span className="text-[10px] text-cyan-400/60 animate-pulse">
+                    <span className="text-[10px] text-gray-400/60 animate-pulse">
                       {typingUsers.join(", ")} {typingUsers.length === 1 ? "is" : "are"} typing...
                     </span>
                   </div>
@@ -737,7 +737,7 @@ export default function SignalChatSidebar() {
                 <div className="flex gap-2">
                   <input
                     data-testid="sidebar-input-message"
-                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:border-cyan-500/40 focus:outline-none transition-colors"
+                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                     placeholder={`Message #${activeChannel?.name || "general"}...`}
                     value={messageInput}
                     onChange={(e) => {
@@ -755,7 +755,7 @@ export default function SignalChatSidebar() {
                     data-testid="sidebar-button-send"
                     onClick={sendMessage}
                     disabled={!messageInput.trim() || !connected}
-                    className="w-9 h-9 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+                    className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-white flex items-center justify-center hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
                   >
                     <Send className="w-3.5 h-3.5" />
                   </button>

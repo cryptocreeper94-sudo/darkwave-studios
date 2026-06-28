@@ -30,19 +30,19 @@ interface LaunchCard {
 }
 
 const glowMap: Record<string, string> = {
-  "shadow-cyan-500/20": "0 10px 40px rgba(6,182,212,0.2)",
-  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(6,182,212,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-amber-500/20": "0 10px 40px rgba(245,158,11,0.2)",
   "shadow-emerald-500/20": "0 10px 40px rgba(16,185,129,0.2)",
   "shadow-rose-500/20": "0 10px 40px rgba(244,63,94,0.2)",
-  "shadow-sky-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-indigo-500/20": "0 10px 40px rgba(99,102,241,0.2)",
   "shadow-green-500/20": "0 10px 40px rgba(34,197,94,0.2)",
   "shadow-red-500/20": "0 10px 40px rgba(239,68,68,0.2)",
   "shadow-blue-500/20": "0 10px 40px rgba(59,130,246,0.2)",
   "shadow-yellow-500/20": "0 10px 40px rgba(234,179,8,0.2)",
   "shadow-pink-500/20": "0 10px 40px rgba(236,72,153,0.2)",
-  "shadow-cyan-500/20": "0 10px 40px rgba(14,165,233,0.2)",
+  "shadow-[0_10px_30px_rgba(255,255,255,0.05)]": "0 10px 40px rgba(14,165,233,0.2)",
   "shadow-slate-500/20": "0 10px 40px rgba(100,116,139,0.2)",
   "shadow-gray-500/20": "0 10px 40px rgba(107,114,128,0.2)",
 };
@@ -68,7 +68,7 @@ const categories: CommandCategory[] = [
         href: "/admin",
         icon: <LayoutDashboard className="size-5" />,
         image: "/command/admin-dashboard.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "CRM",
         featured: true,
       },
@@ -78,7 +78,7 @@ const categories: CommandCategory[] = [
         href: "/analytics",
         icon: <BarChart3 className="size-5" />,
         image: "/command/analytics.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Live",
       },
       {
@@ -111,7 +111,7 @@ const categories: CommandCategory[] = [
         href: "/blog/admin",
         icon: <PenTool className="size-5" />,
         image: "/command/blog-admin.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "AI",
         featured: true,
       },
@@ -130,7 +130,7 @@ const categories: CommandCategory[] = [
         href: "/blog",
         icon: <Newspaper className="size-5" />,
         image: "/command/blog-public.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
     ],
   },
@@ -156,7 +156,7 @@ const categories: CommandCategory[] = [
         href: "/metrics",
         icon: <BarChart3 className="size-5" />,
         image: "/command/metrics.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Stats",
       },
       {
@@ -182,7 +182,7 @@ const categories: CommandCategory[] = [
         href: "/lume",
         icon: <Code2 className="size-5" />,
         image: "/command/developers.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "New",
         featured: true,
       },
@@ -262,7 +262,7 @@ const categories: CommandCategory[] = [
         href: "/services",
         icon: <Store className="size-5" />,
         image: "/command/services.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Compare Plans",
@@ -270,7 +270,7 @@ const categories: CommandCategory[] = [
         href: "/compare",
         icon: <Layers className="size-5" />,
         image: "/command/compare.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
     ],
   },
@@ -286,7 +286,7 @@ const categories: CommandCategory[] = [
         href: "/chat",
         icon: <Radio className="size-5" />,
         image: "/command/signal-chat.png",
-        glowColor: "shadow-sky-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
         badge: "Live",
         featured: true,
       },
@@ -296,7 +296,7 @@ const categories: CommandCategory[] = [
         href: "/support",
         icon: <MessageSquare className="size-5" />,
         image: "/command/support.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
       {
         label: "Contact",
@@ -387,7 +387,7 @@ const categories: CommandCategory[] = [
         href: "/resources",
         icon: <FolderOpen className="size-5" />,
         image: "/command/resources.png",
-        glowColor: "shadow-cyan-500/20",
+        glowColor: "shadow-[0_10px_30px_rgba(255,255,255,0.05)]",
       },
     ],
   },
@@ -395,8 +395,8 @@ const categories: CommandCategory[] = [
 
 function SkeletonLoader() {
   return (
-    <div className="min-h-screen bg-[#070b16]">
-      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
+    <div className="min-h-screen bg-[#050505]">
+      <div className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-white/5 animate-pulse" />
@@ -535,7 +535,7 @@ function CommandCategoryCarousel({ cards, categoryTitle }: { cards: LaunchCard[]
                 onClick={() => api?.scrollTo(i)}
                 className={`rounded-full transition-all duration-300 ${
                   i === currentSlide
-                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-cyan-400/30"
+                    ? "w-6 h-2 bg-cyan-400 shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]"
                     : "w-2 h-2 bg-white/20 hover:bg-white/40"
                 }`}
                 data-testid={`dot-command-${categoryTitle.toLowerCase().replace(/\s/g, "-")}-${i}`}
@@ -593,8 +593,8 @@ export default function CommandCenter() {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#070b16] text-white flex items-center justify-center">
-        <div className="fixed inset-0 bg-gradient-to-b from-[#070b16] via-[#0c1222] to-[#070b16]" />
+      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center">
+        <div className="fixed inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505]" />
         <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.12),transparent_50%)]" />
 
         <motion.div
@@ -604,7 +604,7 @@ export default function CommandCenter() {
           className="relative w-full max-w-md mx-4"
         >
           <GlassCard glow className="relative rounded-2xl overflow-hidden p-8 lg:p-10">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-2xl shadow-cyan-500/20">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
               <Command className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-2xl font-display font-bold text-center mb-2 text-white">
@@ -621,7 +621,7 @@ export default function CommandCenter() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Access code"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-white/10 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-300"
                   data-testid="input-command-password"
                   autoFocus
                 />
@@ -631,7 +631,7 @@ export default function CommandCenter() {
               )}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-semibold shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                 data-testid="button-command-login"
               >
                 <Unlock className="w-4 h-4" />
@@ -647,19 +647,19 @@ export default function CommandCenter() {
   const totalFeatures = categories.reduce((sum, cat) => sum + cat.cards.length, 0);
 
   return (
-    <div className="min-h-screen bg-[#070b16] text-white overflow-x-hidden">
-      <div className="fixed inset-0 bg-gradient-to-b from-[#070b16] via-[#0c1222] to-[#070b16] -z-20" />
+    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <div className="fixed inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-[#050505] -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_50%)] -z-10" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.05),transparent_50%)] -z-10" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#070b16]/80 border-b border-white/5">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#050505]/80 border-b border-white/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all duration-300" data-testid="button-back-home">
               <ArrowLeft className="w-5 h-5 text-white/70" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
                 <Command className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -696,10 +696,10 @@ export default function CommandCenter() {
             alt="Command Center"
             className="w-full h-48 lg:h-72 object-cover brightness-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070b16] via-[#070b16]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#070b16]/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
             <h1 className="text-3xl lg:text-5xl font-display font-bold mb-2 text-white">
-              Master <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-pink-400 bg-clip-text text-transparent">Command Center</span>
+              Master <span className="bg-gradient-to-r bg-white/5 bg-clip-text text-transparent">Command Center</span>
             </h1>
             <p className="text-sm lg:text-base text-white/50 max-w-xl leading-relaxed">
               Every tool. Every page. One click away. {totalFeatures} features organized across {categories.length} categories.

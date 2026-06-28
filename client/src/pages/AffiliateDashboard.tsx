@@ -16,7 +16,7 @@ const TIERS = [
   { name: "Silver", minReferrals: 5, rate: "12.5%", rateNum: 12.5, color: "text-slate-300", accent: "#cbd5e1", bg: "from-slate-500/20 to-slate-600/20", ring: "ring-slate-400/30", icon: Star },
   { name: "Gold", minReferrals: 15, rate: "15%", rateNum: 15, color: "text-amber-400", accent: "#fbbf24", bg: "from-amber-500/20 to-orange-600/20", ring: "ring-amber-500/30", icon: Crown },
   { name: "Platinum", minReferrals: 30, rate: "17.5%", rateNum: 17.5, color: "text-sky-400", accent: "#38bdf8", bg: "from-sky-500/20 to-teal-600/20", ring: "ring-sky-500/30", icon: Gem },
-  { name: "Diamond", minReferrals: 50, rate: "20%", rateNum: 20, color: "text-cyan-400", accent: "#22d3ee", bg: "from-cyan-500/20 to-blue-600/20", ring: "ring-cyan-500/30", icon: Diamond },
+  { name: "Diamond", minReferrals: 50, rate: "20%", rateNum: 20, color: "text-gray-400", accent: "#22d3ee", bg: "from-cyan-500/20 to-blue-600/20", ring: "ring-cyan-500/30", icon: Diamond },
 ];
 
 const ECOSYSTEM_APPS = [
@@ -162,7 +162,7 @@ function AffiliateDashboard() {
           animate={{ rotate: 360 }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         >
-          <Loader2 className="w-8 h-8 text-cyan-400" />
+          <Loader2 className="w-8 h-8 text-gray-400" />
         </motion.div>
       </div>
     );
@@ -171,7 +171,7 @@ function AffiliateDashboard() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-white/[0.03] rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-sky-500/[0.03] rounded-full blur-[120px]" />
       </div>
 
@@ -302,12 +302,12 @@ function AffiliateDashboard() {
           transition={{ delay: 0.2 }}
           className="mb-5"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-cyan-500/20" data-testid="card-referral-link">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10" data-testid="card-referral-link">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.06] to-sky-500/[0.06]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3">
-                <Link2 className="w-4 h-4 text-cyan-400" />
+                <Link2 className="w-4 h-4 text-gray-400" />
                 <h2 className="text-sm font-semibold">Your Referral Link</h2>
               </div>
               <div className="bg-black/40 border border-white/[0.08] rounded-xl px-3.5 py-3 mb-3 overflow-hidden">
@@ -321,7 +321,7 @@ function AffiliateDashboard() {
                   className={`flex-1 h-11 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.97] ${
                     copied
                       ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                      : "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30"
+                      : "bg-white/10 text-gray-400 border border-white/10 hover:bg-white/30"
                   }`}
                   data-testid="button-copy-link"
                 >
@@ -599,7 +599,7 @@ function AffiliateDashboard() {
           className="mb-5"
         >
           <h2 className="text-sm font-semibold flex items-center gap-2 px-1 mb-3">
-            <Globe className="w-4 h-4 text-cyan-400" />
+            <Globe className="w-4 h-4 text-gray-400" />
             Ecosystem Links
           </h2>
           <div className="grid grid-cols-2 gap-2" data-testid="list-cross-app-links">
@@ -637,7 +637,7 @@ function AffiliateDashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
         >
-          <div className="relative rounded-2xl overflow-hidden border border-cyan-500/20" data-testid="card-genesis-hallmark">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10" data-testid="card-genesis-hallmark">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.04] to-sky-500/[0.04]" />
             <div className="absolute inset-0 backdrop-blur-xl" />
             <div className="relative p-5 sm:p-6">
@@ -647,8 +647,8 @@ function AffiliateDashboard() {
                 data-testid="button-toggle-genesis"
               >
                 <div className="relative shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-cyan-500/20 flex items-center justify-center">
-                    <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-white/10 flex items-center justify-center">
+                    <Shield className="w-6 h-6 sm:w-7 sm:h-7 text-gray-400" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-black flex items-center justify-center">
                     <Check className="w-2 h-2 text-black" />
@@ -656,7 +656,7 @@ function AffiliateDashboard() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">Genesis Hallmark</p>
-                  <p className="text-lg sm:text-xl font-bold text-cyan-400 font-mono tracking-wide" data-testid="text-genesis-id">
+                  <p className="text-lg sm:text-xl font-bold text-gray-400 font-mono tracking-wide" data-testid="text-genesis-id">
                     {genesis?.thId || "DS-00000001"}
                   </p>
                   <p className="text-[10px] text-gray-500">{genesis?.productName || "Genesis Block"} · Verified</p>
@@ -728,9 +728,9 @@ function AffiliateDashboard() {
                         }
                       })()}
                       <div className="pt-2">
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-500/[0.06] border border-cyan-500/10">
-                          <Zap className="w-3 h-3 text-cyan-400 shrink-0" />
-                          <p className="text-[10px] text-cyan-400/70">
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.06] border border-white/10">
+                          <Zap className="w-3 h-3 text-gray-400 shrink-0" />
+                          <p className="text-[10px] text-gray-400/70">
                             Parent Genesis: TH-00000001 · Trust Layer Hub
                           </p>
                         </div>

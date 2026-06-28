@@ -292,11 +292,11 @@ export default function LumePlayground() {
       <header className="sticky top-0 z-50 bg-[#06060a]/90 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/lume" className="text-gray-400 hover:text-cyan-400 transition-colors" data-testid="link-back-lume">
+            <Link href="/lume" className="text-gray-400 hover:text-gray-400 transition-colors" data-testid="link-back-lume">
               <ChevronRight className="w-5 h-5 rotate-180" />
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                 <Terminal className="w-3.5 h-3.5 text-white" />
               </div>
               <span className="font-bold text-sm sm:text-base" style={{ fontFamily: "Inter, sans-serif" }}>Lume Playground</span>
@@ -304,8 +304,8 @@ export default function LumePlayground() {
                 <button
                   onClick={() => setShowModeMenu(!showModeMenu)}
                   className={`text-[10px] px-2 py-0.5 rounded-full font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
-                    mode === "standard" ? "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30" :
-                    mode === "english" ? "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30" :
+                    mode === "standard" ? "bg-white/10 text-gray-400 hover:bg-white/30" :
+                    mode === "english" ? "bg-white/10 text-gray-400 hover:bg-white/30" :
                     "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"
                   }`}
                   data-testid="button-mode-selector"
@@ -338,8 +338,8 @@ export default function LumePlayground() {
                             <div className="flex items-center gap-2">
                               <span className={`text-sm font-medium ${isActive ? "text-white" : "text-gray-300"}`}>{info.label}</span>
                               <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                                m === "standard" ? "bg-cyan-500/20 text-cyan-400" :
-                                m === "english" ? "bg-cyan-500/20 text-cyan-400" :
+                                m === "standard" ? "bg-white/10 text-gray-400" :
+                                m === "english" ? "bg-white/10 text-gray-400" :
                                 "bg-emerald-500/20 text-emerald-400"
                               }`}>{info.badge}</span>
                             </div>
@@ -387,7 +387,7 @@ export default function LumePlayground() {
             <button
               onClick={handleRun}
               disabled={isRunning}
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
               data-testid="button-run"
             >
               {executeMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
@@ -430,7 +430,7 @@ export default function LumePlayground() {
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-medium transition-colors"
                 data-testid="button-examples"
               >
-                <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
+                <BookOpen className="w-3.5 h-3.5 text-gray-400" />
                 Examples
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showExamples ? "rotate-180" : ""}`} />
               </button>
@@ -443,7 +443,7 @@ export default function LumePlayground() {
                 >
                   {categories.map(cat => (
                     <div key={cat}>
-                      <div className="px-4 py-2 text-[10px] text-cyan-400 uppercase tracking-wider font-bold border-b border-white/5">
+                      <div className="px-4 py-2 text-[10px] text-gray-400 uppercase tracking-wider font-bold border-b border-white/5">
                         {cat}
                       </div>
                       {examples.filter(e => e.category === cat).map(example => (
@@ -477,7 +477,7 @@ export default function LumePlayground() {
           <div className="flex flex-col">
             <div className="flex items-center justify-between px-3 py-2 bg-white/5 rounded-t-xl border border-white/10 border-b-0">
               <div className="flex items-center gap-2">
-                {mode === "standard" ? <Code2 className="w-4 h-4 text-cyan-400" /> : mode === "english" ? <MessageSquareText className="w-4 h-4 text-cyan-400" /> : <Languages className="w-4 h-4 text-emerald-400" />}
+                {mode === "standard" ? <Code2 className="w-4 h-4 text-gray-400" /> : mode === "english" ? <MessageSquareText className="w-4 h-4 text-gray-400" /> : <Languages className="w-4 h-4 text-emerald-400" />}
                 <span className="text-xs font-semibold text-gray-400" style={{ fontFamily: "JetBrains Mono, monospace" }}>
                   {mode === "standard" ? "main.lume" : mode === "english" ? "main.lume [english]" : "main.lume [natural]"}
                 </span>
@@ -485,7 +485,7 @@ export default function LumePlayground() {
               <div className="flex items-center gap-2">
                 {mode !== "standard" && (
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                    mode === "english" ? "bg-cyan-500/20 text-cyan-400" : "bg-emerald-500/20 text-emerald-400"
+                    mode === "english" ? "bg-white/10 text-gray-400" : "bg-emerald-500/20 text-emerald-400"
                   }`}>
                     Intent Resolver
                   </span>
@@ -533,7 +533,7 @@ export default function LumePlayground() {
                     onClick={() => setActiveTab(tab)}
                     className={`px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                       activeTab === tab
-                        ? tab === "resolved" ? (mode === "natural" ? "bg-emerald-500/20 text-emerald-400" : "bg-cyan-500/20 text-cyan-400") : "bg-cyan-500/20 text-cyan-400"
+                        ? tab === "resolved" ? (mode === "natural" ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-gray-400") : "bg-white/10 text-gray-400"
                         : "text-gray-500 hover:text-gray-300"
                     }`}
                     data-testid={`tab-${tab}`}
@@ -564,7 +564,7 @@ export default function LumePlayground() {
             <div className="relative flex-1 min-h-[300px] sm:min-h-[400px] lg:min-h-0 border border-white/10 rounded-b-xl overflow-hidden bg-[#0a0a12]">
               {isRunning ? (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-3 text-cyan-400">
+                  <div className="flex items-center gap-3 text-gray-400">
                     <Loader2 className="w-5 h-5 animate-spin" />
                     <span className="text-sm font-medium">Running...</span>
                   </div>
@@ -597,7 +597,7 @@ export default function LumePlayground() {
                 </h3>
                 {mode === "standard" ? (
                   <p className="text-xs text-gray-500">
-                    AI keywords: <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>{" "}
+                    AI keywords: <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask</code>{" "}
                     <code className="text-teal-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>think</code>{" "}
                     <code className="text-sky-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>generate</code>{" "}
                     | Control: <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>fn</code>{" "}
@@ -609,11 +609,11 @@ export default function LumePlayground() {
                 ) : (
                   <p className="text-xs text-gray-500">
                     Write in plain {mode === "english" ? "English" : "any language"}:{" "}
-                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>show "hello"</code>{" "}
-                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>set x to 5</code>{" "}
-                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask the AI to...</code>{" "}
-                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>if this fails, retry 3 times</code>{" "}
-                    <code className="text-cyan-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>monitor this</code>
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>show "hello"</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>set x to 5</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>ask the AI to...</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>if this fails, retry 3 times</code>{" "}
+                    <code className="text-gray-400 bg-white/5 px-1 rounded" style={{ fontFamily: "JetBrains Mono, monospace" }}>monitor this</code>
                   </p>
                 )}
               </div>
@@ -623,7 +623,7 @@ export default function LumePlayground() {
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium transition-colors"
                   data-testid="link-lume-page"
                 >
-                  <Layers className="w-3.5 h-3.5 text-cyan-400" /> Lume Overview
+                  <Layers className="w-3.5 h-3.5 text-gray-400" /> Lume Overview
                 </Link>
                 <Link
                   href="/academy"
@@ -636,7 +636,7 @@ export default function LumePlayground() {
                   href="https://lume-lang.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 text-xs font-medium text-cyan-400 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-white/10 text-xs font-medium text-gray-400 hover:text-white transition-colors"
                   data-testid="link-lume-org"
                 >
                   <ExternalLink className="w-3.5 h-3.5" /> lume-lang.org

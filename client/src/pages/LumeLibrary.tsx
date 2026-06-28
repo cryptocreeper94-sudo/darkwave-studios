@@ -74,17 +74,17 @@ function StatusMonitorWidget() {
   const statusIcon = (s: string) => {
     if (s === "healthy") return <CheckCircle className="w-3 h-3 text-emerald-400" />;
     if (s === "degraded") return <AlertTriangle className="w-3 h-3 text-red-400 animate-pulse" />;
-    return <RefreshCw className="w-3 h-3 text-cyan-400 animate-spin" />;
+    return <RefreshCw className="w-3 h-3 text-gray-400 animate-spin" />;
   };
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2 text-xs text-white/50">
-          <Activity className="w-3.5 h-3.5 text-cyan-400" />
+          <Activity className="w-3.5 h-3.5 text-gray-400" />
           <span>Live Status</span>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-cyan-400">
+        <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
           <Heart className="w-3 h-3" />
           <span>{healCount} healed</span>
         </div>
@@ -92,7 +92,7 @@ function StatusMonitorWidget() {
       {services.map((s, i) => (
         <div key={i} className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg transition-all duration-500 ${
           s.status === "degraded" ? "bg-red-500/10 border border-red-500/20" :
-          s.status === "healed" ? "bg-cyan-500/10 border border-cyan-500/20" :
+          s.status === "healed" ? "bg-white/5 border border-white/10" :
           "bg-white/[0.03] border border-white/5"
         }`}>
           <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ function StatusMonitorWidget() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-[10px] text-cyan-400 text-center py-1.5 bg-cyan-500/5 rounded-lg border border-cyan-500/10"
+          className="text-[10px] text-gray-400 text-center py-1.5 bg-white/5 rounded-lg border border-white/10"
         >
           ⚡ Self-healing in progress...
         </motion.div>
@@ -163,7 +163,7 @@ function CircuitBreakerWidget() {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-white/50">
-          <Shield className="w-3.5 h-3.5 text-cyan-400" />
+          <Shield className="w-3.5 h-3.5 text-gray-400" />
           <span>Circuit Breaker</span>
         </div>
         <span className={`text-[10px] font-mono font-bold ${stateColor}`}>{state}</span>
@@ -227,7 +227,7 @@ function MetricsWidget() {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2 text-xs text-white/50 mb-2">
-        <BarChart3 className="w-3.5 h-3.5 text-cyan-400" />
+        <BarChart3 className="w-3.5 h-3.5 text-gray-400" />
         <span>Runtime Metrics</span>
         <span className="ml-auto text-[10px] text-emerald-400 flex items-center gap-1">
           <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
@@ -240,7 +240,7 @@ function MetricsWidget() {
             <span className="text-white/50">CPU</span>
             <span className="text-white/70 font-mono">{Math.round(metrics.cpu)}%</span>
           </div>
-          <GaugeBar value={metrics.cpu} max={100} color={metrics.cpu > 80 ? "bg-red-500" : "bg-cyan-500"} />
+          <GaugeBar value={metrics.cpu} max={100} color={metrics.cpu > 80 ? "bg-red-500" : "bg-white"} />
         </div>
         <div>
           <div className="flex justify-between text-[10px] mb-1">
@@ -324,7 +324,7 @@ function FallbackChainWidget() {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-xs text-white/50">
-          <Layers className="w-3.5 h-3.5 text-cyan-400" />
+          <Layers className="w-3.5 h-3.5 text-gray-400" />
           <span>Fallback Chain</span>
         </div>
         <span className="text-[10px] text-white/30">Run #{runCount}</span>
@@ -380,8 +380,8 @@ function EcosystemBadgeWidget() {
         transition={{ duration: 0.8 }}
         className="relative"
       >
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-cyan-500/30 flex items-center justify-center">
-          <Shield className="w-8 h-8 text-cyan-400" />
+        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-sky-500/20 border border-white/10 flex items-center justify-center">
+          <Shield className="w-8 h-8 text-gray-400" />
         </div>
         <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-[#0a0f1e] flex items-center justify-center">
           <CheckCircle2 className="w-3 h-3 text-white" />
@@ -625,7 +625,7 @@ export default function LumeLibrary() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.12),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
+      
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -635,7 +635,7 @@ export default function LumeLibrary() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-cyan-500/25">
                 <Boxes className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -656,7 +656,7 @@ export default function LumeLibrary() {
               href="https://lume-lang.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-xl transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-xl transition-all hover:scale-105"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">lume-lang.org</span>
@@ -674,7 +674,7 @@ export default function LumeLibrary() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16 lg:mb-24"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-teal-500/20 border border-cyan-500/30 text-sm font-semibold text-cyan-400 mb-8 shadow-lg shadow-cyan-500/10">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-teal-500/20 border border-white/10 text-sm font-semibold text-gray-400 mb-8 shadow-lg shadow-cyan-500/10">
             <Sparkles className="w-4 h-4" />
             Self-Healing by Default
           </div>
@@ -689,7 +689,7 @@ export default function LumeLibrary() {
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/50">
-              <Activity className="w-3 h-3 text-cyan-400" />
+              <Activity className="w-3 h-3 text-gray-400" />
               {widgets.length} Widgets
             </div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/50">
@@ -711,7 +711,7 @@ export default function LumeLibrary() {
               onClick={() => setActiveWidget(w.id)}
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 activeWidget === w.id
-                  ? "bg-gradient-to-r from-cyan-500/15 to-teal-500/15 border border-cyan-500/30 text-cyan-400 shadow-lg shadow-cyan-500/10"
+                  ? "bg-gradient-to-r from-cyan-500/15 to-teal-500/15 border border-white/10 text-gray-400 shadow-lg shadow-cyan-500/10"
                   : "bg-white/5 border border-white/10 text-white/50 hover:text-white/70 hover:bg-white/8"
               }`}
             >
@@ -742,7 +742,7 @@ export default function LumeLibrary() {
             </div>
             <div className="flex items-center gap-2">
               {active.tags.map(tag => (
-                <span key={tag} className="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-[10px] font-mono text-cyan-400">
+                <span key={tag} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-gray-400">
                   {tag}
                 </span>
               ))}
@@ -771,7 +771,7 @@ export default function LumeLibrary() {
             <GlassCard className="p-0 overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
                 <div className="flex items-center gap-2 text-xs text-white/40">
-                  <Code2 className="w-3.5 h-3.5 text-cyan-400" />
+                  <Code2 className="w-3.5 h-3.5 text-gray-400" />
                   <span className="font-mono">{active.id}.lume</span>
                 </div>
                 <CopyButton text={widgetSources[active.id]} />
@@ -794,7 +794,7 @@ export default function LumeLibrary() {
           className="mb-16 lg:mb-24"
         >
           <h2 className="text-2xl lg:text-4xl font-display font-bold text-center mb-4">
-            <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">
               Why Self-Healing?
             </span>
           </h2>
@@ -830,7 +830,7 @@ export default function LumeLibrary() {
           className="mb-16 lg:mb-24"
         >
           <h2 className="text-2xl lg:text-4xl font-display font-bold text-center mb-12">
-            <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-white/5 border border-white/10 bg-clip-text text-transparent">
               How It Works
             </span>
           </h2>
@@ -843,8 +843,8 @@ export default function LumeLibrary() {
             ].map((s, i) => (
               <GlassCard key={i} glow className="p-6 text-center relative overflow-hidden">
                 <div className="absolute top-3 right-4 text-5xl font-display font-bold text-white/[0.03]">{s.step}</div>
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-teal-500/15 border border-cyan-500/20 flex items-center justify-center mx-auto mb-4">
-                  <s.icon className="w-6 h-6 text-cyan-400" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-teal-500/15 border border-white/10 flex items-center justify-center mx-auto mb-4">
+                  <s.icon className="w-6 h-6 text-gray-400" />
                 </div>
                 <h3 className="font-display font-semibold text-white/90 mb-2">{s.title}</h3>
                 <p className="text-xs text-white/50 leading-relaxed max-w-xs mx-auto">{s.desc}</p>
@@ -861,7 +861,7 @@ export default function LumeLibrary() {
           className="text-center"
         >
           <GlassCard glow className="p-8 lg:p-12 max-w-2xl mx-auto">
-            <Sparkles className="w-8 h-8 text-cyan-400 mx-auto mb-4" />
+            <Sparkles className="w-8 h-8 text-gray-400 mx-auto mb-4" />
             <h2 className="text-xl lg:text-3xl font-display font-bold mb-3">
               Build with Lume
             </h2>
@@ -872,7 +872,7 @@ export default function LumeLibrary() {
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/lume/playground"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-xl transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-xl transition-all hover:scale-105"
               >
                 <Play className="w-4 h-4" />
                 Try Playground

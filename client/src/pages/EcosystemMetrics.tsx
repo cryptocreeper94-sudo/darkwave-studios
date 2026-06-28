@@ -681,7 +681,7 @@ function AnimatedCounter({ target, duration = 2000, suffix = "" }: { target: num
 
 function LanguageBar({ breakdown, totalLines }: { breakdown: AppMetric["breakdown"]; totalLines: number }) {
   const colors = [
-    "bg-gradient-to-r from-cyan-400 to-blue-500",
+    "bg-white/5 border border-white/10",
     "bg-gradient-to-r from-sky-400 to-pink-500",
     "bg-gradient-to-r from-amber-400 to-orange-500",
     "bg-gradient-to-r from-emerald-400 to-green-500",
@@ -804,7 +804,7 @@ export default function EcosystemMetrics() {
           className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-16 lg:mb-24"
         >
           {[
-            { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-cyan-400" },
+            { icon: Code2, label: "Total Lines", value: totalLines, gradient: "from-cyan-500/20 to-blue-500/20", color: "text-gray-400" },
             { icon: FileCode2, label: "Source Files", value: totalFiles, gradient: "from-sky-500/20 to-pink-500/20", color: "text-sky-400" },
             { icon: Layers, label: "Applications", value: totalApps, gradient: "from-amber-500/20 to-orange-500/20", color: "text-amber-400" },
             { icon: Server, label: "API Endpoints", value: totalEndpoints, gradient: "from-emerald-500/20 to-green-500/20", color: "text-emerald-400" },
@@ -992,7 +992,7 @@ export default function EcosystemMetrics() {
           className="mb-16 lg:mb-24"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-6 bg-gradient-to-b from-cyan-500 to-blue-500 rounded-full" />
+            <div className="w-1 h-6 bg-white/5 border border-white/10 rounded-full" />
             <h2 className="text-2xl lg:text-3xl font-display font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
               Technology Footprint
             </h2>
@@ -1000,7 +1000,7 @@ export default function EcosystemMetrics() {
 
           <GlassCard glow className="rounded-2xl p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-6">
-              <Database className="w-5 h-5 text-cyan-400" />
+              <Database className="w-5 h-5 text-gray-400" />
               <h3 className="text-lg font-semibold">{uniqueStack.length} Technologies</h3>
               <span className="text-xs text-muted-foreground">across the ecosystem</span>
             </div>

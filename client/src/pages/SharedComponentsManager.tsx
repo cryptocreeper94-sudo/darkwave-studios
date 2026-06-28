@@ -279,7 +279,7 @@ export default function SharedComponentsManager() {
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
           <GlassCard glow className="p-8 rounded-2xl w-[380px]">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
                 <Lock className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -295,7 +295,7 @@ export default function SharedComponentsManager() {
                   value={password}
                   onChange={e => { setPassword(e.target.value); setPasswordError(false); }}
                   onKeyDown={e => e.key === "Enter" && handleLogin()}
-                  className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+                  className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
                   placeholder="Enter password"
                   data-testid="input-password"
                   autoFocus
@@ -308,7 +308,7 @@ export default function SharedComponentsManager() {
               </div>
               <button
                 onClick={handleLogin}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                className="w-full bg-white/5 border border-white/10 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
                 data-testid="button-login"
               >
                 Access Manager
@@ -365,20 +365,20 @@ export default function SharedComponentsManager() {
                       value={newSlug}
                       onChange={e => setNewSlug(e.target.value)}
                       placeholder="slug (e.g. header)"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
                       data-testid="input-new-slug"
                     />
                     <input
                       value={newName}
                       onChange={e => setNewName(e.target.value)}
                       placeholder="Display Name"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
                       data-testid="input-new-name"
                     />
                     <select
                       value={newType}
                       onChange={e => setNewType(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500/50 focus:outline-none"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-white/10 focus:outline-none"
                       data-testid="select-new-type"
                     >
                       {componentTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -476,7 +476,7 @@ export default function SharedComponentsManager() {
                     <button
                       onClick={handleSave}
                       disabled={saving || Object.keys(editBuffer).length === 0}
-                      className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
+                      className="flex items-center gap-1.5 bg-white/5 border border-white/10 text-white px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-40"
                       data-testid="button-save"
                     >
                       {saving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
@@ -537,7 +537,7 @@ export default function SharedComponentsManager() {
                                 value={field.value}
                                 onChange={e => updateField(field.key, e.target.value)}
                                 rows={3}
-                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none resize-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none resize-none"
                                 data-testid={`field-${field.key}`}
                               />
                             ) : (
@@ -545,7 +545,7 @@ export default function SharedComponentsManager() {
                                 type={field.type}
                                 value={field.value}
                                 onChange={e => updateField(field.key, e.target.value)}
-                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none"
                                 data-testid={`field-${field.key}`}
                               />
                             )}
@@ -566,7 +566,7 @@ export default function SharedComponentsManager() {
                           activeTab === "html" ? "htmlContent" : activeTab === "css" ? "cssContent" : "jsContent",
                           e.target.value
                         )}
-                        className="w-full h-[520px] bg-black/60 border border-white/10 rounded-lg px-4 py-3 text-sm text-green-300 font-mono placeholder-gray-600 focus:border-cyan-500/50 focus:outline-none resize-none leading-relaxed"
+                        className="w-full h-[520px] bg-black/60 border border-white/10 rounded-lg px-4 py-3 text-sm text-green-300 font-mono placeholder-gray-600 focus:border-white/10 focus:outline-none resize-none leading-relaxed"
                         spellCheck={false}
                         data-testid={`editor-${activeTab}`}
                       />
@@ -620,7 +620,7 @@ export default function SharedComponentsManager() {
                   {`<script src="https://dwsc.io/api/ecosystem/shared/loader.js" data-components="${selected.slug}" data-theme="dark"></script>`}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Or fetch directly: <code className="text-cyan-400">GET /api/ecosystem/shared/render/{selected.slug}?theme=dark</code>
+                  Or fetch directly: <code className="text-gray-400">GET /api/ecosystem/shared/render/{selected.slug}?theme=dark</code>
                 </p>
               </GlassCard>
             </div>

@@ -574,7 +574,7 @@ export default function MarketingHub() {
             <p className="text-xs text-muted-foreground">Shares</p>
           </GlassCard>
           <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-clicks">
-            <MousePointer className="w-6 h-6 mx-auto text-cyan-400 mb-2" />
+            <MousePointer className="w-6 h-6 mx-auto text-gray-400 mb-2" />
             <p className="text-2xl font-bold">{analytics.clicks.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Clicks</p>
           </GlassCard>
@@ -807,7 +807,7 @@ export default function MarketingHub() {
                 <p className="text-sm text-muted-foreground">Total Shares</p>
               </GlassCard>
               <GlassCard variant="stat" className="p-4 text-center" data-testid="card-analytics-full-clicks">
-                <MousePointer className="w-8 h-8 mx-auto text-cyan-400 mb-2" />
+                <MousePointer className="w-8 h-8 mx-auto text-gray-400 mb-2" />
                 <p className="text-3xl font-bold">{analytics.clicks.toLocaleString()}</p>
                 <p className="text-sm text-muted-foreground">Total Clicks</p>
               </GlassCard>

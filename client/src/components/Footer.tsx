@@ -54,22 +54,22 @@ export default function Footer() {
 
           {/* Company + Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-semibold" style={{ color: 'var(--text-dim)' }}>
-            <span className="text-cyan-500 border border-cyan-500/30 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-cyan-500/10">US Provisional Patent (64/032,339)</span>
+            <span className="text-white border border-white/10 px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider bg-white/5">US Provisional Patent (64/032,339)</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span style={{ color: 'var(--text-muted)' }}>DarkWave Studios, LLC</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
             <span>&copy; 2026</span>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <a href="https://dwtl.io/presale" className="text-cyan-500 hover:text-cyan-400 transition-colors">$SIG Presale</a>
+            <a href="https://dwtl.io/presale" className="text-white hover:text-gray-400 transition-colors">$SIG Presale</a>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <Link href="/terms" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Terms</Link>
+            <Link href="/terms" className="hover:text-cyan-600 dark:hover:text-gray-400 transition-colors">Terms</Link>
             <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <Link href="/privacy" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Privacy</Link>
+            <Link href="/privacy" className="hover:text-cyan-600 dark:hover:text-gray-400 transition-colors">Privacy</Link>
           </div>
 
           {/* Powered by Lume */}
           <div className="text-[10px] mt-1" style={{ color: 'var(--text-dim)' }}>
-            Architected by <span className="text-cyan-600 dark:text-cyan-400 font-bold">DarkWave Systems</span>
+            Architected by <span className="text-cyan-600 dark:text-gray-400 font-bold">DarkWave Systems</span>
           </div>
 
           {/* Hidden shield easter egg */}
@@ -91,12 +91,12 @@ export default function Footer() {
       <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-xl flex items-center justify-center"
         onClick={() => setShowPinModal(false)}>
         <div onClick={(e) => e.stopPropagation()}
-          className="w-[280px] p-8 rounded-2xl bg-[#0a0e1a] border border-cyan-500/15 flex flex-col items-center gap-5"
+          className="w-[280px] p-8 rounded-2xl bg-[#0a0e1a] border border-white/10 flex flex-col items-center gap-5"
           style={{
             boxShadow: "0 32px 100px rgba(6,182,212,0.1)",
             animation: pinError ? "shake 0.4s ease" : undefined,
           }}>
-          <Shield className={`w-7 h-7 ${pinError ? "text-red-500" : "text-cyan-500"}`} />
+          <Shield className={`w-7 h-7 ${pinError ? "text-red-500" : "text-white"}`} />
           <p className="text-sm font-bold text-white/70 tracking-wider">Enter PIN</p>
           <input
             ref={pinInputRef}

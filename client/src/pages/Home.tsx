@@ -452,7 +452,7 @@ export default function Home() {
                 <a href="#core" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-white/5">Core Ecosystem</a>
                 <a href="#extended" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-3 border-b border-white/5">Extended Network</a>
                 <a href="https://dwtl.io" target="_blank" className="text-sm font-semibold py-3 border-b border-white/5">Trust Layer</a>
-                <a href="https://dwtl.io/presale" target="_blank" className="text-sm font-semibold py-3 text-cyan-500">$SIG Presale</a>
+                <a href="https://dwtl.io/presale" target="_blank" className="text-sm font-semibold py-3 text-white">$SIG Presale</a>
               </div>
             </div>
           )}
@@ -471,7 +471,7 @@ export default function Home() {
               <a 
                 href="https://dwtl.io/presale" 
                 target="_blank"
-                className="btn-glow bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-all"
+                className="btn-glow bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-all"
               >
                 $SIG Presale
               </a>

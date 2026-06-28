@@ -320,7 +320,7 @@ export default function Admin() {
                     <GlassCard variant="feature" className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 transition-all cursor-pointer group" data-testid="link-analytics">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/30 to-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <BarChart3 className="w-6 h-6 text-cyan-400" />
+                          <BarChart3 className="w-6 h-6 text-gray-400" />
                         </div>
                         <div>
                           <div className="font-bold text-white">Analytics</div>

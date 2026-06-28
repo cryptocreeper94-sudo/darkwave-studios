@@ -267,8 +267,8 @@ export default function DeveloperApi() {
               {/* Tech & Startup Publications */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-cyan-400" />
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-gray-400" />
                   </div>
                   <h3 className="text-lg font-semibold">Tech & Startup Publications</h3>
                 </div>
@@ -281,15 +281,15 @@ export default function DeveloperApi() {
                     { name: "BetaList", url: "https://betalist.com/submit", type: "Startup directory", pitch: "Submit new products for early adopter exposure", icon: Sparkles },
                     { name: "Dev.to", url: "https://dev.to", type: "Developer community", pitch: "Technical articles on architecture, Trust Layer, widget marketplace patterns", icon: Code2 },
                   ].map((pub, i) => (
-                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/30 hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
+                    <a key={i} href={pub.url} target="_blank" rel="noopener noreferrer" className="group block p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/10 hover:bg-white/10 transition-all duration-300" data-testid={`pub-tech-${i}`}>
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <pub.icon className="w-4 h-4 text-cyan-400" />
+                          <pub.icon className="w-4 h-4 text-gray-400" />
                           <span className="font-semibold text-sm">{pub.name}</span>
                         </div>
                         <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 font-medium">{pub.type}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-gray-400 font-medium">{pub.type}</span>
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{pub.pitch}</p>
                     </a>
                   ))}

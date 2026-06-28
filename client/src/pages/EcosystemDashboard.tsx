@@ -163,8 +163,8 @@ export default function EcosystemDashboard() {
       />
 
       <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
+      <div className="fixed inset-0 bg-[#050505]/80 pointer-events-none z-[-10]" />
+      
 
       {/* Animated grid background */}
       <div className="fixed inset-0 -z-10 opacity-[0.03]" style={{
@@ -180,7 +180,7 @@ export default function EcosystemDashboard() {
               <ChevronRight className="w-5 h-5 rotate-180" />
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                 <Cpu className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -211,7 +211,7 @@ export default function EcosystemDashboard() {
             </button>
             <Link
               href="/command"
-              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="flex items-center gap-1.5 bg-white/5 border border-white/10 text-white px-3 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
               data-testid="link-command-center"
             >
               <Command className="w-3.5 h-3.5" /> Command
@@ -237,7 +237,7 @@ export default function EcosystemDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-sky-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r bg-white/5 bg-clip-text text-transparent">
                   Master Control
                 </span>
               </motion.h1>
@@ -251,7 +251,7 @@ export default function EcosystemDashboard() {
                   { label: "Online", value: summary.online, icon: CheckCircle2, color: "text-green-400", bg: "bg-green-500/10 border-green-500/20" },
                   { label: "Degraded", value: summary.degraded, icon: AlertTriangle, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
                   { label: "Offline", value: summary.offline, icon: XCircle, color: "text-red-400", bg: "bg-red-500/10 border-red-500/20" },
-                  { label: "Avg Response", value: `${summary.avgResponseTime}ms`, icon: Timer, color: "text-cyan-400", bg: "bg-cyan-500/10 border-cyan-500/20" },
+                  { label: "Avg Response", value: `${summary.avgResponseTime}ms`, icon: Timer, color: "text-gray-400", bg: "bg-white/5 border-white/10" },
                 ].map((stat, i) => (
                   <motion.div
                     key={stat.label}
@@ -324,7 +324,7 @@ export default function EcosystemDashboard() {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search apps..."
-              className="w-full bg-white/[0.03] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none transition-colors"
+              className="w-full bg-white/[0.03] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:border-white/10 focus:outline-none transition-colors"
               data-testid="input-search-apps"
             />
           </div>
@@ -542,7 +542,7 @@ export default function EcosystemDashboard() {
           <GlassCard glow className="rounded-2xl p-6 lg:p-8">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
                   <Wrench className="w-5 h-5 text-white" />
                 </div>
                 <div>

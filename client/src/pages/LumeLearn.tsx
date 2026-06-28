@@ -194,19 +194,19 @@ export default function LumeLearn() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="p-6 sm:p-8 border border-[#1e293b] bg-[#0f172a]/50 backdrop-blur-md rounded-2xl w-full max-w-sm text-center shadow-2xl"
                 >
-                    <Lock className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-500 mx-auto mb-4 sm:mb-6" />
+                    <Lock className="w-10 h-10 sm:w-12 sm:h-12 text-white mx-auto mb-4 sm:mb-6" />
                     <h2 className="text-xl sm:text-2xl font-black text-white tracking-widest mb-2">RESTRICTED</h2>
                     <p className="text-slate-400 text-xs sm:text-sm mb-4 sm:mb-6">Enter Director PIN to access LumeLearn Portal</p>
                     <form onSubmit={handlePinSubmit}>
                         <Input 
                             type="password" 
-                            className={`bg-black/50 border-${error ? 'red-500' : 'cyan-900'} text-center tracking-[1em] text-lg mb-4 text-cyan-400`}
+                            className={`bg-black/50 border-${error ? 'red-500' : 'cyan-900'} text-center tracking-[1em] text-lg mb-4 text-gray-400`}
                             value={pinEntry}
                             onChange={(e) => setPinEntry(e.target.value)}
                             maxLength={4}
                             autoFocus
                         />
-                        <Button type="submit" variant="outline" className="w-full border-cyan-800 text-cyan-400 hover:bg-cyan-950/50">
+                        <Button type="submit" variant="outline" className="w-full border-white/10 text-gray-400 hover:bg-cyan-950/50">
                             VERIFY
                         </Button>
                     </form>
@@ -349,7 +349,7 @@ export default function LumeLearn() {
                                                 href={`https://doi.org/${currentChapter.doi}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-cyan-500 hover:text-cyan-300 transition-colors break-all"
+                                                className="text-white hover:text-cyan-300 transition-colors break-all"
                                             >
                                                 DOI: {currentChapter.doi}
                                             </a>
@@ -383,17 +383,17 @@ export default function LumeLearn() {
 
                                 {/* Zenodo Link */}
                                 {currentChapter?.doi && (
-                                    <div className="p-4 sm:p-6 rounded-xl bg-[#0b1628] border border-cyan-900/30 mb-10">
+                                    <div className="p-4 sm:p-6 rounded-xl bg-[#0b1628] border border-white/10 mb-10">
                                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                                             <div>
                                                 <p className="text-xs text-slate-500 mb-1">Full preprint available on Zenodo</p>
-                                                <p className="text-xs sm:text-sm font-mono text-cyan-400 break-all">{currentChapter.doi}</p>
+                                                <p className="text-xs sm:text-sm font-mono text-gray-400 break-all">{currentChapter.doi}</p>
                                             </div>
                                             <a
                                                 href={`https://doi.org/${currentChapter.doi}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="shrink-0 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold hover:bg-cyan-500/20 transition-colors"
+                                                className="shrink-0 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/10 transition-colors"
                                             >
                                                 View on Zenodo →
                                             </a>
@@ -565,14 +565,14 @@ export default function LumeLearn() {
                                             transition={{ delay: idx * 0.08 }}
                                             className={`
                                                 bg-[#0b0c10] border rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative group overflow-hidden transition-all duration-500
-                                                ${isPlaying ? 'border-teal-400 shadow-[0_0_30px_rgba(20,184,166,0.15)]' : 'border-slate-800/60 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]'}
+                                                ${isPlaying ? 'border-teal-400 shadow-[0_0_30px_rgba(20,184,166,0.15)]' : 'border-slate-800/60 hover:border-white/10 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]'}
                                             `}
                                         >
-                                            <div className={`absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 blur-[50px] rounded-full transition-all duration-1000 ${isPlaying ? 'bg-teal-500/20' : 'bg-cyan-500/10 group-hover:bg-cyan-400/20'}`} />
+                                            <div className={`absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 blur-[50px] rounded-full transition-all duration-1000 ${isPlaying ? 'bg-teal-500/20' : 'bg-white/5 group-hover:bg-cyan-400/20'}`} />
                                             
                                             <div className="flex justify-between items-start mb-3 sm:mb-4">
                                                 <h3 className="text-base sm:text-xl font-bold text-white leading-tight pr-3">{module.title}</h3>
-                                                <div className="text-[10px] sm:text-xs font-mono text-cyan-500 bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/50 shrink-0">
+                                                <div className="text-[10px] sm:text-xs font-mono text-white bg-cyan-950/30 px-2 py-1 rounded border border-white/10 shrink-0">
                                                     {module.duration}
                                                 </div>
                                             </div>
@@ -583,7 +583,7 @@ export default function LumeLearn() {
                                             <div className="flex items-center gap-2 sm:gap-3 relative z-10 w-full">
                                                 <Button 
                                                     onClick={() => togglePlayback(module.id)}
-                                                    className={`flex-1 text-xs sm:text-sm ${isPlaying ? 'bg-teal-600 hover:bg-teal-500' : 'bg-cyan-600 hover:bg-cyan-500'} text-white transition-colors`}
+                                                    className={`flex-1 text-xs sm:text-sm ${isPlaying ? 'bg-teal-600 hover:bg-teal-500' : 'bg-cyan-600 hover:bg-white'} text-white transition-colors`}
                                                 >
                                                     {isPlaying ? <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" /> : <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />}
                                                     {isPlaying ? 'PAUSE' : 'LISTEN'}

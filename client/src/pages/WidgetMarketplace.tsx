@@ -196,7 +196,7 @@ function SnippetModal({ snippet, onClose }: { snippet: Snippet; onClose: () => v
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-1.5">
               {snippet.tags.map(tag => (
-                <span key={tag} className="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-[10px] font-mono text-cyan-400">{tag}</span>
+                <span key={tag} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-gray-400">{tag}</span>
               ))}
             </div>
             {snippet.isPremium ? (
@@ -225,7 +225,7 @@ function SnippetModal({ snippet, onClose }: { snippet: Snippet; onClose: () => v
           {/* Embed */}
           <div className="rounded-xl bg-white/[0.02] border border-white/5 p-4">
             <div className="flex items-center gap-2 mb-2">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+              <Terminal className="w-3.5 h-3.5 text-gray-400" />
               <span className="text-xs font-semibold text-white/60">Quick Embed</span>
             </div>
             <div className="relative bg-black/40 rounded-lg p-3">
@@ -297,7 +297,7 @@ export default function WidgetMarketplace() {
 
       <div className="fixed inset-0 bg-background -z-20" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.1),transparent_50%)] -z-10" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.06),transparent_50%)] -z-10" />
+      
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-2xl bg-background/60 border-b border-white/5">
@@ -307,7 +307,7 @@ export default function WidgetMarketplace() {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
                 <Package className="w-4.5 h-4.5 text-white" />
               </div>
               <div>
@@ -318,7 +318,7 @@ export default function WidgetMarketplace() {
           </div>
           <Link
             href="/lume/library"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 text-xs text-cyan-400 font-semibold hover:bg-cyan-500/15 transition-all"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-white/10 text-xs text-gray-400 font-semibold hover:bg-white/15 transition-all"
           >
             <Sparkles className="w-3 h-3" />
             Lume Widgets
@@ -339,7 +339,7 @@ export default function WidgetMarketplace() {
           </p>
           <div className="flex flex-wrap gap-2 mb-6">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 text-xs text-white/50">
-              <Package className="w-3 h-3 text-cyan-400" /> {totalCount} Total
+              <Package className="w-3 h-3 text-gray-400" /> {totalCount} Total
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 text-xs text-white/50">
               <Sparkles className="w-3 h-3 text-emerald-400" /> {freeCount} Free
@@ -363,7 +363,7 @@ export default function WidgetMarketplace() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search widgets, hooks, components..."
-              className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/25 focus:border-cyan-500/40 focus:outline-none transition-colors"
+              className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/25 focus:border-white/10 focus:outline-none transition-colors"
               data-testid="search-input"
             />
             {searchQuery && (
@@ -381,7 +381,7 @@ export default function WidgetMarketplace() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${
                   activeCategory === cat.id
-                    ? "bg-gradient-to-r from-cyan-500/15 to-sky-500/15 border border-cyan-500/30 text-cyan-400"
+                    ? "bg-gradient-to-r from-cyan-500/15 to-sky-500/15 border border-white/10 text-gray-400"
                     : "bg-white/[0.03] border border-white/8 text-white/40 hover:text-white/60 hover:bg-white/[0.06]"
                 }`}
                 data-testid={`category-${cat.id}`}
@@ -396,7 +396,7 @@ export default function WidgetMarketplace() {
         {/* Loading */}
         {loading && (
           <div className="text-center py-20">
-            <div className="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mx-auto mb-3" />
+            <div className="w-8 h-8 border-2 border-white/10 border-t-cyan-500 rounded-full animate-spin mx-auto mb-3" />
             <p className="text-sm text-white/30">Loading marketplace...</p>
           </div>
         )}
