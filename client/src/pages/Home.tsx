@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight, Menu, X, Shield, ShieldAlert, Cpu, Lock, Database, Code, Zap } from "lucide-react";
+import { KenBurnsBackground } from "@/components/ken-burns-background";
 
 const projects = [
   {
@@ -404,40 +405,6 @@ const staggerItem = {
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 };
 
-function BackgroundSlideshow() {
-  const [index, setIndex] = useState(0);
-  const images = [
-    "/ecosystem/darkwave-studios-new.jpg",
-    "/ecosystem/chronicles-new.jpg",
-    "/ecosystem/trust-layer-new.jpg",
-    "/ecosystem/guardian-scanner-new.jpg",
-    "/ecosystem/orbit-staffing-new.jpg",
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <>
-      {images.map((src, i) => (
-        <div
-          key={src}
-          className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${i === index ? 'opacity-60' : 'opacity-0'}`}
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-center animate-kenburns origin-center"
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        </div>
-      ))}
-    </>
-  );
-}
-
 export default function Home() {
   const [currentProject, setCurrentProject] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -465,9 +432,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans relative">
       <div className="fixed inset-0 pointer-events-none z-[-1]">
-        <BackgroundSlideshow />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/30 via-[#050505]/80 to-[#050505]" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/10 via-transparent to-purple-900/10 mix-blend-overlay" />
+        <KenBurnsBackground 
+          images={[
+            "/ecosystem/darkwave-studios-new.jpg",
+            "/ecosystem/chronicles-new.jpg",
+            "/ecosystem/trust-layer-new.jpg",
+            "/ecosystem/guardian-scanner-new.jpg",
+            "/ecosystem/orbit-staffing-new.jpg",
+          ]} 
+          overlayOpacity={0.6} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/10 via-transparent to-purple-900/10 mix-blend-overlay pointer-events-none" />
       </div>
 
       <div className="relative z-10">

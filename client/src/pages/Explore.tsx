@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/glass-card";
+import { KenBurnsBackground } from "@/components/ken-burns-background";
 import {
   Carousel,
   CarouselContent,
@@ -446,48 +447,6 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
   );
 }
 
-function HeroSlideshow() {
-  const [api, setApi] = useState<any>(null);
-
-  useEffect(() => {
-    if (!api) return;
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [api]);
-
-  const images = [
-    "/ecosystem/darkwave-studios-new.jpg",
-    "/ecosystem/chronicles-new.jpg",
-    "/ecosystem/trust-layer-new.jpg",
-    "/ecosystem/guardian-scanner-new.jpg",
-    "/ecosystem/orbit-staffing-new.jpg",
-  ];
-
-  return (
-    <Carousel
-      opts={{ align: "start", loop: true, watchDrag: false, duration: 60 }}
-      setApi={setApi}
-      className="w-full h-40 lg:h-56 xl:h-72"
-    >
-      <CarouselContent className="h-full ml-0">
-        {images.map((src, i) => (
-          <CarouselItem key={i} className="pl-0 basis-full h-full relative overflow-hidden">
-            <img
-              src={src}
-              alt="DarkWave Studios Nexus"
-              className="w-full h-full object-cover scale-105 animate-kenburns"
-            />
-            {/* Ambient vibrant overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/30 via-transparent to-purple-900/30 mix-blend-overlay pointer-events-none" />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-    </Carousel>
-  );
-}
-
 function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; catIndex: number }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [api, setApi] = useState<any>(null);
@@ -618,11 +577,20 @@ export default function Explore() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-xl overflow-hidden mb-10 lg:mb-14 border border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)]"
+          className="relative h-[45vh] lg:h-[60vh] rounded-xl overflow-hidden mb-10 lg:mb-14 border border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)] flex flex-col justify-end"
         >
-          <HeroSlideshow />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+          <KenBurnsBackground 
+            images={[
+              "/ecosystem/darkwave-studios-new.jpg",
+              "/ecosystem/chronicles-new.jpg",
+              "/ecosystem/trust-layer-new.jpg",
+              "/ecosystem/guardian-scanner-new.jpg",
+              "/ecosystem/orbit-staffing-new.jpg",
+            ]} 
+            overlayOpacity={0.4} 
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/20 via-transparent to-purple-900/20 mix-blend-overlay pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 z-10">
             <h1 className="text-3xl lg:text-5xl font-display font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 uppercase tracking-tighter drop-shadow-lg">
               Where do you want to <span className="text-white/40">go?</span>
             </h1>
