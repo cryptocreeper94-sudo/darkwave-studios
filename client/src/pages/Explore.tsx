@@ -407,14 +407,12 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
           className="glass-card-surface group relative h-[220px] lg:h-[240px] rounded-sm overflow-hidden cursor-pointer transition-all duration-300 border border-black/5 hover:border-black/30 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] [perspective:1000px] hover:rotate-x-2 hover:-rotate-y-2"
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
-          <img
-            src={card.image}
-            alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center contrast-[1.05] group-hover:scale-[1.02] transition-transform duration-700 invert hue-rotate-180"
-            loading="lazy"
-            draggable={false}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa]/95 via-[#f8f9fa]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+          {/* Minimalist Verdara Ultra Background instead of broken dummy images */}
+          <div className="absolute inset-0 bg-[#f8f9fa] group-hover:bg-white transition-colors duration-500" />
+          <div className="absolute right-[-15%] bottom-[-15%] opacity-[0.03] scale-[4] rotate-[-15deg] group-hover:rotate-[0deg] group-hover:scale-[4.2] transition-all duration-700 pointer-events-none text-[#050505]">
+            {card.icon}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa]/50 to-transparent opacity-90" />
 
           {card.badge && (
             <div className="absolute top-3 right-3 z-10">
