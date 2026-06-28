@@ -567,21 +567,23 @@ function ExploreCard({ card, index, globalIndex }: { card: LaunchCard; index: nu
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="h-full"
     >
       <Link
         href={card.href}
         data-testid={`explore-link-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
+        className="block h-full"
       >
         <div
           ref={cardRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
+          className="group relative rounded-[4px] overflow-hidden cursor-pointer border border-white/[0.08] bg-[#0a0a0a] flex flex-col h-full transition-[transform,box-shadow] duration-100 ease-out will-change-transform"
           style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)', transformStyle: 'preserve-3d' }}
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
           {/* Card Image — grayscale base + per-card color accent */}
-          <div className="relative w-full h-[200px] lg:h-[250px] overflow-hidden border-b border-white/[0.08]" style={{ pointerEvents: 'none' }}>
+          <div className="relative w-full h-[200px] lg:h-[220px] overflow-hidden border-b border-white/[0.08] flex-shrink-0" style={{ pointerEvents: 'none' }}>
             <img
               src={card.image}
               alt={card.label}
@@ -594,21 +596,21 @@ function ExploreCard({ card, index, globalIndex }: { card: LaunchCard; index: nu
           </div>
 
           {/* Card Content */}
-          <div className="p-6 lg:p-8 flex flex-col flex-grow justify-between" style={{ pointerEvents: 'none', background: 'linear-gradient(to bottom, rgba(10,10,10,0) 0%, rgba(10,10,10,1) 100%)' }}>
-            <div>
+          <div className="p-6 flex flex-col flex-grow" style={{ pointerEvents: 'none' }}>
+            <div className="flex-grow">
               {card.badge && (
                 <span className="inline-block text-[10px] font-bold px-2.5 py-1 mb-3 rounded-[2px] bg-white/5 border border-white/10 text-gray-500 uppercase tracking-widest">
                   {card.badge}
                 </span>
               )}
-              <h3 className="font-display font-[800] text-xl lg:text-2xl text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
+              <h3 className="font-display font-[800] text-lg text-white uppercase tracking-tight mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }} data-testid={`explore-label-${card.href.replace(/\//g, "-").slice(1) || "home"}`}>
                 {card.label}
               </h3>
-              <p className="text-sm lg:text-base text-[#888] leading-relaxed line-clamp-3 font-sans">
+              <p className="text-sm text-[#888] leading-relaxed line-clamp-3 font-sans">
                 {card.description}
               </p>
             </div>
-            <div className="mt-6 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+            <div className="mt-4 flex items-center justify-between text-sm text-[#888] font-display font-[800] uppercase tracking-[0.1em] group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
               <span>Explore</span>
               <span>→</span>
             </div>
@@ -656,33 +658,43 @@ function CategoryCarousel({ category, catIndex }: { category: ExploreCategory; c
         >
           <CarouselContent className="-ml-6">
             {category.cards.map((card, cardIndex) => (
-              <CarouselItem key={card.href} className="pl-6 basis-[85%] md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={card.href} className="pl-6 basis-[85%] md:basis-1/2 lg:basis-1/3 h-auto">
                 <ExploreCard card={card} index={cardIndex} globalIndex={baseIndex.current + cardIndex} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          {category.cards.length > 1 && (
-            <>
-              <CarouselPrevious className="-left-2 lg:-left-5 top-1/2 w-12 h-12 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all" />
-              <CarouselNext className="-right-2 lg:-right-5 top-1/2 w-12 h-12 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all" />
-            </>
-          )}
         </Carousel>
         {category.cards.length > 1 && (
-          <div className="flex items-center justify-center gap-3 mt-6">
-            {category.cards.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => api?.scrollTo(i)}
-                className={`rounded-full transition-all duration-300 ${
-                  i === currentSlide
-                    ? "w-3 h-3 bg-white scale-150"
-                    : "w-2 h-2 bg-white/10 hover:bg-white/30"
-                }`}
-                data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={() => api?.scrollPrev()}
+              className="w-10 h-10 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all flex items-center justify-center"
+              aria-label="Previous slide"
+            >
+              <ChevronRight className="w-4 h-4 rotate-180" />
+            </button>
+            <div className="flex items-center gap-2">
+              {category.cards.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => api?.scrollTo(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === currentSlide
+                      ? "w-2.5 h-2.5 bg-white"
+                      : "w-2 h-2 bg-white/10 hover:bg-white/30"
+                  }`}
+                  data-testid={`dot-${category.title.toLowerCase().replace(/\s/g, "-")}-${i}`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => api?.scrollNext()}
+              className="w-10 h-10 rounded-full bg-transparent border border-white/10 text-[#888] hover:bg-white hover:text-black hover:border-white transition-all flex items-center justify-center"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         )}
       </div>
@@ -780,9 +792,9 @@ export default function Explore() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: <Rocket className="w-5 h-5" />, value: "42", label: "Live Apps" },
-              { icon: <Code2 className="w-5 h-5" />, value: "29.2M+", label: "Lines of Code" },
-              { icon: <Boxes className="w-5 h-5" />, value: "102", label: "Widgets" },
-              { icon: <Database className="w-5 h-5" />, value: "2,500+", label: "API Endpoints" },
+              { icon: <Code2 className="w-5 h-5" />, value: "10.6M+", label: "Lines of Code" },
+              { icon: <Database className="w-5 h-5" />, value: "12,370+", label: "API Endpoints" },
+              { icon: <Boxes className="w-5 h-5" />, value: "124", label: "Widgets" },
             ].map((stat, i) => (
               <div key={stat.label} className="bg-[#0a0a0a] border border-white/[0.08] rounded-[4px] p-6 lg:p-8 text-center">
                 <div className="text-3xl lg:text-4xl font-[900] font-display text-white mb-1 tracking-tighter" data-testid={`explore-stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`}>
