@@ -408,9 +408,9 @@ function ExploreCard({ card, index }: { card: LaunchCard; index: number }) {
           data-testid={`explore-card-${card.href.replace(/\//g, "-").slice(1) || "home"}`}
         >
           <img
-            src={`/assets/brutalist/card_${(index % 4) + 1}.png`}
+            src={card.image}
             alt={card.label}
-            className="absolute inset-0 w-full h-full object-cover object-center contrast-[1.05] group-hover:scale-[1.02] transition-transform duration-700"
+            className="absolute inset-0 w-full h-full object-cover object-center contrast-[1.05] group-hover:scale-[1.02] transition-transform duration-700 invert hue-rotate-180"
             loading="lazy"
             draggable={false}
           />
