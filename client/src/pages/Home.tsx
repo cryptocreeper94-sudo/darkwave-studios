@@ -513,7 +513,7 @@ export default function Home() {
                <a href="#core" className="btn-brutal bg-transparent text-white border border-white/20 backdrop-blur-md px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-white hover:text-black hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all">
                  Explore Platforms
                </a>
-               <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-[#0a0a0a] text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
+               <a href="https://dwtl.io/presale" target="_blank" className="btn-brutal bg-white text-black px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2">
                  Join Presale <ArrowRight className="w-4 h-4" />
                </a>
             </motion.div>
