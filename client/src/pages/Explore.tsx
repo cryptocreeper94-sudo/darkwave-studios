@@ -330,7 +330,7 @@ const categories: ExploreCategory[] = [
     cards: [
       {
         label: "LumeCortex",
-        description: "The Deterministic Meta-Operating System. Well over 330K+ topics, over 3K domains, 42-module pipeline. Gatekeeper for desktop app downloads.",
+        description: "The deterministic meta-operating system. The gateway to native release apps including Axiom Studio, Axiom42Suite, Axiom42News, and TrustShield.",
         href: "https://lume-cortex.com",
         icon: <Boxes className="size-5" />,
         image: "/assets/brutalist/cortex_card.png",

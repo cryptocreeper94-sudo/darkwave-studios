@@ -364,10 +364,10 @@ const CORE_APPS = [
   },
   {
     title: "Lume Cortex",
-    desc: "The deterministic meta-operating system. 17 highly specialized AI agents in a zero-latency workspace.",
-    icon: Zap,
-    url: "https://lume-lang.org",
-    tag: "Architecture"
+    tag: "ARCHITECTURE",
+    icon: <Zap className="w-5 h-5" />,
+    desc: "The deterministic meta-operating system. The gateway to native release apps including Axiom Studio, Axiom42Suite, Axiom42News, and TrustShield.",
+    url: "https://lume-cortex.com"
   },
   {
     title: "Lume Scan",
