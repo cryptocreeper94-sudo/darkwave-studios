@@ -342,18 +342,18 @@ const projects = [
 
 const CORE_APPS = [
   {
-    title: "Axiom 42",
-    desc: "The DLA reference implementation — a fully deterministic grounded AI agent with 181K+ topics and 212 domain packs.",
-    icon: Code,
-    url: "https://axiom42.com",
-    tag: "Enterprise"
+    title: "AXIOM 42",
+    tag: "ENTERPRISE",
+    icon: <CodeXml className="w-5 h-5" />,
+    desc: "The DLA reference implementation — a fully deterministic grounded AI agent with well over 330K+ topics and over 3K domain packs.",
+    url: "https://axiom42.com"
   },
   {
     title: "TrustGen 3D",
-    desc: "The Deterministic 3D Intelligence Studio. Generate and orchestrate verifiable real-time 3D environments.",
-    icon: Cpu,
-    url: "https://trustgen.tlid.io",
-    tag: "Creative"
+    tag: "CREATIVE",
+    icon: <Cpu className="w-5 h-5" />,
+    desc: "The Deterministic 3D Intelligence Studio. Generate and orchestrate verifiable real-time 3D environments with full rigging. A complete Mixamo and Meshy AI replacement.",
+    url: "https://trustgen.tlid.io"
   },
   {
     title: "Axiom42 Suite",

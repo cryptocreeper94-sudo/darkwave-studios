@@ -330,7 +330,7 @@ const categories: ExploreCategory[] = [
     cards: [
       {
         label: "LumeCortex",
-        description: "The Deterministic Meta-Operating System. 181K+ topics, 149 domains, 42-module pipeline. Gatekeeper for desktop app downloads.",
+        description: "The Deterministic Meta-Operating System. Well over 330K+ topics, over 3K domains, 42-module pipeline. Gatekeeper for desktop app downloads.",
         href: "https://lume-cortex.com",
         icon: <Boxes className="size-5" />,
         image: "/assets/brutalist/cortex_card.png",
@@ -367,7 +367,7 @@ const categories: ExploreCategory[] = [
       },
       {
         label: "TrustGen 3D",
-        description: "Generative 3D design studio with cryptographic provenance. Every asset hashed and anchored to the Trust Layer Ledger.",
+        description: "Generative 3D design studio with cryptographic provenance. Every asset hashed and anchored to the Trust Layer Ledger. Features full rigging and is a complete Mixamo and Meshy AI replacement.",
         href: "https://trustgen.design",
         icon: <Boxes className="size-5" />,
         image: "/assets/brutalist/trustgen3d_card.png",
