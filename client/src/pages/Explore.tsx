@@ -6,8 +6,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import {
   Home, Sparkles, TrendingUp, Mail, Store, Layers,
@@ -16,6 +14,7 @@ import {
   FolderOpen, Lock, Calendar, Compass, ChevronRight, Unlock, Command,
   Code2, Database, Cpu, Rocket, BookOpen
 } from "lucide-react";
+import Footer from "@/components/Footer";
 
 interface LaunchCard {
   label: string;
@@ -739,21 +738,7 @@ const ADMIN_KEY = "0424";
 
 export default function Explore() {
   const [loading, setLoading] = useState(true);
-  const [showDevLogin, setShowDevLogin] = useState(false);
-  const [devPassword, setDevPassword] = useState("");
-  const [devError, setDevError] = useState(false);
   const [, setLocation] = useLocation();
-
-  const handleDevLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (devPassword === ADMIN_KEY) {
-      sessionStorage.setItem("dw_command_auth", "true");
-      setLocation("/command");
-    } else {
-      setDevError(true);
-      setTimeout(() => setDevError(false), 2000);
-    }
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 600);
@@ -846,46 +831,7 @@ export default function Explore() {
             <CategoryCarousel key={category.title} category={category} catIndex={catIndex} />
           ))}
         </div>
-
-        {/* Footer — Invariant standard */}
-        <footer className="py-16 border-t border-white/[0.08] mt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="font-display font-[900] text-2xl tracking-[0.1em] text-[#888] uppercase">
-              DarkWave.
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-              {!showDevLogin ? (
-                <button
-                  onClick={() => setShowDevLogin(true)}
-                  className="inline-flex items-center gap-2 text-white/20 hover:text-white/50 transition-all duration-300 text-xs"
-                  data-testid="button-show-dev-login"
-                >
-                  <Lock className="w-3 h-3" />
-                  <span>Dev</span>
-                </button>
-              ) : (
-                <form onSubmit={handleDevLogin} className="flex items-center gap-2">
-                  <input
-                    type="password"
-                    value={devPassword}
-                    onChange={(e) => setDevPassword(e.target.value)}
-                    placeholder="Code"
-                    className={`w-24 px-3 py-1.5 bg-white/5 border rounded-[2px] text-xs text-white placeholder:text-white/20 focus:outline-none ${
-                      devError ? "border-red-500/50" : "border-white/10"
-                    }`}
-                    data-testid="input-dev-password"
-                    autoFocus
-                  />
-                  <button type="submit" className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-[2px] text-xs text-white hover:bg-white/10" data-testid="button-dev-login">
-                    <Unlock className="w-3 h-3" />
-                  </button>
-                  <button type="button" onClick={() => { setShowDevLogin(false); setDevPassword(""); setDevError(false); }} className="text-white/30 hover:text-white/60 text-xs" data-testid="button-dev-cancel">✕</button>
-                </form>
-              )}
-              <span className="text-white/15 font-sans text-sm">© 2026 The Architectural Nexus. All Rights Reserved.</span>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </div>
   );

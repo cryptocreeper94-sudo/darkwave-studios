@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight, Menu, X, Shield, ShieldAlert, Cpu, Lock, Database, Code, Zap } from "lucide-react";
 import { KenBurnsBackground } from "@/components/ken-burns-background";
+import Footer from "@/components/Footer";
 
 const projects = [
   {
@@ -586,6 +587,7 @@ export default function Home() {
           </section>
 
         </main>
+        <Footer />
       </div>
     </div>
   );
