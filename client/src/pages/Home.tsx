@@ -392,7 +392,7 @@ const CORE_APPS = [
   },
   {
     title: "Chronoverse",
-    desc: "Parallel life simulation across historical eras with AI NPCs, voice cloning, and real-time world.",
+    desc: "A free parent and children learning and game platform focusing on digital learning for both children and parents.",
     icon: Cpu,
     url: "https://chronoverse.tlid.io",
     tag: "Simulation"

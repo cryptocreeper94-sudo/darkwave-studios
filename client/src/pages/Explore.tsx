@@ -403,7 +403,7 @@ const categories: ExploreCategory[] = [
       },
       {
         label: "The Chronoverse",
-        description: "Free, ad-free educational action-adventure for kids aged 6–9. Reading comprehension, spatial logic, digital safety. Zero tracking.",
+        description: "A free parent and children learning and game platform focusing on digital learning for both children and parents.",
         href: "https://chronoverse.tlid.io",
         icon: <Rocket className="size-5" />,
         image: "/assets/brutalist/chronoverse_card.png",
